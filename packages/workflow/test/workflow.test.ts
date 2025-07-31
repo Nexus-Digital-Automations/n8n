@@ -2726,7 +2726,6 @@ describe('Workflow', () => {
 					nodeTypes,
 				});
 
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 				const result = workflow.getParentMainInputNode(null as any);
 				expect(result).toBeNull();
 			});
@@ -2740,7 +2739,6 @@ describe('Workflow', () => {
 					nodeTypes,
 				});
 
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 				const result = workflow.getParentMainInputNode(undefined as any);
 				expect(result).toBeUndefined();
 			});
