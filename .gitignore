@@ -273,3 +273,7 @@ db.sqlite3
 local_settings.py
 
 TODO.json.*
+
+*.logs
+
+.turbo/
