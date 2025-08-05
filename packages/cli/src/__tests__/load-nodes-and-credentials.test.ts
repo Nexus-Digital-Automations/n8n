@@ -121,8 +121,8 @@ describe('LoadNodesAndCredentials', () => {
 			expect(result.description.codex).toEqual({
 				categories: ['AI'],
 				subcategories: {
-					AI: ['Tools'],
-					Tools: ['Other Tools'],
+					AI: ['tools'],
+					tools: ['Other Tools'],
 				},
 				resources: {},
 			});
@@ -205,7 +205,7 @@ describe('LoadNodesAndCredentials', () => {
 			fullNodeWrapper.description.codex = {
 				categories: ['Existing'],
 				subcategories: {
-					Existing: ['Category'],
+					existing: ['Category'],
 				},
 				resources: {
 					primaryDocumentation: [{ url: 'https://example.com' }],
@@ -215,8 +215,8 @@ describe('LoadNodesAndCredentials', () => {
 			expect(result.description.codex).toEqual({
 				categories: ['AI'],
 				subcategories: {
-					AI: ['Tools'],
-					Tools: ['Other Tools'],
+					AI: ['tools'],
+					tools: ['Other Tools'],
 				},
 				resources: {
 					primaryDocumentation: [{ url: 'https://example.com' }],
@@ -228,8 +228,8 @@ describe('LoadNodesAndCredentials', () => {
 			fullNodeWrapper.description.codex = {
 				categories: ['AI'],
 				subcategories: {
-					AI: ['Tools'],
-					Tools: ['Recommended'],
+					AI: ['tools'],
+					tools: ['Recommended'],
 				},
 				resources: {
 					primaryDocumentation: [{ url: 'https://example.com' }],
@@ -239,8 +239,8 @@ describe('LoadNodesAndCredentials', () => {
 			expect(result.description.codex).toEqual({
 				categories: ['AI'],
 				subcategories: {
-					AI: ['Tools'],
-					Tools: ['Recommended'],
+					AI: ['tools'],
+					tools: ['Recommended'],
 				},
 				resources: {
 					primaryDocumentation: [{ url: 'https://example.com' }],
@@ -340,7 +340,7 @@ describe('LoadNodesAndCredentials', () => {
 				codex: {
 					categories: ['AI'],
 					resources: {},
-					subcategories: { AI: ['Tools'], Tools: ['Other Tools'] },
+					subcategories: { AI: ['tools'], tools: ['Other Tools'] },
 				},
 				description: 'A test node',
 				name: 'testNodeTool',
@@ -414,8 +414,8 @@ describe('LoadNodesAndCredentials', () => {
 				codex: {
 					categories: ['AI'],
 					subcategories: {
-						AI: ['Tools'],
-						Tools: ['Other Tools'],
+						AI: ['tools'],
+						tools: ['Other Tools'],
 					},
 					resources: {},
 				},
