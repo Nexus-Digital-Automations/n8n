@@ -501,9 +501,32 @@
       "created_at": "2025-08-06T22:33:19.737Z",
       "completed_at": "2025-08-07T22:36:49.858Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754519763806_ab84foyqq",
+      "title": "Fix ESLint redundant type constituents error in rest-api-client",
+      "description": "Fix typescript-eslint/no-redundant-type-constituents error in nodeTypes.ts line 60 where INodeTranslationHeaders acts as any and overrides union types",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/frontend/@n8n/rest-api-client/src/api/nodeTypes.ts"
+      ],
+      "success_criteria": [
+        "ESLint error resolved",
+        "Union type properly defined",
+        "Lint passes for rest-api-client package"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-06T22:36:03.807Z",
+      "completed_at": "2025-08-07T22:39:54.633Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 20,
-  "last_completion": "2025-08-07T22:36:49.858Z",
+  "total_completed": 21,
+  "last_completion": "2025-08-07T22:39:54.633Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

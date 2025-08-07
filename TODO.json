@@ -2,27 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754519763806_ab84foyqq",
-      "title": "Fix ESLint redundant type constituents error in rest-api-client",
-      "description": "Fix typescript-eslint/no-redundant-type-constituents error in nodeTypes.ts line 60 where INodeTranslationHeaders acts as any and overrides union types",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/frontend/@n8n/rest-api-client/src/api/nodeTypes.ts"
-      ],
-      "success_criteria": [
-        "ESLint error resolved",
-        "Union type properly defined",
-        "Lint passes for rest-api-client package"
-      ],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-06T22:36:03.807Z"
-    },
-    {
       "id": "task_1754519772079_mt32cwegc",
       "title": "Fix test coverage threshold in @n8n/errors package",
       "description": "Improve branch coverage from 85.71% to meet 95% threshold in application.error.ts line 28 (uncovered error handling branch)",
@@ -546,8 +525,8 @@
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TASK_CREATION",
-  "execution_count": 24,
-  "last_hook_activation": 1754606196682,
+  "last_mode": "DEVELOPMENT",
+  "execution_count": 25,
+  "last_hook_activation": 1754606312386,
   "current_mode": "DEVELOPMENT"
 }
