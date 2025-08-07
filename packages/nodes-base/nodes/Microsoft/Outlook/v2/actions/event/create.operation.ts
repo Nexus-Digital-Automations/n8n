@@ -21,7 +21,7 @@ export const properties: INodeProperties[] = [
 		displayName: 'Start',
 		name: 'startDateTime',
 		type: 'dateTime',
-		default: DateTime.now().toISO(),
+		default: DateTime.now().toISO() ?? '',
 		required: true,
 	},
 	{
@@ -29,7 +29,7 @@ export const properties: INodeProperties[] = [
 		name: 'endDateTime',
 		type: 'dateTime',
 		required: true,
-		default: DateTime.now().plus({ minutes: 30 }).toISO(),
+		default: DateTime.now().plus({ minutes: 30 }).toISO() ?? '',
 	},
 	{
 		displayName: 'Additional Fields',
