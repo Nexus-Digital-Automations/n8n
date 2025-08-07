@@ -1,0 +1,11 @@
+Timeout Debug Summary for Agent fc459ed7-105f-4311-adf2-06b49496c018
+==========================================
+
+Timestamp: 2025-08-07T17:56:50.457182
+Elapsed Time: 0m 0.0s
+Timeout Limit: 120s
+Timeout Exceeded: False
+Hook Type: SubagentStop
+Tool Name: unknown
+
+Full report: logs/debug/debug_report_fc459ed7-105f-4311-adf2-06b49496c018_1754607410.json

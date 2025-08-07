@@ -2,51 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "quality-improvement-1754519854950",
-      "title": "Create Quality Improvement Tasks",
-      "description": "Analyze project quality issues and create specific tasks to reach 100% quality for all strikes",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "prompt": "Project quality assessment shows issues preventing 100% strike success:\n\nQuality Status:\n- Strike 1 (Build): 50%\n- Strike 2 (Lint): 100%  \n- Strike 3 (Tests): 30%\n\nIssues Found:\n- Build Verification: Build command fails\n- Test Coverage and Success: Tests are failing\n- Test Coverage and Success: Coverage check failed\n\nTASK: Analyze these quality gaps and create specific improvement tasks to bring ALL strikes to 100% quality. Create tasks for:\n1. Build issues (missing dependencies, build failures, configuration)\n2. Code quality issues (lint errors, style violations, code standards)\n3. Testing issues (failing tests, missing coverage, test setup)\n\nInsert all improvement tasks BEFORE the strike review tasks. Strikes should always remain last in the task list.",
-      "success_criteria": [
-        "All quality issues identified and analyzed",
-        "Specific improvement tasks created for each quality gap",
-        "Tasks properly prioritized and ordered before strikes",
-        "Clear path to 100% quality established"
-      ],
-      "important_files": [
-        "package.json",
-        "eslint.config.js",
-        "**/*.test.js"
-      ],
-      "requires_research": true,
-      "is_quality_improvement_task": true,
-      "quality_analysis": {
-        "strike1": {
-          "name": "Build Verification",
-          "quality": 50,
-          "issues": [
-            "Build command fails"
-          ]
-        },
-        "strike2": {
-          "name": "Lint and Code Quality",
-          "quality": 100,
-          "issues": []
-        },
-        "strike3": {
-          "name": "Test Coverage and Success",
-          "quality": 30,
-          "issues": [
-            "Tests are failing",
-            "Coverage check failed"
-          ]
-        },
-        "overallReady": false
-      }
-    },
-    {
       "id": "task_1754520442540_kzttefbm8",
       "title": "Analyze OAuth2 callback routing and handling mechanisms",
       "description": "Identify OAuth2 callback endpoints, routing logic, parameter validation, and error handling in n8n codebase. Document callback flow patterns and security measures.",
@@ -477,13 +432,96 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-07T20:13:05.054Z"
+    },
+    {
+      "id": "task_1754607393221_8bg3wa3q5",
+      "title": "Fix n8n development server template placeholder replacement",
+      "description": "The Vite dev server is not replacing {{BASE_PATH}} placeholders in the HTML template, causing static assets to fail loading and blank pages. The transformIndexHtml plugin is skipping replacements in dev mode.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/frontend/editor-ui/vite.config.mts",
+        "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/frontend/editor-ui/index.html"
+      ],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T22:56:33.221Z"
+    },
+    {
+      "id": "task_1754608379729_zuane76f4",
+      "title": "Fix TypeScript compilation errors in CLI package",
+      "description": "Resolve 36 TypeScript compilation errors preventing successful build, including event service type mismatches, import/dependency issues, and workflow controller type issues",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./packages/cli/src/services/security-monitoring.service.ts",
+        "./packages/cli/src/services/system-resources.service.ts",
+        "./packages/cli/src/workflows/workflows.controller.ts",
+        "./packages/cli/src/workflow-runner.ts"
+      ],
+      "success_criteria": [
+        "All TypeScript compilation errors resolved",
+        "npm run build succeeds"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T23:12:59.729Z"
+    },
+    {
+      "id": "task_1754608379732_9ifel393d",
+      "title": "Fix failing tests and improve test coverage",
+      "description": "Address test failures and coverage gaps identified in quality assessment. Focus on critical test suites that are preventing 100% test strike success",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [
+        "All tests pass",
+        "Coverage thresholds met",
+        "npm test succeeds"
+      ],
+      "estimate": "3-4 hours",
+      "requires_research": true,
+      "subtasks": [],
+      "created_at": "2025-08-07T23:12:59.732Z"
+    },
+    {
+      "id": "task_1754608379733_jhic25gfb",
+      "title": "Verify frontend fixes and integration stability",
+      "description": "Confirm that the recently implemented frontend template processing fixes work correctly across all development scenarios and do not introduce regressions",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./packages/frontend/editor-ui/vite.config.mts",
+        "./packages/frontend/editor-ui/index.html",
+        "./packages/frontend/editor-ui/public/static/base-path.js"
+      ],
+      "success_criteria": [
+        "Frontend loads correctly on port 8080",
+        "Backend serves frontend on port 5678",
+        "Template processing works in dev and prod"
+      ],
+      "estimate": "1 hour",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T23:12:59.733Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TESTING",
-  "execution_count": 26,
-  "last_hook_activation": 1754606504378,
+  "last_mode": "DEVELOPMENT",
+  "execution_count": 29,
+  "last_hook_activation": 1754608327731,
   "current_mode": "DEVELOPMENT"
 }

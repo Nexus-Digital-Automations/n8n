@@ -123,10 +123,19 @@ const plugins: UserConfig['plugins'] = [
 		name: 'Insert config script',
 		transformIndexHtml: (html, ctx) => {
 			const replacement = ctx.server
-				? '' // Skip when using Vite dev server
+				? '<script src="/rest/config.js"></script>' // Use direct path in development
 				: '<script src="/{{BASE_PATH}}/{{REST_ENDPOINT}}/config.js"></script>';
 
-			return html.replace('%CONFIG_SCRIPT%', replacement);
+			// Process template placeholders for development mode
+			let processedHtml = html.replace('%CONFIG_SCRIPT%', replacement);
+			
+			if (ctx.server) {
+				// In development mode, replace BASE_PATH placeholders with empty string
+				processedHtml = processedHtml.replace(/\{\{BASE_PATH\}\}/g, '');
+				processedHtml = processedHtml.replace(/\{\{REST_ENDPOINT\}\}/g, 'rest');
+			}
+
+			return processedHtml;
 		},
 	},
 	// For sanitize-html
