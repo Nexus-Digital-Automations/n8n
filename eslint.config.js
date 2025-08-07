@@ -110,6 +110,11 @@ export default [
 			// Essential rules for root-level configuration files (minimal set)
 			'no-console': 'warn',
 			'no-debugger': 'error',
+			// Additional basic quality rules for configuration files
+			'prefer-const': 'error',
+			'no-var': 'error',
+			'eqeqeq': ['error', 'always'],
+			'no-unused-vars': ['error', { 'ignoreRestSiblings': true }],
 		},
 	},
 	{
@@ -126,9 +131,13 @@ export default [
 			},
 		},
 		rules: {
-			// Minimal TypeScript rules
+			// Minimal TypeScript rules for root-level files
 			'no-console': 'warn',
 			'no-debugger': 'error',
+			// Additional basic quality rules for TypeScript files
+			'prefer-const': 'error',
+			'no-var': 'error',
+			'eqeqeq': ['error', 'always'],
 		},
 	},
 ];

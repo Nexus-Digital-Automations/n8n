@@ -24,7 +24,6 @@ module.exports = {
 		'^.+\\.ts$': [
 			'ts-jest',
 			{
-				isolatedModules: true,
 				tsconfig: {
 					experimentalDecorators: true,
 					emitDecoratorMetadata: true,

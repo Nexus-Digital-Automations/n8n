@@ -68,6 +68,7 @@ describe('permissions', () => {
 		const permissionRecord: PermissionsRecord = {
 			annotationTag: {},
 			auditLogs: {},
+			backup: {},
 			banner: {},
 			community: {},
 			communityPackage: {},
@@ -128,6 +129,7 @@ describe('permissions', () => {
 			insights: {
 				list: true,
 			},
+			instance: {},
 		};
 
 		expect(getResourcePermissions(scopes)).toEqual(permissionRecord);

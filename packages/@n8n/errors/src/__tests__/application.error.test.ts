@@ -125,17 +125,60 @@ describe('ApplicationError', () => {
 		});
 
 		it('should handle callsites returning null filename', () => {
-			// This test verifies the error doesn't crash when callsites returns null filenames
-			// The actual implementation handles this gracefully
+			// Mock callsites to return null for getFileName() - covers the ?? '' branch
+			const callsites = jest.requireMock('callsites');
+			const originalImplementation = callsites.getMockImplementation();
+
+			callsites.mockReturnValueOnce([
+				{ getFileName: () => null },
+				{ getFileName: () => null },
+				{ getFileName: () => null }, // This will trigger the ?? '' branch
+			]);
+
 			const error = new ApplicationError('Test message');
 			expect(error).toBeInstanceOf(ApplicationError);
+			expect(error.tags.packageName).toBeUndefined(); // No package name when fileName is null
+
+			// Restore original implementation
+			if (originalImplementation) {
+				callsites.mockImplementation(originalImplementation);
+			} else {
+				callsites.mockRestore();
+			}
 		});
 
 		it('should handle callsites throwing an error', () => {
-			// This test verifies the error doesn't crash when callsites throws
-			// The actual implementation handles this gracefully
+			// Mock callsites to return an array that throws when accessing [2]
+			const callsites = jest.requireMock('callsites');
+			const originalImplementation = callsites.getMockImplementation();
+
+			// Make callsites return an array that throws when accessing index 2
+			callsites.mockReturnValueOnce(
+				new Proxy([], {
+					get(target, prop) {
+						if (prop === '2') {
+							throw new Error('Array access error');
+						}
+						return (target as any)[prop];
+					},
+				}),
+			);
+
+			// This test verifies the error doesn't crash when accessing callsites()[2] throws
+			// The actual implementation handles this gracefully in the catch block
 			const error = new ApplicationError('Test message');
 			expect(error).toBeInstanceOf(ApplicationError);
+			expect(error.message).toBe('Test message');
+			expect(error.level).toBe('error');
+			// When accessing callsites()[2] throws, no packageName should be set because the catch block handles it
+			expect(error.tags.packageName).toBeUndefined();
+
+			// Restore original implementation
+			if (originalImplementation) {
+				callsites.mockImplementation(originalImplementation);
+			} else {
+				callsites.mockRestore();
+			}
 		});
 
 		it('should handle various package path formats', () => {

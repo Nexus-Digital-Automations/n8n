@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@n8n/typescript-config": "workspace:*",
-    "@lezer/generator": "^1.7.0"
+    "@lezer/generator": "^1.7.0",
+    "psl": "^1.8.0"
   }
 }

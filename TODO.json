@@ -2,97 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754515400190_1694lh7yh",
-      "title": "Fix Test Infrastructure and Coverage Reporting",
-      "description": "Resolve test execution issues, coverage reporting problems, and ensure all test suites run reliably across the monorepo.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/*/jest.config.*",
-        "packages/*/vitest.config.*",
-        "packages/@n8n/vitest-config/",
-        "package.json"
-      ],
-      "success_criteria": [
-        "All test suites execute without failures",
-        "Coverage reporting generates accurate reports",
-        "Test infrastructure supports all package types",
-        "Jest and Vitest configurations are optimized",
-        "Coverage thresholds are met across packages"
-      ],
-      "estimate": "2-3 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-06T21:23:20.190Z"
-    },
-    {
-      "id": "task_1754515511476_s2r5abego",
-      "title": "Fix Task Runner MapIterator TypeScript Error",
-      "description": "Resolve TypeScript error in @n8n/task-runner where Math.max.apply receives MapIterator instead of array. Convert Map.keys() to array before Math.max.apply.",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/@n8n/task-runner/src/node-types.ts"
-      ],
-      "success_criteria": [
-        "Task runner package builds without TypeScript errors",
-        "Math.max.apply receives proper array argument",
-        "Node version selection logic works correctly",
-        "No MapIterator type errors in compilation"
-      ],
-      "estimate": "30 minutes",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-06T21:25:11.476Z"
-    },
-    {
-      "id": "task_1754515511479_25r3tclv0",
-      "title": "Add Missing ESLint Rules and Optimize Ignore Patterns",
-      "description": "Enhance root ESLint configuration to include comprehensive rules while maintaining performance. Add missing rule configurations that may be causing lint quality issues.",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "eslint.config.js",
-        "packages/*/eslint.config.*"
-      ],
-      "success_criteria": [
-        "ESLint configuration includes comprehensive rule set",
-        "Linting completes without performance degradation",
-        "Package-specific linting properly delegated",
-        "No rule configuration gaps that affect code quality",
-        "Root-level files follow consistent linting standards"
-      ],
-      "estimate": "1-2 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-06T21:25:11.479Z"
-    },
-    {
-      "id": "task_1754517826687_4oxaf3l3u",
-      "title": "Fix TypeScript compilation errors in @n8n/config package",
-      "description": "Resolve 3 TypeScript compilation errors in test/decorators.test.ts: unused variable \"factory\" and unused classes \"TestConfig\" and \"InvalidConfig\"",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [],
-      "success_criteria": [
-        "All TypeScript errors in @n8n/config resolved",
-        "npm run typecheck passes for @n8n/config package",
-        "Build completes successfully"
-      ],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-06T22:03:46.687Z"
-    },
-    {
       "id": "task_1754519580703_4pdtp3l1r",
       "title": "Fix Pyodide interface import error",
       "description": "Fix missing PyodideInterface export from pyodide module in nodes/Code/Pyodide.ts:3",
@@ -705,7 +614,7 @@
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 15,
-  "last_hook_activation": 1754598258737,
+  "execution_count": 19,
+  "last_hook_activation": 1754605125242,
   "current_mode": "DEVELOPMENT"
 }

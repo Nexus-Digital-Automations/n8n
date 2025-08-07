@@ -6,7 +6,8 @@
 		"baseUrl": "src",
 		"tsBuildInfoFile": "dist/typecheck.tsbuildinfo",
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true
+		"emitDecoratorMetadata": true,
+		"isolatedModules": true
 	},
 	"include": ["src/**/*.ts"]
 }

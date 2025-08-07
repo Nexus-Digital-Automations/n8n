@@ -1,6 +1,5 @@
 import { Container } from '@n8n/di';
 import { readFileSync } from 'fs';
-import { jsonParse } from 'n8n-workflow';
 import { z } from 'zod';
 
 import { CommaSeparatedStringArray, ColonSeparatedStringArray } from '../src/custom-types';
@@ -515,9 +514,13 @@ describe('decorators', () => {
 			});
 
 			it('should work with object schemas', () => {
-				const objectSchema = z
-					.string()
-					.transform((val) => jsonParse(val) as Record<string, unknown>);
+				const objectSchema = z.string().transform((val) => {
+					try {
+						return JSON.parse(val) as Record<string, unknown>;
+					} catch {
+						throw new Error(`Invalid JSON: ${val}`);
+					}
+				});
 				process.env.JSON_VALUE = '{"key": "value", "count": 42}';
 
 				@Config
@@ -670,9 +673,13 @@ describe('decorators', () => {
 			});
 
 			it('should allow Object type with Zod schema', () => {
-				const objectSchema = z
-					.string()
-					.transform((schema) => jsonParse(schema) as Record<string, unknown>);
+				const objectSchema = z.string().transform((schema) => {
+					try {
+						return JSON.parse(schema) as Record<string, unknown>;
+					} catch {
+						throw new Error(`Invalid JSON: ${schema}`);
+					}
+				});
 				process.env.OBJECT_VALUE = '{"key": "value"}';
 
 				@Config
