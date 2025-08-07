@@ -432,34 +432,6 @@
       "created_at": "2025-08-06T21:25:11.468Z"
     },
     {
-      "id": "task_1754515511472_0v3e1zwz9",
-      "title": "Fix CLI Command Registration Module Loading Errors",
-      "description": "Resolve module loading errors preventing CLI commands from being recognized. Fix dependency chain issues that cause \"Command start not found\" error.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [
-        "task_1754515511468_xvvz01df5"
-      ],
-      "important_files": [
-        "packages/cli/dist/command-registry.js",
-        "packages/cli/src/commands/start.ts",
-        "packages/cli/bin/n8n",
-        "packages/cli/src/config/index.ts"
-      ],
-      "success_criteria": [
-        "CLI commands load and register successfully",
-        "n8n start command executes without module errors",
-        "Command discovery mechanism finds all commands",
-        "Module dependency chain resolves completely",
-        "No \"Cannot find module\" errors during startup"
-      ],
-      "estimate": "2-3 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-06T21:25:11.472Z"
-    },
-    {
       "id": "task_1754515400190_1694lh7yh",
       "title": "Fix Test Infrastructure and Coverage Reporting",
       "description": "Resolve test execution issues, coverage reporting problems, and ensure all test suites run reliably across the monorepo.",
@@ -1124,13 +1096,70 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-07T19:55:48.703Z"
+    },
+    {
+      "id": "task_1754597583288_inx7ag3vl",
+      "title": "File Upload Endpoints Discovery",
+      "description": "Search for and analyze all file upload endpoints, routes, and controllers in the n8n codebase",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754597583288_inx7ag3vl.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754597583288_inx7ag3vl.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T20:13:03.288Z"
+    },
+    {
+      "id": "task_1754597584207_nr2fsvyu8",
+      "title": "MIME Type Validation Analysis",
+      "description": "Identify MIME type validation libraries, patterns, and implementation across the codebase",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754597584207_nr2fsvyu8.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754597584207_nr2fsvyu8.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T20:13:04.207Z"
+    },
+    {
+      "id": "task_1754597585054_xbhgm2tmg",
+      "title": "Security Headers and Extension Filtering",
+      "description": "Document file extension filtering, security headers, and validation logic for uploaded files",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754597585054_xbhgm2tmg.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754597585054_xbhgm2tmg.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T20:13:05.054Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 9,
-  "last_hook_activation": 1754597311566,
+  "execution_count": 11,
+  "last_hook_activation": 1754597731927,
   "current_mode": "DEVELOPMENT"
 }

@@ -124,9 +124,39 @@
       "created_at": "2025-08-07T06:51:32.081Z",
       "completed_at": "2025-08-07T20:11:05.922Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754515511472_0v3e1zwz9",
+      "title": "Fix CLI Command Registration Module Loading Errors",
+      "description": "Resolve module loading errors preventing CLI commands from being recognized. Fix dependency chain issues that cause \"Command start not found\" error.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [
+        "task_1754515511468_xvvz01df5"
+      ],
+      "important_files": [
+        "packages/cli/dist/command-registry.js",
+        "packages/cli/src/commands/start.ts",
+        "packages/cli/bin/n8n",
+        "packages/cli/src/config/index.ts"
+      ],
+      "success_criteria": [
+        "CLI commands load and register successfully",
+        "n8n start command executes without module errors",
+        "Command discovery mechanism finds all commands",
+        "Module dependency chain resolves completely",
+        "No \"Cannot find module\" errors during startup"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-06T21:25:11.472Z",
+      "completed_at": "2025-08-07T20:17:00.002Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 5,
-  "last_completion": "2025-08-07T20:11:05.922Z",
+  "total_completed": 6,
+  "last_completion": "2025-08-07T20:17:00.002Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }
