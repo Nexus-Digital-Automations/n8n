@@ -9,8 +9,8 @@
   },
   "packageManager": "pnpm@10.12.1",
   "scripts": {
-    "prepare": "node scripts/prepare.mjs",
-    "preinstall": "node scripts/block-npm-install.js",
+    "prepare": "node --max-old-space-size=12288 scripts/prepare.mjs",
+    "preinstall": "node --max-old-space-size=12288 scripts/block-npm-install.js",
     "build": "turbo run build",
     "build:n8n": "node scripts/build-n8n.mjs",
     "build:deploy": "node scripts/build-n8n.mjs",

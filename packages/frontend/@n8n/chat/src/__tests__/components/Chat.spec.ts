@@ -5,6 +5,8 @@ import { nextTick, ref } from 'vue';
 import Chat from '@/components/Chat.vue';
 import { useChat, useOptions, useI18n } from '@/composables';
 import { chatEventBus } from '@/event-buses';
+import type { Chat as ChatType } from '@n8n/chat/types/chat';
+import type { ChatOptions } from '@n8n/chat/types/options';
 
 // Mock the composables
 vi.mock('@/composables', () => ({
@@ -69,9 +71,9 @@ vi.mock('virtual:icons/mdi/close', () => ({
 }));
 
 describe('Chat.vue', () => {
-	let mockChat: any;
-	let mockOptions: any;
-	let mockI18n: any;
+	let mockChat: ChatType;
+	let mockOptions: { options: ChatOptions };
+	let mockI18n: { t: (key: string) => string; te: (key: string) => boolean };
 
 	beforeEach(() => {
 		vi.clearAllMocks();

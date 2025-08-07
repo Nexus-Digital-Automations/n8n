@@ -1,0 +1,11 @@
+Timeout Debug Summary for Agent 9315ff4f-c81d-4360-b82e-6fbf6d108602
+==========================================
+
+Timestamp: 2025-08-07T18:28:38.575588
+Elapsed Time: 0m 0.0s
+Timeout Limit: 120s
+Timeout Exceeded: False
+Hook Type: SubagentStop
+Tool Name: unknown
+
+Full report: logs/debug/debug_report_9315ff4f-c81d-4360-b82e-6fbf6d108602_1754609318.json
