@@ -2,31 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754515400179_3tf9stt2q",
-      "title": "Fix @n8n/api-types Package Build Errors",
-      "description": "Resolve TypeScript compilation errors in @n8n/api-types package preventing successful builds. Fix zod-class compatibility issues and path alias resolution problems.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/@n8n/api-types/src/dto/expressions/",
-        "packages/@n8n/api-types/tsconfig.build.json",
-        "packages/@n8n/api-types/package.json"
-      ],
-      "success_criteria": [
-        "@n8n/api-types package builds successfully without errors",
-        "All zod-class usage patterns are compatible",
-        "Import statements resolve correctly",
-        "Full project build completes without api-types blocking",
-        "n8n CLI starts successfully without module errors"
-      ],
-      "estimate": "2-3 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-06T21:23:20.179Z"
-    },
-    {
       "id": "task_1754515400183_heruxhx04",
       "title": "Fix CLI Command Registration and Module Loading",
       "description": "Resolve CLI command parsing errors that prevent n8n start command from being recognized. Fix module dependency chain and command discovery issues.",
@@ -831,8 +806,8 @@
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TESTING",
-  "execution_count": 14,
-  "last_hook_activation": 1754598183082,
+  "last_mode": "DEVELOPMENT",
+  "execution_count": 15,
+  "last_hook_activation": 1754598258737,
   "current_mode": "DEVELOPMENT"
 }
