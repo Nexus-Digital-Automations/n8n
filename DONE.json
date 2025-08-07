@@ -181,9 +181,92 @@
       "created_at": "2025-08-06T21:23:20.179Z",
       "completed_at": "2025-08-07T20:25:45.545Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754515400183_heruxhx04",
+      "title": "Fix CLI Command Registration and Module Loading",
+      "description": "Resolve CLI command parsing errors that prevent n8n start command from being recognized. Fix module dependency chain and command discovery issues.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/cli/dist/command-registry.js",
+        "packages/cli/src/commands/",
+        "packages/cli/bin/n8n"
+      ],
+      "success_criteria": [
+        "n8n CLI recognizes and loads all commands including start",
+        "Command registry successfully discovers command modules",
+        "Module dependency chain resolves without errors",
+        "n8n starts successfully with proper command handling",
+        "All CLI commands work as expected"
+      ],
+      "estimate": "3-4 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-06T21:23:20.183Z",
+      "completed_at": "2025-08-07T20:27:20.991Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754515511468_xvvz01df5",
+      "title": "Fix @n8n/api-types TypeScript Compilation Errors",
+      "description": "Resolve specific TypeScript compilation errors in @n8n/api-types package that prevent successful builds. Fix zod-class compatibility issues in expression DTOs and incorrect import paths.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/@n8n/api-types/src/dto/expressions/function-documentation.dto.ts",
+        "packages/@n8n/api-types/src/dto/expressions/contextual-documentation.dto.ts",
+        "packages/@n8n/api-types/src/dto/expressions/expression-syntax.dto.ts",
+        "packages/@n8n/api-types/src/dto/expressions/variable-documentation.dto.ts",
+        "packages/@n8n/api-types/package.json",
+        "packages/@n8n/api-types/tsconfig.build.json"
+      ],
+      "success_criteria": [
+        "All TypeScript compilation errors in @n8n/api-types resolved",
+        "Package builds successfully with pnpm run build",
+        "Expression DTOs use correct zod-class patterns",
+        "All import statements resolve without errors",
+        "Turbo build cache works without api-types blocking"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-06T21:25:11.468Z",
+      "completed_at": "2025-08-07T20:28:31.962Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754521712423_iwobmkqz9",
+      "title": "Fix Vue App.vue Compilation Error in Editor-UI",
+      "description": "Resolve Vue compilation error: \"At least one <template> or <script> is required in a single file component\" preventing editor-ui build success",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/frontend/editor-ui/src/App.vue",
+        "packages/frontend/editor-ui/vite.config.ts",
+        "packages/frontend/editor-ui/package.json"
+      ],
+      "success_criteria": [
+        "editor-ui package builds successfully without Vue compilation errors",
+        "npm run build completes for all packages",
+        "Build Strike quality moves from 50% to 100%",
+        "App.vue file properly recognized by Vue compiler"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": true,
+      "subtasks": [],
+      "created_at": "2025-08-06T23:08:32.423Z",
+      "completed_at": "2025-08-07T20:31:05.395Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 7,
-  "last_completion": "2025-08-07T20:25:45.545Z",
+  "total_completed": 10,
+  "last_completion": "2025-08-07T20:31:05.395Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }
