@@ -273,7 +273,7 @@ export class PythonPoolService extends EventEmitter {
 		try {
 			// Create the worker process
 			const workerScript = join(__dirname, '../../../../docker/python-executor/pool-worker.py');
-			const process = spawn('python3', [workerScript, venvPath], {
+			const workerProcess = spawn('python3', [workerScript, venvPath], {
 				stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
 				env: {
 					...process.env,
@@ -284,7 +284,7 @@ export class PythonPoolService extends EventEmitter {
 
 			const worker: PythonWorker = {
 				id: workerId,
-				process,
+				process: workerProcess,
 				busy: false,
 				created: new Date(),
 				lastUsed: new Date(),

@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TextMessage > Basic Rendering > should render assistant text message correctly 1`] = `
+<div>
+  <div
+    class="message"
+  >
+    <!--v-if-->
+    
+    <div
+      class="textMessage"
+    >
+      <div
+        class="assistantText rendered-content"
+      >
+        <p>
+          Hello world
+        </p>
+      </div>
+      <!--v-if-->
+      <!--v-if-->
+    </div>
+    
+    <!--v-if-->
+  </div>
+</div>
+`;

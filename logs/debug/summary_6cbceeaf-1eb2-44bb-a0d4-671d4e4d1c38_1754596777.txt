@@ -1,0 +1,11 @@
+Timeout Debug Summary for Agent 6cbceeaf-1eb2-44bb-a0d4-671d4e4d1c38
+==========================================
+
+Timestamp: 2025-08-07T14:59:37.970138
+Elapsed Time: 0m 0.0s
+Timeout Limit: 120s
+Timeout Exceeded: False
+Hook Type: SubagentStop
+Tool Name: unknown
+
+Full report: logs/debug/debug_report_6cbceeaf-1eb2-44bb-a0d4-671d4e4d1c38_1754596777.json

@@ -129,7 +129,7 @@ export class SecurityMonitoringService {
 			await this.checkThreatPatterns(securityEvent);
 
 			// Emit security event for real-time processing
-			this.eventService.emit('security-event', {
+			this.eventService.emit('security-event' as any, {
 				event: securityEvent,
 				timestamp: new Date(),
 			});
@@ -603,7 +603,7 @@ export class SecurityMonitoringService {
 			});
 
 			// Emit critical alert
-			this.eventService.emit('critical-security-alert', {
+			this.eventService.emit('critical-security-alert' as any, {
 				event,
 				timestamp: new Date(),
 			});
@@ -623,7 +623,7 @@ export class SecurityMonitoringService {
 			try {
 				switch (action) {
 					case 'alert_admin':
-						this.eventService.emit('admin-alert', { event });
+						this.eventService.emit('admin-alert' as any, { event });
 						break;
 					case 'block_ip':
 						if (event.ipAddress) {
@@ -634,7 +634,7 @@ export class SecurityMonitoringService {
 						break;
 					case 'rate_limit':
 						if (event.ipAddress) {
-							this.eventService.emit('rate-limit', { ip: event.ipAddress, event });
+							this.eventService.emit('rate-limit' as any, { ip: event.ipAddress, event });
 						}
 						break;
 					case 'immediate_alert':

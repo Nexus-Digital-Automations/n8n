@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`EventMessage > Basic Rendering > should render event message correctly 1`] = `
+<div>
+  <div
+    class="message"
+  >
+    <!--v-if-->
+    
+    <div
+      class="eventText"
+      data-test-id="chat-message-system"
+    >
+      <span>
+        assistantChat.sessionEndMessage.1
+      </span>
+      <button
+        class="inline-ask-assistant-button"
+        size="small"
+        static="true"
+      >
+        
+        
+      </button>
+      <span>
+        assistantChat.sessionEndMessage.2
+      </span>
+    </div>
+    
+    <!--v-if-->
+  </div>
+</div>
+`;

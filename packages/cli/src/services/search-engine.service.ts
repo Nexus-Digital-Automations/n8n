@@ -291,10 +291,10 @@ export class SearchEngineService {
 			if (this.config.type === 'elasticsearch') {
 				const response = await (this.client as ElasticsearchClient).bulk({ body });
 
-				if (response.body.errors) {
+				if (response.errors) {
 					this.logger.warn('Bulk operation completed with errors', {
 						operations: operations.length,
-						errors: response.body.items.filter(
+						errors: response.items.filter(
 							(item: any) => item.index?.error || item.update?.error || item.delete?.error,
 						),
 					});
@@ -302,10 +302,10 @@ export class SearchEngineService {
 			} else {
 				const response = await (this.client as any).bulk({ body });
 
-				if (response.body.errors) {
+				if (response.errors) {
 					this.logger.warn('Bulk operation completed with errors', {
 						operations: operations.length,
-						errors: response.body.items.filter(
+						errors: response.items.filter(
 							(item: any) => item.index?.error || item.update?.error || item.delete?.error,
 						),
 					});
@@ -502,7 +502,7 @@ export class SearchEngineService {
 				response = await (this.client as any).cluster.health();
 			}
 
-			return response.body;
+			return response as any;
 		} catch (error) {
 			this.logger.error('Failed to get cluster health', {
 				error: error instanceof Error ? error.message : String(error),
@@ -628,12 +628,12 @@ export class SearchEngineService {
 				const response = await (this.client as ElasticsearchClient).indices.exists({
 					index: indexName,
 				});
-				return response.body;
+				return response as any;
 			} else {
 				const response = await (this.client as any).indices.exists({
 					index: indexName,
 				});
-				return response.body;
+				return response as any;
 			}
 		} catch (error) {
 			return false;

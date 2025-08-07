@@ -319,7 +319,7 @@
 			"description": "Clean up codebase by removing implementations that duplicate existing n8n core functionality",
 			"mode": "REFACTORING",
 			"priority": "high",
-			"status": "pending",
+			"status": "in_progress",
 			"success_criteria": [
 				"Remove redundant authentication implementations (use n8n OAuth2/SAML)",
 				"Remove basic execution control (use n8n advanced APIs)",
@@ -918,17 +918,97 @@
 			"requires_research": false,
 			"subtasks": [],
 			"created_at": "2025-08-06T22:49:06.913Z"
+		},
+		{
+			"id": "task_1754593829721_pnejvs1ff",
+			"title": "Remove redundant authentication controller implementation",
+			"description": "Remove auth.controller.ts basic functionality and update references to use n8n native authentication systems (OAuth2/SAML). Keep only AI-specific authentication enhancements that are not duplicated in n8n core.",
+			"mode": "REFACTORING",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": ["remove-redundant-implementations-1754184800005"],
+			"important_files": [],
+			"success_criteria": [
+				"Remove basic auth CRUD operations from auth.controller.ts",
+				"Update references to use n8n native auth APIs",
+				"Keep only unique AI-focused authentication features",
+				"Verify no breaking changes to dependent services"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-07T19:10:29.721Z"
+		},
+		{
+			"id": "task_1754593835547_tht4ha85g",
+			"title": "Remove redundant execution CRUD operations",
+			"description": "Clean up basic execution control operations that duplicate n8n core functionality. Remove simple start/stop/pause operations while keeping advanced AI-driven execution features and analytics.",
+			"mode": "REFACTORING",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": ["remove-redundant-implementations-1754184800005"],
+			"important_files": [],
+			"success_criteria": [
+				"Remove basic execution CRUD from execution controllers",
+				"Keep advanced AI-driven execution features",
+				"Update API documentation to reference n8n core APIs",
+				"Verify execution analytics still function"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-07T19:10:35.547Z"
+		},
+		{
+			"id": "task_1754593841001_4j1ne49ys",
+			"title": "Remove redundant credential management operations",
+			"description": "Streamline credentials management by removing basic CRUD operations that duplicate n8n core functionality. Keep advanced validation, troubleshooting, and AI-driven credential features.",
+			"mode": "REFACTORING",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": ["remove-redundant-implementations-1754184800005"],
+			"important_files": [],
+			"success_criteria": [
+				"Remove basic credential CRUD operations",
+				"Keep advanced validation and troubleshooting features",
+				"Update references to use n8n enterprise credential sharing",
+				"Maintain AI-driven credential recommendations"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-07T19:10:41.001Z"
+		},
+		{
+			"id": "task_1754593846952_2gczyk4vu",
+			"title": "Remove redundant workflow export implementation",
+			"description": "Remove redundant workflow export/import implementations that duplicate n8n CLI functionality. Update documentation to reference official n8n CLI tools and maintain only unique AI-enhanced export features.",
+			"mode": "REFACTORING",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": ["remove-redundant-implementations-1754184800005"],
+			"important_files": [],
+			"success_criteria": [
+				"Remove redundant export/import commands",
+				"Update documentation to reference n8n CLI",
+				"Keep only AI-enhanced export features",
+				"Verify workflow analytics export still works"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-07T19:10:46.952Z"
 		}
 	],
 	"__removedLinterTasks": {
 		"removedCount": 1,
 		"finalTaskCount": 20
 	},
-	"execution_count": 47,
-	"last_hook_activation": 1754556726252,
+	"execution_count": 48,
+	"last_hook_activation": 1754593442914,
 	"project": "unnamed-project",
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,
 	"current_task_index": 0,
-	"last_mode": "REFACTORING"
+	"last_mode": "TASK_CREATION"
 }

@@ -62,6 +62,7 @@ import type {
 	NodeStatus,
 	RetryNodeResult,
 	SkipNodeResult,
+	CancelNodeResult,
 	ExecutionDebugInfo,
 } from './execution.types';
 
@@ -1352,6 +1353,81 @@ export class ExecutionService {
 			skippedAt,
 			reason: options.reason,
 			mockOutputData: options.mockOutputData,
+		};
+	}
+
+	async cancelNode(
+		executionId: string,
+		nodeName: string,
+		sharedWorkflowIds: string[],
+		options: ExecutionRequest.BodyParams.CancelNode,
+	): Promise<CancelNodeResult> {
+		const execution = await this.executionRepository.findWithUnflattenedData(
+			executionId,
+			sharedWorkflowIds,
+		);
+
+		if (!execution) {
+			throw new NotFoundError(`The execution with the ID "${executionId}" does not exist.`);
+		}
+
+		const cancelledAt = new Date();
+
+		// Find the node in the workflow
+		const node = execution.workflowData.nodes.find((n) => n.name === nodeName);
+		if (!node) {
+			throw new WorkflowOperationError(`Node "${nodeName}" not found in workflow`);
+		}
+
+		try {
+			// Use ActiveExecutions for cancel if execution is active
+			if (this.activeExecutions.has(executionId)) {
+				const cancelled = this.activeExecutions.cancelNodeExecution(executionId, nodeName);
+
+				if (!cancelled) {
+					throw new InternalServerError('Failed to cancel node in active execution');
+				}
+			} else {
+				// Handle cancel for inactive execution
+				const runData = execution.data?.resultData?.runData || {};
+
+				// If node has run data, mark it as cancelled
+				if (runData[nodeName] && runData[nodeName].length > 0) {
+					const lastRun = runData[nodeName][runData[nodeName].length - 1];
+					lastRun.error = {
+						message: options.reason || 'Node execution cancelled',
+						name: 'NodeExecutionCancelled',
+						timestamp: Date.now(),
+					} as any;
+
+					// Update execution in database
+					await this.executionRepository.updateExistingExecution(executionId, {
+						data: execution.data,
+					} as any);
+				}
+			}
+
+			this.logger.debug('Node cancelled successfully', {
+				executionId,
+				nodeName,
+				reason: options.reason,
+				cancelledAt,
+			});
+		} catch (error) {
+			this.logger.error('Failed to cancel node', {
+				executionId,
+				nodeName,
+				error: error instanceof Error ? error.message : error,
+			});
+			throw new InternalServerError(`Failed to cancel node: ${error}`);
+		}
+
+		return {
+			executionId,
+			nodeName,
+			cancelled: true,
+			cancelledAt,
+			reason: options.reason,
 		};
 	}
 

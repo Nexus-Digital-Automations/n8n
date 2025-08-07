@@ -1,0 +1,73 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MessageRating > Basic Rendering > should render rating component correctly with minimal style 1`] = `
+<div>
+  <div
+    class="rating minimal"
+  >
+    <div
+      class="buttons"
+    >
+      
+      <button
+        class="n8n-icon-button"
+        data-test-id="message-thumbs-up-button"
+        text=""
+        type="submit"
+      >
+        
+        
+      </button>
+      <button
+        class="n8n-icon-button"
+        data-test-id="message-thumbs-down-button"
+        text=""
+        type="submit"
+      >
+        
+        
+      </button>
+      
+    </div>
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`MessageRating > Basic Rendering > should render rating component correctly with regular style 1`] = `
+<div>
+  <div
+    class="rating regular"
+  >
+    <div
+      class="buttons"
+    >
+      
+      <button
+        class="n8n-button"
+        data-test-id="message-thumbs-up-button"
+        icon="thumbs-up"
+        label="assistantChat.builder.thumbsUp"
+        type="submit"
+      >
+        
+        
+      </button>
+      <button
+        class="n8n-button"
+        data-test-id="message-thumbs-down-button"
+        icon="thumbs-down"
+        label="assistantChat.builder.thumbsDown"
+        type="submit"
+      >
+        
+        
+      </button>
+      
+    </div>
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+</div>
+`;

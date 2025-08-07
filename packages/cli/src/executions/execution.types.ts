@@ -65,6 +65,10 @@ export declare namespace ExecutionRequest {
 			reason?: string;
 			mockOutputData?: IDataObject;
 		};
+
+		type CancelNode = {
+			reason?: string;
+		};
 	}
 
 	namespace RouteParams {
@@ -147,6 +151,8 @@ export declare namespace ExecutionRequest {
 	type RetryNode = AuthenticatedRequest<RouteParams.NodeName, object, BodyParams.RetryNode>;
 
 	type SkipNode = AuthenticatedRequest<RouteParams.NodeName, object, BodyParams.SkipNode>;
+
+	type CancelNode = AuthenticatedRequest<RouteParams.NodeName, object, BodyParams.CancelNode>;
 
 	type GetDebugInfo = AuthenticatedRequest<
 		RouteParams.ExecutionId,
@@ -283,6 +289,14 @@ export type SkipNodeResult = {
 	skippedAt: Date;
 	reason?: string;
 	mockOutputData?: IDataObject;
+};
+
+export type CancelNodeResult = {
+	executionId: string;
+	nodeName: string;
+	cancelled: boolean;
+	cancelledAt: Date;
+	reason?: string;
 };
 
 export type ExecutionDebugInfo = {

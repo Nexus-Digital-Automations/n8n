@@ -1,0 +1,17 @@
+import type { MigrationContext, ReversibleMigration } from '../migration-types';
+
+export class EnhanceFolderSystemWithAdvancedFeatures1754560000000 implements ReversibleMigration {
+	async up({ runQuery, escape }: MigrationContext) {
+		const folderTable = escape.tableName('folder');
+
+		// Add new columns to existing folder table to support advanced organization features
+		await runQuery(`ALTER TABLE ${folderTable} ADD COLUMN ${escape.columnName('description')} TEXT`);
+	}
+
+	async down({ runQuery, escape }: MigrationContext) {
+		const folderTable = escape.tableName('folder');
+
+		// Remove new columns from folder table
+		await runQuery(`ALTER TABLE ${folderTable} DROP COLUMN IF EXISTS ${escape.columnName('description')}`);
+	}
+}

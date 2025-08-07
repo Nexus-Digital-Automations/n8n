@@ -439,6 +439,31 @@ export class ExecutionsController {
 		return result;
 	}
 
+	@Post('/:id/node/:nodeName/cancel')
+	async cancelNode(req: ExecutionRequest.CancelNode) {
+		if (!isPositiveInteger(req.params.id)) {
+			throw new BadRequestError('Execution ID is not a number');
+		}
+
+		const workflowIds = await this.getAccessibleWorkflowIds(req.user, 'workflow:execute');
+		if (workflowIds.length === 0) throw new NotFoundError('Execution not found');
+
+		this.logger.debug('Node cancel requested', {
+			executionId: req.params.id,
+			nodeName: req.params.nodeName,
+			userId: req.user.id,
+		});
+
+		const result = await this.executionService.cancelNode(
+			req.params.id,
+			req.params.nodeName,
+			workflowIds,
+			req.body,
+		);
+
+		return result;
+	}
+
 	@Get('/:id/debug-info')
 	async getDebugInfo(req: ExecutionRequest.GetDebugInfo) {
 		if (!isPositiveInteger(req.params.id)) {

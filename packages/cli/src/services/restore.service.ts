@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import { Logger } from '@n8n/backend-common';
 import { Service } from '@n8n/di';
-import type { WorkflowEntity, CredentialsEntity, SettingsEntity, InstalledPackages } from '@n8n/db';
+import { WorkflowEntity, CredentialsEntity, Settings, InstalledPackages } from '@n8n/db';
 import {
 	WorkflowRepository,
 	CredentialsRepository,
@@ -54,7 +54,7 @@ interface RestoreTransaction {
 	backupSnapshot: {
 		workflows: WorkflowEntity[];
 		credentials: CredentialsEntity[];
-		settings: SettingsEntity[];
+		settings: Settings[];
 	};
 }
 
@@ -74,7 +74,7 @@ export class RestoreService {
 		private readonly binaryDataService: BinaryDataService,
 		private readonly backupService: BackupService,
 	) {
-		this.backupDir = join(this.instanceSettings.userFolder, 'backups');
+		this.backupDir = join(this.instanceSettings.n8nFolder, 'backups');
 	}
 
 	async restoreBackup(request: RestoreRequest): Promise<RestoreResponse> {
@@ -138,7 +138,7 @@ export class RestoreService {
 					manifest.files.workflows,
 					manifest.metadata.encrypted,
 					password,
-					overwriteExisting,
+					overwriteExisting ?? false,
 					queryRunner.manager,
 				);
 				restored.workflows = workflowResult.restored;
@@ -152,7 +152,7 @@ export class RestoreService {
 					manifest.files.credentials,
 					manifest.metadata.encrypted,
 					password,
-					overwriteExisting,
+					overwriteExisting ?? false,
 					queryRunner.manager,
 				);
 				restored.credentials = credentialResult.restored;
@@ -166,7 +166,7 @@ export class RestoreService {
 					manifest.files.settings,
 					manifest.metadata.encrypted,
 					password,
-					overwriteExisting,
+					overwriteExisting ?? false,
 					queryRunner.manager,
 				);
 				restored.settings = settingsResult.restored;
@@ -263,7 +263,7 @@ export class RestoreService {
 		// Create snapshot of current data for potential rollback
 		const workflows = await manager.find(WorkflowEntity);
 		const credentials = await manager.find(CredentialsEntity);
-		const settings = await manager.find(SettingsEntity);
+		const settings = await manager.find(Settings);
 
 		const transaction: RestoreTransaction = {
 			id: transactionId,
@@ -287,7 +287,7 @@ export class RestoreService {
 		// Clear current data
 		await manager.delete(WorkflowEntity, {});
 		await manager.delete(CredentialsEntity, {});
-		await manager.delete(SettingsEntity, {});
+		await manager.delete(Settings, {});
 
 		// Restore from snapshot
 		if (snapshot.workflows.length > 0) {
@@ -297,7 +297,7 @@ export class RestoreService {
 			await manager.save(CredentialsEntity, snapshot.credentials);
 		}
 		if (snapshot.settings.length > 0) {
-			await manager.save(SettingsEntity, snapshot.settings);
+			await manager.save(Settings, snapshot.settings);
 		}
 	}
 
@@ -469,7 +469,7 @@ export class RestoreService {
 	): Promise<{ restored: number; conflicts: RestoreResponse['conflicts'] }> {
 		const settingsPath = join(backupPath, settingsFile);
 		const data = await this.readJsonFile(settingsPath, encrypted, password);
-		const settings = data.settings as SettingsEntity[];
+		const settings = data.settings as Settings[];
 		const installedPackages = data.installedPackages as InstalledPackages[];
 
 		let restored = 0;
@@ -477,7 +477,7 @@ export class RestoreService {
 
 		// Restore settings
 		for (const setting of settings) {
-			const existing = await manager.findOne(SettingsEntity, {
+			const existing = await manager.findOne(Settings, {
 				where: { key: setting.key },
 			});
 
@@ -492,14 +492,14 @@ export class RestoreService {
 
 			try {
 				if (existing) {
-					await manager.update(SettingsEntity, existing.key, setting);
+					await manager.update(Settings, existing.key, setting);
 					conflicts.push({
 						type: 'setting',
 						name: setting.key,
 						action: 'overwritten',
 					});
 				} else {
-					await manager.save(SettingsEntity, setting);
+					await manager.save(Settings, setting);
 				}
 				restored++;
 			} catch (error) {
@@ -518,8 +518,7 @@ export class RestoreService {
 				});
 
 				if (!existing) {
-					const { id, ...pkgData } = pkg;
-					await manager.save(InstalledPackages, pkgData);
+					await manager.save(InstalledPackages, pkg);
 					restored++;
 				}
 			} catch (error) {

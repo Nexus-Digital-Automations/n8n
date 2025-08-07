@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BlockMessage > Basic Rendering > should render block message correctly 1`] = `
+<div>
+  <div
+    class="message"
+  >
+    <!--v-if-->
+    
+    <div
+      class="block"
+    >
+      <div
+        class="blockTitle"
+      >
+        Block Title 
+        <!--v-if-->
+      </div>
+      <div
+        class="blockBody"
+      >
+        <span
+          class="rendered-content"
+        >
+          <p>
+            Block content goes here
+          </p>
+        </span>
+        <!--v-if-->
+      </div>
+    </div>
+    
+    <!--v-if-->
+  </div>
+</div>
+`;

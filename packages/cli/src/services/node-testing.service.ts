@@ -144,7 +144,13 @@ export class NodeTestingService {
 					message: error instanceof Error ? error.message : String(error),
 					name: error instanceof Error ? error.name : 'NodeTestError',
 					stack: error instanceof Error ? error.stack : undefined,
-				},
+					description: error instanceof Error ? error.message : String(error),
+					timestamp: new Date(),
+					context: {},
+					lineNumber: 0,
+					columnNumber: 0,
+					fileName: '',
+				} as any,
 				executionTime: Date.now() - startTime,
 				metadata: {
 					nodeType,
@@ -338,10 +344,10 @@ export class NodeTestingService {
 			} as any;
 
 			// Execute with timeout protection
-			const workflowExecute = new WorkflowExecute(additionalData, 'test', runExecutionData);
+			const workflowExecute = new WorkflowExecute(additionalData, 'manual', runExecutionData);
 
-			const executionPromise = workflowExecute.runPartialWorkflow(testWorkflow, runExecutionData, [
-				node.name,
+			const executionPromise = workflowExecute.runPartialWorkflow(testWorkflow, {} as any, [
+				{ name: node.name, sourceData: null },
 			]);
 
 			const timeoutPromise = new Promise<never>((_, reject) => {
@@ -351,7 +357,7 @@ export class NodeTestingService {
 			});
 
 			const result = await Promise.race([executionPromise, timeoutPromise]);
-			const nodeResult = result.runData[node.name]?.[0];
+			const nodeResult = result.data?.resultData?.runData?.[node.name]?.[0];
 
 			if (!nodeResult) {
 				return {
@@ -363,7 +369,13 @@ export class NodeTestingService {
 					error: {
 						message: 'Node execution failed - no result data',
 						name: 'NodeExecutionError',
-					},
+						description: 'Node execution failed - no result data',
+						timestamp: new Date(),
+						context: {},
+						lineNumber: 0,
+						columnNumber: 0,
+						fileName: '',
+					} as any,
 				};
 			}
 
@@ -386,7 +398,13 @@ export class NodeTestingService {
 					message: error instanceof Error ? error.message : String(error),
 					name: error instanceof Error ? error.name : 'NodeTestError',
 					stack: error instanceof Error ? error.stack : undefined,
-				},
+					description: error instanceof Error ? error.message : String(error),
+					timestamp: new Date(),
+					context: {},
+					lineNumber: 0,
+					columnNumber: 0,
+					fileName: '',
+				} as any,
 			};
 		}
 	}
@@ -816,7 +834,7 @@ export class NodeTestingService {
 
 		// Generic patterns
 		if (paramName.includes('name') || displayName.includes('name')) {
-			return `Mock ${property.displayName || property.name}`;
+			return `Mock ${displayName || paramName}`;
 		}
 
 		return `mock-${paramName}-value`;

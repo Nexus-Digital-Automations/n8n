@@ -1,0 +1,52 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BaseMessage > Basic Rendering > should render correctly with minimal props 1`] = `
+<div>
+  <div
+    class="message"
+  >
+    <div
+      class="roleName userSection"
+    >
+      
+      <div
+        class="assistant-avatar"
+      />
+      <span>
+        Assistant
+      </span>
+      
+    </div>
+    
+    
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`BaseMessage > Basic Rendering > should render user message correctly 1`] = `
+<div>
+  <div
+    class="message"
+  >
+    <div
+      class="roleName"
+    >
+      
+      <div
+        class="n8n-avatar"
+        data-first-name="John"
+        data-last-name="Doe"
+        size="xsmall"
+      />
+      <span>
+        You
+      </span>
+      
+    </div>
+    
+    
+    <!--v-if-->
+  </div>
+</div>
+`;

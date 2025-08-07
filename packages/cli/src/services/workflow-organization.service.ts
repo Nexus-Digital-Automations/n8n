@@ -841,8 +841,8 @@ export class WorkflowOrganizationService {
 					exportedBy: user.id,
 					n8nVersion: process.env.N8N_VERSION || 'unknown',
 				},
-				folders: [],
-				workflows: [],
+				folders: [] as any[],
+				workflows: [] as any[],
 			};
 
 			for (const folderId of request.folderIds) {
@@ -864,7 +864,7 @@ export class WorkflowOrganizationService {
 					const workflows = await this.getFolderWorkflows(
 						user,
 						folderId,
-						request.includeSubfolders,
+						request.includeSubfolders ?? false,
 					);
 					exportData.workflows.push(...workflows);
 				}
@@ -975,6 +975,8 @@ export class WorkflowOrganizationService {
 				importedWorkflows,
 				errors,
 			};
+
+			return result;
 		} catch (error) {
 			this.logger.error('Failed to import folders', {
 				userId: user.id,
