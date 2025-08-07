@@ -264,9 +264,57 @@
       "created_at": "2025-08-06T23:08:32.423Z",
       "completed_at": "2025-08-07T20:31:05.395Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754515400186_ck6x0z99c",
+      "title": "Optimize Root ESLint Configuration Performance",
+      "description": "Enhance the root-level ESLint configuration to improve linting performance while maintaining code quality standards. Address any configuration gaps.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "eslint.config.js",
+        "packages/*/eslint.config.*",
+        ".eslintignore"
+      ],
+      "success_criteria": [
+        "ESLint configuration optimized for monorepo structure",
+        "Linting performance improved with proper ignore patterns",
+        "Package-level linting delegated appropriately",
+        "No duplicate rule processing across packages",
+        "All linting passes without performance issues"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-06T21:23:20.186Z",
+      "completed_at": "2025-08-07T20:34:54.533Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754598888638_9o6uas6ow",
+      "title": "Fix Critical Runtime Error: Missing @utils/utilities Module Resolution",
+      "description": "URGENT: n8n dev environment failing due to module resolution error in nodes-base package. The @utils/utilities path alias is not being resolved correctly by tsc-alias, causing Cannot find module @utils/utilities errors and preventing n8n from running.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/nodes-base/tsconfig.build.cjs.json",
+        "packages/nodes-base/tsconfig.json",
+        "packages/nodes-base/dist/nodes/Postgres/v1/genericFunctions.js"
+      ],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T20:34:48.639Z",
+      "completed_at": "2025-08-07T20:37:13.532Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 10,
-  "last_completion": "2025-08-07T20:31:05.395Z",
+  "total_completed": 12,
+  "last_completion": "2025-08-07T20:37:13.532Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

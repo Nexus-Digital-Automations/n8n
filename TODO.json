@@ -2,31 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754515400186_ck6x0z99c",
-      "title": "Optimize Root ESLint Configuration Performance",
-      "description": "Enhance the root-level ESLint configuration to improve linting performance while maintaining code quality standards. Address any configuration gaps.",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "eslint.config.js",
-        "packages/*/eslint.config.*",
-        ".eslintignore"
-      ],
-      "success_criteria": [
-        "ESLint configuration optimized for monorepo structure",
-        "Linting performance improved with proper ignore patterns",
-        "Package-level linting delegated appropriately",
-        "No duplicate rule processing across packages",
-        "All linting passes without performance issues"
-      ],
-      "estimate": "1-2 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-06T21:23:20.186Z"
-    },
-    {
       "id": "task_1754515400190_1694lh7yh",
       "title": "Fix Test Infrastructure and Coverage Reporting",
       "description": "Resolve test execution issues, coverage reporting problems, and ensure all test suites run reliably across the monorepo.",

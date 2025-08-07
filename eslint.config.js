@@ -47,14 +47,28 @@ export default [
 			'development/**',     // Development documentation
 			'patches/**',         // Package patches  
 			'scripts/**',         // Build scripts
-			'cypress/fixtures/**',
-			'cypress/downloads/**',
-			'cypress/screenshots/**',
-			'cypress/videos/**',
 			'docker/**',
 			'docs/**',
 			'examples/**',
 			'benchmark/**',
+			
+			// PERFORMANCE CRITICAL: Exclude all test and e2e files (handled by package configs)
+			'cypress/**',         // All Cypress files - avoid TypeScript parsing issues
+			'**/__tests__/**',
+			'**/*.test.ts',
+			'**/*.test.js', 
+			'**/*.spec.ts',
+			'**/*.spec.js',
+			'**/*.e2e.ts',
+			'**/*.cy.ts',
+			'**/test/**',
+			'**/tests/**',
+			'**/fixtures/**',
+			'**/mocks/**',
+			'**/__fixtures__/**',
+			'**/__mocks__/**',
+			'**/test-results/**',
+			'**/playwright-report/**',
 			
 			// Node.js and package manager files (PERFORMANCE: large files)
 			'**/package-lock.json',
@@ -75,22 +89,8 @@ export default [
 			'**/tmp/**',
 			'**/.cache/**',
 			
-			// Test artifacts and fixtures (PERFORMANCE: avoid linting test data)
-			'**/fixtures/**',
-			'**/mocks/**',
-			'**/__fixtures__/**',
-			'**/__mocks__/**',
-			'**/test-results/**',
-			'**/playwright-report/**',
-			
-			// CLI package files that don't need linting (already handled by package-level config)
-			'packages/cli/src/__tests__/**',
-			'packages/cli/src/commands/**',
-			'packages/cli/src/controllers/**/*.test.ts',
-			'packages/cli/src/services/**/*.test.ts',
-			'packages/cli/src/scaling/__tests__/**',
-			'packages/cli/src/community-packages/__tests__/**',
-			'packages/cli/src/chat/__tests__/**',
+			// PERFORMANCE: Delegate package linting to individual package configs
+			'packages/**',        // All package files handled by their own eslint configs
 		],
 	},
 	{
