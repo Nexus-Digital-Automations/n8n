@@ -21,17 +21,7 @@ module.exports = {
 		},
 	},
 	transform: {
-		'^.+\\.ts$': [
-			'ts-jest',
-			{
-				tsconfig: {
-					experimentalDecorators: true,
-					emitDecoratorMetadata: true,
-					declaration: false,
-					sourceMap: true,
-				},
-			},
-		],
+		'^.+\\.ts$': ['ts-jest'],
 	},
 	testTimeout: 15000,
 };

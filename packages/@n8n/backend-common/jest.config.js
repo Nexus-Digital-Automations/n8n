@@ -2,6 +2,6 @@
 module.exports = {
 	...require('../../../jest.config.cjs'),
 	transform: {
-		'^.+\\.ts$': ['ts-jest', { isolatedModules: false }],
+		'^.+\\.ts$': ['ts-jest'],
 	},
 };

@@ -2,7 +2,7 @@
 module.exports = {
 	...require('../../../jest.config.cjs'),
 	transform: {
-		'^.+\\.ts$': ['ts-jest', { isolatedModules: false }],
+		'^.+\\.ts$': ['ts-jest'],
 	},
 	// Exclude test fixtures from coverage as they are test utilities, not production code
 	collectCoverageFrom: [
