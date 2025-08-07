@@ -428,9 +428,31 @@
       "created_at": "2025-08-06T22:03:46.687Z",
       "completed_at": "2025-08-07T22:21:05.759Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754519580703_4pdtp3l1r",
+      "title": "Fix Pyodide interface import error",
+      "description": "Fix missing PyodideInterface export from pyodide module in nodes/Code/Pyodide.ts:3",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/nodes-base/nodes/Code/Pyodide.ts"
+      ],
+      "success_criteria": [
+        "PyodideInterface import error resolved",
+        "Build passes for nodes-base package"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-06T22:33:00.703Z",
+      "completed_at": "2025-08-07T22:26:12.437Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 17,
-  "last_completion": "2025-08-07T22:21:05.759Z",
+  "total_completed": 18,
+  "last_completion": "2025-08-07T22:26:12.437Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }
