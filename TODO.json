@@ -1,54 +1,7 @@
 {
   "project": "n8n-monorepo",
-  "tasks": {
-    "56": {
-      "id": "task_1754383329257_xtsdsakop",
-      "title": "Add tests for Assistant Chat message components",
-      "description": "Implement comprehensive test coverage for AskAssistantChat message subcomponents: BaseMessage, BlockMessage, CodeDiffMessage, ErrorMessage, EventMessage, MessageRating, MessageWrapper, TextMessage, ToolMessage",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/",
-        "packages/frontend/@n8n/design-system/src/components/InlineAskAssistantButton/"
-      ],
-      "success_criteria": [
-        "All 9 message component types have comprehensive tests",
-        "Message rendering, props, and interaction behaviors tested",
-        "Message state management and event handling covered",
-        "Component composition and slot usage tested",
-        "Assistant chat functionality properly validated",
-        "Tests follow established chat component patterns"
-      ],
-      "estimate": "4-5 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-05T08:42:09.257Z"
-    },
-    "57": {
-      "id": "task_1754384643394_yza7n1ws7",
-      "title": "Analyze editor-ui test dependencies and imports for performance optimization",
-      "description": "Comprehensive analysis of test infrastructure to identify performance bottlenecks in dependencies, imports, setup files, and test utilities",
-      "mode": "DEVELOPMENT",
-      "priority": "HIGH",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [],
-      "success_criteria": [
-        "Package.json dev dependencies analyzed for heavy testing libraries",
-        "Test setup files examined for expensive imports/initializations",
-        "Common test utilities reviewed for performance bottlenecks",
-        "Mock setup configurations analyzed for complexity",
-        "Test environment setup checked for inefficiencies",
-        "Specific recommendations provided for optimization"
-      ],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-05T09:04:03.394Z"
-    },
-    "58": {
+  "tasks": [
+    {
       "id": "task_1754385889365_ox5encokv",
       "title": "File Type Validation Security Analysis",
       "description": "Analyze file type validation, MIME type checking, and extension restrictions for security",
@@ -67,7 +20,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T09:24:49.365Z"
     },
-    "59": {
+    {
       "id": "task_1754385889370_gnrc03tb8",
       "title": "File Size Limits and Resource Controls",
       "description": "Research file size restrictions, memory limits, and DoS prevention measures",
@@ -86,7 +39,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T09:24:49.370Z"
     },
-    "60": {
+    {
       "id": "task_1754385889374_oaa2n6ml1",
       "title": "Path Traversal Prevention Analysis",
       "description": "Examine path sanitization, directory traversal prevention, and secure file handling",
@@ -105,7 +58,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T09:24:49.374Z"
     },
-    "61": {
+    {
       "id": "task_1754385889378_499lsd96y",
       "title": "File Operations Authentication Analysis",
       "description": "Research authentication requirements, JWT validation, and authorization patterns for file ops",
@@ -124,7 +77,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T09:24:49.378Z"
     },
-    "62": {
+    {
       "id": "task_1754385899525_rljahdb89",
       "title": "CSRF Protection for File Uploads",
       "description": "Analyze CSRF token validation, SameSite cookies, and anti-CSRF measures",
@@ -143,7 +96,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T09:24:59.525Z"
     },
-    "63": {
+    {
       "id": "task_1754385899530_chcx0jbmj",
       "title": "Security Headers and Content-Type Analysis",
       "description": "Research Content-Type validation, security headers, and response sanitization",
@@ -162,7 +115,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T09:24:59.530Z"
     },
-    "64": {
+    {
       "id": "task_1754385899534_1sqw5l9lm",
       "title": "Security Middleware and Decorators Analysis",
       "description": "Examine security middleware, decorators, and reusable security patterns",
@@ -181,7 +134,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T09:24:59.535Z"
     },
-    "65": {
+    {
       "id": "task_1754385899539_2rnqqbj3z",
       "title": "Binary Data Security Patterns",
       "description": "Research binary data handling, encoding security, and storage patterns",
@@ -200,7 +153,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T09:24:59.539Z"
     },
-    "66": {
+    {
       "id": "task_1754413984831_tscffwf2d",
       "title": "Implement Cancel Node Execution Endpoint",
       "description": "Add POST /executions/:id/cancel-node endpoint for cancelling specific node execution during workflow runs",
@@ -226,7 +179,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T17:13:04.831Z"
     },
-    "67": {
+    {
       "id": "task_1754413992994_wwg6i8srm",
       "title": "Implement Retry From Node Execution Endpoint",
       "description": "Add POST /executions/:id/retry-from-node endpoint for retrying execution from a specific node with state reset",
@@ -252,7 +205,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T17:13:12.994Z"
     },
-    "68": {
+    {
       "id": "task_1754414003205_qwsqldj1t",
       "title": "Implement Partial Workflow Execution Endpoint",
       "description": "Add POST /workflows/:id/execute-partial endpoint for executing specific subsets of workflow nodes",
@@ -279,7 +232,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T17:13:23.205Z"
     },
-    "70": {
+    {
       "id": "task_1754433526298_41mzon60b",
       "title": "Workflow Search Service Analysis",
       "description": "Analyze workflow-search.service.ts implementation, capabilities, and architecture patterns",
@@ -299,7 +252,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T22:38:46.298Z"
     },
-    "71": {
+    {
       "id": "task_1754433531427_cpen0ngac",
       "title": "Database Repository Pattern Analysis",
       "description": "Examine workflow repository methods, database queries, and schema patterns for search functionality",
@@ -320,7 +273,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T22:38:51.427Z"
     },
-    "72": {
+    {
       "id": "task_1754433536570_45gbsb9ge",
       "title": "Search Architecture and Performance Analysis",
       "description": "Investigate search service patterns, API endpoints, indexing strategies, and performance considerations",
@@ -340,7 +293,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T22:38:56.570Z"
     },
-    "73": {
+    {
       "id": "task_1754433573858_83d2odeck",
       "title": "Database Schema & Entity Analysis",
       "description": "Analyze workflow entity schemas, database tables, relationships, and constraints. Focus on WorkflowEntity, ExecutionEntity, CredentialsEntity, and related database structures.",
@@ -359,7 +312,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T22:39:33.858Z"
     },
-    "74": {
+    {
       "id": "task_1754433573870_ghwpp8x20",
       "title": "Current Search Implementation Analysis",
       "description": "Examine existing workflow search functionality, indexing strategies, query patterns, and performance optimizations in workflow.service.ts and search-related files.",
@@ -378,7 +331,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T22:39:33.870Z"
     },
-    "75": {
+    {
       "id": "task_1754433573880_862fxuf9o",
       "title": "Workflow Data Structure & Metadata Analysis",
       "description": "Analyze workflow properties, metadata fields, tags, versioning, sharing permissions, and execution history structures. Map all searchable fields and their types.",
@@ -397,7 +350,7 @@
       "subtasks": [],
       "created_at": "2025-08-05T22:39:33.880Z"
     },
-    "76": {
+    {
       "id": "task_1754513676475_6efk9v6uh",
       "title": "Jest Configuration Analysis",
       "description": "Examine packages/cli/jest.config.js and related Jest configuration for timeout settings and performance configurations",
@@ -416,7 +369,7 @@
       ],
       "created_at": "2025-08-06T20:54:36.475Z"
     },
-    "77": {
+    {
       "id": "task_1754513677341_ndsoyigwg",
       "title": "Test Setup Performance Analysis",
       "description": "Analyze test setup files (setup.ts, setup-mocks.ts) for initialization overhead and performance bottlenecks",
@@ -435,7 +388,7 @@
       ],
       "created_at": "2025-08-06T20:54:37.341Z"
     },
-    "78": {
+    {
       "id": "task_1754513678195_3se22juza",
       "title": "Integration Test Performance Audit",
       "description": "Audit packages/cli/test/integration/ directory for slow tests and performance patterns",
@@ -454,7 +407,7 @@
       ],
       "created_at": "2025-08-06T20:54:38.195Z"
     },
-    "79": {
+    {
       "id": "task_1754515400179_3tf9stt2q",
       "title": "Fix @n8n/api-types Package Build Errors",
       "description": "Resolve TypeScript compilation errors in @n8n/api-types package preventing successful builds. Fix zod-class compatibility issues and path alias resolution problems.",
@@ -479,7 +432,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T21:23:20.179Z"
     },
-    "80": {
+    {
       "id": "task_1754515400183_heruxhx04",
       "title": "Fix CLI Command Registration and Module Loading",
       "description": "Resolve CLI command parsing errors that prevent n8n start command from being recognized. Fix module dependency chain and command discovery issues.",
@@ -504,7 +457,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T21:23:20.183Z"
     },
-    "81": {
+    {
       "id": "task_1754515400186_ck6x0z99c",
       "title": "Optimize Root ESLint Configuration Performance",
       "description": "Enhance the root-level ESLint configuration to improve linting performance while maintaining code quality standards. Address any configuration gaps.",
@@ -529,7 +482,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T21:23:20.186Z"
     },
-    "82": {
+    {
       "id": "task_1754515400190_1694lh7yh",
       "title": "Fix Test Infrastructure and Coverage Reporting",
       "description": "Resolve test execution issues, coverage reporting problems, and ensure all test suites run reliably across the monorepo.",
@@ -555,7 +508,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T21:23:20.190Z"
     },
-    "83": {
+    {
       "id": "task_1754515511468_xvvz01df5",
       "title": "Fix @n8n/api-types TypeScript Compilation Errors",
       "description": "Resolve specific TypeScript compilation errors in @n8n/api-types package that prevent successful builds. Fix zod-class compatibility issues in expression DTOs and incorrect import paths.",
@@ -583,7 +536,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T21:25:11.468Z"
     },
-    "84": {
+    {
       "id": "task_1754515511472_0v3e1zwz9",
       "title": "Fix CLI Command Registration Module Loading Errors",
       "description": "Resolve module loading errors preventing CLI commands from being recognized. Fix dependency chain issues that cause \"Command start not found\" error.",
@@ -611,7 +564,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T21:25:11.472Z"
     },
-    "85": {
+    {
       "id": "task_1754515511476_s2r5abego",
       "title": "Fix Task Runner MapIterator TypeScript Error",
       "description": "Resolve TypeScript error in @n8n/task-runner where Math.max.apply receives MapIterator instead of array. Convert Map.keys() to array before Math.max.apply.",
@@ -633,7 +586,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T21:25:11.476Z"
     },
-    "86": {
+    {
       "id": "task_1754515511479_25r3tclv0",
       "title": "Add Missing ESLint Rules and Optimize Ignore Patterns",
       "description": "Enhance root ESLint configuration to include comprehensive rules while maintaining performance. Add missing rule configurations that may be causing lint quality issues.",
@@ -657,7 +610,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T21:25:11.479Z"
     },
-    "88": {
+    {
       "id": "task_1754517826687_4oxaf3l3u",
       "title": "Fix TypeScript compilation errors in @n8n/config package",
       "description": "Resolve 3 TypeScript compilation errors in test/decorators.test.ts: unused variable \"factory\" and unused classes \"TestConfig\" and \"InvalidConfig\"",
@@ -676,7 +629,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:03:46.687Z"
     },
-    "89": {
+    {
       "id": "task_1754519580703_4pdtp3l1r",
       "title": "Fix Pyodide interface import error",
       "description": "Fix missing PyodideInterface export from pyodide module in nodes/Code/Pyodide.ts:3",
@@ -696,7 +649,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:33:00.703Z"
     },
-    "90": {
+    {
       "id": "task_1754519589226_82suc4a45",
       "title": "Fix Python sandbox implicit any type error",
       "description": "Add type annotation for str parameter in nodes/Code/PythonSandbox.ts:73",
@@ -716,7 +669,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:33:09.226Z"
     },
-    "91": {
+    {
       "id": "task_1754519599737_9tops5lyw",
       "title": "Fix null assignment type errors across multiple node files",
       "description": "Fix 7 TypeScript null assignment errors where string|null types are assigned to stricter types across DateTime, Google Calendar/Gmail, HighLevel, and Microsoft Outlook nodes",
@@ -743,7 +696,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:33:19.737Z"
     },
-    "92": {
+    {
       "id": "task_1754519763806_ab84foyqq",
       "title": "Fix ESLint redundant type constituents error in rest-api-client",
       "description": "Fix typescript-eslint/no-redundant-type-constituents error in nodeTypes.ts line 60 where INodeTranslationHeaders acts as any and overrides union types",
@@ -764,7 +717,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:36:03.807Z"
     },
-    "93": {
+    {
       "id": "task_1754519772079_mt32cwegc",
       "title": "Fix test coverage threshold in @n8n/errors package",
       "description": "Improve branch coverage from 85.71% to meet 95% threshold in application.error.ts line 28 (uncovered error handling branch)",
@@ -786,7 +739,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:36:12.079Z"
     },
-    "94": {
+    {
       "id": "task_1754519779010_6jr71ok7p",
       "title": "Fix ts-jest isolatedModules deprecation warnings",
       "description": "Update TypeScript config to use isolatedModules in tsconfig.json instead of deprecated ts-jest config option across packages",
@@ -807,7 +760,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:36:19.010Z"
     },
-    "95": {
+    {
       "id": "quality-improvement-1754519854950",
       "title": "Create Quality Improvement Tasks",
       "description": "Analyze project quality issues and create specific tasks to reach 100% quality for all strikes",
@@ -852,7 +805,7 @@
         "overallReady": false
       }
     },
-    "96": {
+    {
       "id": "task_1754520442540_kzttefbm8",
       "title": "Analyze OAuth2 callback routing and handling mechanisms",
       "description": "Identify OAuth2 callback endpoints, routing logic, parameter validation, and error handling in n8n codebase. Document callback flow patterns and security measures.",
@@ -876,7 +829,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:47:22.540Z"
     },
-    "97": {
+    {
       "id": "task_1754520442547_67iwp14dw",
       "title": "Map credential validation APIs and authentication mechanisms",
       "description": "Analyze credential storage, validation APIs, encryption methods, and credential lifecycle management. Document security patterns and validation workflows.",
@@ -900,7 +853,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:47:22.547Z"
     },
-    "98": {
+    {
       "id": "task_1754520442554_91vebxczt",
       "title": "Analyze authentication testing frameworks and coverage",
       "description": "Evaluate existing authentication test suites, identify testing gaps, analyze mock/stub patterns, and document test automation strategies for OAuth2 flows.",
@@ -927,7 +880,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:47:22.554Z"
     },
-    "99": {
+    {
       "id": "task_1754520442561_fce8nirrj",
       "title": "Document external OAuth provider integration patterns",
       "description": "Analyze integration patterns for major OAuth providers (Google, GitHub, Slack, etc.), document configuration requirements, and identify standardization opportunities.",
@@ -951,7 +904,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T22:47:22.561Z"
     },
-    "100": {
+    {
       "id": "task_1754521266457_8mibtp828",
       "title": "Package.json and Dependencies Analysis",
       "description": "Analyze all package.json files, dependencies, versions, and workspace configuration",
@@ -970,7 +923,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T23:01:06.457Z"
     },
-    "101": {
+    {
       "id": "task_1754521266478_8j3hgcu2h",
       "title": "Build Configuration and Orchestration Analysis",
       "description": "Examine turbo.json, build scripts, and orchestration setup",
@@ -989,7 +942,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T23:01:06.478Z"
     },
-    "102": {
+    {
       "id": "task_1754521266491_pbxpy1stw",
       "title": "TypeScript and Linting Configuration Analysis",
       "description": "Check tsconfig files, linting setup, and compile-time issues",
@@ -1008,7 +961,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T23:01:06.491Z"
     },
-    "103": {
+    {
       "id": "task_1754521712423_iwobmkqz9",
       "title": "Fix Vue App.vue Compilation Error in Editor-UI",
       "description": "Resolve Vue compilation error: \"At least one <template> or <script> is required in a single file component\" preventing editor-ui build success",
@@ -1032,7 +985,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T23:08:32.423Z"
     },
-    "104": {
+    {
       "id": "task_1754521712430_lvro1zklf",
       "title": "Fix ESLint Configuration and Local Rules Issues",
       "description": "Resolve ESLint configuration problems including missing local rules, import ordering violations, and plugin configuration issues",
@@ -1058,7 +1011,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T23:08:32.430Z"
     },
-    "105": {
+    {
       "id": "task_1754521712435_1blt7axzq",
       "title": "Stabilize Test Infrastructure and Coverage",
       "description": "Fix test execution issues, stabilize test infrastructure, and improve coverage reporting to achieve consistent test results",
@@ -1084,7 +1037,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T23:08:32.435Z"
     },
-    "106": {
+    {
       "id": "task_1754521712439_bezzitks5",
       "title": "Fix Vue Component Type Resolution in Design System",
       "description": "Resolve TypeScript module resolution issues for Vue components that are preventing proper type checking and builds",
@@ -1110,7 +1063,7 @@
       "subtasks": [],
       "created_at": "2025-08-06T23:08:32.439Z"
     },
-    "110": {
+    {
       "id": "task_1754531735381_1po3vaudl",
       "title": "Create comprehensive tests for N8nOption component",
       "description": "Implement complete test coverage for N8nOption component including prop validation, event handling, and form integration scenarios.",
@@ -1134,7 +1087,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T01:55:35.381Z"
     },
-    "111": {
+    {
       "id": "task_1754531735398_1flax41vh",
       "title": "Create comprehensive tests for N8nPagination component",
       "description": "Implement complete test coverage for N8nPagination component including pagination logic, event emissions, and edge case handling.",
@@ -1158,7 +1111,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T01:55:35.398Z"
     },
-    "112": {
+    {
       "id": "task_1754531735407_l8nufwwlq",
       "title": "Create comprehensive tests for N8nPopover component",
       "description": "Implement complete test coverage for N8nPopover component including positioning, trigger behaviors, and content rendering.",
@@ -1182,7 +1135,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T01:55:35.407Z"
     },
-    "113": {
+    {
       "id": "task_1754533843854_f0xrl0uuf",
       "title": "Fix TypeScript compilation error: missing @types/psl in codemirror-lang package",
       "description": "The @n8n/codemirror-lang package is failing TypeScript compilation due to missing type definitions for the psl library. This is preventing successful typecheck operations across the project.",
@@ -1205,7 +1158,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T02:30:43.854Z"
     },
-    "114": {
+    {
       "id": "task_1754538748108_4k2rgkegg",
       "title": "Implement Project/Folder Organization System for Workflows",
       "description": "Design and implement a hierarchical project and folder system for organizing workflows in n8n community edition. Include folder creation, workflow moving, nested folder support, and search within projects.",
@@ -1230,7 +1183,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.108Z"
     },
-    "115": {
+    {
       "id": "task_1754538748109_wjsm5vlkk",
       "title": "Implement Git Integration for Workflow Version Control",
       "description": "Add native Git integration to n8n for workflow versioning, change tracking, and collaboration. Include commit workflow changes, branch management, merge capabilities, and version history.",
@@ -1255,7 +1208,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.109Z"
     },
-    "116": {
+    {
       "id": "task_1754538748109_fw5q300ny",
       "title": "Implement SSO and Advanced User Management System",
       "description": "Add Single Sign-On support (SAML, LDAP, OAuth2) and advanced user management features including role-based access control, user groups, and enterprise authentication.",
@@ -1280,7 +1233,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.109Z"
     },
-    "117": {
+    {
       "id": "task_1754538748109_uer3hpzei",
       "title": "Implement Workflow Sharing and Collaboration Features",
       "description": "Build comprehensive workflow sharing capabilities including real-time collaboration, shared workspace management, permission controls, and workflow templates marketplace.",
@@ -1305,7 +1258,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.109Z"
     },
-    "118": {
+    {
       "id": "task_1754538748109_zxb3qe2rp",
       "title": "Implement Custom Variables and External Secrets Management",
       "description": "Add support for custom global variables, environment-specific configurations, and external secrets management integration (Vault, AWS Secrets Manager, Azure Key Vault).",
@@ -1330,7 +1283,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.109Z"
     },
-    "119": {
+    {
       "id": "task_1754538748109_sz1cmb8j0",
       "title": "Implement Advanced Monitoring and Log Streaming",
       "description": "Build comprehensive monitoring capabilities including real-time log streaming, metrics collection, alerting system, and integration with monitoring platforms (Prometheus, Grafana).",
@@ -1355,7 +1308,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.109Z"
     },
-    "120": {
+    {
       "id": "task_1754538748109_8oynvk3ft",
       "title": "Implement Environment Management System",
       "description": "Create comprehensive environment management for staging, production, and development workflows including environment-specific configurations, deployment pipelines, and promotion workflows.",
@@ -1380,7 +1333,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.109Z"
     },
-    "121": {
+    {
       "id": "task_1754538748110_4laaro3rv",
       "title": "Implement Secure Credential Backup and Migration System",
       "description": "Build secure credential backup, migration, and synchronization capabilities including encrypted exports, cross-instance migration, and credential versioning.",
@@ -1405,7 +1358,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.110Z"
     },
-    "122": {
+    {
       "id": "task_1754538748110_mcs02hv8v",
       "title": "Implement Enhanced Workflow History and Autosave",
       "description": "Build comprehensive workflow history tracking, autosave functionality, version comparison, and restoration capabilities with detailed change tracking.",
@@ -1430,7 +1383,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.110Z"
     },
-    "123": {
+    {
       "id": "task_1754538748110_nygmi0qy7",
       "title": "Implement Advanced Node Features and AI Capabilities",
       "description": "Enhance node functionality with advanced CRUD operations, AI-powered parameter suggestions, intelligent error handling, and automated workflow optimization suggestions.",
@@ -1455,7 +1408,7 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.110Z"
     },
-    "124": {
+    {
       "id": "task_1754538748110_gwha3bow8",
       "title": "Implement Simplified OAuth Setup for Cloud Providers",
       "description": "Streamline OAuth integration setup for major cloud providers with guided configuration wizards, pre-configured templates, and automated credential validation.",
@@ -1480,204 +1433,151 @@
       "subtasks": [],
       "created_at": "2025-08-07T03:52:28.110Z"
     },
-    "125": {
+    {
       "id": "task_1754549492081_urgent_build",
       "title": "URGENT: Fix pnpm run build command to run successfully",
       "description": "The pnpm run build command is currently failing on @n8n/backend-test-utils package with exit code 2. Need to investigate and fix the build error immediately so the full build passes without errors.",
       "mode": "DEVELOPMENT",
-      "priority": "high",
+      "priority": "urgent",
       "status": "pending",
       "dependencies": [],
       "important_files": [
         "packages/@n8n/backend-test-utils/"
       ],
       "success_criteria": [
-        "pnpm run build",
         "pnpm run build completes successfully",
         "@n8n/backend-test-utils package builds without errors",
-        "All 43 packages build successfully",
-        "Build completes without any errors or exit codes"
+        "All 43 packages build successfully"
       ],
       "estimate": "1-2 hours",
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-07T06:51:32.081Z"
     },
-    "126": {
-      "id": "task_1754551050000_urgent_dev",
-      "title": "URGENT: Fix pnpm run dev command to run successfully",
-      "description": "Ensure the pnpm run dev command starts the development server successfully without errors. Fix any module loading issues, dependency problems, or configuration errors preventing successful development mode startup.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [
-        "task_1754549492081_urgent_build"
-      ],
-      "important_files": [
-        "package.json",
-        "packages/n8n/bin/n8n",
-        "packages/cli/src/config/index.ts"
-      ],
-      "success_criteria": [
-        "pnpm run dev",
-        "pnpm run dev starts successfully without errors",
-        "Development server loads without module resolution issues",
-        "n8n CLI commands work properly in dev mode",
-        "All required dependencies are resolved"
-      ],
-      "estimate": "2-3 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-07T07:17:30.000Z"
-    },
-    "127": {
-      "id": "task_1754551403402_lint_backend_test_utils",
-      "title": "Fix ESLint errors in @n8n/backend-test-utils package",
-      "description": "Resolve TypeScript ESLint errors in mocking.ts: fix @typescript-eslint/no-explicit-any and @typescript-eslint/no-unsafe-argument violations by providing proper type annotations and safe type handling.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/@n8n/backend-test-utils/src/mocking.ts"
-      ],
-      "success_criteria": [
-        "All ESLint errors in @n8n/backend-test-utils resolved",
-        "Package lints successfully without errors",
-        "Proper TypeScript types replace 'any' usage",
-        "No unsafe argument type assignments remain"
-      ],
-      "estimate": "30 minutes",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-07T07:23:23.402Z"
-    },
-    "130": {
-      "id": "task_1754551403405_lint_backend_common",
-      "title": "Fix ESLint errors in @n8n/backend-common package",
-      "description": "Resolve ESLint errors in @n8n/backend-common package that are causing linting failures. Investigate and fix specific TypeScript and code quality violations preventing clean lint runs.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/@n8n/backend-common/"
-      ],
-      "success_criteria": [
-        "All ESLint errors in @n8n/backend-common resolved",
-        "Package lints successfully without errors",
-        "No TypeScript violations or code quality issues",
-        "Consistent with project linting standards"
-      ],
-      "estimate": "1 hour",
-      "requires_research": true,
-      "subtasks": [],
-      "created_at": "2025-08-07T07:23:23.405Z"
-    },
-    "128": {
-      "id": "task_1754551403403_improve_test_coverage",
-      "title": "Improve test coverage and fix failing tests",
-      "description": "Address test coverage gaps and resolve any failing tests across packages to achieve Strike 3 (Tests) quality of 100%. Focus on critical packages with insufficient coverage.",
+    {
+      "id": "task_1754596548682_y5yvsuk3g",
+      "title": "Fix BlockMessage component tests (25 failures)",
+      "description": "Fix CSS selector mismatches, markdown processing expectations, streaming behavior, and accessibility tests in BlockMessage.test.ts. Tests are failing because selectors like .block-title, .block-content do not match actual component structure.",
       "mode": "TESTING",
       "priority": "high",
       "status": "pending",
       "dependencies": [],
       "important_files": [
-        "packages/*/jest.config.*",
-        "packages/*/__tests__/**",
-        "packages/*/test/**"
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/BlockMessage.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/BlockMessage.vue"
       ],
       "success_criteria": [
-        "All test suites pass successfully",
-        "Coverage thresholds met for critical packages",
-        "No flaky or intermittent test failures",
-        "Test infrastructure runs reliably"
+        "All BlockMessage tests pass without failures",
+        "CSS selectors match actual component structure",
+        "Markdown processing tests align with implementation",
+        "Streaming and accessibility tests work correctly"
       ],
       "estimate": "2-3 hours",
-      "requires_research": true,
-      "subtasks": [],
-      "created_at": "2025-08-07T07:23:23.403Z"
-    },
-    "129": {
-      "id": "task_1754551403404_optimize_lint_performance",
-      "title": "Optimize ESLint configuration for better performance and coverage",
-      "description": "Review and optimize the root ESLint configuration to ensure comprehensive linting coverage while maintaining performance. Address any configuration gaps that might cause quality issues.",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [
-        "task_1754551403402_lint_backend_test_utils"
-      ],
-      "important_files": [
-        "eslint.config.js",
-        "packages/*/eslint.config.*"
-      ],
-      "success_criteria": [
-        "ESLint configuration optimized for comprehensive coverage",
-        "No packages bypass linting due to configuration issues",
-        "Performance maintained while ensuring quality standards",
-        "Consistent linting standards across all packages"
-      ],
-      "estimate": "1-2 hours",
       "requires_research": false,
       "subtasks": [],
-      "created_at": "2025-08-07T07:23:23.404Z"
+      "created_at": "2025-08-07T19:55:48.682Z"
     },
-    "quality-improvement-1754551403401": {
-      "id": "quality-improvement-1754551403401",
-      "title": "Create Quality Improvement Tasks",
-      "description": "Analyze project quality issues and create specific tasks to reach 100% quality for all strikes",
-      "mode": "TASK_CREATION",
+    {
+      "id": "task_1754596548692_yhp7vpn7d",
+      "title": "Fix CodeDiffMessage component tests (28 failures)",
+      "description": "Fix component rendering, action button interactions, error handling, and diff display tests in CodeDiffMessage.test.ts. Tests expect elements that do not exist in actual component implementation.",
+      "mode": "TESTING",
       "priority": "high",
-      "status": "completed",
-      "prompt": "Project quality assessment shows issues preventing 100% strike success:\n\nQuality Status:\n- Strike 1 (Build): 100%\n- Strike 2 (Lint): 70%  \n- Strike 3 (Tests): 80%\n\nIssues Found:\n- Lint and Code Quality: ESLint errors in @n8n/backend-common package\n- Test Coverage and Success: Test failures and coverage gaps preventing 100% quality\n\nTASK: Analyze these quality gaps and create specific improvement tasks to bring ALL strikes to 100% quality. Create tasks for:\n1. Build issues (missing dependencies, build failures, configuration)\n2. Code quality issues (lint errors, style violations, code standards)\n3. Testing issues (failing tests, missing coverage, test setup)\n\nInsert all improvement tasks BEFORE the strike review tasks. Strikes should always remain last in the task list.",
-      "success_criteria": [
-        "All quality issues identified and analyzed",
-        "Specific improvement tasks created for each quality gap",
-        "Tasks properly prioritized and ordered before strikes",
-        "Clear path to 100% quality established"
-      ],
+      "status": "pending",
+      "dependencies": [],
       "important_files": [
-        "package.json",
-        "eslint.config.js",
-        "**/*.test.js"
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/CodeDiffMessage.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/CodeDiffMessage.vue"
       ],
-      "requires_research": true,
-      "is_quality_improvement_task": true,
-      "quality_analysis": {
-        "strike1": {
-          "name": "Build Verification",
-          "quality": 100,
-          "issues": []
-        },
-        "strike2": {
-          "name": "Lint and Code Quality",
-          "quality": 70,
-          "issues": [
-            "ESLint errors in @n8n/backend-common package"
-          ]
-        },
-        "strike3": {
-          "name": "Test Coverage and Success",
-          "quality": 80,
-          "issues": [
-            "Test failures preventing quality completion",
-            "Coverage gaps in critical packages"
-          ]
-        },
-        "overallReady": false
-      },
-      "created_at": "2025-08-07T07:23:23.401Z"
+      "success_criteria": [
+        "All CodeDiffMessage tests pass without failures",
+        "Action button interactions work as expected",
+        "Diff rendering and state management tests fixed",
+        "Error handling scenarios properly tested"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T19:55:48.692Z"
+    },
+    {
+      "id": "task_1754596548695_3g28rpnjk",
+      "title": "Fix MessageRating component tests (20 failures)",
+      "description": "Fix rating button interactions, feedback form display, accessibility, and performance tests in MessageRating.test.ts. Component structure and behavior differs from test expectations.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/MessageRating.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/MessageRating.vue"
+      ],
+      "success_criteria": [
+        "All MessageRating tests pass without failures",
+        "Button interactions and event emissions work correctly",
+        "Feedback form behavior properly tested",
+        "Accessibility and performance tests fixed"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T19:55:48.695Z"
+    },
+    {
+      "id": "task_1754596548699_zgn144hdu",
+      "title": "Fix ToolMessage component tests (22 failures)",
+      "description": "Fix expandable behavior, tool input/output display, progress messages, error handling, and JSON formatting tests in ToolMessage.test.ts. DOM element queries failing due to structure mismatches.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/ToolMessage.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/ToolMessage.vue"
+      ],
+      "success_criteria": [
+        "All ToolMessage tests pass without failures",
+        "Expandable/collapsible behavior tests fixed",
+        "Tool data display and formatting tests work correctly",
+        "Error handling and performance tests resolved"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T19:55:48.699Z"
+    },
+    {
+      "id": "task_1754596548703_oz27g788y",
+      "title": "Fix remaining message component tests (EventMessage, ErrorMessage, MessageWrapper)",
+      "description": "Fix any remaining test failures in EventMessage, ErrorMessage, and MessageWrapper test suites. Address DOM structure mismatches and component behavior expectations.",
+      "mode": "TESTING",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/EventMessage.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/ErrorMessage.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/MessageWrapper.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/EventMessage.vue",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/ErrorMessage.vue",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/MessageWrapper.vue"
+      ],
+      "success_criteria": [
+        "All remaining message component tests pass",
+        "Complete message component test suite has zero failures",
+        "All components properly tested with correct expectations"
+      ],
+      "estimate": "2-4 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T19:55:48.703Z"
     }
-  },
+  ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 371,
-  "last_hook_activation": 1754532921386,
-  "__removedLinterTasks": {
-    "removedCount": 1,
-    "finalTaskCount": 37
-  }
+  "execution_count": 6,
+  "last_hook_activation": 1754596817966,
+  "current_mode": "DEVELOPMENT"
 }
