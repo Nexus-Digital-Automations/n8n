@@ -67,14 +67,16 @@ describe('Module System Integration Tests', () => {
 			Container.get = jest.fn().mockReturnValue(mockModule);
 
 			// Mock dynamic imports
-			const originalImport = global.import;
-			global.import = jest.fn().mockResolvedValue({});
+			const originalImport = (global as any).import;
+			(global as any).import = jest.fn().mockResolvedValue({});
 
 			// Mock require.resolve for path resolution
 			const mockRequire = require as jest.MockedFunction<NodeRequire> & {
 				resolve: jest.MockedFunction<NodeRequire['resolve']>;
 			};
-			mockRequire.resolve = jest.fn().mockReturnValue('/path/to/n8n/package.json');
+			const mockResolve = jest.fn().mockReturnValue('/path/to/n8n/package.json') as any;
+			mockResolve.paths = jest.fn().mockReturnValue([]);
+			mockRequire.resolve = mockResolve;
 
 			try {
 				// 1. Load modules
@@ -95,7 +97,7 @@ describe('Module System Integration Tests', () => {
 				expect(mockModule.shutdown).toHaveBeenCalled();
 				expect(moduleRegistry.isActive('insights' as any)).toBe(false);
 			} finally {
-				global.import = originalImport;
+				(global as any).import = originalImport;
 			}
 		});
 
@@ -135,13 +137,15 @@ describe('Module System Integration Tests', () => {
 			Container.get = jest.fn().mockReturnValue(mockModule);
 
 			// Mock dynamic imports
-			const originalImport = global.import;
-			global.import = jest.fn().mockResolvedValue({});
+			const originalImport = (global as any).import;
+			(global as any).import = jest.fn().mockResolvedValue({});
 
 			const mockRequire = require as jest.MockedFunction<NodeRequire> & {
 				resolve: jest.MockedFunction<NodeRequire['resolve']>;
 			};
-			mockRequire.resolve = jest.fn().mockReturnValue('/path/to/n8n/package.json');
+			const mockResolve = jest.fn().mockReturnValue('/path/to/n8n/package.json') as any;
+			mockResolve.paths = jest.fn().mockReturnValue([]);
+			mockRequire.resolve = mockResolve;
 
 			try {
 				// Load and initialize
@@ -155,7 +159,7 @@ describe('Module System Integration Tests', () => {
 					'Skipped init for unlicensed module "external-secrets"',
 				);
 			} finally {
-				global.import = originalImport;
+				(global as any).import = originalImport;
 			}
 		});
 	});
@@ -332,18 +336,20 @@ describe('Module System Integration Tests', () => {
 			);
 
 			// Mock imports
-			const originalImport = global.import;
-			global.import = jest.fn().mockResolvedValue({});
+			const originalImport = (global as any).import;
+			(global as any).import = jest.fn().mockResolvedValue({});
 
 			const mockRequire = require as jest.MockedFunction<NodeRequire> & {
 				resolve: jest.MockedFunction<NodeRequire['resolve']>;
 			};
-			mockRequire.resolve = jest.fn().mockReturnValue('/path/to/n8n/package.json');
+			const mockResolve = jest.fn().mockReturnValue('/path/to/n8n/package.json') as any;
+			mockResolve.paths = jest.fn().mockReturnValue([]);
+			mockRequire.resolve = mockResolve;
 
 			try {
 				await expect(moduleRegistry.loadModules([])).rejects.toThrow('Metadata loading failed');
 			} finally {
-				global.import = originalImport;
+				(global as any).import = originalImport;
 			}
 		});
 

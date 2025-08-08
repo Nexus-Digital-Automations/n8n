@@ -246,7 +246,7 @@ export async function encodeEmail(email: IEmail) {
 	// So add keepBcc flag to override such behaviour. Only works when
 	// the flag is set after the compilation.
 	// https://nodemailer.com/extras/mailcomposer/#bcc
-	mail.keepBcc = true;
+	(mail as any).keepBcc = true;
 
 	const mailBody = await mail.build();
 

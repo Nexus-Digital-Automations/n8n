@@ -2,6 +2,52 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
+      "id": "task_1754608379729_zuane76f4",
+      "title": "Fix TypeScript compilation errors in CLI package",
+      "description": "Resolve 36 TypeScript compilation errors preventing successful build, including event service type mismatches, import/dependency issues, and workflow controller type issues",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "in_progress",
+      "dependencies": [],
+      "important_files": [
+        "./packages/cli/src/services/security-monitoring.service.ts",
+        "./packages/cli/src/services/system-resources.service.ts",
+        "./packages/cli/src/workflows/workflows.controller.ts",
+        "./packages/cli/src/workflow-runner.ts"
+      ],
+      "success_criteria": [
+        "All TypeScript compilation errors resolved",
+        "npm run build succeeds"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T23:12:59.729Z"
+    },
+    {
+      "id": "task_1754608379733_jhic25gfb",
+      "title": "Verify frontend fixes and integration stability",
+      "description": "Confirm that the recently implemented frontend template processing fixes work correctly across all development scenarios and do not introduce regressions",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./packages/frontend/editor-ui/vite.config.mts",
+        "./packages/frontend/editor-ui/index.html",
+        "./packages/frontend/editor-ui/public/static/base-path.js"
+      ],
+      "success_criteria": [
+        "Frontend loads correctly on port 8080",
+        "Backend serves frontend on port 5678",
+        "Template processing works in dev and prod"
+      ],
+      "estimate": "1 hour",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T23:12:59.733Z"
+    },
+    {
       "id": "task_1754596548703_oz27g788y",
       "title": "Fix remaining message component tests (EventMessage, ErrorMessage, MessageWrapper)",
       "description": "Fix any remaining test failures in EventMessage, ErrorMessage, and MessageWrapper test suites. Address DOM structure mismatches and component behavior expectations.",
@@ -85,47 +131,6 @@
       "created_at": "2025-08-07T20:13:05.054Z"
     },
     {
-      "id": "task_1754607393221_8bg3wa3q5",
-      "title": "Fix n8n development server template placeholder replacement",
-      "description": "The Vite dev server is not replacing {{BASE_PATH}} placeholders in the HTML template, causing static assets to fail loading and blank pages. The transformIndexHtml plugin is skipping replacements in dev mode.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/frontend/editor-ui/vite.config.mts",
-        "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/frontend/editor-ui/index.html"
-      ],
-      "success_criteria": [],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-07T22:56:33.221Z"
-    },
-    {
-      "id": "task_1754608379729_zuane76f4",
-      "title": "Fix TypeScript compilation errors in CLI package",
-      "description": "Resolve 36 TypeScript compilation errors preventing successful build, including event service type mismatches, import/dependency issues, and workflow controller type issues",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "./packages/cli/src/services/security-monitoring.service.ts",
-        "./packages/cli/src/services/system-resources.service.ts",
-        "./packages/cli/src/workflows/workflows.controller.ts",
-        "./packages/cli/src/workflow-runner.ts"
-      ],
-      "success_criteria": [
-        "All TypeScript compilation errors resolved",
-        "npm run build succeeds"
-      ],
-      "estimate": "2-3 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-07T23:12:59.729Z"
-    },
-    {
       "id": "task_1754608379732_9ifel393d",
       "title": "Fix failing tests and improve test coverage",
       "description": "Address test failures and coverage gaps identified in quality assessment. Focus on critical test suites that are preventing 100% test strike success",
@@ -143,29 +148,6 @@
       "requires_research": true,
       "subtasks": [],
       "created_at": "2025-08-07T23:12:59.732Z"
-    },
-    {
-      "id": "task_1754608379733_jhic25gfb",
-      "title": "Verify frontend fixes and integration stability",
-      "description": "Confirm that the recently implemented frontend template processing fixes work correctly across all development scenarios and do not introduce regressions",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "./packages/frontend/editor-ui/vite.config.mts",
-        "./packages/frontend/editor-ui/index.html",
-        "./packages/frontend/editor-ui/public/static/base-path.js"
-      ],
-      "success_criteria": [
-        "Frontend loads correctly on port 8080",
-        "Backend serves frontend on port 5678",
-        "Template processing works in dev and prod"
-      ],
-      "estimate": "1 hour",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-07T23:12:59.733Z"
     },
     {
       "id": "quality-improvement-1754608436290",
@@ -209,13 +191,126 @@
         },
         "overallReady": false
       }
+    },
+    {
+      "id": "task_1754631357949_guhb78l9q",
+      "title": "Design API endpoints for custom node management",
+      "description": "Design RESTful API endpoints for custom node lifecycle management including: POST /api/nodes (upload/create), GET /api/nodes (list), PUT /api/nodes/:id (update), DELETE /api/nodes/:id (remove), POST /api/nodes/:id/deploy (deploy to runtime), GET /api/nodes/:id/status (deployment status). Include request/response schemas, authentication, and validation requirements.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+      ],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T05:35:57.949Z"
+    },
+    {
+      "id": "task_1754631363028_2c30dvwo3",
+      "title": "Implement custom node storage and validation service",
+      "description": "Create backend service for custom node storage, validation, and metadata management. Implement secure file handling, MIME type validation, dependency checking, and node registry functionality. Include database schema for node metadata and version tracking.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [
+        "task_1754631357949_guhb78l9q"
+      ],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+      ],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T05:36:03.028Z"
+    },
+    {
+      "id": "task_1754631369692_t9dvai5eb",
+      "title": "Implement runtime node deployment and hot-reload system",
+      "description": "Create system for safely deploying custom nodes to running n8n instances without requiring restarts. Implement hot-reload functionality, dependency injection, and rollback capabilities. Include proper isolation and error handling for runtime node integration.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [
+        "task_1754631363028_2c30dvwo3"
+      ],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+      ],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T05:36:09.692Z"
+    },
+    {
+      "id": "task_1754631375160_vkiq3pok6",
+      "title": "Build frontend UI for custom node management",
+      "description": "Create frontend interface for custom node management including upload forms, node gallery, deployment controls, and status monitoring. Implement drag-and-drop upload, progress indicators, and integration with existing n8n editor UI patterns.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [
+        "task_1754631357949_guhb78l9q"
+      ],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+      ],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T05:36:15.160Z"
+    },
+    {
+      "id": "task_1754631380912_gjv4lhokv",
+      "title": "Implement comprehensive testing for custom node management system",
+      "description": "Create comprehensive test suite covering API endpoints, storage validation, deployment system, security measures, and frontend components. Include unit tests, integration tests, security tests, and end-to-end workflow testing. Test node upload, validation, deployment, and runtime integration scenarios.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [
+        "task_1754631369692_t9dvai5eb",
+        "task_1754631375160_vkiq3pok6"
+      ],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+      ],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T05:36:20.912Z"
+    },
+    {
+      "id": "task_1754668946023_rcvujtmyq",
+      "title": "Restore lost upstream features through git analysis",
+      "description": "Analyze git history and upstream branch differences to identify any features or code that may have been lost during fork development. Use git analysis to compare this fork against the upstream branch and restore any missing functionality without removing the custom features added to this fork in previous commits. This includes conducting a comprehensive diff analysis and selective restoration of upstream changes.",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754668946023_rcvujtmyq.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754668946023_rcvujtmyq.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T16:02:26.023Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TESTING",
-  "execution_count": 59,
-  "last_hook_activation": 1754628264061,
+  "last_mode": "DEVELOPMENT",
+  "execution_count": 69,
+  "last_hook_activation": 1754669156750,
   "current_mode": "DEVELOPMENT"
 }

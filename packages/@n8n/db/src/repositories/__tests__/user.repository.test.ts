@@ -34,7 +34,7 @@ describe('UserRepository', () => {
 			getMany: jest.fn().mockResolvedValue([]),
 			getOne: jest.fn().mockResolvedValue(null),
 			createQueryBuilder: jest.fn().mockReturnThis(),
-		} as jest.Mocked<SelectQueryBuilder<User>>;
+		} as unknown as jest.Mocked<SelectQueryBuilder<User>>;
 
 		// Create mock entity manager
 		mockManager = {
@@ -42,12 +42,12 @@ describe('UserRepository', () => {
 			findOne: jest.fn().mockResolvedValue(null),
 			create: jest.fn().mockImplementation((_entity, data) => ({ ...data })),
 			save: jest.fn().mockImplementation(async (entity) => entity),
-		} as jest.Mocked<EntityManager>;
+		} as unknown as jest.Mocked<EntityManager>;
 
 		// Create mock data source
 		mockDataSource = {
 			manager: mockManager,
-		} as jest.Mocked<DataSource>;
+		} as unknown as jest.Mocked<DataSource>;
 
 		// Create repository instance
 		userRepository = new UserRepository(mockDataSource);
@@ -424,11 +424,11 @@ describe('UserRepository', () => {
 			};
 
 			mockManager.create.mockImplementation((entity: EntityTarget<unknown>, data: unknown) => {
-				if (entity === User) return mockUser;
-				if (entity === Project) return mockProject;
-				if (entity === ProjectRelation) return mockProjectRelation;
-				return data ?? {};
-			});
+				if (entity === User) return [mockUser];
+				if (entity === Project) return [mockProject];
+				if (entity === ProjectRelation) return [mockProjectRelation];
+				return [data ?? {}];
+			}) as any;
 
 			mockManager.save.mockImplementation(async (entity) => await Promise.resolve(entity));
 
@@ -475,12 +475,14 @@ describe('UserRepository', () => {
 				configurable: true,
 			});
 			mockManager.create.mockImplementation((entity: EntityTarget<unknown>, data: unknown) => {
-				if (entity === User) return mockUser;
-				if (entity === Project) return mockProject;
+				if (entity === User) return [mockUser];
+				if (entity === Project) return [mockProject];
 				if (entity === ProjectRelation)
-					return { projectId: 'project-id-2', userId: 'user-id-2', role: 'project:personalOwner' };
-				return data ?? {};
-			});
+					return [
+						{ projectId: 'project-id-2', userId: 'user-id-2', role: 'project:personalOwner' },
+					];
+				return [data ?? {}];
+			}) as any;
 
 			const result = await userRepository.createUserWithProject(userData);
 
@@ -502,10 +504,10 @@ describe('UserRepository', () => {
 			const mockProject = { id: 'project-no-name', type: 'personal', name: '<noname@example.com>' };
 
 			mockManager.create.mockImplementation((entity: EntityTarget<unknown>, data: unknown) => {
-				if (entity === User) return mockUser;
-				if (entity === Project) return mockProject;
-				return data ?? {};
-			});
+				if (entity === User) return [mockUser];
+				if (entity === Project) return [mockProject];
+				return [data ?? {}];
+			}) as any;
 
 			const result = await userRepository.createUserWithProject(userData, mockManager);
 
@@ -1033,11 +1035,11 @@ describe('UserRepository', () => {
 			};
 
 			mockManager.create.mockImplementation((entity: EntityTarget<unknown>, data: unknown) => {
-				if (entity === User) return mockUser;
-				if (entity === Project) return mockProject;
-				if (entity === ProjectRelation) return mockProjectRelation;
-				return data ?? {};
-			});
+				if (entity === User) return [mockUser];
+				if (entity === Project) return [mockProject];
+				if (entity === ProjectRelation) return [mockProjectRelation];
+				return [data ?? {}];
+			}) as any;
 
 			const result = await userRepository.createUserWithProject(userData, mockManager);
 
@@ -1153,18 +1155,18 @@ describe('UserRepository', () => {
 			};
 
 			mockManager.create.mockImplementation((entity: EntityTarget<unknown>, data: unknown) => {
-				if (entity === User) return mockUser;
-				if (entity === Project) return mockProject;
+				if (entity === User) return [mockUser];
+				if (entity === Project) return [mockProject];
 				if (entity === ProjectRelation) {
 					// Verify that the relation links the correct user and project
 					const relationData = data as { userId: string; projectId: string; role: string };
 					expect(relationData?.userId).toBe('ref-user');
 					expect(relationData?.projectId).toBe('ref-project');
 					expect(relationData?.role).toBe('project:personalOwner');
-					return data ?? {};
+					return [data ?? {}];
 				}
-				return data ?? {};
-			});
+				return [data ?? {}];
+			}) as any;
 
 			await userRepository.createUserWithProject(userData, mockManager);
 

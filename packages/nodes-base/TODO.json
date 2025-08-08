@@ -1,6 +1,21 @@
 {
 	"tasks": [
 		{
+			"id": "task_1754668668452_g3y9hj42q",
+			"title": "Verify build and dev commands succeed",
+			"description": "Ensure both \"pnpm run build\" and \"pnpm run dev\" commands execute successfully without errors",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "in_progress",
+			"dependencies": [],
+			"important_files": [],
+			"success_criteria": [],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T15:57:48.452Z"
+		},
+		{
 			"id": "linter_task_active",
 			"title": "Fix Linter Errors - IMMEDIATE",
 			"description": "Fix 0 errors and 0 warnings found in recently edited files: package.json",
@@ -63,8 +78,8 @@
 		"removedCount": 0,
 		"finalTaskCount": 0
 	},
-	"execution_count": 6,
-	"last_hook_activation": 1754614206699,
+	"execution_count": 7,
+	"last_hook_activation": 1754668497954,
 	"project": "unnamed-project",
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,

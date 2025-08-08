@@ -60,27 +60,29 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 		beforeEach(() => {
 			// Mock require.resolve to simulate different environments
 			const originalRequire = require;
-			global.require = Object.assign(
-				jest.fn().mockImplementation((id: string) => {
-					if (id === 'n8n/package.json') {
-						throw new Error('Module not found');
-					}
-					return originalRequire(id);
-				}),
-				{
-					resolve: jest.fn().mockImplementation((id: string) => {
-						if (id === 'n8n/package.json') {
-							return '/path/to/n8n/package.json';
-						}
-						throw new Error('Module not found');
-					}),
-				},
-			);
+			const mockRequire = jest.fn().mockImplementation((id: string) => {
+				if (id === 'n8n/package.json') {
+					throw new Error('Module not found');
+				}
+				return originalRequire(id);
+			}) as any;
+
+			mockRequire.resolve = jest.fn().mockImplementation((id: string) => {
+				if (id === 'n8n/package.json') {
+					return '/path/to/n8n/package.json';
+				}
+				throw new Error('Module not found');
+			});
+			mockRequire.cache = originalRequire.cache;
+			mockRequire.extensions = originalRequire.extensions;
+			mockRequire.main = originalRequire.main;
+
+			(global as any).require = mockRequire;
 		});
 
 		afterEach(() => {
 			// Restore original require
-			global.require = require;
+			(global as any).require = require;
 		});
 
 		it('should handle Docker environment path resolution', async () => {
@@ -160,26 +162,27 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 			mockModuleMetadata.getClasses.mockReturnValue([]);
 
 			// Mock dynamic import to fail first, succeed second
-			const originalImport = global.import;
-			global.import = jest
+			const originalImport = (global as any).import;
+			const mockImport = jest
 				.fn()
 				.mockRejectedValueOnce(new Error('Module not found'))
 				.mockResolvedValueOnce({});
+			(global as any).import = mockImport;
 
 			await moduleRegistry.loadModules(['insights']);
 
-			expect(global.import).toHaveBeenCalledTimes(2);
-			expect(global.import).toHaveBeenNthCalledWith(
+			expect(mockImport).toHaveBeenCalledTimes(2);
+			expect(mockImport).toHaveBeenNthCalledWith(
 				1,
 				'/path/to/n8n/dist/modules/insights/insights.module',
 			);
-			expect(global.import).toHaveBeenNthCalledWith(
+			expect(mockImport).toHaveBeenNthCalledWith(
 				2,
 				'/path/to/n8n/dist/modules/insights.ee/insights.module',
 			);
 
 			// Restore original import
-			global.import = originalImport;
+			(global as any).import = originalImport;
 		});
 
 		it('should throw MissingModuleError when module not found in both locations', async () => {
@@ -189,18 +192,19 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 			mockRequire.resolve.mockReturnValue('/path/to/n8n/package.json');
 
 			// Mock dynamic import to fail for both attempts
-			const originalImport = global.import;
-			global.import = jest
+			const originalImport = (global as any).import;
+			const mockImport = jest
 				.fn()
 				.mockRejectedValueOnce(new Error('Module not found'))
 				.mockRejectedValueOnce(new Error('Module not found in .ee either'));
+			(global as any).import = mockImport;
 
-			await expect(moduleRegistry.loadModules(['nonexistent'])).rejects.toThrow(MissingModuleError);
+			await expect(moduleRegistry.loadModules(['insights'])).rejects.toThrow(MissingModuleError);
 
-			expect(global.import).toHaveBeenCalledTimes(2);
+			expect(mockImport).toHaveBeenCalledTimes(2);
 
 			// Restore original import
-			global.import = originalImport;
+			(global as any).import = originalImport;
 		});
 
 		it('should handle modules with no entities method', async () => {
@@ -213,14 +217,14 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 			};
 			mockRequire.resolve.mockReturnValue('/path/to/n8n/package.json');
 
-			const originalImport = global.import;
-			global.import = jest.fn().mockResolvedValue({});
+			const originalImport = (global as any).import;
+			(global as any).import = jest.fn().mockResolvedValue({});
 
 			await moduleRegistry.loadModules(['insights']);
 
 			expect(moduleRegistry.entities).toEqual([]);
 
-			global.import = originalImport;
+			(global as any).import = originalImport;
 		});
 
 		it('should handle modules with entities method returning null', async () => {
@@ -233,14 +237,14 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 			};
 			mockRequire.resolve.mockReturnValue('/path/to/n8n/package.json');
 
-			const originalImport = global.import;
-			global.import = jest.fn().mockResolvedValue({});
+			const originalImport = (global as any).import;
+			(global as any).import = jest.fn().mockResolvedValue({});
 
 			await moduleRegistry.loadModules(['insights']);
 
 			expect(moduleRegistry.entities).toEqual([]);
 
-			global.import = originalImport;
+			(global as any).import = originalImport;
 		});
 	});
 
@@ -292,7 +296,7 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 		it('should handle license state throwing an error', async () => {
 			const ModuleClass = { init: jest.fn() } as any;
 			mockModuleMetadata.getEntries.mockReturnValue([
-				['test-module', { licenseFlag: 'feat:testFeature', class: ModuleClass }],
+				['test-module', { licenseFlag: 'feat:sharing' as const, class: ModuleClass }],
 			]);
 			mockLicenseState.isLicensed.mockImplementation(() => {
 				throw new Error('License check failed');
@@ -303,15 +307,15 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 		});
 
 		it('should log debug messages correctly for licensed modules', async () => {
-			const ModuleClass = {
-				init: jest.fn().mockResolvedValue(undefined),
-				settings: jest.fn().mockReturnValue({ test: true }),
-			};
+			class MockModuleClass {
+				init = jest.fn().mockResolvedValue(undefined);
+				settings = jest.fn().mockReturnValue({ test: true });
+			}
 			mockModuleMetadata.getEntries.mockReturnValue([
-				['test-module', { licenseFlag: 'feat:testFeature', class: ModuleClass }],
+				['test-module', { licenseFlag: 'feat:sharing' as const, class: MockModuleClass as any }],
 			]);
 			mockLicenseState.isLicensed.mockReturnValue(true);
-			Container.get = jest.fn().mockReturnValue(ModuleClass);
+			Container.get = jest.fn().mockReturnValue(new MockModuleClass());
 
 			await moduleRegistry.initModules();
 
@@ -321,7 +325,7 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 		it('should log debug messages correctly for unlicensed modules', async () => {
 			const ModuleClass = { init: jest.fn() } as any;
 			mockModuleMetadata.getEntries.mockReturnValue([
-				['test-module', { licenseFlag: 'feat:testFeature', class: ModuleClass }],
+				['test-module', { licenseFlag: 'feat:sharing' as const, class: ModuleClass }],
 			]);
 			mockLicenseState.isLicensed.mockReturnValue(false);
 			Container.get = jest.fn().mockReturnValue(ModuleClass);
@@ -346,13 +350,13 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 			} as any;
 
 			mockModuleMetadata.getEntries.mockReturnValue([
-				['licensed-module', { licenseFlag: 'feat:licensed', class: LicensedModule }],
-				['unlicensed-module', { licenseFlag: 'feat:unlicensed', class: UnlicensedModule }],
+				['licensed-module', { licenseFlag: 'feat:ldap' as const, class: LicensedModule }],
+				['unlicensed-module', { licenseFlag: 'feat:saml' as const, class: UnlicensedModule }],
 				['no-license-module', { licenseFlag: undefined, class: NoLicenseModule }],
 			]);
 
 			mockLicenseState.isLicensed.mockImplementation((feature) => {
-				return feature === 'feat:licensed';
+				return feature === 'feat:ldap';
 			});
 
 			Container.get = jest.fn().mockImplementation((ModuleClass) => ModuleClass);
@@ -510,15 +514,15 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 		});
 
 		it('should handle concurrent modifications to active modules', async () => {
-			const ModuleClass = {
-				init: jest.fn().mockResolvedValue(undefined),
-				settings: jest.fn().mockReturnValue({}),
-			};
+			class MockModuleClass {
+				init = jest.fn().mockResolvedValue(undefined);
+				settings = jest.fn().mockReturnValue({});
+			}
 			mockModuleMetadata.getEntries.mockReturnValue([
-				['test-module-1', { class: ModuleClass }],
-				['test-module-2', { class: ModuleClass }],
+				['test-module-1', { class: MockModuleClass as any }],
+				['test-module-2', { class: MockModuleClass as any }],
 			]);
-			Container.get = jest.fn().mockReturnValue(ModuleClass);
+			Container.get = jest.fn().mockReturnValue(new MockModuleClass());
 
 			// Initialize modules concurrently
 			const initPromises = [moduleRegistry.initModules(), moduleRegistry.initModules()];
@@ -532,15 +536,15 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 
 		it('should maintain active modules order', async () => {
 			const modules = ['module-a', 'module-b', 'module-c'];
-			const ModuleClass = {
-				init: jest.fn().mockResolvedValue(undefined),
-				settings: jest.fn().mockReturnValue({}),
-			};
+			class MockModuleClass {
+				init = jest.fn().mockResolvedValue(undefined);
+				settings = jest.fn().mockReturnValue({});
+			}
 
 			mockModuleMetadata.getEntries.mockReturnValue(
-				modules.map((name) => [name, { class: ModuleClass }]),
+				modules.map((name) => [name, { class: MockModuleClass as any }]),
 			);
-			Container.get = jest.fn().mockReturnValue(ModuleClass);
+			Container.get = jest.fn().mockReturnValue(new MockModuleClass());
 
 			await moduleRegistry.initModules();
 
@@ -561,12 +565,12 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 			};
 			mockRequire.resolve.mockReturnValue('/path/to/n8n/package.json');
 
-			const originalImport = global.import;
-			global.import = jest.fn().mockResolvedValue({});
+			const originalImport = (global as any).import;
+			(global as any).import = jest.fn().mockResolvedValue({});
 
 			await expect(moduleRegistry.loadModules(['insights'])).rejects.toThrow('Container error');
 
-			global.import = originalImport;
+			(global as any).import = originalImport;
 		});
 
 		it('should handle entities method returning a promise', async () => {
@@ -582,14 +586,14 @@ describe('ModuleRegistry - Enhanced Edge Cases', () => {
 			};
 			mockRequire.resolve.mockReturnValue('/path/to/n8n/package.json');
 
-			const originalImport = global.import;
-			global.import = jest.fn().mockResolvedValue({});
+			const originalImport = (global as any).import;
+			(global as any).import = jest.fn().mockResolvedValue({});
 
 			await moduleRegistry.loadModules(['insights']);
 
 			expect(moduleRegistry.entities).toEqual(entities);
 
-			global.import = originalImport;
+			(global as any).import = originalImport;
 		});
 	});
 });

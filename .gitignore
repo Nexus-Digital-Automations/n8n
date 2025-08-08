@@ -135,6 +135,97 @@ coverage.xml
 .pytest_cache/*
 
 # =========================
+# Cache Files & Directories
+# =========================
+
+# General cache patterns
+.cache/
+cache/
+*cache/
+*.cache
+.cached/
+cached/
+*cached/
+.temp-cache/
+temp-cache/
+
+# Build & compilation caches
+.build-cache/
+build-cache/
+.compile-cache/
+compile-cache/
+.incremental/
+incremental/
+
+# Development tool caches
+.jest-cache/
+jest-cache/
+.eslintcache
+.babel-cache/
+babel-cache/
+.webpack-cache/
+webpack-cache/
+.parcel-cache/
+parcel-cache/
+.rollup.cache/
+rollup.cache/
+.vite/
+vite-cache/
+.next/
+next-cache/
+.nuxt/
+nuxt-cache/
+.svelte-kit/
+svelte-cache/
+
+# Language-specific caches
+go.sum
+.go-cache/
+target/
+.cargo-cache/
+.m2/
+.gradle/
+gradle-cache/
+.composer-cache/
+vendor/
+.bundle/
+bundle-cache/
+*.o
+*.obj
+*.lib
+*.a
+*.dll
+*.exe
+.ccache/
+
+# System & application caches
+.chrome-cache/
+.firefox-cache/
+.safari-cache/
+.docker-cache/
+docker-cache/
+.kube-cache/
+kube-cache/
+.git-cache/
+git-cache/
+.ssh-cache/
+ssh-cache/
+.gnupg-cache/
+gnupg-cache/
+
+# Media & asset caches
+.image-cache/
+image-cache/
+thumbs/
+thumbnails/
+.thumbnails/
+.font-cache/
+font-cache/
+.fontconfig/
+.video-cache/
+video-cache/
+
+# =========================
 # Editors and IDEs
 # =========================
 

@@ -1011,9 +1011,77 @@
       "created_at": "2025-08-07T19:55:48.699Z",
       "completed_at": "2025-08-08T04:43:58.139Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754631312283_o48rngqr2",
+      "title": "Research and design automated custom node management API",
+      "description": "Explore implementing n8n API endpoints for automating custom node deployment, management, and updates. Analyze technical feasibility, security implications, and design architecture for safe automation of custom node lifecycle management including packaging, deployment, and runtime integration.",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T05:35:12.283Z",
+      "completed_at": "2025-08-08T05:37:11.578Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754607393221_8bg3wa3q5",
+      "title": "Fix n8n development server template placeholder replacement",
+      "description": "The Vite dev server is not replacing {{BASE_PATH}} placeholders in the HTML template, causing static assets to fail loading and blank pages. The transformIndexHtml plugin is skipping replacements in dev mode.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/frontend/editor-ui/vite.config.mts",
+        "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/frontend/editor-ui/index.html"
+      ],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T22:56:33.221Z",
+      "completed_at": "2025-08-08T05:40:53.805Z",
+      "archived_from_todo": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/TODO.json"
+    },
+    {
+      "id": "task_1754668939213_5h0b5f3va",
+      "title": "Fix settings tabs not showing in web UI frontend",
+      "description": "The settings interface in the web frontend is not showing tabs as expected. Investigate and fix the missing tabs functionality in the settings UI component. This appears to be a UI rendering issue where the tab navigation is not being displayed properly.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./packages/frontend/editor-ui/src/views/SettingsView.vue",
+        "./packages/frontend/editor-ui/src/components/Settings/",
+        "./packages/frontend/@n8n/design-system/src/components/N8nTabs/"
+      ],
+      "success_criteria": [
+        "Settings UI displays tabs correctly",
+        "Tab navigation functions properly",
+        "All settings sections accessible via tabs",
+        "No console errors related to tab rendering",
+        "Visual design matches expected UI patterns"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T16:02:19.213Z",
+      "completed_at": "2025-08-08T16:05:18.580Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 40,
-  "last_completion": "2025-08-08T04:43:58.139Z",
+  "total_completed": 43,
+  "last_completion": "2025-08-08T16:05:18.580Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

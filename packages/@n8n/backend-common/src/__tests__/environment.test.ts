@@ -274,7 +274,7 @@ describe('Environment Detection', () => {
 				{ description: 'Staging environment', env: 'staging' },
 			];
 
-			contexts.forEach(({ description, env }) => {
+			contexts.forEach(({ env }) => {
 				if (env === undefined) {
 					delete process.env.NODE_ENV;
 				} else {

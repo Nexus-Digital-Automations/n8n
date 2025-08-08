@@ -162,7 +162,6 @@ import {
 	faUserCircle,
 	faUserFriends,
 	faUsers,
-	faVectorPolygon,
 	faVideo,
 	faTree,
 	faStickyNote as faSolidStickyNote,
