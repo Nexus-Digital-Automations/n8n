@@ -1342,9 +1342,54 @@
       "created_at": "2025-08-08T19:26:13.556Z",
       "completed_at": "2025-08-08T19:59:29.177Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754680301789_tnhy8olbi",
+      "title": "Fix util._extend deprecation warning",
+      "description": "Replace deprecated util._extend usage with Object.assign() - warning from node:18158 DEP0060. Search codebase for util._extend usage and replace with Object.assign() equivalent functionality. This is a Node.js deprecation (DEP0060) that needs immediate attention.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:11:41.789Z",
+      "completed_at": "2025-08-08T20:12:41.353Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754680119898_gbwgueb62",
+      "title": "Fix n8n localhost server 404 error - server not responding",
+      "description": "The n8n development server at localhost:5678 is returning 404 errors, indicating the server is not running correctly or there are configuration issues. Need to diagnose and fix server startup, build issues, or configuration problems preventing the application from serving properly.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "package.json",
+        "packages/cli/src/server.ts",
+        "packages/cli/package.json",
+        "docker-compose.yml",
+        "turbo.json"
+      ],
+      "success_criteria": [
+        "localhost:5678 loads without 404 errors",
+        "n8n application serves correctly",
+        "Development server starts and runs without issues",
+        "All necessary services are running properly"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:08:39.898Z",
+      "completed_at": "2025-08-08T20:15:58.020Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 55,
-  "last_completion": "2025-08-08T19:59:29.177Z",
+  "total_completed": 57,
+  "last_completion": "2025-08-08T20:15:58.020Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }
