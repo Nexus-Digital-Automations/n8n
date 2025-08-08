@@ -1245,9 +1245,72 @@
       "created_at": "2025-08-07T20:13:03.288Z",
       "completed_at": "2025-08-08T18:38:51.144Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754597584207_nr2fsvyu8",
+      "title": "MIME Type Validation Analysis",
+      "description": "Identify MIME type validation libraries, patterns, and implementation across the codebase",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754597584207_nr2fsvyu8.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754597584207_nr2fsvyu8.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T20:13:04.207Z",
+      "completed_at": "2025-08-08T18:51:30.583Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754597585054_xbhgm2tmg",
+      "title": "Security Headers and Extension Filtering",
+      "description": "Document file extension filtering, security headers, and validation logic for uploaded files",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754597585054_xbhgm2tmg.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754597585054_xbhgm2tmg.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T20:13:05.054Z",
+      "completed_at": "2025-08-08T19:02:27.146Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754597585054_xbhgm2tmg",
+      "title": "Security Headers and Extension Filtering",
+      "description": "Document file extension filtering, security headers, and validation logic for uploaded files",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754597585054_xbhgm2tmg.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754597585054_xbhgm2tmg.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T20:13:05.054Z",
+      "completed_at": "2025-08-08T19:03:51.868Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 50,
-  "last_completion": "2025-08-08T18:38:51.144Z",
+  "total_completed": 53,
+  "last_completion": "2025-08-08T19:03:51.868Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }
