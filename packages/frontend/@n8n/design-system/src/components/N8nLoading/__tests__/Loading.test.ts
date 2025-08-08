@@ -428,9 +428,9 @@ describe('N8nLoading', () => {
 			});
 
 			expect(() => {
-				rerender({ loading: false });
-				rerender({ loading: true });
-				rerender({ loading: false });
+				void rerender({ loading: false });
+				void rerender({ loading: true });
+				void rerender({ loading: false });
 			}).not.toThrow();
 		});
 
@@ -442,9 +442,9 @@ describe('N8nLoading', () => {
 			});
 
 			expect(() => {
-				rerender({ variant: 'h1' });
-				rerender({ variant: 'custom' });
-				rerender({ variant: 'text' });
+				void rerender({ variant: 'h1' });
+				void rerender({ variant: 'custom' });
+				void rerender({ variant: 'text' });
 			}).not.toThrow();
 		});
 
@@ -457,9 +457,9 @@ describe('N8nLoading', () => {
 			});
 
 			expect(() => {
-				rerender({ rows: 5, cols: 0 });
-				rerender({ rows: 1, cols: 3 });
-				rerender({ rows: 10, cols: 5 });
+				void rerender({ rows: 5, cols: 0 });
+				void rerender({ rows: 1, cols: 3 });
+				void rerender({ rows: 10, cols: 5 });
 			}).not.toThrow();
 		});
 	});

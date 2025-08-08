@@ -1,6 +1,7 @@
-import type { ChatUI } from '@n8n/chat';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+
+import type { ChatUI } from '../../../../types';
 
 import ErrorMessage from '../ErrorMessage.vue';
 
@@ -92,7 +93,7 @@ describe('ErrorMessage', () => {
 		});
 
 		it('should handle null content', () => {
-			const message = { ...createErrorMessage(), content: null as any };
+			const message = { ...createErrorMessage(), content: null as string | null };
 			const wrapper = render(ErrorMessage, {
 				props: { message },
 				global: { stubs },
@@ -251,7 +252,7 @@ describe('ErrorMessage', () => {
 			});
 
 			const retryButton = wrapper.container.querySelector('.n8n-button');
-			fireEvent.click(retryButton!);
+			void fireEvent.click(retryButton!);
 
 			// Button should show loading state
 			await wrapper.vm.$nextTick();
@@ -279,7 +280,7 @@ describe('ErrorMessage', () => {
 			});
 
 			const retryButton = wrapper.container.querySelector('.n8n-button');
-			fireEvent.click(retryButton!);
+			void fireEvent.click(retryButton!);
 
 			await wrapper.vm.$nextTick();
 			expect(retryButton).toHaveAttribute('disabled', 'true');
@@ -297,7 +298,7 @@ describe('ErrorMessage', () => {
 			const errorTypes = ['warning', 'error', 'critical'];
 
 			errorTypes.forEach((severity) => {
-				const message = createErrorMessage({ severity: severity as any });
+				const message = createErrorMessage({ severity } as ChatUI.ErrorMessage);
 				const wrapper = render(ErrorMessage, {
 					props: { message },
 					global: { stubs },
@@ -317,7 +318,7 @@ describe('ErrorMessage', () => {
 			];
 
 			errorConfigs.forEach(({ type, expectedIcon }) => {
-				const message = createErrorMessage({ errorType: type as any });
+				const message = createErrorMessage({ errorType: type } as ChatUI.ErrorMessage);
 				const wrapper = render(ErrorMessage, {
 					props: { message },
 					global: { stubs },
@@ -329,7 +330,7 @@ describe('ErrorMessage', () => {
 		});
 
 		it('should use default error icon for unknown error types', () => {
-			const message = createErrorMessage({ errorType: 'unknown-type' as any });
+			const message = createErrorMessage({ errorType: 'unknown-type' } as ChatUI.ErrorMessage);
 			const wrapper = render(ErrorMessage, {
 				props: { message },
 				global: { stubs },
@@ -474,7 +475,7 @@ describe('ErrorMessage', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle message type inconsistency', () => {
-			const message = { ...createErrorMessage(), type: 'not-error' as any };
+			const message = { ...createErrorMessage(), type: 'not-error' } as ChatUI.ErrorMessage;
 			const wrapper = render(ErrorMessage, {
 				props: { message },
 				global: { stubs },
@@ -494,7 +495,7 @@ describe('ErrorMessage', () => {
 		});
 
 		it('should handle null retry function', () => {
-			const message = { ...createErrorMessage(), retry: null as any };
+			const message = { ...createErrorMessage(), retry: null as (() => Promise<void>) | null };
 			const wrapper = render(ErrorMessage, {
 				props: { message },
 				global: { stubs },

@@ -1,5 +1,3 @@
-import type { InferenceProviderOrPolicy } from '@huggingface/inference';
-import { PROVIDERS_OR_POLICIES } from '@huggingface/inference';
 import { HuggingFaceInferenceEmbeddings } from '@langchain/community/embeddings/hf';
 import {
 	NodeConnectionTypes,
@@ -12,6 +10,29 @@ import {
 
 import { logWrapper } from '@utils/logWrapper';
 import { getConnectionHintNoticeField } from '@utils/sharedFields';
+
+// Provider options based on @huggingface/inference v4.0+ API
+const INFERENCE_PROVIDERS = [
+	'auto',
+	'black-forest-labs',
+	'cerebras',
+	'cohere',
+	'fal-ai',
+	'featherless-ai',
+	'fireworks-ai',
+	'groq',
+	'hf-inference',
+	'hyperbolic',
+	'nebius',
+	'novita',
+	'nscale',
+	'openai',
+	'replicate',
+	'sambanova',
+	'together',
+] as const;
+
+type InferenceProvider = (typeof INFERENCE_PROVIDERS)[number];
 
 export class EmbeddingsHuggingFaceInference implements INodeType {
 	description: INodeTypeDescription = {
@@ -83,7 +104,7 @@ export class EmbeddingsHuggingFaceInference implements INodeType {
 						displayName: 'Provider',
 						name: 'provider',
 						type: 'options',
-						options: PROVIDERS_OR_POLICIES.map((value) => ({ value, name: value })),
+						options: INFERENCE_PROVIDERS.map((value) => ({ value, name: value })),
 						default: 'auto',
 					},
 				],
@@ -101,7 +122,7 @@ export class EmbeddingsHuggingFaceInference implements INodeType {
 		const credentials = await this.getCredentials('huggingFaceApi');
 		const options = this.getNodeParameter('options', itemIndex, {}) as object;
 
-		if ('provider' in options && !isValidHFProviderOrPolicy(options.provider)) {
+		if ('provider' in options && !isValidInferenceProvider(options.provider)) {
 			throw new NodeOperationError(this.getNode(), 'Unsupported provider');
 		}
 
@@ -117,8 +138,8 @@ export class EmbeddingsHuggingFaceInference implements INodeType {
 	}
 }
 
-function isValidHFProviderOrPolicy(provider: unknown): provider is InferenceProviderOrPolicy {
+function isValidInferenceProvider(provider: unknown): provider is InferenceProvider {
 	return (
-		typeof provider === 'string' && (PROVIDERS_OR_POLICIES as readonly string[]).includes(provider)
+		typeof provider === 'string' && (INFERENCE_PROVIDERS as readonly string[]).includes(provider)
 	);
 }

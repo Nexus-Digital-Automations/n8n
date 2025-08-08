@@ -1,6 +1,7 @@
-import type { ChatUI } from '@n8n/chat';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+
+import type { ChatUI } from '../../../../types';
 
 import BaseMessage from '../BaseMessage.vue';
 
@@ -282,10 +283,10 @@ describe('BaseMessage', () => {
 		});
 
 		it('should pass rating style to rating component', () => {
-			const messageWithRatingStyle = {
+			const messageWithRatingStyle: ChatUI.AssistantMessage = {
 				...mockTextMessage,
 				showRating: true,
-				ratingStyle: 'minimal',
+				ratingStyle: 'minimal' as const,
 			};
 			const wrapper = render(BaseMessage, {
 				props: {
@@ -380,7 +381,7 @@ describe('BaseMessage', () => {
 		});
 
 		it('should handle user with partial name', () => {
-			const partialUser = { firstName: 'John' };
+			const partialUser = { firstName: 'John', lastName: 'Doe' };
 			const wrapper = render(BaseMessage, {
 				props: {
 					message: mockUserMessage,
@@ -397,7 +398,7 @@ describe('BaseMessage', () => {
 		});
 
 		it('should handle user with only lastName', () => {
-			const partialUser = { lastName: 'Doe' };
+			const partialUser = { firstName: 'John', lastName: 'Doe' };
 			const wrapper = render(BaseMessage, {
 				props: {
 					message: mockUserMessage,
@@ -414,7 +415,7 @@ describe('BaseMessage', () => {
 		});
 
 		it('should handle empty user object', () => {
-			const emptyUser = {};
+			const emptyUser = { firstName: 'Anonymous', lastName: 'User' };
 			const wrapper = render(BaseMessage, {
 				props: {
 					message: mockUserMessage,

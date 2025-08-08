@@ -1,4 +1,4 @@
-import type { ChatUI } from '@n8n/chat';
+import type { ChatUI } from '../../../../types';
 import { render } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 

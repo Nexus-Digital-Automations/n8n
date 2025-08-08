@@ -21,6 +21,18 @@ declare module '*?raw' {
 	export default content;
 }
 
+// Vue component type declarations
+declare module '*.vue' {
+	import type { DefineComponent } from 'vue';
+	const component: DefineComponent<any, any, any>;
+	export default component;
+	// Allow any named exports from Vue components
+	export const Props: any;
+	export const TableOptions: any;
+	export const TableHeader: any;
+	export const CanvasEdgeProps: any;
+}
+
 declare module 'v3-infinite-loading' {
 	import { Plugin, DefineComponent } from 'vue';
 

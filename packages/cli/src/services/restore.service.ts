@@ -370,9 +370,10 @@ export class RestoreService {
 
 			try {
 				if (existing && overwriteExisting) {
-					// Update existing workflow
+					// Update existing workflow - exclude all relations that TypeORM can't handle in update
+					const { tags, tagMappings, shared, ...workflowData } = workflow;
 					await manager.update(WorkflowEntity, existing.id, {
-						...workflow,
+						...workflowData,
 						id: existing.id, // Keep original ID
 					});
 					conflicts.push({
@@ -432,9 +433,10 @@ export class RestoreService {
 
 			try {
 				if (existing && overwriteExisting) {
-					// Update existing credential
+					// Update existing credential - exclude relations that TypeORM can't handle in update
+					const { shared, ...credentialData } = credential;
 					await manager.update(CredentialsEntity, existing.id, {
-						...credential,
+						...credentialData,
 						id: existing.id, // Keep original ID
 					});
 					conflicts.push({

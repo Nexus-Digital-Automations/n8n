@@ -8,6 +8,7 @@ describe('permissions', () => {
 		expect(getResourcePermissions()).toEqual({
 			annotationTag: {},
 			auditLogs: {},
+			backup: {},
 			banner: {},
 			community: {},
 			communityPackage: {},
@@ -15,6 +16,9 @@ describe('permissions', () => {
 			externalSecretsProvider: {},
 			externalSecret: {},
 			eventBusDestination: {},
+			folder: {},
+			insights: {},
+			instance: {},
 			ldap: {},
 			license: {},
 			logStreaming: {},
@@ -29,8 +33,6 @@ describe('permissions', () => {
 			variable: {},
 			workersView: {},
 			workflow: {},
-			folder: {},
-			insights: {},
 		});
 	});
 	it('getResourcePermissions', () => {

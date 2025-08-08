@@ -2,7 +2,8 @@
 	"extends": "@n8n/typescript-config/tsconfig.frontend.json",
 	"compilerOptions": {
 		"baseUrl": ".",
-		"rootDirs": [".", "../composables/src"],
+		"moduleResolution": "bundler",
+		"rootDirs": [".", "../composables/src", "../chat/src"],
 		"outDir": "dist",
 		"types": ["vite/client", "unplugin-icons/types/vue", "vitest/globals"],
 		"typeRoots": [
@@ -14,7 +15,10 @@
 		"paths": {
 			"@n8n/design-system*": ["./src*"],
 			"@n8n/composables*": ["../composables/src*"],
-			"@n8n/utils*": ["../../../@n8n/utils/src*"]
+			"@n8n/chat*": ["../chat/src*"],
+			"@n8n/utils*": ["../../../@n8n/utils/src*"],
+			"@n8n/constants*": ["../../../@n8n/constants/src*"],
+			"@n8n/api-types*": ["../../../@n8n/api-types/src*"]
 		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.vue"]
