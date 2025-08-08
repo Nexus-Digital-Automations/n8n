@@ -2,21 +2,232 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754631357949_guhb78l9q",
-      "title": "Design API endpoints for custom node management",
-      "description": "Design RESTful API endpoints for custom node lifecycle management including: POST /api/nodes (upload/create), GET /api/nodes (list), PUT /api/nodes/:id (update), DELETE /api/nodes/:id (remove), POST /api/nodes/:id/deploy (deploy to runtime), GET /api/nodes/:id/status (deployment status). Include request/response schemas, authentication, and validation requirements.",
+      "id": "task_1754684639147_98belngvf",
+      "title": "Fix TypeScript compilation errors in CLI package",
+      "description": "Resolve TypeScript compilation errors preventing n8n CLI from building. Focus on custom-nodes.controller.ts, notification services, and other custom files with type errors. These errors are blocking the CLI from starting properly.",
       "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "in_progress",
+      "priority": "critical",
+      "status": "pending",
       "dependencies": [],
-      "important_files": [
-        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
-      ],
+      "important_files": [],
       "success_criteria": [],
       "estimate": "",
       "requires_research": false,
       "subtasks": [],
-      "created_at": "2025-08-08T05:35:57.949Z"
+      "created_at": "2025-08-08T20:23:59.147Z"
+    },
+    {
+      "id": "task_1754684443828_aip9fqeiz",
+      "title": "Configure Progressive ESLint Rule Enforcement",
+      "description": "Update ESLint configurations to enforce fixed rules as errors and create package-specific overrides for external API constraints. Implement lint-staged to prevent new violations.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "in_progress",
+      "dependencies": [],
+      "important_files": [
+        "eslint.config.mjs",
+        "packages/*/eslint.config.mjs",
+        "package.json",
+        ".husky/"
+      ],
+      "success_criteria": [
+        "Fixed packages have rules converted from warn to error",
+        "Package-specific overrides configured",
+        "Lint-staged configured to prevent regressions",
+        "CI/CD updated to enforce new rules"
+      ],
+      "estimate": "4-6 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.828Z"
+    },
+    {
+      "id": "task_1754684443826_ma72eqob7",
+      "title": "Fix Performance-Related Linting Issues",
+      "description": "Address 26 n8n-local-rules/no-argument-spread violations by replacing performance-unsafe argument spreading with optimized alternatives. Maintain functionality while improving performance.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/workflow/src/"
+      ],
+      "success_criteria": [
+        "All n8n-local-rules/no-argument-spread violations resolved",
+        "Performance-safe alternatives implemented",
+        "No regression in functionality",
+        "Performance improvements measurable"
+      ],
+      "estimate": "4-6 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.826Z"
+    },
+    {
+      "id": "task_1754684443824_psr2a5fgd",
+      "title": "Modernize JavaScript Patterns and Fix Best Practices",
+      "description": "Fix ~95 best practice violations including: prefer-nullish-coalescing, prefer-optional-chain, require-await, and prototype method usage. Modernize code to use current JavaScript patterns.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/*/src/"
+      ],
+      "success_criteria": [
+        "All prefer-nullish-coalescing violations fixed",
+        "All prefer-optional-chain violations fixed",
+        "Unnecessary async keywords removed",
+        "Modern JavaScript patterns implemented",
+        "Performance optimizations applied"
+      ],
+      "estimate": "8-12 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.824Z"
+    },
+    {
+      "id": "task_1754684443822_8pjr7om6l",
+      "title": "Remove Explicit Any Types and Add Proper Types",
+      "description": "Replace ~44 explicit any types with proper type definitions. Create shared type definitions for common patterns and establish type-safe alternatives for dynamic data access.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/workflow/src/",
+        "packages/@n8n/types/"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-explicit-any errors resolved",
+        "Proper type definitions created for common patterns",
+        "Shared interfaces established for dynamic data",
+        "Type safety improved without breaking functionality"
+      ],
+      "estimate": "12-16 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.822Z"
+    },
+    {
+      "id": "task_1754684443820_ydim9rtzi",
+      "title": "Fix Unbound Method Usage Issues",
+      "description": "Resolve ~88 unbound method violations primarily in packages/core. Fix method binding issues using proper arrow functions or explicit binding to ensure correct  context.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/workflow/src/"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/unbound-method errors resolved",
+        "Proper method binding implemented",
+        "No  context issues in method calls",
+        "All affected packages pass unbound-method rule"
+      ],
+      "estimate": "8-12 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.820Z"
+    },
+    {
+      "id": "task_1754684443818_q5x91sivg",
+      "title": "Fix Naming Convention Violations Across All Packages",
+      "description": "Address ~997 naming convention violations across the monorepo. Focus on API property names that can be safely changed vs external API constraints that need ESLint overrides. Create consistent naming patterns for internal code.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/*/src/",
+        "eslint.config.mjs",
+        "packages/*/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All internal naming convention violations resolved",
+        "ESLint overrides configured for external API constraints",
+        "Consistent naming patterns established",
+        "All packages pass naming-convention rule"
+      ],
+      "estimate": "20-30 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.818Z"
+    },
+    {
+      "id": "task_1754684443817_j48hiu1i0",
+      "title": "Fix Root-Level TypeScript Parsing Errors",
+      "description": "Resolve 12 TypeScript parsing errors in notification-system-design/ directory that are causing build/lint failures. Update ESLint configuration or fix TypeScript syntax issues to prevent parser errors.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "notification-system-design/",
+        "eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All TypeScript parsing errors resolved",
+        "ESLint can successfully parse all files",
+        "No syntax errors in notification-system-design/",
+        "Root-level lint passes completely"
+      ],
+      "estimate": "2-4 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.817Z"
+    },
+    {
+      "id": "task_1754684443815_6c3m39jet",
+      "title": "Fix TypeScript Safety Violations in Workflow Package",
+      "description": "Resolve ~1,203 TypeScript safety violations in packages/workflow including: 680 naming-convention violations, 148 no-unsafe-member-access, 132 no-unsafe-call, 44 no-explicit-any, and 30 no-unsafe-assignment violations. This package affects workflow execution engine safety.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-* errors resolved in workflow package",
+        "All @typescript-eslint/naming-convention errors resolved",
+        "All @typescript-eslint/no-explicit-any errors resolved",
+        "Workflow package ESLint passes without safety warnings",
+        "No regressions in workflow functionality"
+      ],
+      "estimate": "25-30 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.815Z"
+    },
+    {
+      "id": "task_1754684443812_5gwkt446y",
+      "title": "Fix TypeScript Safety Violations in Core Package",
+      "description": "Resolve ~570 TypeScript safety violations in packages/core including: 317 naming-convention violations, 88 unbound-method violations, 49 require-await violations, 35 no-unsafe-member-access, 27 no-unsafe-assignment, and 26 no-argument-spread violations. Focus on type annotations and safe property access patterns.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/core/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-* errors resolved in core package",
+        "All @typescript-eslint/naming-convention errors resolved",
+        "All @typescript-eslint/unbound-method errors resolved",
+        "Core package ESLint passes without safety warnings",
+        "No regressions in core functionality"
+      ],
+      "estimate": "15-20 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.812Z"
     },
     {
       "id": "task_1754631363028_2c30dvwo3",
@@ -25,9 +236,7 @@
       "mode": "DEVELOPMENT",
       "priority": "high",
       "status": "pending",
-      "dependencies": [
-        "task_1754631357949_guhb78l9q"
-      ],
+      "dependencies": [],
       "important_files": [
         "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
       ],
@@ -63,9 +272,7 @@
       "mode": "DEVELOPMENT",
       "priority": "medium",
       "status": "pending",
-      "dependencies": [
-        "task_1754631357949_guhb78l9q"
-      ],
+      "dependencies": [],
       "important_files": [
         "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
       ],
@@ -333,6 +540,21 @@
       "created_at": "2025-08-08T19:59:17.819Z"
     },
     {
+      "id": "task_1754684646225_6iomu73ba",
+      "title": "Fix n8n CLI path alias resolution for security-audit imports",
+      "description": "Fix the @/ path alias resolution issue in the compiled audit.js command. The tsc-alias build step is not properly converting @/security-audit/constants imports to relative paths, causing \"Cannot find module\" errors when running n8n CLI.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:24:06.225Z"
+    },
+    {
       "id": "task_1754683157822_kzis52tg2",
       "title": "Add comprehensive testing for autosave functionality",
       "description": "Create unit tests for autosave composable, integration tests for NodeView autosave behavior, and E2E tests for complete autosave workflows including edge cases and error scenarios.",
@@ -363,7 +585,7 @@
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 94,
-  "last_hook_activation": 1754684216389,
+  "execution_count": 95,
+  "last_hook_activation": 1754684388934,
   "current_mode": "DEVELOPMENT"
 }

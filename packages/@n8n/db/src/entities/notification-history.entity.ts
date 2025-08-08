@@ -12,7 +12,7 @@ import {
 import { User } from './user';
 import { WorkflowEntity } from './workflow-entity';
 import { ExecutionEntity } from './execution-entity';
-import { WithTimestampsAndStringId, jsonColumnType } from './abstract-entity';
+import { WithTimestampsAndStringId, jsonColumnType, DateTimeColumn } from './abstract-entity';
 
 export type NotificationStatus = 'pending' | 'sent' | 'failed' | 'retrying';
 
@@ -69,13 +69,13 @@ export class NotificationHistoryEntity extends WithTimestampsAndStringId {
 	@Column({ type: 'text', nullable: true })
 	error: string | null;
 
-	@Column({ type: 'timestamp', nullable: true })
+	@DateTimeColumn({ nullable: true })
 	sentAt: Date | null;
 
 	@Column({ type: 'int', default: 0 })
 	retryCount: number;
 
-	@Column({ type: 'timestamp', nullable: true })
+	@DateTimeColumn({ nullable: true })
 	nextRetryAt: Date | null;
 
 	@Column({ type: jsonColumnType, default: '{}' })

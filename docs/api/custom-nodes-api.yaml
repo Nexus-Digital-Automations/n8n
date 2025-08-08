@@ -1,0 +1,1606 @@
+openapi: 3.0.3
+info:
+  title: n8n Custom Nodes Management API
+  description: |
+    RESTful API for managing custom nodes in n8n, supporting the complete lifecycle from upload
+    and validation to deployment and monitoring. This API extends n8n's existing community
+    packages functionality with enterprise-grade features.
+    
+    ## Features
+    - Upload custom nodes via file upload or source repositories
+    - Comprehensive validation including security scanning
+    - Deployment control with staging and production environments  
+    - Real-time status monitoring and performance metrics
+    - Template-based node generation and scaffolding
+    - Batch operations for managing multiple nodes
+    - Import/export functionality for backup and migration
+    
+    ## Authentication
+    All endpoints require authentication using n8n's standard authentication mechanisms.
+    Users must have appropriate permissions based on their role and the operation being performed.
+  version: 1.0.0
+  contact:
+    name: n8n API Support
+    url: https://docs.n8n.io
+    email: support@n8n.io
+  license:
+    name: Fair-code license, Sustainable Use License
+    url: https://docs.n8n.io/reference/license/
+
+servers:
+  - url: http://localhost:5678/api
+    description: Development server
+  - url: https://your-n8n-instance.com/api
+    description: Production server
+
+security:
+  - ApiKeyAuth: []
+  - BearerAuth: []
+
+paths:
+  /custom-nodes:
+    get:
+      summary: List custom nodes
+      description: |
+        Retrieve a paginated list of custom nodes with filtering and sorting options.
+        Supports filtering by status, category, author, tags, and search terms.
+      tags:
+        - Custom Nodes
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: status
+          in: query
+          description: Filter by node status
+          schema:
+            type: string
+            enum: [all, validating, validated, deployed, failed, archived]
+            default: all
+        - name: category
+          in: query
+          description: Filter by node category
+          schema:
+            type: string
+        - name: author
+          in: query
+          description: Filter by node author
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search in node names and descriptions
+          schema:
+            type: string
+        - name: tags
+          in: query
+          description: Filter by tags (comma-separated)
+          schema:
+            type: string
+            example: "api,custom,utility"
+        - name: nodeTypes
+          in: query
+          description: Filter by node type names (comma-separated)
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of items to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - name: offset
+          in: query
+          description: Number of items to skip for pagination
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: sortBy
+          in: query
+          description: Field to sort by
+          schema:
+            type: string
+            enum: [name, createdAt, updatedAt, version, status, downloadCount, rating]
+            default: createdAt
+        - name: sortOrder
+          in: query
+          description: Sort order
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+        - name: includeInactive
+          in: query
+          description: Include inactive nodes in results
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: List of custom nodes retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListNodesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+    post:
+      summary: Create/upload a new custom node
+      description: |
+        Upload and validate a custom node. Supports file uploads or source repository configurations.
+        The node will be validated for syntax, security, dependencies, and tests before being stored.
+      tags:
+        - Custom Nodes
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateNodeRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNodeRequestJSON'
+      responses:
+        '201':
+          description: Node created/uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateNodeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '413':
+          description: File too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /custom-nodes/{nodeId}:
+    get:
+      summary: Get custom node details
+      description: |
+        Retrieve detailed information about a specific custom node including
+        validation results, metadata, deployment information, and usage statistics.
+      tags:
+        - Custom Nodes
+      parameters:
+        - $ref: '#/components/parameters/NodeId'
+      responses:
+        '200':
+          description: Node details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeDetailsResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+    put:
+      summary: Update custom node
+      description: |
+        Update an existing custom node's metadata, files, or configuration.
+        File updates will trigger re-validation of the node.
+      tags:
+        - Custom Nodes
+      parameters:
+        - $ref: '#/components/parameters/NodeId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateNodeRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNodeRequestJSON'
+      responses:
+        '200':
+          description: Node updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateNodeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+    delete:
+      summary: Delete custom node
+      description: |
+        Delete a custom node. Deployed nodes require force parameter.
+        Optionally archive instead of permanently deleting.
+      tags:
+        - Custom Nodes
+      parameters:
+        - $ref: '#/components/parameters/NodeId'
+        - name: force
+          in: query
+          description: Force delete even if deployed
+          schema:
+            type: boolean
+            default: false
+        - name: cleanup
+          in: query
+          description: Remove runtime instances
+          schema:
+            type: boolean
+            default: true
+        - name: archiveOnly
+          in: query
+          description: Archive instead of delete
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Node deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteNodeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Node is deployed and cannot be deleted without force
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /custom-nodes/{nodeId}/deploy:
+    post:
+      summary: Deploy node to runtime
+      description: |
+        Deploy a validated custom node to the specified environment (staging or production).
+        Supports rollback functionality and deployment options.
+      tags:
+        - Node Deployment
+      parameters:
+        - $ref: '#/components/parameters/NodeId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeployNodeRequest'
+      responses:
+        '202':
+          description: Deployment started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployNodeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Node validation failed or deployment conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /custom-nodes/{nodeId}/status:
+    get:
+      summary: Get node deployment status
+      description: |
+        Retrieve current deployment status, runtime information, health metrics,
+        and deployment history for a specific node.
+      tags:
+        - Node Monitoring
+      parameters:
+        - $ref: '#/components/parameters/NodeId'
+      responses:
+        '200':
+          description: Node status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeStatusResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /custom-nodes/batch:
+    post:
+      summary: Perform batch operations
+      description: |
+        Execute operations on multiple nodes simultaneously. Supports deploy, undeploy,
+        delete, and validate operations with configurable concurrency.
+      tags:
+        - Batch Operations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchOperationRequest'
+      responses:
+        '200':
+          description: Batch operation completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchOperationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /custom-nodes/templates:
+    get:
+      summary: Get available node templates
+      description: |
+        Retrieve a list of available templates for creating new custom nodes.
+        Templates provide scaffolding for common node patterns.
+      tags:
+        - Templates
+      responses:
+        '200':
+          description: Templates retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplatesResponse'
+
+  /custom-nodes/templates/{templateId}/generate:
+    post:
+      summary: Generate node from template
+      description: |
+        Generate a new custom node using the specified template with
+        provided parameters and configuration.
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          in: path
+          required: true
+          description: Template identifier
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateFromTemplateRequest'
+      responses:
+        '201':
+          description: Node generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateFromTemplateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Template not found
+
+  /custom-nodes/import:
+    post:
+      summary: Import custom nodes
+      description: |
+        Import custom nodes from file uploads, URLs, or backup archives.
+        Supports bulk import with conflict resolution.
+      tags:
+        - Import/Export
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImportNodesRequest'
+      responses:
+        '200':
+          description: Import completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportNodesResponse'
+
+  /custom-nodes/{nodeId}/export:
+    get:
+      summary: Export custom node
+      description: |
+        Export a custom node as a downloadable archive with optional
+        version history and dependencies.
+      tags:
+        - Import/Export
+      parameters:
+        - $ref: '#/components/parameters/NodeId'
+        - name: format
+          in: query
+          description: Export format
+          schema:
+            type: string
+            enum: [json, tar, zip]
+            default: json
+        - name: includeVersionHistory
+          in: query
+          description: Include version history
+          schema:
+            type: boolean
+            default: false
+        - name: includeDependencies
+          in: query
+          description: Include dependencies
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Node exported successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    NodeId:
+      name: nodeId
+      in: path
+      required: true
+      description: Unique identifier for the custom node
+      schema:
+        type: string
+        pattern: '^[a-zA-Z0-9_-]+$'
+
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    # Base Types
+    NodeStatus:
+      type: string
+      enum: [validating, validated, deployed, failed, archived]
+      
+    DeploymentStatus:
+      type: string
+      enum: [queued, deploying, deployed, failed, rolled-back]
+      
+    Environment:
+      type: string
+      enum: [staging, production]
+
+    # Core Data Models
+    CustomNodeMetadata:
+      type: object
+      properties:
+        nodeTypes:
+          type: array
+          items:
+            type: string
+          description: Array of node type names provided by this node
+        author:
+          type: string
+          description: Node author name
+        authorEmail:
+          type: string
+          format: email
+          description: Author email address
+        license:
+          type: string
+          description: License identifier (SPDX format preferred)
+        fileSize:
+          type: string
+          description: Human-readable file size
+        dependencies:
+          type: array
+          items:
+            type: string
+          description: Array of npm dependencies
+        category:
+          type: string
+          description: Node category for organization
+        tags:
+          type: array
+          items:
+            type: string
+          description: Searchable tags
+        repository:
+          type: string
+          format: uri
+          description: Source repository URL
+        homepage:
+          type: string
+          format: uri
+          description: Homepage or documentation URL
+      required: [nodeTypes, author, license, fileSize, dependencies]
+
+    ValidationResults:
+      type: object
+      properties:
+        syntax:
+          type: boolean
+          description: Syntax validation passed
+        dependencies:
+          type: boolean
+          description: Dependency validation passed
+        security:
+          type: boolean
+          description: Security validation passed
+        tests:
+          type: boolean
+          description: Tests validation passed
+        performance:
+          type: boolean
+          description: Performance validation passed
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationIssue'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationIssue'
+        scanResults:
+          type: object
+          properties:
+            vulnerabilities:
+              type: integer
+              description: Number of security vulnerabilities found
+            securityScore:
+              type: integer
+              minimum: 0
+              maximum: 100
+              description: Overall security score
+            codeQuality:
+              type: integer
+              minimum: 0
+              maximum: 100
+              description: Code quality score
+      required: [syntax, dependencies, security, tests, performance, warnings, errors]
+
+    ValidationIssue:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [syntax, security, dependency, performance, style]
+        severity:
+          type: string
+          enum: [error, warning, info]
+        message:
+          type: string
+        file:
+          type: string
+        line:
+          type: integer
+        column:
+          type: integer
+        rule:
+          type: string
+      required: [type, severity, message]
+
+    CustomNodeSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        version:
+          type: string
+        status:
+          $ref: '#/components/schemas/NodeStatus'
+        description:
+          type: string
+        author:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        nodeTypes:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        deployedAt:
+          type: string
+          format: date-time
+        isActive:
+          type: boolean
+        downloadCount:
+          type: integer
+        rating:
+          type: number
+          minimum: 0
+          maximum: 5
+        lastUsed:
+          type: string
+          format: date-time
+      required: [id, name, version, status, author, tags, nodeTypes, createdAt, updatedAt, isActive]
+
+    # Request Schemas
+    CreateNodeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: '^[a-zA-Z0-9_-]+$'
+        description:
+          type: string
+          maxLength: 1000
+        version:
+          type: string
+          pattern: '^[0-9]+\.[0-9]+\.[0-9]+.*$'
+        tags:
+          type: array
+          items:
+            type: string
+        category:
+          type: string
+        validateOnly:
+          type: boolean
+          default: false
+        skipTests:
+          type: boolean
+          default: false
+        file:
+          type: string
+          format: binary
+          description: Node file upload (.js, .ts, .tgz, .tar.gz)
+        source:
+          $ref: '#/components/schemas/NodeSourceConfig'
+      required: [name, version]
+
+    CreateNodeRequestJSON:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 1000
+        version:
+          type: string
+          pattern: '^[0-9]+\.[0-9]+\.[0-9]+.*$'
+        tags:
+          type: array
+          items:
+            type: string
+        category:
+          type: string
+        validateOnly:
+          type: boolean
+          default: false
+        skipTests:
+          type: boolean
+          default: false
+        source:
+          $ref: '#/components/schemas/NodeSourceConfig'
+      required: [name, version, source]
+
+    NodeSourceConfig:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [git, url, npm, file]
+        location:
+          type: string
+          format: uri
+        version:
+          type: string
+        branch:
+          type: string
+        tag:
+          type: string
+        credentials:
+          type: object
+          properties:
+            token:
+              type: string
+            username:
+              type: string
+            password:
+              type: string
+              format: password
+            sshKey:
+              type: string
+        buildConfig:
+          type: object
+          properties:
+            buildCommand:
+              type: string
+            outputDirectory:
+              type: string
+            entryPoint:
+              type: string
+      required: [type, location]
+
+    UpdateNodeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        category:
+          type: string
+        version:
+          type: string
+        isActive:
+          type: boolean
+        file:
+          type: string
+          format: binary
+
+    UpdateNodeRequestJSON:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        category:
+          type: string
+        version:
+          type: string
+        isActive:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties: true
+
+    DeployNodeRequest:
+      type: object
+      properties:
+        environment:
+          $ref: '#/components/schemas/Environment'
+        version:
+          type: string
+        rollback:
+          type: boolean
+          default: false
+        options:
+          $ref: '#/components/schemas/DeploymentOptions'
+
+    DeploymentOptions:
+      type: object
+      properties:
+        restartWorkflows:
+          type: boolean
+          default: false
+        gracefulShutdown:
+          type: boolean
+          default: true
+        timeout:
+          type: integer
+          minimum: 10
+          maximum: 3600
+          default: 300
+        rollbackOnFailure:
+          type: boolean
+          default: true
+        preDeploymentTests:
+          type: boolean
+          default: true
+        notificationChannels:
+          type: array
+          items:
+            type: string
+        resourceLimits:
+          type: object
+          properties:
+            memory:
+              type: string
+            cpu:
+              type: string
+            timeout:
+              type: integer
+
+    BatchOperationRequest:
+      type: object
+      properties:
+        operation:
+          type: string
+          enum: [deploy, undeploy, delete, validate]
+        nodeIds:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 50
+        options:
+          $ref: '#/components/schemas/BatchOperationOptions'
+      required: [operation, nodeIds]
+
+    BatchOperationOptions:
+      type: object
+      properties:
+        environment:
+          $ref: '#/components/schemas/Environment'
+        force:
+          type: boolean
+          default: false
+        parallel:
+          type: boolean
+          default: true
+        maxConcurrency:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 5
+        rollbackOnFailure:
+          type: boolean
+          default: false
+        continueOnError:
+          type: boolean
+          default: true
+        notifyOnCompletion:
+          type: boolean
+          default: false
+
+    GenerateFromTemplateRequest:
+      type: object
+      properties:
+        nodeName:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+        parameters:
+          type: object
+          additionalProperties: true
+      required: [nodeName]
+
+    ImportNodesRequest:
+      type: object
+      properties:
+        importType:
+          type: string
+          enum: [file, url, backup]
+        overwriteExisting:
+          type: boolean
+          default: false
+        validateBeforeImport:
+          type: boolean
+          default: true
+        file:
+          type: string
+          format: binary
+
+    # Response Schemas
+    CreateNodeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        version:
+          type: string
+        status:
+          $ref: '#/components/schemas/NodeStatus'
+        validationResults:
+          $ref: '#/components/schemas/ValidationResults'
+        metadata:
+          $ref: '#/components/schemas/CustomNodeMetadata'
+        uploadedAt:
+          type: string
+          format: date-time
+        validatedAt:
+          type: string
+          format: date-time
+        warnings:
+          type: array
+          items:
+            type: string
+      required: [id, name, version, status, validationResults, metadata, uploadedAt]
+
+    ListNodesResponse:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomNodeSummary'
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        filters:
+          type: object
+          properties:
+            categories:
+              type: array
+              items:
+                type: string
+            authors:
+              type: array
+              items:
+                type: string
+            tags:
+              type: array
+              items:
+                type: string
+            statuses:
+              type: array
+              items:
+                $ref: '#/components/schemas/NodeStatus'
+            nodeTypes:
+              type: array
+              items:
+                type: string
+        aggregations:
+          type: object
+          properties:
+            totalByStatus:
+              type: object
+              additionalProperties:
+                type: integer
+            totalByCategory:
+              type: object
+              additionalProperties:
+                type: integer
+            averageRating:
+              type: number
+            totalDownloads:
+              type: integer
+      required: [nodes, total, limit, offset, filters]
+
+    NodeDetailsResponse:
+      allOf:
+        - $ref: '#/components/schemas/CustomNodeSummary'
+        - type: object
+          properties:
+            validationResults:
+              $ref: '#/components/schemas/ValidationResults'
+            metadata:
+              $ref: '#/components/schemas/CustomNodeMetadata'
+            deploymentInfo:
+              $ref: '#/components/schemas/DeploymentInfo'
+            files:
+              type: array
+              items:
+                $ref: '#/components/schemas/NodeFile'
+            dependencies:
+              type: array
+              items:
+                $ref: '#/components/schemas/NodeDependency'
+            testResults:
+              $ref: '#/components/schemas/TestResults'
+            usage:
+              $ref: '#/components/schemas/UsageStats'
+            versionHistory:
+              type: array
+              items:
+                $ref: '#/components/schemas/VersionHistoryEntry'
+
+    NodeFile:
+      type: object
+      properties:
+        name:
+          type: string
+        size:
+          type: integer
+        type:
+          type: string
+        path:
+          type: string
+        checksum:
+          type: string
+        lastModified:
+          type: string
+          format: date-time
+      required: [name, size, type, path]
+
+    NodeDependency:
+      type: object
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+        resolved:
+          type: boolean
+        vulnerabilities:
+          type: integer
+      required: [name, version, resolved]
+
+    TestResults:
+      type: object
+      properties:
+        passed:
+          type: integer
+        failed:
+          type: integer
+        total:
+          type: integer
+        coverage:
+          type: number
+          minimum: 0
+          maximum: 100
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestResult'
+        lastRun:
+          type: string
+          format: date-time
+      required: [passed, failed, total]
+
+    TestResult:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+          enum: [passed, failed, skipped]
+        duration:
+          type: number
+        error:
+          type: string
+        coverage:
+          type: number
+      required: [name, status, duration]
+
+    UsageStats:
+      type: object
+      properties:
+        activeWorkflows:
+          type: integer
+        totalExecutions:
+          type: integer
+        lastExecution:
+          type: string
+          format: date-time
+        popularityScore:
+          type: number
+      required: [activeWorkflows, totalExecutions, popularityScore]
+
+    VersionHistoryEntry:
+      type: object
+      properties:
+        version:
+          type: string
+        releaseDate:
+          type: string
+          format: date-time
+        changelog:
+          type: string
+        isActive:
+          type: boolean
+      required: [version, releaseDate, isActive]
+
+    DeploymentInfo:
+      type: object
+      properties:
+        deploymentId:
+          type: string
+        nodeId:
+          type: string
+        version:
+          type: string
+        environment:
+          $ref: '#/components/schemas/Environment'
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        deployedBy:
+          type: string
+        deployedAt:
+          type: string
+          format: date-time
+        rollbackAvailable:
+          type: boolean
+        errorMessage:
+          type: string
+        duration:
+          type: integer
+        resourceUsage:
+          type: object
+          properties:
+            cpu:
+              type: string
+            memory:
+              type: string
+            storage:
+              type: string
+      required: [deploymentId, nodeId, version, environment, status, deployedBy, deployedAt, rollbackAvailable]
+
+    UpdateNodeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        version:
+          type: string
+        status:
+          $ref: '#/components/schemas/NodeStatus'
+        updatedAt:
+          type: string
+          format: date-time
+        validationRequired:
+          type: boolean
+        changes:
+          type: array
+          items:
+            type: string
+      required: [id, name, version, status, updatedAt, changes]
+
+    DeleteNodeResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        nodeId:
+          type: string
+        deletedAt:
+          type: string
+          format: date-time
+        archived:
+          type: boolean
+        affectedWorkflows:
+          type: integer
+      required: [success, nodeId, deletedAt, archived]
+
+    DeployNodeResponse:
+      type: object
+      properties:
+        deploymentId:
+          type: string
+        nodeId:
+          type: string
+        version:
+          type: string
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        environment:
+          $ref: '#/components/schemas/Environment'
+        startedAt:
+          type: string
+          format: date-time
+        estimatedDuration:
+          type: integer
+        message:
+          type: string
+        rollbackInfo:
+          type: object
+          properties:
+            previousVersion:
+              type: string
+            rollbackAvailable:
+              type: boolean
+      required: [deploymentId, nodeId, version, status, environment, startedAt]
+
+    NodeStatusResponse:
+      type: object
+      properties:
+        nodeId:
+          type: string
+        deploymentStatus:
+          type: string
+          enum: [not-deployed, queued, deploying, deployed, failed, rolled-back]
+        runtime:
+          $ref: '#/components/schemas/RuntimeInfo'
+        health:
+          $ref: '#/components/schemas/HealthStatus'
+        deploymentHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentInfo'
+        monitoring:
+          type: object
+          properties:
+            alertsActive:
+              type: integer
+            lastAlert:
+              type: string
+              format: date-time
+            performanceTrends:
+              type: object
+              properties:
+                executionTime:
+                  type: array
+                  items:
+                    type: number
+                errorRate:
+                  type: array
+                  items:
+                    type: number
+                memoryUsage:
+                  type: array
+                  items:
+                    type: number
+      required: [nodeId, deploymentStatus, runtime, health, deploymentHistory]
+
+    RuntimeInfo:
+      type: object
+      properties:
+        isLoaded:
+          type: boolean
+        version:
+          type: string
+        loadedAt:
+          type: string
+          format: date-time
+        instances:
+          type: integer
+        memory:
+          type: object
+          properties:
+            used:
+              type: string
+            peak:
+              type: string
+            limit:
+              type: string
+        performance:
+          type: object
+          properties:
+            executionCount:
+              type: integer
+            averageExecutionTime:
+              type: number
+            errorRate:
+              type: number
+            lastExecution:
+              type: string
+              format: date-time
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeDependency'
+      required: [isLoaded, instances]
+
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        lastCheck:
+          type: string
+          format: date-time
+        issues:
+          type: array
+          items:
+            type: string
+        uptime:
+          type: number
+        responseTime:
+          type: number
+      required: [status, lastCheck, issues]
+
+    BatchOperationResponse:
+      type: object
+      properties:
+        operation:
+          type: string
+          enum: [deploy, undeploy, delete, validate]
+        totalNodes:
+          type: integer
+        successful:
+          type: integer
+        failed:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BatchOperationResult'
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+      required: [operation, totalNodes, successful, failed, results, startedAt, completedAt, duration]
+
+    BatchOperationResult:
+      type: object
+      properties:
+        nodeId:
+          type: string
+        success:
+          type: boolean
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+      required: [nodeId, success, message, timestamp]
+
+    TemplatesResponse:
+      type: object
+      properties:
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeTemplate'
+        categories:
+          type: array
+          items:
+            type: string
+        totalCount:
+          type: integer
+      required: [templates, categories, totalCount]
+
+    NodeTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        complexity:
+          type: string
+          enum: [beginner, intermediate, advanced]
+        features:
+          type: array
+          items:
+            type: string
+        estimatedTime:
+          type: string
+        author:
+          type: string
+        version:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        preview:
+          type: object
+          properties:
+            imageUrl:
+              type: string
+              format: uri
+            demoUrl:
+              type: string
+              format: uri
+            documentationUrl:
+              type: string
+              format: uri
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+      required: [id, name, description, category, complexity, features, estimatedTime, parameters]
+
+    TemplateParameter:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [string, number, boolean, select, multiline]
+        description:
+          type: string
+        required:
+          type: boolean
+        default:
+          oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+        options:
+          type: array
+          items:
+            type: string
+      required: [name, type, description, required]
+
+    GenerateFromTemplateResponse:
+      type: object
+      properties:
+        nodeId:
+          type: string
+        name:
+          type: string
+        templateId:
+          type: string
+        generatedAt:
+          type: string
+          format: date-time
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeFile'
+        nextSteps:
+          type: array
+          items:
+            type: string
+        validationRequired:
+          type: boolean
+        estimatedValidationTime:
+          type: integer
+      required: [nodeId, name, templateId, generatedAt, files, nextSteps, validationRequired]
+
+    ImportNodesResponse:
+      type: object
+      properties:
+        imported:
+          type: array
+          items:
+            type: object
+            properties:
+              nodeId:
+                type: string
+              name:
+                type: string
+              version:
+                type: string
+              status:
+                type: string
+                enum: [success, warning, error]
+              message:
+                type: string
+            required: [nodeId, name, version, status]
+        summary:
+          type: object
+          properties:
+            total:
+              type: integer
+            successful:
+              type: integer
+            warnings:
+              type: integer
+            errors:
+              type: integer
+          required: [total, successful, warnings, errors]
+        conflictsResolved:
+          type: array
+          items:
+            type: object
+            properties:
+              nodeId:
+                type: string
+              action:
+                type: string
+                enum: [overwritten, skipped, renamed]
+              oldVersion:
+                type: string
+              newVersion:
+                type: string
+            required: [nodeId, action, newVersion]
+      required: [imported, summary]
+
+    # Error Schemas
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        statusCode:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+        path:
+          type: string
+      required: [error, message, statusCode]
+
+    ValidationError:
+      allOf:
+        - $ref: '#/components/schemas/Error'
+        - type: object
+          properties:
+            validationResults:
+              $ref: '#/components/schemas/ValidationResults'
+            details:
+              type: array
+              items:
+                $ref: '#/components/schemas/ValidationIssue'
+
+tags:
+  - name: Custom Nodes
+    description: Core custom node management operations
+  - name: Node Deployment
+    description: Deploy and manage node runtime deployments
+  - name: Node Monitoring
+    description: Monitor node status, health, and performance
+  - name: Batch Operations
+    description: Perform operations on multiple nodes
+  - name: Templates
+    description: Node templates and scaffolding
+  - name: Import/Export
+    description: Import and export functionality
