@@ -316,7 +316,7 @@ describe('BinaryDataController', () => {
 				new FileNotFoundError('File not found'),
 			);
 
-			await controller.download(request, response, params);
+			await controller.download(request, response, binaryDataId);
 
 			expect(response.status).toHaveBeenCalledWith(404);
 		});

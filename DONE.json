@@ -1079,9 +1079,59 @@
       "created_at": "2025-08-08T16:02:19.213Z",
       "completed_at": "2025-08-08T16:05:18.580Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754608379729_zuane76f4",
+      "title": "Fix TypeScript compilation errors in CLI package",
+      "description": "Resolve 36 TypeScript compilation errors preventing successful build, including event service type mismatches, import/dependency issues, and workflow controller type issues",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./packages/cli/src/services/security-monitoring.service.ts",
+        "./packages/cli/src/services/system-resources.service.ts",
+        "./packages/cli/src/workflows/workflows.controller.ts",
+        "./packages/cli/src/workflow-runner.ts"
+      ],
+      "success_criteria": [
+        "All TypeScript compilation errors resolved",
+        "npm run build succeeds"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T23:12:59.729Z",
+      "completed_at": "2025-08-08T16:16:24.827Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754608379733_jhic25gfb",
+      "title": "Verify frontend fixes and integration stability",
+      "description": "Confirm that the recently implemented frontend template processing fixes work correctly across all development scenarios and do not introduce regressions",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./packages/frontend/editor-ui/vite.config.mts",
+        "./packages/frontend/editor-ui/index.html",
+        "./packages/frontend/editor-ui/public/static/base-path.js"
+      ],
+      "success_criteria": [
+        "Frontend loads correctly on port 8080",
+        "Backend serves frontend on port 5678",
+        "Template processing works in dev and prod"
+      ],
+      "estimate": "1 hour",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T23:12:59.733Z",
+      "completed_at": "2025-08-08T16:28:47.512Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 43,
-  "last_completion": "2025-08-08T16:05:18.580Z",
+  "total_completed": 45,
+  "last_completion": "2025-08-08T16:28:47.512Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }
