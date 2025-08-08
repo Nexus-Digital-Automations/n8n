@@ -713,9 +713,35 @@
       "created_at": "2025-08-06T22:47:22.554Z",
       "completed_at": "2025-08-08T00:14:07.782Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754520442561_fce8nirrj",
+      "title": "Document external OAuth provider integration patterns",
+      "description": "Analyze integration patterns for major OAuth providers (Google, GitHub, Slack, etc.), document configuration requirements, and identify standardization opportunities.",
+      "mode": "RESEARCH",
+      "priority": "medium",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-external-providers.md",
+        "./development/research-reports/research-report-task_1754520442561_fce8nirrj.md"
+      ],
+      "success_criteria": [
+        "Major OAuth provider integrations documented",
+        "Configuration patterns and requirements mapped",
+        "Standardization opportunities identified",
+        "Provider-specific quirks and workarounds documented",
+        "Research report created: ./development/research-reports/research-report-task_1754520442561_fce8nirrj.md"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-06T22:47:22.561Z",
+      "completed_at": "2025-08-08T00:18:13.071Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 28,
-  "last_completion": "2025-08-08T00:14:07.782Z",
+  "total_completed": 29,
+  "last_completion": "2025-08-08T00:18:13.071Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }
