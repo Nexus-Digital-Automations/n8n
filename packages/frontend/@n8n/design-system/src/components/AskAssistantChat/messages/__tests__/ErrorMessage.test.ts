@@ -1,7 +1,9 @@
+import type { ChatUI } from '@n8n/chat';
+
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+
 import ErrorMessage from '../ErrorMessage.vue';
-import type { ChatUI } from '@n8n/chat';
 
 // Mock dependencies
 vi.mock('../../../../composables/useI18n', () => ({

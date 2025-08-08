@@ -1,0 +1,7 @@
+{
+	"session_id": "53bdf467-5e00-4923-a0de-309e0f2e3ecd",
+	"transcript_path": "/Users/jeremyparker/.claude/projects/-Users-jeremyparker-Desktop-Claude-Coding-Projects-n8n-fork/53bdf467-5e00-4923-a0de-309e0f2e3ecd.jsonl",
+	"cwd": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/nodes-base",
+	"hook_event_name": "SubagentStop",
+	"stop_hook_active": false
+}

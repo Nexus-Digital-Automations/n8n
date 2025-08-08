@@ -87,8 +87,11 @@ async function createSubtasks() {
   data.tasks.push(...subtasks);
   
   await tm.writeTodo(data);
+  // eslint-disable-next-line no-console
   console.log('✅ Created 3 subtasks for design system coverage improvement');
+  // eslint-disable-next-line no-console
   console.log('Subtasks:', subtasks.map(t => t.title));
 }
 
+// eslint-disable-next-line no-console
 createSubtasks().catch(console.error);

@@ -1,7 +1,9 @@
+import type { ChatUI } from '@n8n/chat';
+
 import { render } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+
 import BlockMessage from '../BlockMessage.vue';
-import type { ChatUI } from '@n8n/chat';
 
 // Mock dependencies
 vi.mock('../useMarkdown', () => ({
@@ -438,8 +440,8 @@ describe('BlockMessage', () => {
 		it('should handle null title and content', () => {
 			const message = {
 				...createBlockMessage(),
-				title: null as any,
-				content: null as any,
+				title: null as string | null,
+				content: null as string | null,
 			};
 			const wrapper = render(BlockMessage, {
 				props: { message },
@@ -465,7 +467,7 @@ describe('BlockMessage', () => {
 		});
 
 		it('should handle message type inconsistency', () => {
-			const message = { ...createBlockMessage(), type: 'not-block' as any };
+			const message = { ...createBlockMessage(), type: 'not-block' as ChatUI.MessageType };
 			const wrapper = render(BlockMessage, {
 				props: { message },
 				global: { stubs },

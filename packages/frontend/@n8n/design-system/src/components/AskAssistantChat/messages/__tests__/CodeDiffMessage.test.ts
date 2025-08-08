@@ -1,7 +1,9 @@
+import type { ChatUI } from '@n8n/chat';
+
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+
 import CodeDiffMessage from '../CodeDiffMessage.vue';
-import type { ChatUI } from '@n8n/chat';
 
 // Mock dependencies
 vi.mock('../../../../composables/useI18n', () => ({
@@ -142,7 +144,7 @@ describe('CodeDiffMessage', () => {
 
 			const emittedEvents = wrapper.emitted('codeReplace');
 			expect(emittedEvents).toBeTruthy();
-			expect(emittedEvents![0]).toEqual([message.suggestionId]);
+			expect(emittedEvents[0]).toEqual([message.suggestionId]);
 		});
 
 		it('should display undo button when in replaced state', () => {
@@ -167,7 +169,7 @@ describe('CodeDiffMessage', () => {
 
 			const emittedEvents = wrapper.emitted('codeUndo');
 			expect(emittedEvents).toBeTruthy();
-			expect(emittedEvents![0]).toEqual([message.suggestionId]);
+			expect(emittedEvents[0]).toEqual([message.suggestionId]);
 		});
 
 		it('should show loading state when applying changes', () => {
@@ -263,7 +265,7 @@ describe('CodeDiffMessage', () => {
 		});
 
 		it('should handle null code diff', () => {
-			const message = { ...createCodeDiffMessage(), codeDiff: null as any };
+			const message = { ...createCodeDiffMessage(), codeDiff: null as string | null };
 			const wrapper = render(CodeDiffMessage, {
 				props: { message },
 				global: { stubs },
@@ -541,7 +543,7 @@ describe('CodeDiffMessage', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle message type inconsistency', () => {
-			const message = { ...createCodeDiffMessage(), type: 'not-code-diff' as any };
+			const message = { ...createCodeDiffMessage(), type: 'not-code-diff' as ChatUI.MessageType };
 			const wrapper = render(CodeDiffMessage, {
 				props: { message },
 				global: { stubs },
