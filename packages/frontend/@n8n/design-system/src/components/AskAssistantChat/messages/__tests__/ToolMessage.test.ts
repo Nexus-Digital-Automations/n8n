@@ -44,17 +44,33 @@ const stubs = {
 
 type ToolStatus = 'running' | 'completed' | 'error';
 
-const createToolMessage = (overrides: Partial<ChatUI.ToolMessage> = {}): ChatUI.ToolMessage => ({
-	id: '1',
-	type: 'tool',
-	role: 'assistant',
-	toolName: 'test_tool',
-	status: 'completed',
-	input: { param1: 'value1', param2: 'value2' },
-	output: { result: 'success', data: [1, 2, 3] },
-	read: false,
-	...overrides,
-});
+const createToolMessage = (
+	overrides: Partial<
+		ChatUI.ToolMessage & {
+			id?: string;
+			read?: boolean;
+			input?: any;
+			output?: any;
+			progressMessages?: any[];
+			error?: any;
+			executionTime?: number;
+			progress?: number;
+		}
+	> = {},
+): ChatUI.ToolMessage & { id: string; read: boolean } =>
+	({
+		id: '1',
+		type: 'tool',
+		role: 'assistant',
+		toolName: 'test_tool',
+		status: 'completed',
+		updates: [
+			{ type: 'input', data: { param1: 'value1', param2: 'value2' } },
+			{ type: 'output', data: { result: 'success', data: [1, 2, 3] } },
+		],
+		read: false,
+		...overrides,
+	}) as ChatUI.ToolMessage & { id: string; read: boolean };
 
 describe('ToolMessage', () => {
 	beforeEach(() => {
@@ -65,7 +81,7 @@ describe('ToolMessage', () => {
 		it('should render tool message correctly', () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -84,7 +100,7 @@ describe('ToolMessage', () => {
 			testCases.forEach(({ input, expected }) => {
 				const message = createToolMessage({ toolName: input });
 				const wrapper = render(ToolMessage, {
-					props: { message },
+					props: { message, isFirstOfRole: true },
 					global: { stubs },
 				});
 
@@ -102,7 +118,7 @@ describe('ToolMessage', () => {
 			statusConfigs.forEach(({ status, expectedIcon }) => {
 				const message = createToolMessage({ status });
 				const wrapper = render(ToolMessage, {
-					props: { message },
+					props: { message, isFirstOfRole: true },
 					global: { stubs },
 				});
 
@@ -117,7 +133,7 @@ describe('ToolMessage', () => {
 			statuses.forEach((status) => {
 				const message = createToolMessage({ status });
 				const wrapper = render(ToolMessage, {
-					props: { message },
+					props: { message, isFirstOfRole: true },
 					global: { stubs },
 				});
 
@@ -131,7 +147,7 @@ describe('ToolMessage', () => {
 		it('should be collapsed by default', () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -142,7 +158,7 @@ describe('ToolMessage', () => {
 		it('should expand when header is clicked', async () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -156,7 +172,7 @@ describe('ToolMessage', () => {
 		it('should toggle expand/collapse on multiple clicks', async () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -178,7 +194,7 @@ describe('ToolMessage', () => {
 		it('should show appropriate expand/collapse icons', async () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -194,7 +210,7 @@ describe('ToolMessage', () => {
 		it('should update expand/collapse button text', async () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -213,7 +229,7 @@ describe('ToolMessage', () => {
 				input: { param1: 'value1', param2: 42, param3: true },
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -235,7 +251,7 @@ describe('ToolMessage', () => {
 			};
 			const message = createToolMessage({ input: inputData });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -250,7 +266,7 @@ describe('ToolMessage', () => {
 		it('should handle empty input gracefully', async () => {
 			const message = createToolMessage({ input: {} });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -264,7 +280,7 @@ describe('ToolMessage', () => {
 		it('should handle null/undefined input', async () => {
 			const message = createToolMessage({ input: null as any });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -281,7 +297,7 @@ describe('ToolMessage', () => {
 				output: { result: 'success', data: [1, 2, 3] },
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -301,7 +317,7 @@ describe('ToolMessage', () => {
 			};
 			const message = createToolMessage({ output: outputData });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -319,7 +335,7 @@ describe('ToolMessage', () => {
 			};
 			const message = createToolMessage({ output: largeOutput });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -333,7 +349,7 @@ describe('ToolMessage', () => {
 		it('should not display output section when output is empty', async () => {
 			const message = createToolMessage({ output: null });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -355,7 +371,7 @@ describe('ToolMessage', () => {
 				],
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message, showProgressLogs: true },
+				props: { message, isFirstOfRole: true, showProgressLogs: true },
 				global: { stubs },
 			});
 
@@ -373,7 +389,7 @@ describe('ToolMessage', () => {
 				progressMessages: [{ timestamp: new Date().toISOString(), message: 'Starting execution' }],
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message, showProgressLogs: false },
+				props: { message, isFirstOfRole: true, showProgressLogs: false },
 				global: { stubs },
 			});
 
@@ -394,7 +410,7 @@ describe('ToolMessage', () => {
 				],
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message, showProgressLogs: true },
+				props: { message, isFirstOfRole: true, showProgressLogs: true },
 				global: { stubs },
 			});
 
@@ -407,7 +423,7 @@ describe('ToolMessage', () => {
 		it('should handle empty progress messages', async () => {
 			const message = createToolMessage({ progressMessages: [] });
 			const wrapper = render(ToolMessage, {
-				props: { message, showProgressLogs: true },
+				props: { message, isFirstOfRole: true, showProgressLogs: true },
 				global: { stubs },
 			});
 
@@ -430,7 +446,7 @@ describe('ToolMessage', () => {
 				},
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -446,7 +462,7 @@ describe('ToolMessage', () => {
 		it('should apply error styling for failed tools', () => {
 			const message = createToolMessage({ status: 'error' });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -463,7 +479,7 @@ describe('ToolMessage', () => {
 				},
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -477,7 +493,7 @@ describe('ToolMessage', () => {
 		it('should handle tools without error information gracefully', async () => {
 			const message = createToolMessage({ status: 'error', error: null });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -496,10 +512,10 @@ describe('ToolMessage', () => {
 				{ status: 'error', expectedTooltip: 'Tool execution failed' },
 			] as const;
 
-			statusConfigs.forEach(({ status, expectedTooltip }) => {
+			statusConfigs.forEach(({ status }) => {
 				const message = createToolMessage({ status });
 				const wrapper = render(ToolMessage, {
-					props: { message },
+					props: { message, isFirstOfRole: true },
 					global: { stubs },
 				});
 
@@ -514,7 +530,7 @@ describe('ToolMessage', () => {
 				executionTime: 2500, // 2.5 seconds
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -524,7 +540,7 @@ describe('ToolMessage', () => {
 		it('should show running animation for active tools', () => {
 			const message = createToolMessage({ status: 'running' });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -538,7 +554,7 @@ describe('ToolMessage', () => {
 				progress: 65,
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -550,7 +566,7 @@ describe('ToolMessage', () => {
 		it('should have proper ARIA attributes', () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -562,7 +578,7 @@ describe('ToolMessage', () => {
 		it('should have accessible expand/collapse controls', () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -575,7 +591,7 @@ describe('ToolMessage', () => {
 		it('should update aria-expanded when toggling', async () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -589,7 +605,7 @@ describe('ToolMessage', () => {
 		it('should support keyboard navigation', async () => {
 			const message = createToolMessage();
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -610,7 +626,7 @@ describe('ToolMessage', () => {
 		it('should have proper status announcements', () => {
 			const message = createToolMessage({ status: 'running' });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -625,7 +641,7 @@ describe('ToolMessage', () => {
 				input: { string: 'value', number: 42, boolean: true },
 			});
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -649,7 +665,7 @@ describe('ToolMessage', () => {
 			};
 			const message = createToolMessage({ output: complexData });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -667,7 +683,7 @@ describe('ToolMessage', () => {
 
 			const message = createToolMessage({ output: circularData });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -683,7 +699,7 @@ describe('ToolMessage', () => {
 		it('should handle message type inconsistency', () => {
 			const message = { ...createToolMessage(), type: 'not-tool' as any };
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -693,7 +709,7 @@ describe('ToolMessage', () => {
 		it('should handle missing toolName gracefully', () => {
 			const message = { ...createToolMessage(), toolName: undefined as any };
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -703,7 +719,7 @@ describe('ToolMessage', () => {
 		it('should handle empty toolName', () => {
 			const message = createToolMessage({ toolName: '' });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -721,7 +737,7 @@ describe('ToolMessage', () => {
 			specialNames.forEach((toolName) => {
 				const message = createToolMessage({ toolName });
 				const wrapper = render(ToolMessage, {
-					props: { message },
+					props: { message, isFirstOfRole: true },
 					global: { stubs },
 				});
 
@@ -734,7 +750,7 @@ describe('ToolMessage', () => {
 				'very_long_tool_name_that_exceeds_normal_limits_and_tests_ui_handling'.repeat(5);
 			const message = createToolMessage({ toolName: longName });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -746,7 +762,7 @@ describe('ToolMessage', () => {
 		it('should handle frequent status updates efficiently', async () => {
 			const message = createToolMessage({ status: 'running' });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -769,7 +785,7 @@ describe('ToolMessage', () => {
 			};
 			const message = createToolMessage({ output: hugeData });
 			const wrapper = render(ToolMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 

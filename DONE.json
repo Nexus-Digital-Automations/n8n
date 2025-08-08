@@ -911,9 +911,34 @@
       "created_at": "2025-08-07T02:30:43.854Z",
       "completed_at": "2025-08-08T04:04:07.848Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754596548682_y5yvsuk3g",
+      "title": "Fix BlockMessage component tests (25 failures)",
+      "description": "Fix CSS selector mismatches, markdown processing expectations, streaming behavior, and accessibility tests in BlockMessage.test.ts. Tests are failing because selectors like .block-title, .block-content do not match actual component structure.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/BlockMessage.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/BlockMessage.vue"
+      ],
+      "success_criteria": [
+        "All BlockMessage tests pass without failures",
+        "CSS selectors match actual component structure",
+        "Markdown processing tests align with implementation",
+        "Streaming and accessibility tests work correctly"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T19:55:48.682Z",
+      "completed_at": "2025-08-08T04:27:52.627Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 36,
-  "last_completion": "2025-08-08T04:04:07.848Z",
+  "total_completed": 37,
+  "last_completion": "2025-08-08T04:27:52.627Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

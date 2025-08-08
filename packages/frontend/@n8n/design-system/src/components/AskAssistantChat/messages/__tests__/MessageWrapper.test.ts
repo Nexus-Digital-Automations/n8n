@@ -210,8 +210,7 @@ describe('MessageWrapper', () => {
 					message,
 					isFirstOfRole: true,
 					user: mockUser,
-					showRating: true,
-					ratingStyle: 'minimal',
+					// showRating and ratingStyle removed - not valid props
 				},
 				global: {
 					stubs: {
@@ -266,7 +265,7 @@ describe('MessageWrapper', () => {
 				props: {
 					message,
 					isFirstOfRole: true,
-					showProgressLogs: true,
+					// showProgressLogs removed - not valid prop
 				},
 				global: {
 					stubs: {
@@ -393,8 +392,8 @@ describe('MessageWrapper', () => {
 				props: {
 					message,
 					isFirstOfRole: true,
-					streaming: null,
-					isLastMessage: undefined,
+					streaming: false,
+					// isLastMessage: undefined is valid - omitted
 				},
 				global: {
 					stubs,
@@ -423,7 +422,7 @@ describe('MessageWrapper', () => {
 
 			expect(baseMessage).toBeInTheDocument();
 			expect(textMessage).toBeInTheDocument();
-			expect(baseMessage).toContainElement(textMessage);
+			expect(baseMessage).toContainElement(textMessage as HTMLElement);
 		});
 
 		it('should pass all required props to child components', () => {

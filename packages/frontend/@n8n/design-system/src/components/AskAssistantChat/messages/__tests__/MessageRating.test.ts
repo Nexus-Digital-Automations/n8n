@@ -49,13 +49,9 @@ const stubs = {
 };
 
 type RatingStyle = 'regular' | 'minimal';
-type RatingValue = 'positive' | 'negative';
+// Removed unused type RatingValue
 
-interface RatingFeedback {
-	rating: RatingValue;
-	comment?: string;
-	timestamp?: string;
-}
+// Removed unused interface RatingFeedback
 
 describe('MessageRating', () => {
 	beforeEach(() => {
@@ -106,7 +102,7 @@ describe('MessageRating', () => {
 			const thumbsUpButton = wrapper.container.querySelector('.thumbs-up');
 			await fireEvent.click(thumbsUpButton!);
 
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents).toBeTruthy();
 			expect(emittedEvents[0][0]).toMatchObject({
 				rating: 'positive',
@@ -123,7 +119,7 @@ describe('MessageRating', () => {
 			const thumbsDownButton = wrapper.container.querySelector('.thumbs-down');
 			await fireEvent.click(thumbsDownButton!);
 
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents).toBeTruthy();
 			expect(emittedEvents[0][0]).toMatchObject({
 				rating: 'negative',
@@ -171,7 +167,7 @@ describe('MessageRating', () => {
 			await fireEvent.click(thumbsUpButton!);
 
 			// Should only emit one feedback event
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents?.length).toBe(1);
 		});
 	});
@@ -280,7 +276,7 @@ describe('MessageRating', () => {
 			const submitButton = wrapper.container.querySelector('.submit-feedback');
 			await fireEvent.click(submitButton!);
 
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents?.length).toBe(2); // Initial rating + feedback submission
 			expect(emittedEvents[1][0]).toMatchObject({
 				rating: 'negative',
@@ -350,7 +346,7 @@ describe('MessageRating', () => {
 			const thumbsUpButton = wrapper.container.querySelector('.thumbs-up');
 			await fireEvent.click(thumbsUpButton!);
 
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents?.length).toBe(2);
 			expect(emittedEvents[1][0]).toMatchObject({ rating: 'positive' });
 		});
@@ -476,14 +472,14 @@ describe('MessageRating', () => {
 
 			// Should respond to Enter and Space keys
 			await fireEvent.keyDown(thumbsUpButton!, { key: 'Enter' });
-			let emittedEvents = wrapper.emitted('feedback');
+			let emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents).toBeTruthy();
 
 			// Reset component state for space key test
 			await wrapper.rerender({ style: 'regular' });
 
 			await fireEvent.keyDown(thumbsUpButton!, { key: ' ' });
-			emittedEvents = wrapper.emitted('feedback');
+			emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents).toBeTruthy();
 		});
 	});
@@ -522,7 +518,7 @@ describe('MessageRating', () => {
 			const submitButton = wrapper.container.querySelector('.submit-feedback');
 			await fireEvent.click(submitButton!);
 
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents[1][0]).toMatchObject({
 				rating: 'negative',
 				comment: '',
@@ -545,7 +541,7 @@ describe('MessageRating', () => {
 			const submitButton = wrapper.container.querySelector('.submit-feedback');
 			await fireEvent.click(submitButton!);
 
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents[1][0]).toMatchObject({
 				rating: 'positive',
 				comment: longComment,
@@ -568,7 +564,7 @@ describe('MessageRating', () => {
 			const submitButton = wrapper.container.querySelector('.submit-feedback');
 			await fireEvent.click(submitButton!);
 
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			expect(emittedEvents[1][0]).toMatchObject({
 				rating: 'negative',
 				comment: specialComment,
@@ -640,7 +636,7 @@ describe('MessageRating', () => {
 
 			const after = Date.now();
 
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			const timestamp = new Date(emittedEvents[0][0].timestamp).getTime();
 
 			expect(timestamp).toBeGreaterThanOrEqual(before);
@@ -656,7 +652,7 @@ describe('MessageRating', () => {
 			const thumbsDownButton = wrapper.container.querySelector('.thumbs-down');
 			await fireEvent.click(thumbsDownButton!);
 
-			const emittedEvents = wrapper.emitted('feedback');
+			const emittedEvents = wrapper.emitted('feedback') as any[];
 			const timestamp = emittedEvents[0][0].timestamp;
 
 			// Should be valid ISO string

@@ -284,7 +284,10 @@ describe('ErrorMessage', () => {
 			const message = createErrorMessage({ retry: retryFn });
 
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -349,7 +352,10 @@ describe('ErrorMessage', () => {
 			errorTypes.forEach((severity) => {
 				const message = createErrorMessage({ severity } as any);
 				const wrapper = render(ErrorMessage, {
-					props: { message },
+					props: {
+						message,
+						isFirstOfRole: true,
+					},
 					global: { stubs },
 				});
 
@@ -369,7 +375,10 @@ describe('ErrorMessage', () => {
 			errorConfigs.forEach(({ type, expectedIcon }) => {
 				const message = createErrorMessage({ errorType: type } as any);
 				const wrapper = render(ErrorMessage, {
-					props: { message },
+					props: {
+						message,
+						isFirstOfRole: true,
+					},
 					global: { stubs },
 				});
 
@@ -398,7 +407,7 @@ describe('ErrorMessage', () => {
 			const message = createErrorMessage({
 				content: 'Request failed',
 				errorCode: 'ERR_NETWORK_001',
-			});
+			} as any);
 			const wrapper = render(ErrorMessage, {
 				props: {
 					message,
@@ -415,7 +424,7 @@ describe('ErrorMessage', () => {
 			const message = createErrorMessage({
 				content: 'Operation failed',
 				timestamp,
-			});
+			} as any);
 			const wrapper = render(ErrorMessage, {
 				props: {
 					message,
@@ -435,7 +444,7 @@ describe('ErrorMessage', () => {
 					message: 'Internal Server Error',
 					stack: 'Error stack trace...',
 				},
-			});
+			} as any);
 			const wrapper = render(ErrorMessage, {
 				props: {
 					message,
@@ -454,7 +463,7 @@ describe('ErrorMessage', () => {
 			const message = createErrorMessage({
 				content: 'Detailed error',
 				details: { info: 'Additional context' },
-			});
+			} as any);
 			const wrapper = render(ErrorMessage, {
 				props: {
 					message,
@@ -554,7 +563,7 @@ describe('ErrorMessage', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle message type inconsistency', () => {
-			const message = { ...createErrorMessage(), type: 'not-error' } as ChatUI.ErrorMessage;
+			const message = { ...createErrorMessage(), type: 'not-error' } as any;
 			const wrapper = render(ErrorMessage, {
 				props: {
 					message,
@@ -580,7 +589,7 @@ describe('ErrorMessage', () => {
 		});
 
 		it('should handle null retry function', () => {
-			const message = { ...createErrorMessage(), retry: null as (() => Promise<void>) | null };
+			const message = { ...createErrorMessage(), retry: undefined };
 			const wrapper = render(ErrorMessage, {
 				props: {
 					message,
@@ -691,7 +700,7 @@ describe('ErrorMessage', () => {
 			const message = createErrorMessage({
 				retry: retryFn,
 				maxRetries: 2,
-			});
+			} as any);
 			const wrapper = render(ErrorMessage, {
 				props: {
 					message,

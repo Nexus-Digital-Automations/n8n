@@ -1,6 +1,7 @@
 import type { ChatUI } from '../../../../types';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { nextTick } from 'vue';
 
 import TextMessage from '../TextMessage.vue';
 
@@ -47,14 +48,19 @@ const stubs = {
 	},
 };
 
-const createTextMessage = (overrides: Partial<ChatUI.TextMessage> = {}): ChatUI.TextMessage => ({
-	id: '1',
-	type: 'text',
-	role: 'assistant',
-	content: 'Hello world',
-	read: false,
-	...overrides,
-});
+const createTextMessage = (
+	overrides: Partial<
+		ChatUI.TextMessage & { id?: string; read?: boolean; quickReplies?: ChatUI.QuickReply[] }
+	> = {},
+): ChatUI.TextMessage & { id: string; read: boolean; quickReplies?: ChatUI.QuickReply[] } =>
+	({
+		id: '1',
+		type: 'text',
+		role: 'assistant',
+		content: 'Hello world',
+		read: false,
+		...overrides,
+	}) as ChatUI.TextMessage & { id: string; read: boolean; quickReplies?: ChatUI.QuickReply[] };
 
 describe('TextMessage', () => {
 	beforeEach(() => {
@@ -66,7 +72,7 @@ describe('TextMessage', () => {
 		it('should render assistant text message correctly', () => {
 			const message = createTextMessage();
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -77,7 +83,7 @@ describe('TextMessage', () => {
 		it('should render user text message correctly', () => {
 			const message = createTextMessage({ role: 'user' });
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -89,7 +95,7 @@ describe('TextMessage', () => {
 				content: '**Bold text** and *italic text*',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -100,7 +106,7 @@ describe('TextMessage', () => {
 		it('should handle empty content gracefully', () => {
 			const message = createTextMessage({ content: '' });
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -113,7 +119,7 @@ describe('TextMessage', () => {
 			const codeSnippet = 'const hello = "world";';
 			const message = createTextMessage({ codeSnippet });
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -126,7 +132,7 @@ describe('TextMessage', () => {
 				codeSnippet: 'const test = true;',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -136,7 +142,7 @@ describe('TextMessage', () => {
 		it('should not show copy button without code snippet', () => {
 			const message = createTextMessage();
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -149,7 +155,7 @@ describe('TextMessage', () => {
 			const codeSnippet = 'const hello = "world";';
 			const message = createTextMessage({ codeSnippet });
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -169,7 +175,7 @@ describe('TextMessage', () => {
 				codeSnippet: 'const test = true;',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -187,7 +193,7 @@ describe('TextMessage', () => {
 				codeSnippet: 'const test = true;',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -199,7 +205,7 @@ describe('TextMessage', () => {
 
 			// Fast-forward time to reset button text
 			vi.advanceTimersByTime(2000);
-			await wrapper.vm.$nextTick();
+			await nextTick();
 
 			expect(wrapper.container.textContent).toContain('Copy');
 
@@ -216,7 +222,7 @@ describe('TextMessage', () => {
 				codeSnippet: 'const test = true;',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -237,6 +243,7 @@ describe('TextMessage', () => {
 			const wrapper = render(TextMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: true,
 				},
@@ -251,6 +258,7 @@ describe('TextMessage', () => {
 			const wrapper = render(TextMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: false,
 				},
 				global: { stubs },
@@ -264,6 +272,7 @@ describe('TextMessage', () => {
 			const wrapper = render(TextMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: false,
 				},
@@ -278,6 +287,7 @@ describe('TextMessage', () => {
 			const wrapper = render(TextMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: true,
 				},
@@ -296,13 +306,13 @@ describe('TextMessage', () => {
 		it('should apply different styling for user vs assistant messages', () => {
 			const assistantMessage = createTextMessage({ role: 'assistant' });
 			const assistantWrapper = render(TextMessage, {
-				props: { message: assistantMessage },
+				props: { message: assistantMessage, isFirstOfRole: true },
 				global: { stubs },
 			});
 
 			const userMessage = createTextMessage({ role: 'user' });
 			const userWrapper = render(TextMessage, {
-				props: { message: userMessage },
+				props: { message: userMessage, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -317,7 +327,7 @@ describe('TextMessage', () => {
 				content: '**This should not be bold**',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -332,10 +342,10 @@ describe('TextMessage', () => {
 				quickReplies: [
 					{ type: 'new-suggestion', text: 'Try again' },
 					{ type: 'resolved', text: 'This helped' },
-				],
+				] as ChatUI.QuickReply[],
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: {
 					stubs: {
 						...stubs,
@@ -353,7 +363,7 @@ describe('TextMessage', () => {
 		it('should not display quick replies section when not provided', () => {
 			const message = createTextMessage();
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -367,7 +377,7 @@ describe('TextMessage', () => {
 				content: 'Special chars: <>&"\'',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -378,7 +388,7 @@ describe('TextMessage', () => {
 			const longContent = 'A'.repeat(10000);
 			const message = createTextMessage({ content: longContent });
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -390,7 +400,7 @@ describe('TextMessage', () => {
 				content: 'Unicode: 🎉 ñáéíóú 中文 العربية',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -402,7 +412,7 @@ describe('TextMessage', () => {
 				content: 'Line 1\nLine 2\nLine 3',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -416,7 +426,7 @@ describe('TextMessage', () => {
 		it('should handle null content gracefully', () => {
 			const message = { ...createTextMessage(), content: null as any };
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -426,7 +436,7 @@ describe('TextMessage', () => {
 		it('should handle undefined codeSnippet', () => {
 			const message = createTextMessage({ codeSnippet: undefined });
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -437,7 +447,7 @@ describe('TextMessage', () => {
 		it('should handle empty codeSnippet', () => {
 			const message = createTextMessage({ codeSnippet: '' });
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -447,7 +457,7 @@ describe('TextMessage', () => {
 		it('should handle message type inconsistency', () => {
 			const message = { ...createTextMessage(), type: 'not-text' as any };
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -459,7 +469,7 @@ describe('TextMessage', () => {
 		it('should have proper semantic markup for content', () => {
 			const message = createTextMessage();
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -472,7 +482,7 @@ describe('TextMessage', () => {
 				codeSnippet: 'const test = true;',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -485,7 +495,7 @@ describe('TextMessage', () => {
 				codeSnippet: 'const test = true;',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -498,7 +508,7 @@ describe('TextMessage', () => {
 		it('should handle rapid re-renders efficiently', async () => {
 			const message = createTextMessage();
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 
@@ -517,7 +527,7 @@ describe('TextMessage', () => {
 				codeSnippet: 'const test = true;',
 			});
 			const wrapper = render(TextMessage, {
-				props: { message },
+				props: { message, isFirstOfRole: true },
 				global: { stubs },
 			});
 

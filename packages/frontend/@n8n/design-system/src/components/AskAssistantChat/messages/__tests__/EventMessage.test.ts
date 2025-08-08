@@ -1,6 +1,7 @@
 import type { ChatUI } from '../../../../types';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { nextTick } from 'vue';
 
 import EventMessage from '../EventMessage.vue';
 
@@ -34,17 +35,24 @@ const stubs = {
 
 type EventName = 'end-session' | 'session-timeout' | 'session-error';
 
+type EventMessage = (
+	| ChatUI.EndSessionMessage
+	| ChatUI.SessionTimeoutMessage
+	| ChatUI.SessionErrorMessage
+) & { id: string; read: boolean };
+
 const createEventMessage = (
 	eventName: EventName,
-	overrides: Partial<ChatUI.EventMessage> = {},
-): ChatUI.EventMessage => ({
-	id: '1',
-	type: 'event',
-	role: 'assistant',
-	eventName,
-	read: false,
-	...overrides,
-});
+	overrides: Partial<EventMessage> = {},
+): EventMessage =>
+	({
+		id: '1',
+		type: 'event',
+		role: 'assistant',
+		eventName,
+		read: false,
+		...overrides,
+	}) as EventMessage;
 
 describe('EventMessage', () => {
 	beforeEach(() => {
@@ -55,7 +63,10 @@ describe('EventMessage', () => {
 		it('should render event message correctly', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -66,7 +77,10 @@ describe('EventMessage', () => {
 		it('should apply system message styling', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -78,7 +92,10 @@ describe('EventMessage', () => {
 		it('should display appropriate icon for system messages', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -92,7 +109,10 @@ describe('EventMessage', () => {
 		it('should display correct message for end-session event', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -102,7 +122,10 @@ describe('EventMessage', () => {
 		it('should display correct message for session-timeout event', () => {
 			const message = createEventMessage('session-timeout');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -112,7 +135,10 @@ describe('EventMessage', () => {
 		it('should display correct message for session-error event', () => {
 			const message = createEventMessage('session-error');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -122,7 +148,10 @@ describe('EventMessage', () => {
 		it('should handle unknown event types gracefully', () => {
 			const message = createEventMessage('unknown-event' as EventName);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -141,7 +170,10 @@ describe('EventMessage', () => {
 			eventConfigs.forEach(({ eventName, expectedIcon }) => {
 				const message = createEventMessage(eventName);
 				const wrapper = render(EventMessage, {
-					props: { message },
+					props: {
+						message,
+						isFirstOfRole: true,
+					},
 					global: { stubs },
 				});
 
@@ -155,7 +187,10 @@ describe('EventMessage', () => {
 		it('should display ask assistant button', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -166,7 +201,10 @@ describe('EventMessage', () => {
 		it('should emit button click events', async () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -187,7 +225,10 @@ describe('EventMessage', () => {
 			eventConfigs.forEach(({ eventName, expectedText }) => {
 				const message = createEventMessage(eventName);
 				const wrapper = render(EventMessage, {
-					props: { message },
+					props: {
+						message,
+						isFirstOfRole: true,
+					},
 					global: { stubs },
 				});
 
@@ -198,7 +239,10 @@ describe('EventMessage', () => {
 		it('should position button after event message text', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -217,9 +261,12 @@ describe('EventMessage', () => {
 					errorCode: 'CONN_LOST',
 					reason: 'Network connection interrupted',
 				},
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -231,9 +278,12 @@ describe('EventMessage', () => {
 			const timestamp = new Date('2023-01-01T12:00:00Z');
 			const message = createEventMessage('end-session', {
 				timestamp,
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -243,9 +293,12 @@ describe('EventMessage', () => {
 		it('should show session duration for end-session events', () => {
 			const message = createEventMessage('end-session', {
 				sessionDuration: 300000, // 5 minutes in milliseconds
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -255,9 +308,12 @@ describe('EventMessage', () => {
 		it('should show timeout duration for session-timeout events', () => {
 			const message = createEventMessage('session-timeout', {
 				timeoutDuration: 1800000, // 30 minutes in milliseconds
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -276,7 +332,10 @@ describe('EventMessage', () => {
 			eventSeverities.forEach(({ eventName, expectedClass }) => {
 				const message = createEventMessage(eventName);
 				const wrapper = render(EventMessage, {
-					props: { message },
+					props: {
+						message,
+						isFirstOfRole: true,
+					},
 					global: { stubs },
 				});
 
@@ -288,7 +347,10 @@ describe('EventMessage', () => {
 		it('should center-align system message content', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -299,7 +361,10 @@ describe('EventMessage', () => {
 		it('should apply subtle background for system messages', () => {
 			const message = createEventMessage('session-timeout');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -316,9 +381,12 @@ describe('EventMessage', () => {
 					requestId: 'req-123-456',
 					userId: 'user-789',
 				},
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -337,9 +405,12 @@ describe('EventMessage', () => {
 
 			const message = createEventMessage('session-error', {
 				details: { errorId: 'ERR-001' },
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -353,12 +424,15 @@ describe('EventMessage', () => {
 		it('should emit telemetry events for different event types', async () => {
 			const message = createEventMessage('session-timeout');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
 			// Simulate component mount
-			await wrapper.vm.$nextTick();
+			await nextTick();
 
 			const telemetryEvents = wrapper.emitted('telemetry');
 			expect(telemetryEvents).toBeTruthy();
@@ -369,7 +443,10 @@ describe('EventMessage', () => {
 		it('should have proper ARIA attributes for system messages', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -381,7 +458,10 @@ describe('EventMessage', () => {
 		it('should have assertive aria-live for error events', () => {
 			const message = createEventMessage('session-error');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -392,7 +472,10 @@ describe('EventMessage', () => {
 		it('should have accessible button labels', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -403,7 +486,10 @@ describe('EventMessage', () => {
 		it('should have proper icon accessibility', () => {
 			const message = createEventMessage('session-timeout');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -415,7 +501,10 @@ describe('EventMessage', () => {
 		it('should support keyboard navigation', () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -428,7 +517,10 @@ describe('EventMessage', () => {
 		it('should use i18n for all text content', () => {
 			const message = createEventMessage('session-timeout');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -440,9 +532,12 @@ describe('EventMessage', () => {
 		it('should format durations according to locale', () => {
 			const message = createEventMessage('end-session', {
 				sessionDuration: 3665000, // 1 hour, 1 minute, 5 seconds
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -453,9 +548,12 @@ describe('EventMessage', () => {
 		it('should format timestamps according to locale', () => {
 			const message = createEventMessage('session-error', {
 				timestamp: new Date('2023-01-01T12:30:45Z'),
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -468,7 +566,10 @@ describe('EventMessage', () => {
 		it('should handle message type inconsistency', () => {
 			const message = { ...createEventMessage('end-session'), type: 'not-event' as any };
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -478,7 +579,10 @@ describe('EventMessage', () => {
 		it('should handle missing eventName gracefully', () => {
 			const message = { ...createEventMessage('end-session'), eventName: undefined as any };
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -488,7 +592,10 @@ describe('EventMessage', () => {
 		it('should handle null event context', () => {
 			const message = { ...createEventMessage('session-error'), context: null };
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -498,9 +605,12 @@ describe('EventMessage', () => {
 		it('should handle extremely long session durations', () => {
 			const message = createEventMessage('end-session', {
 				sessionDuration: 86400000 * 7, // 1 week in milliseconds
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -510,9 +620,12 @@ describe('EventMessage', () => {
 		it('should handle negative or zero durations', () => {
 			const message = createEventMessage('session-timeout', {
 				timeoutDuration: 0,
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -525,7 +638,10 @@ describe('EventMessage', () => {
 		it('should track user interactions with event messages', async () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -540,7 +656,10 @@ describe('EventMessage', () => {
 		it('should handle rapid successive clicks', async () => {
 			const message = createEventMessage('session-timeout');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -559,9 +678,12 @@ describe('EventMessage', () => {
 		it('should disable interaction when session is reconnecting', async () => {
 			const message = createEventMessage('session-error', {
 				reconnecting: true,
-			});
+			} as any);
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -583,7 +705,10 @@ describe('EventMessage', () => {
 		it('should handle frequent event message updates efficiently', async () => {
 			const message = createEventMessage('end-session');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -592,7 +717,7 @@ describe('EventMessage', () => {
 				await wrapper.rerender({
 					message: createEventMessage('session-timeout', {
 						timestamp: new Date(Date.now() + i * 1000),
-					}),
+					} as any),
 				});
 			}
 
@@ -602,7 +727,10 @@ describe('EventMessage', () => {
 		it('should not cause memory leaks with event listeners', () => {
 			const message = createEventMessage('session-error');
 			const wrapper = render(EventMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
