@@ -144,7 +144,7 @@ describe('CodeDiffMessage', () => {
 
 			const emittedEvents = wrapper.emitted('codeReplace');
 			expect(emittedEvents).toBeTruthy();
-			expect(emittedEvents[0]).toEqual([message.suggestionId]);
+			expect(emittedEvents[0]).toEqual([(message as any).suggestionId]);
 		});
 
 		it('should display undo button when in replaced state', () => {
@@ -169,7 +169,7 @@ describe('CodeDiffMessage', () => {
 
 			const emittedEvents = wrapper.emitted('codeUndo');
 			expect(emittedEvents).toBeTruthy();
-			expect(emittedEvents[0]).toEqual([message.suggestionId]);
+			expect(emittedEvents[0]).toEqual([(message as any).suggestionId]);
 		});
 
 		it('should show loading state when applying changes', () => {
@@ -284,7 +284,7 @@ describe('CodeDiffMessage', () => {
 				{ props: { error: true }, expectedClass: 'error' },
 			];
 
-			scenarios.forEach(({ props, expectedClass }) => {
+			scenarios.forEach(({ props }) => {
 				const message = createCodeDiffMessage(props);
 				const wrapper = render(CodeDiffMessage, {
 					props: { message },
@@ -406,7 +406,7 @@ describe('CodeDiffMessage', () => {
 				'diff --git a/test.js b/test.js\nindex 123..456\n--- a/test.js\n+++ b/test.js\n@@ -1 +1 @@\n-old\n+new',
 			];
 
-			diffFormats.forEach((codeDiff, index) => {
+			diffFormats.forEach((codeDiff) => {
 				const message = createCodeDiffMessage({ codeDiff });
 				const wrapper = render(CodeDiffMessage, {
 					props: { message },
@@ -418,7 +418,8 @@ describe('CodeDiffMessage', () => {
 		});
 
 		it('should show line numbers when enabled', () => {
-			const message = createCodeDiffMessage({ showLineNumbers: true });
+			const message = createCodeDiffMessage({ description: 'Test with line numbers' }) as any;
+			message.showLineNumbers = true;
 			const wrapper = render(CodeDiffMessage, {
 				props: { message },
 				global: {
@@ -437,7 +438,8 @@ describe('CodeDiffMessage', () => {
 		});
 
 		it('should handle readonly mode', () => {
-			const message = createCodeDiffMessage({ readonly: true });
+			const message = createCodeDiffMessage({ description: 'Readonly test' }) as any;
+			message.readonly = true;
 			const wrapper = render(CodeDiffMessage, {
 				props: { message },
 				global: {
@@ -548,7 +550,7 @@ describe('CodeDiffMessage', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle message type inconsistency', () => {
-			const message = { ...createCodeDiffMessage(), type: 'not-code-diff' as ChatUI.MessageType };
+			const message = { ...createCodeDiffMessage(), type: 'not-code-diff' as any };
 			const wrapper = render(CodeDiffMessage, {
 				props: { message },
 				global: { stubs },
@@ -558,7 +560,8 @@ describe('CodeDiffMessage', () => {
 		});
 
 		it('should handle missing suggestionId', () => {
-			const message = { ...createCodeDiffMessage(), suggestionId: undefined };
+			const message = { ...createCodeDiffMessage() } as any;
+			message.suggestionId = undefined;
 			const wrapper = render(CodeDiffMessage, {
 				props: { message },
 				global: { stubs },

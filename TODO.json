@@ -2,29 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754533843854_f0xrl0uuf",
-      "title": "Fix TypeScript compilation error: missing @types/psl in codemirror-lang package",
-      "description": "The @n8n/codemirror-lang package is failing TypeScript compilation due to missing type definitions for the psl library. This is preventing successful typecheck operations across the project.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/@n8n/codemirror-lang/package.json",
-        "packages/@n8n/codemirror-lang/tsconfig.json"
-      ],
-      "success_criteria": [
-        "TypeScript typecheck passes for @n8n/codemirror-lang package",
-        "@types/psl dependency properly installed and configured",
-        "No TypeScript compilation errors related to psl library",
-        "Project-wide typecheck command succeeds without this error"
-      ],
-      "estimate": "30 minutes",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-07T02:30:43.854Z"
-    },
-    {
       "id": "task_1754596548682_y5yvsuk3g",
       "title": "Fix BlockMessage component tests (25 failures)",
       "description": "Fix CSS selector mismatches, markdown processing expectations, streaming behavior, and accessibility tests in BlockMessage.test.ts. Tests are failing because selectors like .block-title, .block-content do not match actual component structure.",

@@ -1,5 +1,6 @@
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { nextTick } from 'vue';
 
 import type { ChatUI } from '../../../../types';
 
@@ -32,14 +33,17 @@ const stubs = {
 	},
 };
 
-const createErrorMessage = (overrides: Partial<ChatUI.ErrorMessage> = {}): ChatUI.ErrorMessage => ({
-	id: '1',
-	type: 'error',
-	role: 'assistant',
-	content: 'Something went wrong',
-	read: false,
-	...overrides,
-});
+const createErrorMessage = (
+	overrides: Partial<ChatUI.AssistantMessage> = {},
+): ChatUI.AssistantMessage =>
+	({
+		id: '1',
+		type: 'error',
+		role: 'assistant',
+		content: 'Something went wrong',
+		read: false,
+		...overrides,
+	}) as ChatUI.AssistantMessage;
 
 describe('ErrorMessage', () => {
 	beforeEach(() => {
@@ -255,13 +259,13 @@ describe('ErrorMessage', () => {
 			void fireEvent.click(retryButton!);
 
 			// Button should show loading state
-			await wrapper.vm.$nextTick();
+			await nextTick();
 			expect(retryButton).toHaveAttribute('data-loading', 'true');
 
 			// Resolve the retry
 			resolveRetry!();
 			await retryPromise;
-			await wrapper.vm.$nextTick();
+			await nextTick();
 
 			expect(retryButton).toHaveAttribute('data-loading', 'false');
 		});
@@ -282,12 +286,12 @@ describe('ErrorMessage', () => {
 			const retryButton = wrapper.container.querySelector('.n8n-button');
 			void fireEvent.click(retryButton!);
 
-			await wrapper.vm.$nextTick();
+			await nextTick();
 			expect(retryButton).toHaveAttribute('disabled', 'true');
 
 			resolveRetry!();
 			await retryPromise;
-			await wrapper.vm.$nextTick();
+			await nextTick();
 
 			expect(retryButton).toHaveAttribute('disabled', 'false');
 		});

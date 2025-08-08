@@ -196,6 +196,7 @@ describe('BlockMessage', () => {
 			const wrapper = render(BlockMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: true,
 				},
@@ -218,9 +219,9 @@ describe('BlockMessage', () => {
 			const wrapper = render(BlockMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: true,
-					titleComplete: true,
 				},
 				global: { stubs },
 			});
@@ -240,6 +241,7 @@ describe('BlockMessage', () => {
 			const wrapper = render(BlockMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: false,
 				},
 				global: { stubs },
@@ -253,6 +255,7 @@ describe('BlockMessage', () => {
 			const wrapper = render(BlockMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: false,
 				},
@@ -270,6 +273,7 @@ describe('BlockMessage', () => {
 			const wrapper = render(BlockMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: true,
 				},
@@ -303,6 +307,7 @@ describe('BlockMessage', () => {
 			const wrapper = render(BlockMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: true,
 				},
@@ -332,17 +337,26 @@ describe('BlockMessage', () => {
 			const errorMessage = createBlockMessage({ title: 'Error Block' });
 
 			const infoWrapper = render(BlockMessage, {
-				props: { message: infoMessage },
+				props: {
+					message: infoMessage,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
 			const warningWrapper = render(BlockMessage, {
-				props: { message: warningMessage },
+				props: {
+					message: warningMessage,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
 			const errorWrapper = render(BlockMessage, {
-				props: { message: errorMessage },
+				props: {
+					message: errorMessage,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -354,8 +368,10 @@ describe('BlockMessage', () => {
 
 	describe('Quick Replies Integration', () => {
 		it('should display quick replies when provided', () => {
-			const message = createBlockMessage() as ChatUI.AssistantMessage & {
-				quickReplies: ChatUI.QuickReply[];
+			const message = createBlockMessage() as ChatUI.SummaryBlock & {
+				id: string;
+				read: boolean;
+				quickReplies?: ChatUI.QuickReply[];
 			};
 			message.quickReplies = [
 				{ type: 'new-suggestion', text: 'Try again' },
@@ -400,7 +416,11 @@ describe('BlockMessage', () => {
 			message.quickReplies = [{ type: 'resolved', text: 'Got it' }];
 			const wrapper = render(BlockMessage, {
 				props: {
-					message,
+					message: message as ChatUI.SummaryBlock & {
+						id: string;
+						read: boolean;
+						quickReplies?: ChatUI.QuickReply[];
+					},
 					isFirstOfRole: true,
 				},
 				global: {
@@ -554,7 +574,10 @@ describe('BlockMessage', () => {
 			} as ChatUI.AssistantMessage;
 
 			const wrapper = render(BlockMessage, {
-				props: { message: incompleteMessage },
+				props: {
+					message: incompleteMessage,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -663,6 +686,7 @@ describe('BlockMessage', () => {
 			const wrapper = render(BlockMessage, {
 				props: {
 					message,
+					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: true,
 				},

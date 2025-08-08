@@ -2,7 +2,14 @@
 module.exports = {
 	...require('../../../jest.config.cjs'),
 	transform: {
-		'^.+\\.ts$': ['ts-jest', { isolatedModules: false }],
+		'^.+\\.ts$': [
+			'ts-jest',
+			{
+				tsconfig: {
+					isolatedModules: false,
+				},
+			},
+		],
 	},
 	coveragePathIgnorePatterns: ['index.ts'],
 };
