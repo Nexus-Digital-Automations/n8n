@@ -45,6 +45,14 @@ interface SlackAttachment {
 	footer?: string;
 	footer_icon?: string;
 	ts?: number;
+	actions?: SlackAction[];
+}
+
+interface SlackAction {
+	type: 'button';
+	text: string;
+	url: string;
+	style?: 'primary' | 'default' | 'danger';
 }
 
 interface SlackField {
@@ -90,7 +98,11 @@ export class SlackNotificationChannel extends BaseNotificationChannel {
 		config?: Record<string, unknown>,
 	): Promise<NotificationResult> {
 		try {
-			const slackConfig = config as SlackNotificationConfig;
+			if (!config) {
+				return this.createFailureResult('No Slack configuration provided');
+			}
+			
+			const slackConfig = config as unknown as SlackNotificationConfig;
 			
 			if (!slackConfig?.webhookUrl) {
 				return this.createFailureResult('Slack webhook URL is required');
@@ -159,27 +171,26 @@ export class SlackNotificationChannel extends BaseNotificationChannel {
 	 * Validate Slack configuration
 	 */
 	async validateConfig(config: Record<string, unknown>): Promise<{ valid: boolean; errors?: string[] }> {
-		const slackConfig = config as SlackNotificationConfig;
 		const errors: string[] = [];
 
 		// Check required webhook URL
-		if (!slackConfig.webhookUrl || typeof slackConfig.webhookUrl !== 'string') {
+		if (!config.webhookUrl || typeof config.webhookUrl !== 'string') {
 			errors.push('webhookUrl is required and must be a string');
-		} else if (!slackConfig.webhookUrl.startsWith('https://hooks.slack.com/')) {
+		} else if (!(config.webhookUrl as string).startsWith('https://hooks.slack.com/')) {
 			errors.push('webhookUrl must be a valid Slack webhook URL');
 		}
 
 		// Check template if specified
-		if (slackConfig.template && !['basic', 'detailed'].includes(slackConfig.template)) {
+		if (config.template && !['basic', 'detailed'].includes(config.template as string)) {
 			errors.push('template must be either "basic" or "detailed"');
 		}
 
 		// Check mention users format
-		if (slackConfig.mentionUsers) {
-			if (!Array.isArray(slackConfig.mentionUsers)) {
+		if (config.mentionUsers) {
+			if (!Array.isArray(config.mentionUsers)) {
 				errors.push('mentionUsers must be an array');
 			} else {
-				const invalidUsers = slackConfig.mentionUsers.filter(
+				const invalidUsers = (config.mentionUsers as string[]).filter(
 					user => typeof user !== 'string' || !user.trim()
 				);
 				if (invalidUsers.length > 0) {

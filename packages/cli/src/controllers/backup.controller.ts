@@ -78,7 +78,7 @@ export class BackupController {
 
 	@Post('/')
 	@GlobalScope('backup:create')
-	async createBackup(req: Request<{}, {}, BackupRequest>, res: Response): Promise<BackupResponse> {
+	async createBackup(req: Request<{}, {}, BackupRequest>, _res: Response): Promise<BackupResponse> {
 		try {
 			const {
 				includeCredentials = true,

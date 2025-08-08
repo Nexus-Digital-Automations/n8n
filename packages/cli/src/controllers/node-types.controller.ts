@@ -11,10 +11,6 @@ import type {
 	INodeExecutionData,
 	IDataObject,
 	WorkflowExecuteMode,
-	ITaskData,
-	INodeParameters,
-	INode,
-	IWorkflowExecuteAdditionalData,
 	IRunExecutionData,
 } from 'n8n-workflow';
 import { ApplicationError, Workflow } from 'n8n-workflow';

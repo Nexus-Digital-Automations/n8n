@@ -57,7 +57,7 @@ export class NotificationSettingsRepository extends Repository<NotificationSetti
 	/**
 	 * Create or update notification settings
 	 */
-	async upsert(
+	async upsertSettings(
 		workflowId: string,
 		userId: string,
 		settings: Partial<NotificationSettingsEntity>,

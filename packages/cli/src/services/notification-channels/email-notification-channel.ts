@@ -26,7 +26,7 @@ export class EmailNotificationChannel extends BaseNotificationChannel {
 	public readonly channelType = 'email';
 	public readonly channelName = 'Email';
 
-	private transporter: Transporter<SMTPTransport.SentMessageInfo> | null = null;
+	private transporter: Transporter | null = null;
 
 	constructor(
 		logger: Logger,
@@ -38,14 +38,14 @@ export class EmailNotificationChannel extends BaseNotificationChannel {
 	/**
 	 * Initialize SMTP transporter if not already initialized
 	 */
-	private async getTransporter(): Promise<Transporter<SMTPTransport.SentMessageInfo>> {
+	private async getTransporter(): Promise<Transporter> {
 		if (this.transporter) {
 			return this.transporter;
 		}
 
 		const config = this.notificationConfig;
 		
-		this.transporter = nodemailer.createTransporter({
+		this.transporter = nodemailer.createTransport({
 			host: config.emailSmtpHost,
 			port: config.emailSmtpPort,
 			secure: config.emailSmtpSecure,
@@ -61,7 +61,7 @@ export class EmailNotificationChannel extends BaseNotificationChannel {
 			rateLimit: 5,
 		});
 
-		return this.transporter;
+		return this.transporter!;
 	}
 
 	/**
@@ -72,7 +72,11 @@ export class EmailNotificationChannel extends BaseNotificationChannel {
 		config?: Record<string, unknown>,
 	): Promise<NotificationResult> {
 		try {
-			const emailConfig = config as EmailNotificationConfig;
+			if (!config) {
+				return this.createFailureResult('No email configuration provided');
+			}
+			
+			const emailConfig = config as unknown as EmailNotificationConfig;
 			
 			if (!emailConfig?.recipients?.length) {
 				return this.createFailureResult('No email recipients specified');
@@ -139,17 +143,16 @@ export class EmailNotificationChannel extends BaseNotificationChannel {
 	 * Validate email configuration
 	 */
 	async validateConfig(config: Record<string, unknown>): Promise<{ valid: boolean; errors?: string[] }> {
-		const emailConfig = config as EmailNotificationConfig;
 		const errors: string[] = [];
 
 		// Check recipients
-		if (!emailConfig.recipients || !Array.isArray(emailConfig.recipients)) {
+		if (!config.recipients || !Array.isArray(config.recipients)) {
 			errors.push('recipients must be an array');
-		} else if (emailConfig.recipients.length === 0) {
+		} else if (config.recipients.length === 0) {
 			errors.push('at least one recipient is required');
 		} else {
 			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-			const invalidEmails = emailConfig.recipients.filter(email => 
+			const invalidEmails = config.recipients.filter(email => 
 				typeof email !== 'string' || !emailRegex.test(email)
 			);
 			if (invalidEmails.length > 0) {
@@ -158,7 +161,7 @@ export class EmailNotificationChannel extends BaseNotificationChannel {
 		}
 
 		// Check template if specified
-		if (emailConfig.template && !['basic', 'detailed'].includes(emailConfig.template)) {
+		if (config.template && !['basic', 'detailed'].includes(config.template as string)) {
 			errors.push('template must be either "basic" or "detailed"');
 		}
 

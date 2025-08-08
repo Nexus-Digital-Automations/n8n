@@ -102,6 +102,11 @@ export interface INotificationChannel {
 	 * Get the retry configuration for this channel
 	 */
 	getRetryConfig(): NotificationRetryConfig;
+
+	/**
+	 * Calculate the next retry delay based on retry count
+	 */
+	calculateRetryDelay(retryCount: number): number;
 }
 
 /**
@@ -150,7 +155,7 @@ export abstract class BaseNotificationChannel implements INotificationChannel {
 	/**
 	 * Calculate the next retry delay based on retry count
 	 */
-	protected calculateRetryDelay(retryCount: number): number {
+	public calculateRetryDelay(retryCount: number): number {
 		const config = this.getRetryConfig();
 		
 		if (!config.exponentialBackoff) {

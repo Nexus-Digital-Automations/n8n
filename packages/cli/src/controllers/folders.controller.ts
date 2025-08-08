@@ -26,7 +26,7 @@ export class FoldersController {
 	constructor(
 		private readonly workflowOrganizationService: WorkflowOrganizationService,
 		private readonly folderPermissionsService: FolderPermissionsService,
-		private readonly eventService: EventService,
+		private readonly _eventService: EventService,
 		private readonly logger: Logger,
 	) {}
 
@@ -945,7 +945,7 @@ export class FoldersController {
 		return filteredFolders;
 	}
 
-	private async filterWorkflowsByPermissions(user: any, workflows: any[]): Promise<any[]> {
+	private async filterWorkflowsByPermissions(_user: any, workflows: any[]): Promise<any[]> {
 		// For now, return all workflows - would need to integrate with workflow permissions
 		return workflows;
 	}

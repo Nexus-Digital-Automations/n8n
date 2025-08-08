@@ -96,7 +96,7 @@ export class WorkflowNotificationEventRelay {
 	 */
 	private isExecutionFailed(runData: IRun): boolean {
 		// Check for error status
-		if (runData.status === 'error' || runData.status === 'failed') {
+		if (runData.status === 'error') {
 			return true;
 		}
 
@@ -137,7 +137,7 @@ export class WorkflowNotificationEventRelay {
 		// Check main execution error
 		const executionError = runData.data?.resultData?.error;
 		if (executionError) {
-			errorInfo.message = executionError.message || executionError.description;
+			errorInfo.message = executionError.message || executionError.description || undefined;
 			errorInfo.stack = executionError.stack;
 
 			// Extract node information from error

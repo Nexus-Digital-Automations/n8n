@@ -45,7 +45,7 @@ const upload = multer({
 export class BinaryDataController {
 	constructor(
 		private readonly binaryDataService: BinaryDataService,
-		private readonly coreBinaryDataService: CoreBinaryDataService,
+		private readonly _coreBinaryDataService: CoreBinaryDataService,
 		private readonly binaryMigrationService: BinaryMigrationService,
 		private readonly binaryExportService: BinaryExportService,
 	) {}
@@ -489,7 +489,7 @@ export class BinaryDataController {
 	@Get('/operations/:operationId/progress')
 	@GlobalScope('instance:read')
 	async getOperationProgress(
-		req: AuthenticatedRequest,
+		_req: AuthenticatedRequest,
 		res: Response,
 		@Param('operationId') operationId: string,
 	): Promise<any> {

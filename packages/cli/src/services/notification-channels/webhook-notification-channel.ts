@@ -43,7 +43,11 @@ export class WebhookNotificationChannel extends BaseNotificationChannel {
 		config?: Record<string, unknown>,
 	): Promise<NotificationResult> {
 		try {
-			const webhookConfig = config as WebhookNotificationConfig;
+			if (!config) {
+				return this.createFailureResult('No webhook configuration provided');
+			}
+			
+			const webhookConfig = config as unknown as WebhookNotificationConfig;
 			
 			if (!webhookConfig?.url) {
 				return this.createFailureResult('Webhook URL is required');
@@ -113,34 +117,33 @@ export class WebhookNotificationChannel extends BaseNotificationChannel {
 	 * Validate webhook configuration
 	 */
 	async validateConfig(config: Record<string, unknown>): Promise<{ valid: boolean; errors?: string[] }> {
-		const webhookConfig = config as WebhookNotificationConfig;
 		const errors: string[] = [];
 
 		// Check required URL
-		if (!webhookConfig.url || typeof webhookConfig.url !== 'string') {
+		if (!config.url || typeof config.url !== 'string') {
 			errors.push('url is required and must be a string');
 		} else {
 			try {
-				new URL(webhookConfig.url);
+				new URL(config.url as string);
 			} catch {
 				errors.push('url must be a valid URL');
 			}
 		}
 
 		// Check method if specified
-		if (webhookConfig.method && !['POST', 'PUT', 'PATCH'].includes(webhookConfig.method)) {
+		if (config.method && !['POST', 'PUT', 'PATCH'].includes(config.method as string)) {
 			errors.push('method must be POST, PUT, or PATCH');
 		}
 
 		// Check timeout if specified
-		if (webhookConfig.timeout !== undefined) {
-			if (typeof webhookConfig.timeout !== 'number' || webhookConfig.timeout <= 0) {
+		if (config.timeout !== undefined) {
+			if (typeof config.timeout !== 'number' || config.timeout <= 0) {
 				errors.push('timeout must be a positive number');
 			}
 		}
 
 		// Check headers if specified
-		if (webhookConfig.headers && typeof webhookConfig.headers !== 'object') {
+		if (config.headers && typeof config.headers !== 'object') {
 			errors.push('headers must be an object');
 		}
 
@@ -205,8 +208,9 @@ export class WebhookNotificationChannel extends BaseNotificationChannel {
 
 		// Include execution data if requested
 		if (config.includeExecutionData && workflow.nodes) {
+			const currentWorkflow = webhookPayload.workflow as Record<string, unknown>;
 			webhookPayload.workflow = {
-				...webhookPayload.workflow,
+				...currentWorkflow,
 				nodes: workflow.nodes,
 			};
 		}
@@ -224,8 +228,8 @@ export class WebhookNotificationChannel extends BaseNotificationChannel {
 		const headers: Record<string, string> = {
 			'Content-Type': 'application/json',
 			'User-Agent': 'n8n-notification-system',
-			'X-N8N-Workflow-ID': String(payload.workflow?.['id'] || ''),
-			'X-N8N-Execution-ID': String(payload.execution?.['id'] || ''),
+			'X-N8N-Workflow-ID': String((payload.workflow as Record<string, unknown>)?.['id'] || ''),
+			'X-N8N-Execution-ID': String((payload.execution as Record<string, unknown>)?.['id'] || ''),
 			'X-N8N-Notification-Type': 'workflow-failure',
 			'X-N8N-Timestamp': new Date().toISOString(),
 			...config.headers,

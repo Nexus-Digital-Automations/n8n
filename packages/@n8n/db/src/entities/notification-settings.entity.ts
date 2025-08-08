@@ -9,9 +9,10 @@ import {
 	PrimaryColumn,
 	RelationId,
 } from '@n8n/typeorm';
+
+import { WithTimestampsAndStringId, jsonColumnType } from './abstract-entity';
 import { User } from './user';
 import { WorkflowEntity } from './workflow-entity';
-import { WithTimestampsAndStringId, jsonColumnType } from './abstract-entity';
 
 export interface NotificationChannelConfig {
 	email?: {

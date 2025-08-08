@@ -1,5 +1,6 @@
 import { Service } from '@n8n/di';
 import { DataSource, Repository, LessThanOrEqual, MoreThan } from '@n8n/typeorm';
+
 import { NotificationHistoryEntity, type NotificationStatus } from '../entities/notification-history.entity';
 
 export interface NotificationHistoryStats {

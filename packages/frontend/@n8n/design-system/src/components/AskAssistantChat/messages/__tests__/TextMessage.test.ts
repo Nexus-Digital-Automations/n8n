@@ -1,6 +1,5 @@
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import { nextTick } from 'vue';
 
 import type { ChatUI } from '../../../../types';
 import TextMessage from '../TextMessage.vue';

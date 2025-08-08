@@ -9,10 +9,11 @@ import {
 	PrimaryColumn,
 	RelationId,
 } from '@n8n/typeorm';
+
+import { WithTimestampsAndStringId, jsonColumnType, DateTimeColumn } from './abstract-entity';
+import { ExecutionEntity } from './execution-entity';
 import { User } from './user';
 import { WorkflowEntity } from './workflow-entity';
-import { ExecutionEntity } from './execution-entity';
-import { WithTimestampsAndStringId, jsonColumnType, DateTimeColumn } from './abstract-entity';
 
 export type NotificationStatus = 'pending' | 'sent' | 'failed' | 'retrying';
 

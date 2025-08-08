@@ -1,0 +1,11 @@
+Timeout Debug Summary for Agent 2429cebb-a415-4d85-a378-c68f9f0ca3d2
+==========================================
+
+Timestamp: 2025-08-08T15:34:33.355580
+Elapsed Time: 0m 0.0s
+Timeout Limit: 120s
+Timeout Exceeded: False
+Hook Type: SubagentStop
+Tool Name: unknown
+
+Full report: logs/debug/debug_report_2429cebb-a415-4d85-a378-c68f9f0ca3d2_1754685273.json

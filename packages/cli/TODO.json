@@ -1124,17 +1124,107 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-07T19:10:46.952Z"
+    },
+    {
+      "id": "task_1754684784417_04g74zekl",
+      "title": "Fix missing service module imports in custom-nodes.controller.ts",
+      "description": "Resolve 3 module not found errors in custom-nodes.controller.ts: @/services/custom-node.service, @/services/custom-node-validation.service, @/services/custom-node-deployment.service. Either create the missing service files or remove the imports and related functionality.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/cli/src/controllers/custom-nodes.controller.ts"
+      ],
+      "success_criteria": [
+        "All 3 missing service module errors resolved",
+        "Custom-nodes.controller.ts compiles without module errors",
+        "Related functionality either implemented or safely removed"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:26:24.417Z"
+    },
+    {
+      "id": "task_1754684793174_zrkpz206f",
+      "title": "Fix custom permission scopes and event types in custom-nodes.controller.ts",
+      "description": "Resolve ~20 type mismatch errors for custom permission scopes (customNode:create, customNode:read, etc.) and custom event types (custom-node-created, etc.) that are not defined in the n8n type system. Either add these custom types to the appropriate type definitions or use existing equivalent types.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/cli/src/controllers/custom-nodes.controller.ts",
+        "packages/@n8n/permissions/",
+        "packages/@n8n/*/src/types/"
+      ],
+      "success_criteria": [
+        "All custom permission scope errors resolved",
+        "All custom event type errors resolved",
+        "Controller compiles without type assignment errors"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:26:33.174Z"
+    },
+    {
+      "id": "task_1754684804407_pbxugxcou",
+      "title": "Fix notification channel service type and implementation errors",
+      "description": "Resolve ~15 TypeScript errors in notification channel services including: email-notification-channel.ts (nodemailer createTransporter vs createTransport, transporter null type), slack-notification-channel.ts (SlackAttachment actions property, config type conversions), webhook-notification-channel.ts type issues. Fix type conversions and property access errors.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/cli/src/services/notification-channels/email-notification-channel.ts",
+        "packages/cli/src/services/notification-channels/slack-notification-channel.ts",
+        "packages/cli/src/services/notification-channels/webhook-notification-channel.ts"
+      ],
+      "success_criteria": [
+        "All notification channel TypeScript errors resolved",
+        "Proper type handling for configuration objects",
+        "Correct method and property usage"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:26:44.407Z"
+    },
+    {
+      "id": "task_1754684816141_ym5fk75rx",
+      "title": "Fix remaining TypeScript compilation errors across CLI package",
+      "description": "Resolve remaining ~15-20 TypeScript errors in various CLI files including: User type isOwner property issues, workflow notification event relay comparison and null assignment issues, notification service type mismatches, and other miscellaneous type errors. Comprehensive fix for all remaining compilation blockers.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/cli/src/events/relays/workflow-notification.event-relay.ts",
+        "packages/cli/src/services/notification.service.ts",
+        "packages/@n8n/db/src/entities/user.ts"
+      ],
+      "success_criteria": [
+        "All remaining TypeScript compilation errors resolved",
+        "CLI package builds successfully with zero errors",
+        "All type safety issues addressed"
+      ],
+      "estimate": "2-4 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:26:56.141Z"
     }
   ],
   "__removedLinterTasks": {
     "removedCount": 1,
     "finalTaskCount": 20
   },
-  "execution_count": 50,
-  "last_hook_activation": 1754682041393,
+  "execution_count": 52,
+  "last_hook_activation": 1754685930689,
   "project": "unnamed-project",
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "DEVELOPMENT"
+  "last_mode": "TASK_CREATION"
 }

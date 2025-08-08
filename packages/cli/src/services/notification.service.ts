@@ -312,15 +312,15 @@ export class NotificationService {
 			}
 
 			// Build URLs
-			const executionUrl = this.urlService.getWebhookUrl() 
-				? `${this.urlService.getWebhookUrl()}/execution/${execution.id}`
+			const executionUrl = this.urlService.getWebhookBaseUrl() 
+				? `${this.urlService.getWebhookBaseUrl()}/execution/${execution.id}`
 				: undefined;
 			
-			const workflowUrl = this.urlService.getWebhookUrl()
-				? `${this.urlService.getWebhookUrl()}/workflow/${workflow.id}`
+			const workflowUrl = this.urlService.getWebhookBaseUrl()
+				? `${this.urlService.getWebhookBaseUrl()}/workflow/${workflow.id}`
 				: undefined;
 
-			const instanceUrl = this.urlService.getWebhookUrl();
+			const instanceUrl = this.urlService.getWebhookBaseUrl();
 
 			return {
 				workflow: {
@@ -332,10 +332,10 @@ export class NotificationService {
 				execution: {
 					id: execution.id,
 					mode: execution.mode,
-					startedAt: execution.startedAt,
-					stoppedAt: execution.stoppedAt,
+					startedAt: execution.startedAt || new Date(),
+					stoppedAt: execution.stoppedAt || null,
 					status: execution.status,
-					error: execution.data?.error?.message,
+					error: execution.executionData?.data ? JSON.parse(execution.executionData.data)?.resultData?.error?.message : undefined,
 				},
 				user: user ? {
 					id: user.id,
