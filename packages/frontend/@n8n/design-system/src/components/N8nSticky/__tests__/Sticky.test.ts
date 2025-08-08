@@ -4,6 +4,7 @@
 
 import { render, fireEvent, waitFor } from '@testing-library/vue';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import N8nSticky from '../Sticky.vue';
 import type { StickyProps } from '../types';
 
@@ -49,7 +50,7 @@ vi.mock('../../N8nInput', () => ({
 vi.mock('../../N8nText', () => ({
 	default: {
 		name: 'N8nText',
-		template: `<div class="text-mock" :data-size="size" :data-align="align"><slot /></div>`,
+		template: '<div class="text-mock" :data-size="size" :data-align="align"><slot /></div>',
 		props: ['size', 'align'],
 	},
 }));
@@ -176,7 +177,10 @@ describe('N8nSticky', () => {
 			expect(wrapper).toBeInTheDocument();
 			expect(wrapper).toBeVisible();
 			expect(markdown).toBeInTheDocument();
-			expect(markdown).toHaveAttribute('data-content', '# Hello World\nThis is **markdown** content');
+			expect(markdown).toHaveAttribute(
+				'data-content',
+				'# Hello World\nThis is **markdown** content',
+			);
 			expect(markdown).toHaveAttribute('data-theme', 'sticky');
 			expect(markdown).toHaveAttribute('data-with-multi-breaks', 'true');
 		});
@@ -217,9 +221,12 @@ describe('N8nSticky', () => {
 			const mockLink = document.createElement('a');
 			const mockEvent = new MouseEvent('click');
 
-			await fireEvent(markdown!, new CustomEvent('markdown-click', {
-				detail: { link: mockLink, event: mockEvent }
-			}));
+			await fireEvent(
+				markdown!,
+				new CustomEvent('markdown-click', {
+					detail: { link: mockLink, event: mockEvent },
+				}),
+			);
 
 			expect(onMarkdownClick).toHaveBeenCalledTimes(1);
 		});
@@ -385,7 +392,7 @@ describe('N8nSticky', () => {
 					modelValue: 'Test content',
 					editMode: true,
 					width: 100, // <= 155
-					height: 80,  // <= 100
+					height: 80, // <= 100
 				},
 				global: {
 					directives: {
@@ -639,10 +646,13 @@ describe('N8nSticky', () => {
 			});
 
 			// Wait for the setTimeout to complete
-			await waitFor(() => {
-				// Input should be rendered in edit mode
-				expect(document.querySelector('.input-mock')).toBeInTheDocument();
-			}, { timeout: 150 });
+			await waitFor(
+				() => {
+					// Input should be rendered in edit mode
+					expect(document.querySelector('.input-mock')).toBeInTheDocument();
+				},
+				{ timeout: 150 },
+			);
 		});
 
 		it('should focus input when entering edit mode with custom text', async () => {
@@ -668,9 +678,12 @@ describe('N8nSticky', () => {
 				},
 			});
 
-			await waitFor(() => {
-				expect(document.querySelector('.input-mock')).toBeInTheDocument();
-			}, { timeout: 150 });
+			await waitFor(
+				() => {
+					expect(document.querySelector('.input-mock')).toBeInTheDocument();
+				},
+				{ timeout: 150 },
+			);
 		});
 	});
 
@@ -730,10 +743,10 @@ describe('N8nSticky', () => {
 			});
 
 			const sticky = container.querySelector('.n8n-sticky');
-			
+
 			// Should be able to receive focus
 			expect(sticky).toBeInTheDocument();
-			
+
 			// Should have clickable class indicating it's interactive
 			expect(sticky).toHaveClass('clickable');
 		});
@@ -771,7 +784,10 @@ describe('N8nSticky', () => {
 			});
 
 			const markdown = container.querySelector('.markdown-mock');
-			expect(markdown).toHaveAttribute('data-content', '# Important Note\nThis is screen reader accessible content');
+			expect(markdown).toHaveAttribute(
+				'data-content',
+				'# Important Note\nThis is screen reader accessible content',
+			);
 		});
 	});
 
@@ -906,7 +922,9 @@ describe('N8nSticky', () => {
 	describe('Integration with Parent Components', () => {
 		it('should work properly when controlled by parent state', async () => {
 			let editMode = false;
-			const toggleEdit = () => { editMode = !editMode; };
+			const toggleEdit = () => {
+				editMode = !editMode;
+			};
 
 			const { rerender } = render(N8nSticky, {
 				props: {

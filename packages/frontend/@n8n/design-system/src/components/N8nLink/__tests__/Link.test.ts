@@ -1,6 +1,7 @@
 import { render } from '@testing-library/vue';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { createRouter, createWebHistory } from 'vue-router';
+
 import N8nLink from '../Link.vue';
 
 // Mock vue-router

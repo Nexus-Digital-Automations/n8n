@@ -1,7 +1,8 @@
+import type { ChatUI } from '@n8n/chat';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+
 import TextMessage from '../TextMessage.vue';
-import type { ChatUI } from '@n8n/chat';
 
 // Mock the clipboard API
 const mockWriteText = vi.fn();

@@ -4,6 +4,7 @@
 
 import { render } from '@testing-library/vue';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import TableBase from '../TableBase.vue';
 
 describe('TableBase', () => {
@@ -692,7 +693,7 @@ describe('TableBase', () => {
 
 			expect(outerTable).toBeInTheDocument();
 			expect(nestedTable).toBeInTheDocument();
-			expect(outerTable).toContainElement(nestedTable!);
+			expect(outerTable).toContainElement(nestedTable);
 		});
 
 		it('should handle malformed HTML gracefully', () => {
@@ -871,8 +872,8 @@ describe('TableBase', () => {
 			const scrollContainer = container.querySelector('[class*="n8nTableScroll"]');
 			const table = container.querySelector('table');
 
-			expect(tableWrapper).toContainElement(scrollContainer!);
-			expect(scrollContainer).toContainElement(table!);
+			expect(tableWrapper).toContainElement(scrollContainer);
+			expect(scrollContainer).toContainElement(table);
 		});
 	});
 });

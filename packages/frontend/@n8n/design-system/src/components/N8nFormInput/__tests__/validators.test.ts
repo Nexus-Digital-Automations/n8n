@@ -2,6 +2,7 @@
  * Comprehensive test suite for form input validators
  */
 
+import type { RuleGroup, Validatable } from '../../../types';
 import {
 	emailRegex,
 	requiredValidator,
@@ -15,7 +16,6 @@ import {
 	VALIDATORS,
 	getValidationError,
 } from '../validators';
-import type { IValidator, RuleGroup, Validatable } from '../../../types';
 
 describe('Form Input Validators', () => {
 	describe('emailRegex', () => {

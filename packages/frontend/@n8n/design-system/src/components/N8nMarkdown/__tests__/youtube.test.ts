@@ -2,8 +2,9 @@
  * Test suite for YouTube markdown plugin utility functions
  */
 
-import { describe, it, expect, vi } from 'vitest';
 import MarkdownIt from 'markdown-it';
+import { describe, it, expect } from 'vitest';
+
 import { markdownYoutubeEmbed, YOUTUBE_EMBED_SRC_REGEX, type YoutubeEmbedConfig } from '../youtube';
 
 describe('youtube markdown utilities', () => {

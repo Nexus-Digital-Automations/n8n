@@ -4,13 +4,15 @@
 
 import { render } from '@testing-library/vue';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import N8nNodeIcon from '../NodeIcon.vue';
 
 // Mock FontAwesome
 vi.mock('@fortawesome/vue-fontawesome', () => ({
 	FontAwesomeIcon: {
 		name: 'FontAwesomeIcon',
-		template: `<i class="fa-mock" :data-icon="icon" :data-style="JSON.stringify(style)">FA: {{ icon }}</i>`,
+		template:
+			'<i class="fa-mock" :data-icon="icon" :data-style="JSON.stringify(style)">FA: {{ icon }}</i>',
 		props: ['icon', 'style'],
 	},
 }));
@@ -19,7 +21,8 @@ vi.mock('@fortawesome/vue-fontawesome', () => ({
 vi.mock('../../N8nIcon', () => ({
 	default: {
 		name: 'N8nIcon',
-		template: `<div class="n8n-icon-mock" :data-icon="icon" :data-size="size">N8N: {{ icon }}</div>`,
+		template:
+			'<div class="n8n-icon-mock" :data-icon="icon" :data-size="size">N8N: {{ icon }}</div>',
 		props: ['icon', 'size'],
 	},
 }));

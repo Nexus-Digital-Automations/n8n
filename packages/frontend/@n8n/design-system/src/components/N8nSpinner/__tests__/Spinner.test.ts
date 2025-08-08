@@ -1,5 +1,6 @@
 import { render } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
+
 import N8nSpinner from '../Spinner.vue';
 
 describe('N8nSpinner', () => {

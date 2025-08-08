@@ -4,8 +4,9 @@
 
 import { render } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
-import N8nActionToggle from '../ActionToggle.vue';
+
 import type { UserAction, IUser } from '../../../types';
+import N8nActionToggle from '../ActionToggle.vue';
 
 // Mock user type for testing
 interface TestUser extends IUser {
@@ -16,7 +17,7 @@ interface TestUser extends IUser {
 }
 
 describe('N8nActionToggle', () => {
-	const mockActions: UserAction<TestUser>[] = [
+	const mockActions: Array<UserAction<TestUser>> = [
 		{
 			value: 'edit',
 			label: 'Edit User',
@@ -219,7 +220,7 @@ describe('N8nActionToggle', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle actions with special characters in values', () => {
-			const specialActions: UserAction<TestUser>[] = [
+			const specialActions: Array<UserAction<TestUser>> = [
 				{
 					value: 'action-with-dashes',
 					label: 'Action with Dashes',
@@ -247,7 +248,7 @@ describe('N8nActionToggle', () => {
 		});
 
 		it('should handle empty action labels', () => {
-			const emptyLabelActions: UserAction<TestUser>[] = [
+			const emptyLabelActions: Array<UserAction<TestUser>> = [
 				{
 					value: 'empty',
 					label: '',
@@ -265,7 +266,7 @@ describe('N8nActionToggle', () => {
 		});
 
 		it('should handle very long action labels', () => {
-			const longLabelActions: UserAction<TestUser>[] = [
+			const longLabelActions: Array<UserAction<TestUser>> = [
 				{
 					value: 'long',
 					label:

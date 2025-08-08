@@ -2,8 +2,8 @@
  * Comprehensive test suite for N8nInput component
  */
 
-import { render, fireEvent } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
 
 import N8nInput from './Input.vue';

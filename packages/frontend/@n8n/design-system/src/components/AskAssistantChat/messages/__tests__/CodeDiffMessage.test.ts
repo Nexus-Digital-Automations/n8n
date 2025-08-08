@@ -1,5 +1,4 @@
 import type { ChatUI } from '@n8n/chat';
-
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 

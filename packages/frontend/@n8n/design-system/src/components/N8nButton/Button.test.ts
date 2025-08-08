@@ -1,5 +1,5 @@
-import { render, fireEvent, screen } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
+import { render, fireEvent, screen } from '@testing-library/vue';
 
 import N8nButton from './Button.vue';
 

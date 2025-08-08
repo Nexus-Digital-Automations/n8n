@@ -4,8 +4,10 @@
 
 import { render, fireEvent } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
-import N8nResizeableSticky from '../ResizeableSticky.vue';
+
 import type { ResizeData } from '@n8n/design-system/types';
+
+import N8nResizeableSticky from '../ResizeableSticky.vue';
 
 // Mock the child components
 vi.mock('../N8nResizeWrapper/ResizeWrapper.vue', () => ({
@@ -46,7 +48,18 @@ vi.mock('../N8nSticky/Sticky.vue', () => ({
 				Sticky Note Content
 			</div>
 		`,
-		props: ['modelValue', 'height', 'width', 'minHeight', 'minWidth', 'id', 'defaultText', 'editMode', 'readOnly', 'backgroundColor'],
+		props: [
+			'modelValue',
+			'height',
+			'width',
+			'minHeight',
+			'minWidth',
+			'id',
+			'defaultText',
+			'editMode',
+			'readOnly',
+			'backgroundColor',
+		],
 		emits: ['markdown-click'],
 	},
 }));
@@ -204,12 +217,12 @@ describe('N8nResizeableSticky', () => {
 
 			// Start resizing
 			await fireEvent(resizeWrapper!, new CustomEvent('resizestart'));
-			
+
 			// Component should be in resizing state now (internal state)
-			
+
 			// End resizing
 			await fireEvent(resizeWrapper!, new CustomEvent('resizeend'));
-			
+
 			// Component should no longer be in resizing state
 		});
 	});
@@ -272,14 +285,17 @@ describe('N8nResizeableSticky', () => {
 			});
 
 			const sticky = container.querySelector('.sticky-mock');
-			
+
 			// Simulate markdown click event
 			const mockLink = document.createElement('a');
 			const mockEvent = new MouseEvent('click');
-			
-			await fireEvent(sticky!, new CustomEvent('markdown-click', { 
-				detail: { link: mockLink, event: mockEvent }
-			}));
+
+			await fireEvent(
+				sticky!,
+				new CustomEvent('markdown-click', {
+					detail: { link: mockLink, event: mockEvent },
+				}),
+			);
 
 			expect(onMarkdownClick).toHaveBeenCalledTimes(1);
 		});
@@ -458,9 +474,12 @@ describe('N8nResizeableSticky', () => {
 
 			// Simulate resize sequence
 			await fireEvent(resizeWrapper!, new CustomEvent('resizestart'));
-			await fireEvent(resizeWrapper!, new CustomEvent('resize', { 
-				detail: { width: 300, height: 200, dX: 0, dY: 0, x: 0, y: 0, direction: 'right' }
-			}));
+			await fireEvent(
+				resizeWrapper!,
+				new CustomEvent('resize', {
+					detail: { width: 300, height: 200, dX: 0, dY: 0, x: 0, y: 0, direction: 'right' },
+				}),
+			);
 			await fireEvent(resizeWrapper!, new CustomEvent('resizeend'));
 
 			expect(events).toEqual(['resizestart', 'resize', 'resizeend']);
@@ -477,7 +496,7 @@ describe('N8nResizeableSticky', () => {
 			const resizeWrapper = container.querySelector('.resize-wrapper-mock');
 
 			await fireEvent(resizeWrapper!, new CustomEvent('resizestart'));
-			
+
 			// Multiple resize events
 			for (let i = 0; i < 5; i++) {
 				const resizeData = {
@@ -491,7 +510,7 @@ describe('N8nResizeableSticky', () => {
 				};
 				await fireEvent(resizeWrapper!, new CustomEvent('resize', { detail: resizeData }));
 			}
-			
+
 			await fireEvent(resizeWrapper!, new CustomEvent('resizeend'));
 
 			expect(resizeEvents).toHaveLength(5);
@@ -512,9 +531,20 @@ describe('N8nResizeableSticky', () => {
 			// Simulate many rapid resize events
 			await fireEvent(resizeWrapper!, new CustomEvent('resizestart'));
 			for (let i = 0; i < 100; i++) {
-				await fireEvent(resizeWrapper!, new CustomEvent('resize', { 
-					detail: { width: 200 + i, height: 150 + i, dX: 0, dY: 0, x: 0, y: 0, direction: 'bottomRight' }
-				}));
+				await fireEvent(
+					resizeWrapper!,
+					new CustomEvent('resize', {
+						detail: {
+							width: 200 + i,
+							height: 150 + i,
+							dX: 0,
+							dY: 0,
+							x: 0,
+							y: 0,
+							direction: 'bottomRight',
+						},
+					}),
+				);
 			}
 			await fireEvent(resizeWrapper!, new CustomEvent('resizeend'));
 

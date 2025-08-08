@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import { useI18n } from '../useI18n';
 
 // Mock the locale module

@@ -4,6 +4,7 @@
 
 import { render, waitFor } from '@testing-library/vue';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
 import ResizeObserver from '../ResizeObserver.vue';
 import type { BreakpointDefinition } from '../ResizeObserver.vue';
 

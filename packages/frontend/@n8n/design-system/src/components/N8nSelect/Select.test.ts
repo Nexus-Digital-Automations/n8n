@@ -4,8 +4,8 @@
 
 import userEvent from '@testing-library/user-event';
 import { render, waitFor, within } from '@testing-library/vue';
-import { defineComponent, ref } from 'vue';
 import { describe, it, expect, vi } from 'vitest';
+import { defineComponent, ref } from 'vue';
 
 import { removeDynamicAttributes } from '@n8n/design-system/utils';
 

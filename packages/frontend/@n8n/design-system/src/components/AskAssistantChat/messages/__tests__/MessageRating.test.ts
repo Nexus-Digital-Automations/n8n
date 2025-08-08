@@ -1,5 +1,6 @@
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+
 import MessageRating from '../MessageRating.vue';
 
 // Mock dependencies
@@ -107,7 +108,7 @@ describe('MessageRating', () => {
 
 			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents).toBeTruthy();
-			expect(emittedEvents![0][0]).toMatchObject({
+			expect(emittedEvents[0][0]).toMatchObject({
 				rating: 'positive',
 				timestamp: expect.any(String),
 			});
@@ -124,7 +125,7 @@ describe('MessageRating', () => {
 
 			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents).toBeTruthy();
-			expect(emittedEvents![0][0]).toMatchObject({
+			expect(emittedEvents[0][0]).toMatchObject({
 				rating: 'negative',
 				timestamp: expect.any(String),
 			});
@@ -281,7 +282,7 @@ describe('MessageRating', () => {
 
 			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents?.length).toBe(2); // Initial rating + feedback submission
-			expect(emittedEvents![1][0]).toMatchObject({
+			expect(emittedEvents[1][0]).toMatchObject({
 				rating: 'negative',
 				comment: 'Needs improvement',
 				timestamp: expect.any(String),
@@ -351,7 +352,7 @@ describe('MessageRating', () => {
 
 			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents?.length).toBe(2);
-			expect(emittedEvents![1][0]).toMatchObject({ rating: 'positive' });
+			expect(emittedEvents[1][0]).toMatchObject({ rating: 'positive' });
 		});
 	});
 
@@ -522,7 +523,7 @@ describe('MessageRating', () => {
 			await fireEvent.click(submitButton!);
 
 			const emittedEvents = wrapper.emitted('feedback');
-			expect(emittedEvents![1][0]).toMatchObject({
+			expect(emittedEvents[1][0]).toMatchObject({
 				rating: 'negative',
 				comment: '',
 			});
@@ -545,7 +546,7 @@ describe('MessageRating', () => {
 			await fireEvent.click(submitButton!);
 
 			const emittedEvents = wrapper.emitted('feedback');
-			expect(emittedEvents![1][0]).toMatchObject({
+			expect(emittedEvents[1][0]).toMatchObject({
 				rating: 'positive',
 				comment: longComment,
 			});
@@ -568,7 +569,7 @@ describe('MessageRating', () => {
 			await fireEvent.click(submitButton!);
 
 			const emittedEvents = wrapper.emitted('feedback');
-			expect(emittedEvents![1][0]).toMatchObject({
+			expect(emittedEvents[1][0]).toMatchObject({
 				rating: 'negative',
 				comment: specialComment,
 			});
@@ -640,7 +641,7 @@ describe('MessageRating', () => {
 			const after = Date.now();
 
 			const emittedEvents = wrapper.emitted('feedback');
-			const timestamp = new Date(emittedEvents![0][0].timestamp).getTime();
+			const timestamp = new Date(emittedEvents[0][0].timestamp).getTime();
 
 			expect(timestamp).toBeGreaterThanOrEqual(before);
 			expect(timestamp).toBeLessThanOrEqual(after);
@@ -656,7 +657,7 @@ describe('MessageRating', () => {
 			await fireEvent.click(thumbsDownButton!);
 
 			const emittedEvents = wrapper.emitted('feedback');
-			const timestamp = emittedEvents![0][0].timestamp;
+			const timestamp = emittedEvents[0][0].timestamp;
 
 			// Should be valid ISO string
 			expect(() => new Date(timestamp).toISOString()).not.toThrow();

@@ -5,8 +5,9 @@
 import { render } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
 import { createRouter, createWebHistory } from 'vue-router';
-import N8nMenuItem from '../MenuItem.vue';
+
 import type { IMenuItem } from '../../../types';
+import N8nMenuItem from '../MenuItem.vue';
 
 // Mock vue-router
 const mockRouter = createRouter({
@@ -14,7 +15,11 @@ const mockRouter = createRouter({
 	routes: [
 		{ path: '/', name: 'home', component: { template: '<div>Home</div>' } },
 		{ path: '/workflows', name: 'workflows', component: { template: '<div>Workflows</div>' } },
-		{ path: '/credentials', name: 'credentials', component: { template: '<div>Credentials</div>' } },
+		{
+			path: '/credentials',
+			name: 'credentials',
+			component: { template: '<div>Credentials</div>' },
+		},
 		{ path: '/settings', name: 'settings', component: { template: '<div>Settings</div>' } },
 	],
 });
@@ -25,15 +30,18 @@ const renderWithRouter = (component: any, options: any = {}) => {
 			plugins: [mockRouter],
 			stubs: {
 				'n8n-icon': {
-					template: '<span class="n8n-icon-stub" :data-icon="icon" :data-size="size" :data-color="color"><slot /></span>',
+					template:
+						'<span class="n8n-icon-stub" :data-icon="icon" :data-size="size" :data-color="color"><slot /></span>',
 					props: ['icon', 'size', 'color'],
 				},
 				'n8n-text': {
-					template: '<span class="n8n-text-stub" :data-size="size" :data-color="color"><slot /></span>',
+					template:
+						'<span class="n8n-text-stub" :data-size="size" :data-color="color"><slot /></span>',
 					props: ['size', 'color'],
 				},
 				'n8n-tooltip': {
-					template: '<div class="n8n-tooltip-stub" :data-content="content" :data-disabled="disabled"><slot /></div>',
+					template:
+						'<div class="n8n-tooltip-stub" :data-content="content" :data-disabled="disabled"><slot /></div>',
 					props: ['content', 'disabled', 'placement', 'showAfter'],
 				},
 				'n8n-spinner': {
@@ -45,11 +53,13 @@ const renderWithRouter = (component: any, options: any = {}) => {
 					props: ['to'],
 				},
 				'el-menu-item': {
-					template: '<li class="el-menu-item-stub" :data-index="index" :data-disabled="disabled"><slot /></li>',
+					template:
+						'<li class="el-menu-item-stub" :data-index="index" :data-disabled="disabled"><slot /></li>',
 					props: ['index', 'disabled'],
 				},
 				'el-sub-menu': {
-					template: '<div class="el-sub-menu-stub" :data-index="index"><div class="title-slot"><slot name="title" /></div><div class="default-slot"><slot /></div></div>',
+					template:
+						'<div class="el-sub-menu-stub" :data-index="index"><div class="title-slot"><slot name="title" /></div><div class="default-slot"><slot /></div></div>',
 					props: ['index', 'popperClass', 'teleported'],
 				},
 			},
@@ -661,7 +671,8 @@ describe('N8nMenuItem', () => {
 		it('should handle very long labels', () => {
 			const itemWithLongLabel = {
 				...basicMenuItem,
-				label: 'This is a very long menu item label that should be truncated properly when displayed',
+				label:
+					'This is a very long menu item label that should be truncated properly when displayed',
 			};
 
 			const { container } = renderWithRouter(N8nMenuItem, {

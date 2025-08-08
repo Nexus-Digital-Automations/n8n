@@ -221,7 +221,7 @@ const pagination = computed<PaginationState>({
 	},
 });
 
-const showPagination = computed(() => props.itemsLength > Math.min(...props.pageSizes));
+const showPagination = computed(() => props.itemsLength > Math.min.apply(Math, props.pageSizes));
 
 const sortBy = defineModel<SortingState>('sort-by', { default: [], required: false });
 

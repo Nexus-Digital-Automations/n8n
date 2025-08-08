@@ -3,6 +3,7 @@
  */
 
 import { vi } from 'vitest';
+
 import {
 	type ChatUI,
 	isTextMessage,

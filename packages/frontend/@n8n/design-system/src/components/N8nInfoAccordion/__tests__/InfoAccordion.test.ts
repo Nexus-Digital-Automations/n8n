@@ -1,6 +1,7 @@
 import { render, fireEvent } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
 import { nextTick } from 'vue';
+
 import N8nInfoAccordion from '../InfoAccordion.vue';
 import type { IAccordionItem } from '../InfoAccordion.vue';
 

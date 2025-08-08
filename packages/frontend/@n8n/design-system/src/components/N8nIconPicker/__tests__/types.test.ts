@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+
 import { isIconOrEmoji, type IconOrEmoji } from '../types';
 
 describe('N8nIconPicker types', () => {

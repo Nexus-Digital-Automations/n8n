@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+
 import { removeDynamicAttributes } from '../testUtils';
 
 describe('testUtils', () => {

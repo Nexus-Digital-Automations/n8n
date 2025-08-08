@@ -4,8 +4,9 @@
 
 import { render, fireEvent } from '@testing-library/vue';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import N8nUsersList from '../UsersList.vue';
+
 import type { IUser, UserAction } from '../../../types';
+import N8nUsersList from '../UsersList.vue';
 
 // Mock the child components
 vi.mock('../../N8nUserInfo', () => ({
@@ -125,7 +126,7 @@ describe('N8nUsersList', () => {
 		},
 	];
 
-	const mockActions: UserAction<IUser>[] = [
+	const mockActions: Array<UserAction<IUser>> = [
 		{
 			label: 'Delete User',
 			value: 'delete',
@@ -470,7 +471,7 @@ describe('N8nUsersList', () => {
 		});
 
 		it('should filter actions based on guard functions', () => {
-			const actionsWithGuards: UserAction<IUser>[] = [
+			const actionsWithGuards: Array<UserAction<IUser>> = [
 				{
 					label: 'Admin Only Action',
 					value: 'admin-action',

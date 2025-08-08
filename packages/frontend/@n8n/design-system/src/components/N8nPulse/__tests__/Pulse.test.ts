@@ -4,6 +4,7 @@
 
 import { render } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
+
 import N8nPulse from '../Pulse.vue';
 
 describe('N8nPulse', () => {

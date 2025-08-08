@@ -3,10 +3,11 @@
  */
 
 import { render } from '@testing-library/vue';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { createRouter, createWebHistory } from 'vue-router';
-import N8nMenu from '../Menu.vue';
+
 import type { IMenuItem } from '../../../types';
+import N8nMenu from '../Menu.vue';
 
 // Mock vue-router
 const mockRouter = createRouter({
@@ -177,7 +178,7 @@ describe('N8nMenu', () => {
 
 			const menuItems = container.querySelectorAll('.menu-item-stub');
 			expect(menuItems).toHaveLength(4); // Should still be 4, not 5
-			
+
 			const unavailableItem = container.querySelector('[data-item-id="unavailable"]');
 			expect(unavailableItem).not.toBeInTheDocument();
 		});
@@ -219,7 +220,7 @@ describe('N8nMenu', () => {
 			expect(menu).toHaveClass('menuCollapsed');
 
 			const elMenus = container.querySelectorAll('.el-menu-stub');
-			elMenus.forEach(menu => {
+			elMenus.forEach((menu) => {
 				expect(menu).toHaveClass('collapsed');
 			});
 		});

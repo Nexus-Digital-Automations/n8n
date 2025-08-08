@@ -1,5 +1,6 @@
 import { render, fireEvent } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
+
 import N8nTag from '../Tag.vue';
 
 describe('N8nTag', () => {

@@ -4,6 +4,7 @@
 
 import { render, fireEvent } from '@testing-library/vue';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import N8nTags from '../Tags.vue';
 
 interface ITag {

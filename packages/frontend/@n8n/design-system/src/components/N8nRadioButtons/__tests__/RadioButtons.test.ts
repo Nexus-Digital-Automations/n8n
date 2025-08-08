@@ -4,6 +4,7 @@
 
 import { render, fireEvent } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
+
 import N8nRadioButtons from '../RadioButtons.vue';
 
 // Sample options for testing
@@ -154,7 +155,7 @@ describe('N8nRadioButtons', () => {
 			});
 
 			const radioButtons = container.querySelectorAll('[role="radio"]');
-			radioButtons.forEach(button => {
+			radioButtons.forEach((button) => {
 				expect(button).toHaveAttribute('aria-checked', 'false');
 			});
 		});
@@ -331,9 +332,7 @@ describe('N8nRadioButtons', () => {
 		it('should render custom slot content for options', () => {
 			const { container } = render(N8nRadioButtons, {
 				props: {
-					options: [
-						{ label: 'Custom Option', value: 'custom', data: { icon: 'star' } },
-					],
+					options: [{ label: 'Custom Option', value: 'custom', data: { icon: 'star' } }],
 				},
 				slots: {
 					option: `
@@ -436,7 +435,7 @@ describe('N8nRadioButtons', () => {
 			});
 
 			const radioButtons = container.querySelectorAll('[role="radio"]');
-			radioButtons.forEach(button => {
+			radioButtons.forEach((button) => {
 				expect(button).toHaveAttribute('tabindex', '-1');
 			});
 		});
@@ -473,7 +472,8 @@ describe('N8nRadioButtons', () => {
 		});
 
 		it('should handle very long option labels', () => {
-			const longLabel = 'This is a very long option label that might wrap to multiple lines and should still work correctly';
+			const longLabel =
+				'This is a very long option label that might wrap to multiple lines and should still work correctly';
 			const { container } = render(N8nRadioButtons, {
 				props: {
 					options: [{ label: longLabel, value: 'long' }],
@@ -509,7 +509,7 @@ describe('N8nRadioButtons', () => {
 			});
 
 			const buttons = container.querySelectorAll('[data-test-id^="radio-button-"]');
-			
+
 			// Rapidly click different buttons
 			for (const button of buttons) {
 				await fireEvent.click(button);

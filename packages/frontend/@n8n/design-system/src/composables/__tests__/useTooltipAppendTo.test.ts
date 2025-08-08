@@ -4,6 +4,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { computed } from 'vue';
+
 import { useProvideTooltipAppendTo, useInjectTooltipAppendTo } from '../useTooltipAppendTo';
 
 describe('useTooltipAppendTo', () => {

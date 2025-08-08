@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi } from 'vitest';
+
 import { createFormEventBus } from '../form-event-bus';
 
 describe('form-event-bus', () => {

@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 import localeMixin from '../locale';
 
 // Mock the locale module
@@ -97,7 +98,7 @@ describe('localeMixin', () => {
 
 		it('should maintain function signature compatibility', () => {
 			const tMethod = localeMixin.methods.t;
-			
+
 			// Verify the function accepts string and string array parameters
 			expect(() => {
 				tMethod('test', ['option']);
@@ -251,7 +252,7 @@ describe('localeMixin', () => {
 			mockT.mockReturnValue('large array test');
 
 			const largeOptions = Array.from({ length: 1000 }, (_, i) => `option${i}`);
-			
+
 			localeMixin.methods.t('test.large', largeOptions);
 
 			expect(mockT).toHaveBeenCalledWith('test.large', largeOptions);

@@ -4,8 +4,9 @@
 
 import { render, fireEvent } from '@testing-library/vue';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import N8nNodeCreatorNode from '../NodeCreatorNode.vue';
+
 import type { NodeCreatorTag } from '../../../types/node-creator-node';
+import N8nNodeCreatorNode from '../NodeCreatorNode.vue';
 
 // Mock the child components
 vi.mock('../../N8nIcon', () => ({

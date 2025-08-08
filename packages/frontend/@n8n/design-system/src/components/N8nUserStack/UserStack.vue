@@ -41,7 +41,7 @@ const flatUserList = computed(() => {
 	const users: IUser[] = [];
 
 	for (const groupName in props.users) {
-		users.push(...props.users[groupName]);
+		users.push.apply(users, props.users[groupName]);
 	}
 
 	return users;

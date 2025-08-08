@@ -3,10 +3,10 @@
  */
 
 import { render, fireEvent } from '@testing-library/vue';
-import { describe, it, expect, vi } from 'vitest';
-import { RouterLink } from 'vue-router';
-import N8nTabs from '../Tabs.vue';
+import { describe, it, expect } from 'vitest';
+
 import type { TabOptions } from '../../../types';
+import N8nTabs from '../Tabs.vue';
 
 // Mock RouterLink component for testing
 const RouterLinkMock = {

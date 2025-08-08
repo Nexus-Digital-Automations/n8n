@@ -2,11 +2,12 @@
  * Comprehensive test suite for N8nFormInputs component
  */
 
-import { render, fireEvent } from '@testing-library/vue';
-import { describe, it, expect, vi } from 'vitest';
-import N8nFormInputs from '../FormInputs.vue';
-import type { IFormInput, FormFieldValue } from '../../../types';
+import { render } from '@testing-library/vue';
+import { describe, it, expect } from 'vitest';
+
+import type { IFormInput } from '../../../types';
 import { createFormEventBus } from '../../../utils';
+import N8nFormInputs from '../FormInputs.vue';
 
 describe('N8nFormInputs', () => {
 	const mockInputs: IFormInput[] = [

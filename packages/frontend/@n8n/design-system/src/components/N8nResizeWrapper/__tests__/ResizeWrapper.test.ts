@@ -4,8 +4,10 @@
 
 import { render, fireEvent } from '@testing-library/vue';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import N8nResizeWrapper from '../ResizeWrapper.vue';
+
 import type { Direction } from '@n8n/design-system/types';
+
+import N8nResizeWrapper from '../ResizeWrapper.vue';
 
 // Mock the directionsCursorMaps from types
 vi.mock('@n8n/design-system/types', () => ({
@@ -269,7 +271,7 @@ describe('N8nResizeWrapper', () => {
 					dY: expect.any(Number),
 					x: expect.any(Number),
 					y: expect.any(Number),
-				})
+				}),
 			);
 		});
 
@@ -584,7 +586,7 @@ describe('N8nResizeWrapper', () => {
 			});
 
 			const handle = container.querySelector('[data-dir="right"]');
-			
+
 			// Rapid events
 			await fireEvent.mouseDown(handle!);
 			await fireEvent.mouseUp(document);

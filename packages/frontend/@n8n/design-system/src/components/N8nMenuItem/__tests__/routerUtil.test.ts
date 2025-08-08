@@ -2,9 +2,10 @@
  * Comprehensive test suite for router utilities
  */
 
-import { doesMenuItemMatchCurrentRoute } from '../routerUtil';
 import type { RouteLocationNormalizedLoaded } from 'vue-router';
+
 import type { IMenuItem, ICustomMenuItem, IMenuElement } from '../../../types/menu';
+import { doesMenuItemMatchCurrentRoute } from '../routerUtil';
 
 describe('Router Utilities', () => {
 	// Mock route creator helper
