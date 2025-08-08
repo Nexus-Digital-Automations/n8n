@@ -463,7 +463,7 @@ export class DirectedGraph {
 	static fromWorkflow(workflow: Workflow): DirectedGraph {
 		const graph = new DirectedGraph();
 
-		graph.addNodes(...Object.values(workflow.nodes));
+		Object.values(workflow.nodes).forEach((node) => graph.addNode(node));
 
 		for (const [fromNodeName, iConnection] of Object.entries(workflow.connectionsBySourceNode)) {
 			const from = workflow.getNode(fromNodeName);
@@ -494,9 +494,19 @@ export class DirectedGraph {
 	}
 
 	clone() {
-		return new DirectedGraph()
-			.addNodes(...this.getNodes().values())
-			.addConnections(...this.getConnections().values());
+		const newGraph = new DirectedGraph();
+
+		// Add nodes individually to avoid spread performance issues
+		for (const node of this.getNodes().values()) {
+			newGraph.addNode(node);
+		}
+
+		// Add connections individually to avoid spread performance issues
+		for (const connection of this.getConnections().values()) {
+			newGraph.addConnection(connection);
+		}
+
+		return newGraph;
 	}
 
 	private toIConnections() {

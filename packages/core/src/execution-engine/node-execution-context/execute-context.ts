@@ -230,12 +230,15 @@ export class ExecuteContext extends BaseExecuteContext implements IExecuteFuncti
 			const parsedLogArgs = args.map((arg) =>
 				typeof arg === 'string' ? jsonParse(arg, { fallbackValue: arg }) : arg,
 			);
-			this.sendMessageToUI(...parsedLogArgs);
+			this.sendMessageToUI.apply(this, parsedLogArgs);
 			return;
 		}
 
 		if (process.env.CODE_ENABLE_STDOUT === 'true') {
-			console.log(`[Workflow "${this.getWorkflow().id}"][Node "${this.node.name}"]`, ...args);
+			console.log.apply(console, [
+				`[Workflow "${this.getWorkflow().id}"][Node "${this.node.name}"]`,
+				...args,
+			]);
 		}
 	}
 

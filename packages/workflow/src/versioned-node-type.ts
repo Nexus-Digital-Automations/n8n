@@ -17,7 +17,8 @@ export class VersionedNodeType implements IVersionedNodeType {
 	}
 
 	getLatestVersion() {
-		return Math.max(...Object.keys(this.nodeVersions).map(Number));
+		const versions = Object.keys(this.nodeVersions).map(Number);
+		return versions.reduce((max, current) => Math.max(max, current), 0);
 	}
 
 	getNodeType(version?: number): INodeType {

@@ -22,5 +22,5 @@ export function getNextExecutionIndex(runData: IRunData = {}): number {
 	// If no valid indices were found, return 0 as the first execution index
 	if (previousIndices.length === 0) return 0;
 
-	return Math.max(...previousIndices) + 1;
+	return previousIndices.reduce((max, current) => Math.max(max, current), 0) + 1;
 }

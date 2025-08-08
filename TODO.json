@@ -2,31 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754684443828_aip9fqeiz",
-      "title": "Configure Progressive ESLint Rule Enforcement",
-      "description": "Update ESLint configurations to enforce fixed rules as errors and create package-specific overrides for external API constraints. Implement lint-staged to prevent new violations.",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "in_progress",
-      "dependencies": [],
-      "important_files": [
-        "eslint.config.mjs",
-        "packages/*/eslint.config.mjs",
-        "package.json",
-        ".husky/"
-      ],
-      "success_criteria": [
-        "Fixed packages have rules converted from warn to error",
-        "Package-specific overrides configured",
-        "Lint-staged configured to prevent regressions",
-        "CI/CD updated to enforce new rules"
-      ],
-      "estimate": "4-6 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T20:20:43.828Z"
-    },
-    {
       "id": "task_1754684443826_ma72eqob7",
       "title": "Fix Performance-Related Linting Issues",
       "description": "Address 26 n8n-local-rules/no-argument-spread violations by replacing performance-unsafe argument spreading with optimized alternatives. Maintain functionality while improving performance.",
@@ -572,13 +547,37 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-08T19:59:17.822Z"
+    },
+    {
+      "id": "task_1754686123283_z8s6xg9kn",
+      "title": "Fix n8n-local-rules ESLint rule definitions",
+      "description": "Resolve missing n8n-local-rules definitions causing 35+ lint errors across CLI package. Rules like misplaced-n8n-typeorm-import and no-type-unsafe-event-emitter are undefined. Install, configure, or implement the missing custom ESLint rules.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/@n8n/eslint-config/",
+        "eslint.config.mjs",
+        "packages/cli/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All n8n-local-rules/* rule definitions found and working",
+        "ESLint can properly load and execute custom rules",
+        "All rule-not-found errors resolved",
+        "CLI package passes lint without rule definition errors"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:48:43.283Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 99,
-  "last_hook_activation": 1754685488573,
+  "execution_count": 102,
+  "last_hook_activation": 1754686536224,
   "current_mode": "DEVELOPMENT"
 }

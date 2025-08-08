@@ -1,5 +1,6 @@
 import { Service } from '@n8n/di';
 import { DataSource, Repository } from '@n8n/typeorm';
+
 import { NotificationSettingsEntity } from '../entities/notification-settings.entity';
 
 /**
@@ -63,7 +64,7 @@ export class NotificationSettingsRepository extends Repository<NotificationSetti
 		settings: Partial<NotificationSettingsEntity>,
 	): Promise<NotificationSettingsEntity> {
 		const existing = await this.findByWorkflowAndUser(workflowId, userId);
-		
+
 		if (existing) {
 			Object.assign(existing, settings);
 			return await this.save(existing);
@@ -100,9 +101,9 @@ export class NotificationSettingsRepository extends Repository<NotificationSetti
 		});
 
 		const stats: Record<string, number> = {};
-		
-		settings.forEach(setting => {
-			setting.channels.forEach(channel => {
+
+		settings.forEach((setting) => {
+			setting.channels.forEach((channel) => {
 				stats[channel] = (stats[channel] || 0) + 1;
 			});
 		});

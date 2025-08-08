@@ -172,7 +172,7 @@ export class FileSystemManager implements BinaryData.Manager {
 	}
 
 	private resolvePath(...args: string[]) {
-		const returnPath = path.join(this.storagePath, ...args);
+		const returnPath = args.reduce((acc, segment) => path.join(acc, segment), this.storagePath);
 
 		if (path.relative(this.storagePath, returnPath).startsWith('..')) {
 			throw new DisallowedFilepathError(returnPath);
