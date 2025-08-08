@@ -21,8 +21,8 @@ export const properties: INodeProperties[] = [
 		displayName: 'Start',
 		name: 'startDateTime',
 		type: 'dateTime',
-		default: DateTime.now().toISO() ?? '',
 		required: true,
+		default: DateTime.now().toISO() ?? '',
 	},
 	{
 		displayName: 'End',

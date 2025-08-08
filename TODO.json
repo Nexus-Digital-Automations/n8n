@@ -2,21 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754681173556_vy0p99k08",
-      "title": "Implement Autosave for Workflows",
-      "description": "Add automatic saving functionality for workflows to prevent data loss. Current implementation requires manual saves only. Should include configurable autosave intervals and visual indicators when autosave occurs.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [],
-      "success_criteria": [],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T19:26:13.556Z"
-    },
-    {
       "id": "task_1754680301789_tnhy8olbi",
       "title": "Fix util._extend deprecation warning",
       "description": "Replace deprecated util._extend usage with Object.assign() - warning from node:18158 DEP0060. Search codebase for util._extend usage and replace with Object.assign() equivalent functionality. This is a Node.js deprecation (DEP0060) that needs immediate attention.",
@@ -288,13 +273,138 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-08T19:26:36.945Z"
+    },
+    {
+      "id": "task_1754683157799_i5mt4d1r5",
+      "title": "Create autosave configuration system with environment variables",
+      "description": "Add autosave configuration to n8n config system with environment variables for enabling autosave, setting intervals (default 30 seconds), and configuring autosave behavior. Include validation and type safety.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/@n8n/config/src/configs/autosave.config.ts",
+        "packages/@n8n/config/src/index.ts"
+      ],
+      "success_criteria": [
+        "AutosaveConfig class created in @n8n/config package",
+        "Environment variables defined for autosave settings",
+        "Configuration validation implemented",
+        "Default autosave interval set to 30 seconds"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:59:17.799Z"
+    },
+    {
+      "id": "task_1754683157810_m5nqir3sr",
+      "title": "Implement autosave composable with interval management",
+      "description": "Create Vue composable for managing autosave functionality including start/stop autosave, configurable intervals, dirty state monitoring, and preventing simultaneous saves. Handle edge cases like user navigation and manual saves.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [
+        "task_1754683157799_i5mt4d1r5"
+      ],
+      "important_files": [
+        "packages/frontend/editor-ui/src/composables/useAutosave.ts"
+      ],
+      "success_criteria": [
+        "useAutosave composable created with interval management",
+        "Automatic dirty state detection implemented",
+        "Prevent conflicts with manual saves",
+        "Handle navigation/page unload scenarios",
+        "Configurable autosave intervals"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:59:17.810Z"
+    },
+    {
+      "id": "task_1754683157814_xq899hndh",
+      "title": "Add autosave visual indicators and user feedback",
+      "description": "Implement visual indicators showing autosave status including saving indicator, last saved timestamp, and autosave enabled/disabled state. Add user controls to enable/disable autosave and configure intervals.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [
+        "task_1754683157810_m5nqir3sr"
+      ],
+      "important_files": [
+        "packages/frontend/editor-ui/src/components/MainHeader/WorkflowDetails.vue",
+        "packages/frontend/editor-ui/src/components/WorkflowSettings.vue"
+      ],
+      "success_criteria": [
+        "Autosave status indicator in workflow editor",
+        "Last saved timestamp display",
+        "User toggle to enable/disable autosave",
+        "Autosave interval configuration in settings",
+        "Visual feedback during autosave operations"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:59:17.814Z"
+    },
+    {
+      "id": "task_1754683157819_n7at5e6dw",
+      "title": "Integrate autosave with NodeView workflow editor",
+      "description": "Integrate autosave composable into the main NodeView component, setup automatic saving triggers on workflow changes, and ensure proper cleanup on component unmount.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [
+        "task_1754683157814_xq899hndh"
+      ],
+      "important_files": [
+        "packages/frontend/editor-ui/src/views/NodeView.vue"
+      ],
+      "success_criteria": [
+        "Autosave integrated into NodeView.vue",
+        "Automatic saving on workflow state changes",
+        "Proper lifecycle management (start/stop on mount/unmount)",
+        "Integration with existing workflow saving logic",
+        "No conflicts with manual save operations"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:59:17.819Z"
+    },
+    {
+      "id": "task_1754683157822_kzis52tg2",
+      "title": "Add comprehensive testing for autosave functionality",
+      "description": "Create unit tests for autosave composable, integration tests for NodeView autosave behavior, and E2E tests for complete autosave workflows including edge cases and error scenarios.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [
+        "task_1754683157819_n7at5e6dw"
+      ],
+      "important_files": [
+        "packages/frontend/editor-ui/src/composables/__tests__/useAutosave.test.ts",
+        "packages/frontend/editor-ui/src/views/__tests__/NodeView.autosave.test.ts"
+      ],
+      "success_criteria": [
+        "Unit tests for useAutosave composable (>90% coverage)",
+        "Integration tests for NodeView autosave integration",
+        "E2E tests for autosave workflows",
+        "Test edge cases (navigation, conflicts, errors)",
+        "Performance tests for autosave intervals"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:59:17.822Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 91,
-  "last_hook_activation": 1754683060032,
+  "execution_count": 93,
+  "last_hook_activation": 1754683210790,
   "current_mode": "DEVELOPMENT"
 }

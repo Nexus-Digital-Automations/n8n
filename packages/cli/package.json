@@ -81,7 +81,7 @@
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "@typescript-eslint/parser": "^8.38.0",
     "@vvo/tzdb": "^6.141.0",
-    "concurrently": "^8.2.0",
+    "concurrently": "^9.2.0",
     "eslint-plugin-import-x": "^4.15.2",
     "ioredis-mock": "^8.8.1",
     "mjml": "^4.15.3",
