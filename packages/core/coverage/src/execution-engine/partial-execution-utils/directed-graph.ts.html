@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.81% </span>
+                <span class="strong">98.85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>167/169</span>
+                <span class='fraction'>173/175</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.29% </span>
+                <span class="strong">96.42% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>26/27</span>
+                <span class='fraction'>27/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.8% </span>
+                <span class="strong">98.84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>166/168</span>
+                <span class='fraction'>171/173</span>
             </div>
         
             
@@ -591,7 +591,17 @@
 <a name='L526'></a><a href='#L526'>526</a>
 <a name='L527'></a><a href='#L527'>527</a>
 <a name='L528'></a><a href='#L528'>528</a>
-<a name='L529'></a><a href='#L529'>529</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L529'></a><a href='#L529'>529</a>
+<a name='L530'></a><a href='#L530'>530</a>
+<a name='L531'></a><a href='#L531'>531</a>
+<a name='L532'></a><a href='#L532'>532</a>
+<a name='L533'></a><a href='#L533'>533</a>
+<a name='L534'></a><a href='#L534'>534</a>
+<a name='L535'></a><a href='#L535'>535</a>
+<a name='L536'></a><a href='#L536'>536</a>
+<a name='L537'></a><a href='#L537'>537</a>
+<a name='L538'></a><a href='#L538'>538</a>
+<a name='L539'></a><a href='#L539'>539</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -682,10 +692,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">180x</span>
-<span class="cline-any cline-yes">511x</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-yes">400x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">180x</span>
+<span class="cline-any cline-yes">145x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -797,10 +807,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">123x</span>
-<span class="cline-any cline-yes">296x</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-yes">246x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">123x</span>
+<span class="cline-any cline-yes">101x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1056,7 +1066,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">26x</span>
@@ -1090,6 +1100,16 @@
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1584,7 +1604,7 @@ export class DirectedGraph {
 	static fromWorkflow(workflow: Workflow): DirectedGraph {
 		const graph = new DirectedGraph();
 &nbsp;
-		graph.addNodes(...Object.values(workflow.nodes));
+		Object.values(workflow.nodes).forEach((node) =&gt; graph.addNode(node));
 &nbsp;
 		for (const [fromNodeName, iConnection] of Object.entries(workflow.connectionsBySourceNode)) {
 			const from = workflow.getNode(fromNodeName);
@@ -1615,9 +1635,19 @@ export class DirectedGraph {
 	}
 &nbsp;
 	clone() {
-		return new DirectedGraph()
-			.addNodes(...this.getNodes().values())
-			.addConnections(...this.getConnections().values());
+		const newGraph = new DirectedGraph();
+&nbsp;
+		// Add nodes individually to avoid spread performance issues
+		for (const node of this.getNodes().values()) {
+			newGraph.addNode(node);
+		}
+&nbsp;
+		// Add connections individually to avoid spread performance issues
+		for (const connection of this.getConnections().values()) {
+			newGraph.addConnection(connection);
+		}
+&nbsp;
+		return newGraph;
 	}
 &nbsp;
 	private toIConnections() {
@@ -1654,7 +1684,7 @@ export class DirectedGraph {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-31T19:20:20.320Z
+                at 2025-08-08T21:12:10.737Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

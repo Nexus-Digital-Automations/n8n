@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.32% </span>
+                <span class="strong">50.24% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>312/620</span>
+                <span class='fraction'>312/621</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.94% </span>
+                <span class="strong">39.73% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>149/373</span>
+                <span class='fraction'>149/375</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.57% </span>
+                <span class="strong">64.51% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>40/61</span>
+                <span class='fraction'>40/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">49.75% </span>
+                <span class="strong">49.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>302/607</span>
+                <span class='fraction'>302/608</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -1848,7 +1848,16 @@
 <a name='L1783'></a><a href='#L1783'>1783</a>
 <a name='L1784'></a><a href='#L1784'>1784</a>
 <a name='L1785'></a><a href='#L1785'>1785</a>
-<a name='L1786'></a><a href='#L1786'>1786</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L1786'></a><a href='#L1786'>1786</a>
+<a name='L1787'></a><a href='#L1787'>1787</a>
+<a name='L1788'></a><a href='#L1788'>1788</a>
+<a name='L1789'></a><a href='#L1789'>1789</a>
+<a name='L1790'></a><a href='#L1790'>1790</a>
+<a name='L1791'></a><a href='#L1791'>1791</a>
+<a name='L1792'></a><a href='#L1792'>1792</a>
+<a name='L1793'></a><a href='#L1793'>1793</a>
+<a name='L1794'></a><a href='#L1794'>1794</a>
+<a name='L1795'></a><a href='#L1795'>1795</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2780,6 +2789,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2801,13 +2826,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -4564,6 +4582,22 @@ export function applyPaginationRequestData(
 	return merge({}, requestData, preparedPaginationData);
 }
 &nbsp;
+function <span class="fstat-no" title="function not covered" >createOAuth2Client(</span>credentials: OAuth2CredentialData): ClientOAuth2 {
+<span class="cstat-no" title="statement not covered" >	return new ClientOAuth2({</span>
+		clientId: credentials.clientId,
+		clientSecret: credentials.clientSecret,
+		accessTokenUri: credentials.accessTokenUrl,
+		scopes: (credentials.scope as string).split(' '),
+		ignoreSSLIssues: credentials.ignoreSSLIssues,
+		authentication: credentials.authentication ?? 'header',
+		...(credentials.additionalBodyProperties &amp;&amp; {
+			additionalBodyProperties: jsonParse(credentials.additionalBodyProperties, {
+				fallbackValue: {},
+			}),
+		}),
+	});
+}
+&nbsp;
 /** @deprecated make these requests using httpRequestWithAuthentication */
 export async function <span class="fstat-no" title="function not covered" >requestOAuth2(</span>
 	this: IAllExecuteFunctions,
@@ -4585,14 +4619,7 @@ export async function <span class="fstat-no" title="function not covered" >reque
 <span class="cstat-no" title="statement not covered" >		throw new ApplicationError('OAuth credentials not connected');</span>
 	}
 &nbsp;
-	const oAuthClient = <span class="cstat-no" title="statement not covered" >new ClientOAuth2({</span>
-		clientId: credentials.clientId,
-		clientSecret: credentials.clientSecret,
-		accessTokenUri: credentials.accessTokenUrl,
-		scopes: (credentials.scope as string).split(' '),
-		ignoreSSLIssues: credentials.ignoreSSLIssues,
-		authentication: credentials.authentication ?? 'header',
-	});
+	const oAuthClient = <span class="cstat-no" title="statement not covered" >createOAuth2Client(credentials);</span>
 &nbsp;
 	let oauthTokenData = <span class="cstat-no" title="statement not covered" >credentials.oauthTokenData as ClientOAuth2TokenData;</span>
 	// if it's the first time using the credentials, get the access token and save it into the DB.
@@ -5425,7 +5452,7 @@ export const getRequestHelperFunctions = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-31T19:20:20.152Z
+                at 2025-08-08T21:12:10.447Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

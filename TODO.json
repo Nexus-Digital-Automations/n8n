@@ -2,29 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754684443826_ma72eqob7",
-      "title": "Fix Performance-Related Linting Issues",
-      "description": "Address 26 n8n-local-rules/no-argument-spread violations by replacing performance-unsafe argument spreading with optimized alternatives. Maintain functionality while improving performance.",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/core/src/",
-        "packages/workflow/src/"
-      ],
-      "success_criteria": [
-        "All n8n-local-rules/no-argument-spread violations resolved",
-        "Performance-safe alternatives implemented",
-        "No regression in functionality",
-        "Performance improvements measurable"
-      ],
-      "estimate": "4-6 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T20:20:43.826Z"
-    },
-    {
       "id": "task_1754684443824_psr2a5fgd",
       "title": "Modernize JavaScript Patterns and Fix Best Practices",
       "description": "Fix ~95 best practice violations including: prefer-nullish-coalescing, prefer-optional-chain, require-await, and prototype method usage. Modernize code to use current JavaScript patterns.",
@@ -577,7 +554,7 @@
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 102,
-  "last_hook_activation": 1754686536224,
+  "execution_count": 103,
+  "last_hook_activation": 1754687436424,
   "current_mode": "DEVELOPMENT"
 }
