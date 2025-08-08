@@ -1,0 +1,11 @@
+Timeout Debug Summary for Agent ece2830d-b78f-43aa-a2d4-e17f55832521
+==========================================
+
+Timestamp: 2025-08-08T13:20:52.550937
+Elapsed Time: 0m 0.0s
+Timeout Limit: 120s
+Timeout Exceeded: False
+Hook Type: SubagentStop
+Tool Name: unknown
+
+Full report: logs/debug/debug_report_ece2830d-b78f-43aa-a2d4-e17f55832521_1754677252.json

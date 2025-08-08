@@ -1,0 +1,11 @@
+Timeout Debug Summary for Agent 58facfc7-8fda-48a3-889f-3744712c1881
+==========================================
+
+Timestamp: 2025-08-08T13:00:29.374688
+Elapsed Time: 0m 0.0s
+Timeout Limit: 120s
+Timeout Exceeded: False
+Hook Type: SubagentStop
+Tool Name: unknown
+
+Full report: logs/debug/debug_report_58facfc7-8fda-48a3-889f-3744712c1881_1754676029.json

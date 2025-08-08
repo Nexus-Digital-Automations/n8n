@@ -358,3 +358,6 @@ TODO.json.*
 *.logs
 
 .turbo/
+# Coverage files that trigger ESLint warnings
+packages/frontend/@n8n/i18n/coverage/
+packages/frontend/@n8n/stores/coverage/
