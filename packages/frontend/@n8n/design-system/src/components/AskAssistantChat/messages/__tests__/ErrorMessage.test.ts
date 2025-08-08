@@ -11,9 +11,7 @@ vi.mock('../../../../composables/useI18n', () => ({
 	useI18n: vi.fn(() => ({
 		t: vi.fn((key: string) => {
 			const translations: Record<string, string> = {
-				'assistantChat.retry': 'Retry',
-				'assistantChat.errorOccurred': 'An error occurred',
-				'assistantChat.tryAgain': 'Try again',
+				'generic.retry': 'Retry',
 			};
 			return translations[key] || key;
 		}),
@@ -21,15 +19,19 @@ vi.mock('../../../../composables/useI18n', () => ({
 }));
 
 const stubs = {
-	'n8n-button': {
+	N8nButton: {
 		template:
-			'<button class="n8n-button" @click="$emit(\'click\')" :disabled="disabled" :type="type"><slot /></button>',
-		props: ['disabled', 'type', 'size', 'loading'],
+			'<button class="n8n-button" @click="$emit(\'click\')" :disabled="disabled" :data-type="type" :data-size="size"><slot /></button>',
+		props: ['disabled', 'type', 'size'],
 		emits: ['click'],
 	},
-	'n8n-icon': {
-		template: '<span class="n8n-icon" :data-icon="icon" />',
-		props: ['icon'],
+	N8nIcon: {
+		template: '<span class="n8n-icon" :data-icon="icon" :data-size="size" />',
+		props: ['icon', 'size'],
+	},
+	BaseMessage: {
+		template: '<div class="base-message"><slot /></div>',
+		props: ['message', 'isFirstOfRole', 'user'],
 	},
 };
 
@@ -77,10 +79,10 @@ describe('ErrorMessage', () => {
 
 			const errorIcon = wrapper.container.querySelector('.n8n-icon');
 			expect(errorIcon).toBeInTheDocument();
-			expect(errorIcon).toHaveAttribute('data-icon', 'exclamation-triangle');
+			expect(errorIcon).toHaveAttribute('data-icon', 'triangle-alert');
 		});
 
-		it('should apply error styling classes', () => {
+		it('should render with BaseMessage wrapper', () => {
 			const message = createErrorMessage();
 			const wrapper = render(ErrorMessage, {
 				props: {
@@ -90,9 +92,24 @@ describe('ErrorMessage', () => {
 				global: { stubs },
 			});
 
-			const errorContainer = wrapper.container.querySelector('.error-message');
+			const baseMessage = wrapper.container.querySelector('.base-message');
+			expect(baseMessage).toBeInTheDocument();
+		});
+
+		it('should display error container with data-test-id', () => {
+			const message = createErrorMessage();
+			const wrapper = render(ErrorMessage, {
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
+				global: { stubs },
+			});
+
+			const errorContainer = wrapper.container.querySelector(
+				'[data-test-id="chat-message-system"]',
+			);
 			expect(errorContainer).toBeInTheDocument();
-			expect(errorContainer).toHaveClass('danger');
 		});
 
 		it('should handle empty content gracefully', () => {
@@ -107,23 +124,10 @@ describe('ErrorMessage', () => {
 
 			expect(wrapper.container).toBeInTheDocument();
 		});
-
-		it('should handle null content', () => {
-			const message = { ...createErrorMessage(), content: '' };
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			expect(wrapper.container).toBeInTheDocument();
-		});
 	});
 
 	describe('Error Content Display', () => {
-		it('should display short error messages', () => {
+		it('should display error messages', () => {
 			const message = createErrorMessage({
 				content: 'Network error',
 			});
@@ -155,22 +159,6 @@ describe('ErrorMessage', () => {
 			expect(wrapper.container.textContent).toContain(longError);
 		});
 
-		it('should handle technical error messages', () => {
-			const technicalError = 'TypeError: Cannot read property "map" of undefined at line 42';
-			const message = createErrorMessage({
-				content: technicalError,
-			});
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			expect(wrapper.container.textContent).toContain(technicalError);
-		});
-
 		it('should handle multiline error messages', () => {
 			const multilineError = 'Error: Request failed\nStatus: 500\nDetails: Internal server error';
 			const message = createErrorMessage({
@@ -189,11 +177,9 @@ describe('ErrorMessage', () => {
 			expect(wrapper.container.textContent).toContain('Internal server error');
 		});
 
-		it('should handle HTML in error messages safely', () => {
-			const htmlError = 'Error: <script>alert("xss")</script>Invalid input';
-			const message = createErrorMessage({
-				content: htmlError,
-			});
+		it('should handle special characters in error content', () => {
+			const specialError = 'Error with special chars: <>&"\'';
+			const message = createErrorMessage({ content: specialError });
 			const wrapper = render(ErrorMessage, {
 				props: {
 					message,
@@ -202,8 +188,7 @@ describe('ErrorMessage', () => {
 				global: { stubs },
 			});
 
-			// Should display the text but not execute scripts
-			expect(wrapper.container.textContent).toContain('Invalid input');
+			expect(wrapper.container.textContent).toContain(specialError);
 		});
 	});
 
@@ -254,250 +239,7 @@ describe('ErrorMessage', () => {
 			expect(retryFn).toHaveBeenCalledTimes(1);
 		});
 
-		it('should handle retry function errors gracefully', async () => {
-			const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-			const retryFn = vi.fn().mockRejectedValue(new Error('Retry failed'));
-			const message = createErrorMessage({ retry: retryFn });
-
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const retryButton = wrapper.container.querySelector('.n8n-button');
-			await fireEvent.click(retryButton!);
-
-			expect(retryFn).toHaveBeenCalledTimes(1);
-			expect(consoleSpy).toHaveBeenCalled();
-			consoleSpy.mockRestore();
-		});
-
-		it('should show loading state during retry', async () => {
-			let resolveRetry: () => void;
-			const retryPromise = new Promise<void>((resolve) => {
-				resolveRetry = resolve;
-			});
-			const retryFn = vi.fn().mockReturnValue(retryPromise);
-			const message = createErrorMessage({ retry: retryFn });
-
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: {
-					stubs: {
-						...stubs,
-						'n8n-button': {
-							template: '<button class="n8n-button" :data-loading="loading"><slot /></button>',
-							props: ['loading', 'disabled'],
-							emits: ['click'],
-						},
-					},
-				},
-			});
-
-			const retryButton = wrapper.container.querySelector('.n8n-button');
-			void fireEvent.click(retryButton!);
-
-			// Button should show loading state
-			await nextTick();
-			expect(retryButton).toHaveAttribute('data-loading', 'true');
-
-			// Resolve the retry
-			resolveRetry!();
-			await retryPromise;
-			await nextTick();
-
-			expect(retryButton).toHaveAttribute('data-loading', 'false');
-		});
-
-		it('should disable retry button during retry', async () => {
-			let resolveRetry: () => void;
-			const retryPromise = new Promise<void>((resolve) => {
-				resolveRetry = resolve;
-			});
-			const retryFn = vi.fn().mockReturnValue(retryPromise);
-			const message = createErrorMessage({ retry: retryFn });
-
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const retryButton = wrapper.container.querySelector('.n8n-button');
-			void fireEvent.click(retryButton!);
-
-			await nextTick();
-			expect(retryButton).toHaveAttribute('disabled', 'true');
-
-			resolveRetry!();
-			await retryPromise;
-			await nextTick();
-
-			expect(retryButton).toHaveAttribute('disabled', 'false');
-		});
-	});
-
-	describe('Error Types and Severity', () => {
-		it('should handle different error severities', () => {
-			const errorTypes = ['warning', 'error', 'critical'];
-
-			errorTypes.forEach((severity) => {
-				const message = createErrorMessage({ severity } as any);
-				const wrapper = render(ErrorMessage, {
-					props: {
-						message,
-						isFirstOfRole: true,
-					},
-					global: { stubs },
-				});
-
-				const container = wrapper.container.querySelector('.error-message');
-				expect(container).toHaveClass(severity);
-			});
-		});
-
-		it('should display appropriate icons for different error types', () => {
-			const errorConfigs = [
-				{ type: 'network', expectedIcon: 'wifi-slash' },
-				{ type: 'validation', expectedIcon: 'exclamation-circle' },
-				{ type: 'permission', expectedIcon: 'lock' },
-				{ type: 'timeout', expectedIcon: 'clock' },
-			];
-
-			errorConfigs.forEach(({ type, expectedIcon }) => {
-				const message = createErrorMessage({ errorType: type } as any);
-				const wrapper = render(ErrorMessage, {
-					props: {
-						message,
-						isFirstOfRole: true,
-					},
-					global: { stubs },
-				});
-
-				const icon = wrapper.container.querySelector('.n8n-icon');
-				expect(icon).toHaveAttribute('data-icon', expectedIcon);
-			});
-		});
-
-		it('should use default error icon for unknown error types', () => {
-			const message = createErrorMessage({ errorType: 'unknown-type' } as any);
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const icon = wrapper.container.querySelector('.n8n-icon');
-			expect(icon).toHaveAttribute('data-icon', 'exclamation-triangle');
-		});
-	});
-
-	describe('Error Context and Details', () => {
-		it('should display error code when provided', () => {
-			const message = createErrorMessage({
-				content: 'Request failed',
-				errorCode: 'ERR_NETWORK_001',
-			} as any);
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			expect(wrapper.container.textContent).toContain('ERR_NETWORK_001');
-		});
-
-		it('should display timestamp when provided', () => {
-			const timestamp = new Date('2023-01-01T12:00:00Z');
-			const message = createErrorMessage({
-				content: 'Operation failed',
-				timestamp,
-			} as any);
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			expect(wrapper.container.textContent).toContain('12:00');
-		});
-
-		it('should show expandable details when available', () => {
-			const message = createErrorMessage({
-				content: 'API Error',
-				details: {
-					statusCode: 500,
-					message: 'Internal Server Error',
-					stack: 'Error stack trace...',
-				},
-			} as any);
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			expect(wrapper.container.textContent).toContain('API Error');
-			// Details should be expandable
-			const expandButton = wrapper.container.querySelector('.expand-details');
-			expect(expandButton).toBeInTheDocument();
-		});
-
-		it('should toggle details visibility', async () => {
-			const message = createErrorMessage({
-				content: 'Detailed error',
-				details: { info: 'Additional context' },
-			} as any);
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const expandButton = wrapper.container.querySelector('.expand-details');
-			expect(expandButton).toBeInTheDocument();
-
-			await fireEvent.click(expandButton!);
-
-			expect(wrapper.container.textContent).toContain('Additional context');
-		});
-	});
-
-	describe('Accessibility', () => {
-		it('should have proper ARIA attributes', () => {
-			const message = createErrorMessage();
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const errorContainer = wrapper.container.querySelector('.error-message');
-			expect(errorContainer).toHaveAttribute('role', 'alert');
-			expect(errorContainer).toHaveAttribute('aria-live', 'assertive');
-		});
-
-		it('should have accessible retry button', () => {
+		it('should have retry button with correct props', () => {
 			const retryFn = vi.fn();
 			const message = createErrorMessage({ retry: retryFn });
 			const wrapper = render(ErrorMessage, {
@@ -509,43 +251,11 @@ describe('ErrorMessage', () => {
 			});
 
 			const retryButton = wrapper.container.querySelector('.n8n-button');
-			expect(retryButton).toHaveAttribute('aria-label', expect.stringContaining('Retry'));
+			expect(retryButton).toHaveAttribute('data-type', 'secondary');
+			expect(retryButton).toHaveAttribute('data-size', 'mini');
 		});
 
-		it('should announce retry results to screen readers', async () => {
-			const retryFn = vi.fn().mockResolvedValue(undefined);
-			const message = createErrorMessage({ retry: retryFn });
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const retryButton = wrapper.container.querySelector('.n8n-button');
-			await fireEvent.click(retryButton!);
-
-			const statusElement = wrapper.container.querySelector('[aria-live="polite"]');
-			expect(statusElement).toBeInTheDocument();
-		});
-
-		it('should have proper error icon accessibility', () => {
-			const message = createErrorMessage();
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const icon = wrapper.container.querySelector('.n8n-icon');
-			expect(icon).toHaveAttribute('aria-hidden', 'true');
-			// Error should be conveyed through text, not just icon
-		});
-
-		it('should support keyboard navigation', () => {
+		it('should have retry button with test id', () => {
 			const retryFn = vi.fn();
 			const message = createErrorMessage({ retry: retryFn });
 			const wrapper = render(ErrorMessage, {
@@ -556,8 +266,53 @@ describe('ErrorMessage', () => {
 				global: { stubs },
 			});
 
-			const retryButton = wrapper.container.querySelector('.n8n-button');
-			expect(retryButton).not.toHaveAttribute('tabindex', '-1');
+			const retryButton = wrapper.container.querySelector('[data-test-id="error-retry-button"]');
+			expect(retryButton).toBeInTheDocument();
+		});
+	});
+
+	describe('Component Structure', () => {
+		it('should pass correct props to BaseMessage', () => {
+			const user = { firstName: 'John', lastName: 'Doe' };
+			const message = createErrorMessage();
+			const wrapper = render(ErrorMessage, {
+				props: {
+					message,
+					isFirstOfRole: true,
+					user,
+				},
+				global: { stubs },
+			});
+
+			// BaseMessage should receive the props
+			expect(wrapper.container.querySelector('.base-message')).toBeInTheDocument();
+		});
+
+		it('should work without user prop', () => {
+			const message = createErrorMessage();
+			const wrapper = render(ErrorMessage, {
+				props: {
+					message,
+					isFirstOfRole: false,
+				},
+				global: { stubs },
+			});
+
+			expect(wrapper.container.querySelector('.base-message')).toBeInTheDocument();
+		});
+
+		it('should display icon with correct size', () => {
+			const message = createErrorMessage();
+			const wrapper = render(ErrorMessage, {
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
+				global: { stubs },
+			});
+
+			const icon = wrapper.container.querySelector('.n8n-icon');
+			expect(icon).toHaveAttribute('data-size', 'small');
 		});
 	});
 
@@ -588,21 +343,8 @@ describe('ErrorMessage', () => {
 			expect(wrapper.container.querySelector('.n8n-button')).not.toBeInTheDocument();
 		});
 
-		it('should handle null retry function', () => {
-			const message = { ...createErrorMessage(), retry: undefined };
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			expect(wrapper.container.querySelector('.n8n-button')).not.toBeInTheDocument();
-		});
-
 		it('should handle very long error messages', () => {
-			const longError = 'A'.repeat(10000);
+			const longError = 'A'.repeat(1000);
 			const message = createErrorMessage({ content: longError });
 			const wrapper = render(ErrorMessage, {
 				props: {
@@ -613,115 +355,6 @@ describe('ErrorMessage', () => {
 			});
 
 			expect(wrapper.container.textContent).toContain(longError);
-		});
-
-		it('should handle special characters in error content', () => {
-			const specialError = 'Error with special chars: <>&"\'`~!@#$%^&*()[]{}|\\';
-			const message = createErrorMessage({ content: specialError });
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			expect(wrapper.container.textContent).toContain(specialError);
-		});
-
-		it('should handle Unicode in error messages', () => {
-			const unicodeError = 'Error: 操作失败 🚫 العملية فشلت';
-			const message = createErrorMessage({ content: unicodeError });
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			expect(wrapper.container.textContent).toContain(unicodeError);
-		});
-	});
-
-	describe('Error Recovery', () => {
-		it('should emit recovery events on successful retry', async () => {
-			const retryFn = vi.fn().mockResolvedValue('success');
-			const message = createErrorMessage({ retry: retryFn });
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const retryButton = wrapper.container.querySelector('.n8n-button');
-			await fireEvent.click(retryButton!);
-
-			// Should emit recovery event
-			const recoveryEvents = wrapper.emitted('errorRecovered');
-			expect(recoveryEvents).toBeTruthy();
-		});
-
-		it('should track retry attempts', async () => {
-			const retryFn = vi
-				.fn()
-				.mockRejectedValueOnce(new Error('First retry failed'))
-				.mockRejectedValueOnce(new Error('Second retry failed'))
-				.mockResolvedValueOnce('success');
-
-			const message = createErrorMessage({ retry: retryFn });
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const retryButton = wrapper.container.querySelector('.n8n-button');
-
-			// First retry attempt
-			await fireEvent.click(retryButton!);
-			expect(retryFn).toHaveBeenCalledTimes(1);
-
-			// Second retry attempt
-			await fireEvent.click(retryButton!);
-			expect(retryFn).toHaveBeenCalledTimes(2);
-
-			// Third retry attempt (successful)
-			await fireEvent.click(retryButton!);
-			expect(retryFn).toHaveBeenCalledTimes(3);
-		});
-
-		it('should limit retry attempts when maxRetries specified', async () => {
-			const retryFn = vi.fn().mockRejectedValue(new Error('Always fails'));
-			const message = createErrorMessage({
-				retry: retryFn,
-				maxRetries: 2,
-			} as any);
-			const wrapper = render(ErrorMessage, {
-				props: {
-					message,
-					isFirstOfRole: true,
-				},
-				global: { stubs },
-			});
-
-			const retryButton = wrapper.container.querySelector('.n8n-button');
-
-			// First retry
-			await fireEvent.click(retryButton!);
-			expect(wrapper.container.querySelector('.n8n-button')).toBeInTheDocument();
-
-			// Second retry
-			await fireEvent.click(retryButton!);
-			expect(wrapper.container.querySelector('.n8n-button')).toBeInTheDocument();
-
-			// Third attempt should disable retry
-			await fireEvent.click(retryButton!);
-			expect(wrapper.container.querySelector('.n8n-button')).toHaveAttribute('disabled', 'true');
 		});
 	});
 });

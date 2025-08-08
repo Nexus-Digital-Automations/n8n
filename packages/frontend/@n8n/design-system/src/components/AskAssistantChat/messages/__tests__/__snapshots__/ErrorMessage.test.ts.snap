@@ -3,9 +3,8 @@
 exports[`ErrorMessage > Basic Rendering > should render error message correctly 1`] = `
 <div>
   <div
-    class="message"
+    class="base-message"
   >
-    <!--v-if-->
     
     <div
       class="error"
@@ -17,14 +16,13 @@ exports[`ErrorMessage > Basic Rendering > should render error message correctly 
         <span
           class="n8n-icon errorIcon"
           data-icon="triangle-alert"
-          size="small"
+          data-size="small"
         />
          Something went wrong
       </p>
       <!--v-if-->
     </div>
     
-    <!--v-if-->
   </div>
 </div>
 `;

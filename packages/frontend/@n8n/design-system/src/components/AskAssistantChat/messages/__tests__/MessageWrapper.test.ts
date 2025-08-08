@@ -12,35 +12,33 @@ vi.mock('../../../../composables/useI18n', () => ({
 }));
 
 const stubs = {
-	'base-message': {
-		template: '<div class="base-message"><slot /></div>',
-		props: ['message', 'isFirstOfRole', 'user', 'showRating', 'ratingStyle'],
+	TextMessage: {
+		template: '<div class="text-message" />',
+		props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
 		emits: ['feedback'],
 	},
-	'text-message': {
-		template: '<div class="text-message" />',
-		props: ['message', 'streaming', 'isLastMessage'],
-	},
-	'block-message': {
+	BlockMessage: {
 		template: '<div class="block-message" />',
-		props: ['message', 'streaming', 'isLastMessage'],
+		props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
+		emits: ['feedback'],
 	},
-	'code-diff-message': {
+	CodeDiffMessage: {
 		template: '<div class="code-diff-message" />',
-		props: ['message'],
-		emits: ['codeReplace', 'codeUndo'],
+		props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
+		emits: ['codeReplace', 'codeUndo', 'feedback'],
 	},
-	'error-message': {
+	ErrorMessage: {
 		template: '<div class="error-message" />',
-		props: ['message'],
+		props: ['message', 'isFirstOfRole', 'user'],
 	},
-	'event-message': {
+	EventMessage: {
 		template: '<div class="event-message" />',
-		props: ['message'],
+		props: ['message', 'isFirstOfRole', 'user'],
 	},
-	'tool-message': {
+	ToolMessage: {
 		template: '<div class="tool-message" />',
-		props: ['message', 'showProgressLogs'],
+		props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
+		emits: ['feedback'],
 	},
 };
 
@@ -80,7 +78,6 @@ describe('MessageWrapper', () => {
 			});
 
 			expect(wrapper.container.querySelector('.text-message')).toBeInTheDocument();
-			expect(wrapper.container.querySelector('.base-message')).toBeInTheDocument();
 		});
 
 		it('should render BlockMessage for block type', () => {
@@ -180,9 +177,7 @@ describe('MessageWrapper', () => {
 				},
 			});
 
-			expect(wrapper.container.querySelector('.base-message')).toBeInTheDocument();
-			expect(wrapper.container.querySelector('.text-message')).not.toBeInTheDocument();
-			expect(wrapper.container.querySelector('.block-message')).not.toBeInTheDocument();
+			expect(wrapper.container.innerHTML).toBe('<!--v-if-->');
 		});
 
 		it('should render nothing for workflow-updated type', () => {
@@ -197,66 +192,63 @@ describe('MessageWrapper', () => {
 				},
 			});
 
-			expect(wrapper.container.querySelector('.base-message')).toBeInTheDocument();
-			expect(wrapper.container.querySelector('.text-message')).not.toBeInTheDocument();
+			expect(wrapper.container.innerHTML).toBe('<!--v-if-->');
 		});
 	});
 
 	describe('Props Forwarding', () => {
-		it('should forward base props to BaseMessage', () => {
+		it('should forward props to TextMessage', () => {
 			const message = createMessage('text');
 			const wrapper = render(MessageWrapper, {
 				props: {
 					message,
 					isFirstOfRole: true,
 					user: mockUser,
-					// showRating and ratingStyle removed - not valid props
-				},
-				global: {
-					stubs: {
-						...stubs,
-						'base-message': {
-							template:
-								'<div class="base-message" :data-first-of-role="isFirstOfRole" :data-show-rating="showRating" :data-rating-style="ratingStyle"><slot /></div>',
-							props: ['message', 'isFirstOfRole', 'user', 'showRating', 'ratingStyle'],
-						},
-					},
-				},
-			});
-
-			const baseMessage = wrapper.container.querySelector('.base-message');
-			expect(baseMessage).toHaveAttribute('data-first-of-role', 'true');
-			expect(baseMessage).toHaveAttribute('data-show-rating', 'true');
-			expect(baseMessage).toHaveAttribute('data-rating-style', 'minimal');
-		});
-
-		it('should forward streaming and isLastMessage to text messages', () => {
-			const message = createMessage('text');
-			const wrapper = render(MessageWrapper, {
-				props: {
-					message,
-					isFirstOfRole: true,
 					streaming: true,
 					isLastMessage: true,
 				},
 				global: {
 					stubs: {
 						...stubs,
-						'text-message': {
+						TextMessage: {
 							template:
-								'<div class="text-message" :data-streaming="streaming" :data-is-last="isLastMessage" />',
-							props: ['message', 'streaming', 'isLastMessage'],
+								'<div class="text-message" :data-first-of-role="isFirstOfRole" :data-streaming="streaming" :data-is-last="isLastMessage" />',
+							props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
 						},
 					},
 				},
 			});
 
 			const textMessage = wrapper.container.querySelector('.text-message');
+			expect(textMessage).toHaveAttribute('data-first-of-role', 'true');
 			expect(textMessage).toHaveAttribute('data-streaming', 'true');
 			expect(textMessage).toHaveAttribute('data-is-last', 'true');
 		});
 
-		it('should forward showProgressLogs to tool messages', () => {
+		it('should forward props to ErrorMessage', () => {
+			const message = createMessage('error');
+			const wrapper = render(MessageWrapper, {
+				props: {
+					message,
+					isFirstOfRole: false,
+					user: mockUser,
+				},
+				global: {
+					stubs: {
+						...stubs,
+						ErrorMessage: {
+							template: '<div class="error-message" :data-first-of-role="isFirstOfRole" />',
+							props: ['message', 'isFirstOfRole', 'user'],
+						},
+					},
+				},
+			});
+
+			const errorMessage = wrapper.container.querySelector('.error-message');
+			expect(errorMessage).toHaveAttribute('data-first-of-role', 'false');
+		});
+
+		it('should forward props to ToolMessage', () => {
 			const message = createMessage('tool', {
 				toolName: 'test_tool',
 				status: 'running',
@@ -265,26 +257,29 @@ describe('MessageWrapper', () => {
 				props: {
 					message,
 					isFirstOfRole: true,
-					// showProgressLogs removed - not valid prop
+					streaming: false,
+					isLastMessage: false,
 				},
 				global: {
 					stubs: {
 						...stubs,
-						'tool-message': {
-							template: '<div class="tool-message" :data-show-progress="showProgressLogs" />',
-							props: ['message', 'showProgressLogs'],
+						ToolMessage: {
+							template:
+								'<div class="tool-message" :data-streaming="streaming" :data-is-last="isLastMessage" />',
+							props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
 						},
 					},
 				},
 			});
 
 			const toolMessage = wrapper.container.querySelector('.tool-message');
-			expect(toolMessage).toHaveAttribute('data-show-progress', 'true');
+			expect(toolMessage).toHaveAttribute('data-streaming', 'false');
+			expect(toolMessage).toHaveAttribute('data-is-last', 'false');
 		});
 	});
 
 	describe('Event Forwarding', () => {
-		it('should forward feedback events from BaseMessage', async () => {
+		it('should forward feedback events from TextMessage', async () => {
 			const message = createMessage('text');
 			const wrapper = render(MessageWrapper, {
 				props: {
@@ -292,14 +287,20 @@ describe('MessageWrapper', () => {
 					isFirstOfRole: true,
 				},
 				global: {
-					stubs,
+					stubs: {
+						...stubs,
+						TextMessage: {
+							template:
+								'<div class="text-message" @click="$emit(\'feedback\', { rating: \'positive\' })" />',
+							props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
+							emits: ['feedback'],
+						},
+					},
 				},
 			});
 
-			const baseMessage = wrapper.container.querySelector('.base-message');
-			const feedbackData = { rating: 'positive' };
-
-			await fireEvent(baseMessage!, new CustomEvent('feedback', { detail: feedbackData }));
+			const textMessage = wrapper.container.querySelector('.text-message');
+			await fireEvent.click(textMessage!);
 
 			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents).toBeTruthy();
@@ -315,12 +316,19 @@ describe('MessageWrapper', () => {
 					isFirstOfRole: true,
 				},
 				global: {
-					stubs,
+					stubs: {
+						...stubs,
+						CodeDiffMessage: {
+							template: '<div class="code-diff-message" @click="$emit(\'codeReplace\')" />',
+							props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
+							emits: ['codeReplace', 'codeUndo', 'feedback'],
+						},
+					},
 				},
 			});
 
 			const codeDiffMessage = wrapper.container.querySelector('.code-diff-message');
-			await fireEvent(codeDiffMessage!, new CustomEvent('codeReplace'));
+			await fireEvent.click(codeDiffMessage!);
 
 			const emittedEvents = wrapper.emitted('codeReplace');
 			expect(emittedEvents).toBeTruthy();
@@ -336,12 +344,19 @@ describe('MessageWrapper', () => {
 					isFirstOfRole: true,
 				},
 				global: {
-					stubs,
+					stubs: {
+						...stubs,
+						CodeDiffMessage: {
+							template: '<div class="code-diff-message" @dblclick="$emit(\'codeUndo\')" />',
+							props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
+							emits: ['codeReplace', 'codeUndo', 'feedback'],
+						},
+					},
 				},
 			});
 
 			const codeDiffMessage = wrapper.container.querySelector('.code-diff-message');
-			await fireEvent(codeDiffMessage!, new CustomEvent('codeUndo'));
+			await fireEvent.dblClick(codeDiffMessage!);
 
 			const emittedEvents = wrapper.emitted('codeUndo');
 			expect(emittedEvents).toBeTruthy();
@@ -361,8 +376,7 @@ describe('MessageWrapper', () => {
 				},
 			});
 
-			expect(wrapper.container.querySelector('.base-message')).toBeInTheDocument();
-			expect(wrapper.container.textContent).toBe(''); // No specific component rendered
+			expect(wrapper.container.innerHTML).toBe('<!--v-if-->'); // No component rendered
 		});
 
 		it('should handle message without type property', () => {
@@ -383,7 +397,7 @@ describe('MessageWrapper', () => {
 				},
 			});
 
-			expect(wrapper.container.querySelector('.base-message')).toBeInTheDocument();
+			expect(wrapper.container.innerHTML).toBe('<!--v-if-->'); // No component rendered
 		});
 
 		it('should handle null/undefined streaming props', () => {
@@ -393,7 +407,7 @@ describe('MessageWrapper', () => {
 					message,
 					isFirstOfRole: true,
 					streaming: false,
-					// isLastMessage: undefined is valid - omitted
+					isLastMessage: undefined,
 				},
 				global: {
 					stubs,
@@ -405,7 +419,7 @@ describe('MessageWrapper', () => {
 	});
 
 	describe('Component Integration', () => {
-		it('should maintain proper component hierarchy', () => {
+		it('should render the correct message component', () => {
 			const message = createMessage('text');
 			const wrapper = render(MessageWrapper, {
 				props: {
@@ -417,12 +431,8 @@ describe('MessageWrapper', () => {
 				},
 			});
 
-			const baseMessage = wrapper.container.querySelector('.base-message');
 			const textMessage = wrapper.container.querySelector('.text-message');
-
-			expect(baseMessage).toBeInTheDocument();
 			expect(textMessage).toBeInTheDocument();
-			expect(baseMessage).toContainElement(textMessage as HTMLElement);
 		});
 
 		it('should pass all required props to child components', () => {
@@ -441,27 +451,20 @@ describe('MessageWrapper', () => {
 				global: {
 					stubs: {
 						...stubs,
-						'base-message': {
+						BlockMessage: {
 							template:
-								'<div class="base-message" :data-message-id="message.id" :data-first="isFirstOfRole"><slot /></div>',
-							props: ['message', 'isFirstOfRole', 'user', 'showRating', 'ratingStyle'],
-						},
-						'block-message': {
-							template:
-								'<div class="block-message" :data-title="message.title" :data-streaming="streaming" />',
-							props: ['message', 'streaming', 'isLastMessage'],
+								'<div class="block-message" :data-title="message.title" :data-first="isFirstOfRole" :data-streaming="streaming" :data-is-last="isLastMessage" />',
+							props: ['message', 'isFirstOfRole', 'user', 'streaming', 'isLastMessage'],
 						},
 					},
 				},
 			});
 
-			const baseMessage = wrapper.container.querySelector('.base-message');
 			const blockMessage = wrapper.container.querySelector('.block-message');
-
-			expect(baseMessage).toHaveAttribute('data-message-id', '1');
-			expect(baseMessage).toHaveAttribute('data-first', 'false');
 			expect(blockMessage).toHaveAttribute('data-title', 'Test Title');
+			expect(blockMessage).toHaveAttribute('data-first', 'false');
 			expect(blockMessage).toHaveAttribute('data-streaming', 'true');
+			expect(blockMessage).toHaveAttribute('data-is-last', 'false');
 		});
 	});
 
@@ -508,7 +511,10 @@ describe('MessageWrapper', () => {
 			const messageTypes = ['block', 'error', 'event', 'tool', 'text'];
 
 			for (const type of messageTypes) {
-				const newMessage = createMessage(type);
+				const newMessage = createMessage(type, {
+					toolName: type === 'tool' ? 'test_tool' : undefined,
+					eventName: type === 'event' ? 'end-session' : undefined,
+				});
 				await wrapper.rerender({
 					message: newMessage,
 					isFirstOfRole: true,

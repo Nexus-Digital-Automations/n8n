@@ -3,31 +3,27 @@
 exports[`EventMessage > Basic Rendering > should render event message correctly 1`] = `
 <div>
   <div
-    class="message"
+    class="base-message"
   >
-    <!--v-if-->
     
     <div
       class="eventText"
       data-test-id="chat-message-system"
     >
       <span>
-        assistantChat.sessionEndMessage.1
+        Session has ended.
       </span>
       <button
         class="inline-ask-assistant-button"
-        size="small"
-        static="true"
       >
         
         
       </button>
       <span>
-        assistantChat.sessionEndMessage.2
+        Feel free to ask if you need help!
       </span>
     </div>
     
-    <!--v-if-->
   </div>
 </div>
 `;

@@ -986,9 +986,34 @@
       "created_at": "2025-08-07T19:55:48.695Z",
       "completed_at": "2025-08-08T04:35:50.720Z",
       "archived_from_todo": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/TODO.json"
+    },
+    {
+      "id": "task_1754596548699_zgn144hdu",
+      "title": "Fix ToolMessage component tests (22 failures)",
+      "description": "Fix expandable behavior, tool input/output display, progress messages, error handling, and JSON formatting tests in ToolMessage.test.ts. DOM element queries failing due to structure mismatches.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/ToolMessage.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/ToolMessage.vue"
+      ],
+      "success_criteria": [
+        "All ToolMessage tests pass without failures",
+        "Expandable/collapsible behavior tests fixed",
+        "Tool data display and formatting tests work correctly",
+        "Error handling and performance tests resolved"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T19:55:48.699Z",
+      "completed_at": "2025-08-08T04:43:58.139Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 39,
-  "last_completion": "2025-08-08T04:35:50.720Z",
+  "total_completed": 40,
+  "last_completion": "2025-08-08T04:43:58.139Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }
