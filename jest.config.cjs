@@ -3,13 +3,13 @@ const { compilerOptions } = require('get-tsconfig').getTsconfig().config;
 
 /** @type {import('ts-jest').TsJestGlobalOptions} */
 const tsJestOptions = {
-	isolatedModules: true,
 	tsconfig: {
 		...compilerOptions,
 		experimentalDecorators: true,
 		emitDecoratorMetadata: true,
 		declaration: false,
 		sourceMap: true,
+		isolatedModules: true,
 	},
 };
 

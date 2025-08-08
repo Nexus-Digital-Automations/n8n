@@ -17,13 +17,8 @@ declare module 'markdown-it-task-lists' {
 // Vue component type declarations
 declare module '*.vue' {
 	import type { DefineComponent } from 'vue';
-	const component: DefineComponent<any, any, any>;
+	const component: DefineComponent<{}, {}, any>;
 	export default component;
-	// Allow any named exports from Vue components
-	export const Props: any;
-	export const TableOptions: any;
-	export const TableHeader: any;
-	export const CanvasEdgeProps: any;
 }
 
 // Design System component declarations

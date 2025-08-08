@@ -1,0 +1,11 @@
+Timeout Debug Summary for Agent 2c376b36-5c62-4a46-973c-bad332ad6def
+==========================================
+
+Timestamp: 2025-08-07T22:56:02.008630
+Elapsed Time: 0m 0.0s
+Timeout Limit: 120s
+Timeout Exceeded: False
+Hook Type: SubagentStop
+Tool Name: unknown
+
+Full report: logs/debug/debug_report_2c376b36-5c62-4a46-973c-bad332ad6def_1754625362.json

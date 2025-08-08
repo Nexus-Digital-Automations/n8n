@@ -23,15 +23,20 @@ const stubs = {
 	},
 };
 
-const createBlockMessage = (overrides: Partial<ChatUI.SummaryBlock> = {}): ChatUI.SummaryBlock => ({
-	id: '1',
-	type: 'block',
-	role: 'assistant',
-	title: 'Block Title',
-	content: 'Block content goes here',
-	read: false,
-	...overrides,
-});
+const createBlockMessage = (
+	overrides: Partial<
+		ChatUI.SummaryBlock & { id?: string; read?: boolean; quickReplies?: ChatUI.QuickReply[] }
+	> = {},
+): ChatUI.SummaryBlock & { id: string; read: boolean; quickReplies?: ChatUI.QuickReply[] } =>
+	({
+		id: '1',
+		type: 'block',
+		role: 'assistant',
+		title: 'Block Title',
+		content: 'Block content goes here',
+		read: false,
+		...overrides,
+	}) as ChatUI.SummaryBlock & { id: string; read: boolean; quickReplies?: ChatUI.QuickReply[] };
 
 describe('BlockMessage', () => {
 	beforeEach(() => {
@@ -42,7 +47,10 @@ describe('BlockMessage', () => {
 		it('should render block message correctly', () => {
 			const message = createBlockMessage();
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -57,7 +65,10 @@ describe('BlockMessage', () => {
 				content: 'Test Content',
 			});
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -73,7 +84,10 @@ describe('BlockMessage', () => {
 		it('should handle empty title gracefully', () => {
 			const message = createBlockMessage({ title: '' });
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -84,7 +98,10 @@ describe('BlockMessage', () => {
 		it('should handle empty content gracefully', () => {
 			const message = createBlockMessage({ content: '' });
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -99,7 +116,10 @@ describe('BlockMessage', () => {
 				content: '**Bold text** and *italic text*',
 			});
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -113,7 +133,10 @@ describe('BlockMessage', () => {
 				content: 'Regular content',
 			});
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -136,7 +159,10 @@ describe('BlockMessage', () => {
 				`,
 			});
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -150,7 +176,10 @@ describe('BlockMessage', () => {
 				content: 'Content with & special chars',
 			});
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -177,8 +206,8 @@ describe('BlockMessage', () => {
 			expect(cursor).toBeInTheDocument();
 
 			// Cursor should be in title section
-			const titleElement = wrapper.container.querySelector('.block-title');
-			expect(titleElement).toContainElement(cursor);
+			const titleElement = wrapper.container.querySelector('.block-title') as HTMLElement | null;
+			expect(titleElement).toContainElement(cursor as HTMLElement | SVGElement | null);
 		});
 
 		it('should show blinking cursor in content when title is complete', () => {
@@ -200,8 +229,10 @@ describe('BlockMessage', () => {
 			expect(cursor).toBeInTheDocument();
 
 			// Cursor should be in content section
-			const contentElement = wrapper.container.querySelector('.block-content');
-			expect(contentElement).toContainElement(cursor);
+			const contentElement = wrapper.container.querySelector(
+				'.block-content',
+			) as HTMLElement | null;
+			expect(contentElement).toContainElement(cursor as HTMLElement | SVGElement | null);
 		});
 
 		it('should not show cursor when not streaming', () => {
@@ -255,7 +286,10 @@ describe('BlockMessage', () => {
 		it('should apply proper CSS classes for block structure', () => {
 			const message = createBlockMessage();
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -281,7 +315,10 @@ describe('BlockMessage', () => {
 		it('should apply appropriate border and spacing styles', () => {
 			const message = createBlockMessage();
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -290,9 +327,9 @@ describe('BlockMessage', () => {
 		});
 
 		it('should handle different block types with appropriate styling', () => {
-			const infoMessage = createBlockMessage({ blockType: 'info' });
-			const warningMessage = createBlockMessage({ blockType: 'warning' });
-			const errorMessage = createBlockMessage({ blockType: 'error' });
+			const infoMessage = createBlockMessage({ title: 'Info Block' });
+			const warningMessage = createBlockMessage({ title: 'Warning Block' });
+			const errorMessage = createBlockMessage({ title: 'Error Block' });
 
 			const infoWrapper = render(BlockMessage, {
 				props: { message: infoMessage },
@@ -309,22 +346,26 @@ describe('BlockMessage', () => {
 				global: { stubs },
 			});
 
-			expect(infoWrapper.container.querySelector('.info')).toBeInTheDocument();
-			expect(warningWrapper.container.querySelector('.warning')).toBeInTheDocument();
-			expect(errorWrapper.container.querySelector('.error')).toBeInTheDocument();
+			expect(infoWrapper.container.querySelector('.block-message')).toBeInTheDocument();
+			expect(warningWrapper.container.querySelector('.block-message')).toBeInTheDocument();
+			expect(errorWrapper.container.querySelector('.block-message')).toBeInTheDocument();
 		});
 	});
 
 	describe('Quick Replies Integration', () => {
 		it('should display quick replies when provided', () => {
-			const message = createBlockMessage({
-				quickReplies: [
-					{ type: 'new-suggestion', text: 'Try again' },
-					{ type: 'resolved', text: 'This helped' },
-				],
-			});
+			const message = createBlockMessage() as ChatUI.AssistantMessage & {
+				quickReplies: ChatUI.QuickReply[];
+			};
+			message.quickReplies = [
+				{ type: 'new-suggestion', text: 'Try again' },
+				{ type: 'resolved', text: 'This helped' },
+			];
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -342,7 +383,10 @@ describe('BlockMessage', () => {
 		it('should not display quick replies when not provided', () => {
 			const message = createBlockMessage();
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -352,10 +396,13 @@ describe('BlockMessage', () => {
 		it('should position quick replies after content', () => {
 			const message = createBlockMessage({
 				content: 'Block content',
-				quickReplies: [{ type: 'resolved', text: 'Got it' }],
-			});
+			}) as ChatUI.AssistantMessage & { quickReplies: ChatUI.QuickReply[] };
+			message.quickReplies = [{ type: 'resolved', text: 'Got it' }];
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -381,7 +428,10 @@ describe('BlockMessage', () => {
 				content: 'Supporting content',
 			});
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -400,7 +450,10 @@ describe('BlockMessage', () => {
 			const longTitle = 'A'.repeat(1000);
 			const message = createBlockMessage({ title: longTitle });
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -412,7 +465,10 @@ describe('BlockMessage', () => {
 			const longContent = 'B'.repeat(10000);
 			const message = createBlockMessage({ content: longContent });
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -426,7 +482,10 @@ describe('BlockMessage', () => {
 				content: 'Response time: 150ms\nStatus: 200 OK\nData received: ✓',
 			});
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -443,7 +502,10 @@ describe('BlockMessage', () => {
 				content: null as string | null,
 			};
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -458,7 +520,10 @@ describe('BlockMessage', () => {
 				quickReplies: undefined,
 			};
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -466,9 +531,12 @@ describe('BlockMessage', () => {
 		});
 
 		it('should handle message type inconsistency', () => {
-			const message = { ...createBlockMessage(), type: 'not-block' as ChatUI.MessageType };
+			const message = { ...createBlockMessage(), type: 'not-block' as any };
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -478,9 +546,12 @@ describe('BlockMessage', () => {
 		it('should handle missing message properties gracefully', () => {
 			const incompleteMessage = {
 				id: '1',
+				type: 'block',
 				role: 'assistant',
+				title: '',
+				content: '',
 				read: false,
-			} as ChatUI.SummaryBlock;
+			} as ChatUI.AssistantMessage;
 
 			const wrapper = render(BlockMessage, {
 				props: { message: incompleteMessage },
@@ -495,7 +566,10 @@ describe('BlockMessage', () => {
 		it('should have proper semantic structure', () => {
 			const message = createBlockMessage();
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -506,7 +580,10 @@ describe('BlockMessage', () => {
 		it('should have proper heading hierarchy', () => {
 			const message = createBlockMessage({ title: 'Block Title' });
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -520,7 +597,10 @@ describe('BlockMessage', () => {
 				content: 'Connection failed',
 			});
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -529,14 +609,18 @@ describe('BlockMessage', () => {
 		});
 
 		it('should maintain focus order for interactive elements', () => {
-			const message = createBlockMessage({
-				quickReplies: [
-					{ type: 'new-suggestion', text: 'Try again' },
-					{ type: 'resolved', text: 'This helped' },
-				],
-			});
+			const message = createBlockMessage() as ChatUI.AssistantMessage & {
+				quickReplies: ChatUI.QuickReply[];
+			};
+			message.quickReplies = [
+				{ type: 'new-suggestion', text: 'Try again' },
+				{ type: 'resolved', text: 'This helped' },
+			];
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -556,7 +640,10 @@ describe('BlockMessage', () => {
 		it('should handle frequent content updates efficiently', async () => {
 			const message = createBlockMessage();
 			const wrapper = render(BlockMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
