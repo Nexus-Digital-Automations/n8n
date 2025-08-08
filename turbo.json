@@ -165,9 +165,9 @@
 				"test-results/**",
 				"junit.xml"
 			],
-			"env": ["NODE_ENV"],
+			"env": ["NODE_ENV", "CI", "COVERAGE_ENABLED"],
 			"cache": true,
-			"passThroughEnv": ["DATABASE_URL", "N8N_LOG_LEVEL", "JEST_JUNIT_CLASSNAME"],
+			"passThroughEnv": ["DATABASE_URL", "N8N_LOG_LEVEL", "JEST_JUNIT_CLASSNAME", "JEST_MAX_WORKERS"],
 			"outputLogs": "errors-only"
 		},
 		"test:unit": {

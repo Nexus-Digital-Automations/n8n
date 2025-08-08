@@ -41,8 +41,10 @@ const stubs = {
 };
 
 const createCodeDiffMessage = (
-	overrides: Partial<ChatUI.AssistantMessage> = {},
-): ChatUI.AssistantMessage =>
+	overrides: Partial<
+		ChatUI.CodeDiffMessage & { id?: string; read?: boolean; quickReplies?: ChatUI.QuickReply[] }
+	> = {},
+): ChatUI.CodeDiffMessage & { id: string; read: boolean; quickReplies?: ChatUI.QuickReply[] } =>
 	({
 		id: '1',
 		type: 'code-diff',
@@ -52,7 +54,7 @@ const createCodeDiffMessage = (
 		suggestionId: 'suggestion-123',
 		read: false,
 		...overrides,
-	}) as ChatUI.AssistantMessage;
+	}) as ChatUI.CodeDiffMessage & { id: string; read: boolean; quickReplies?: ChatUI.QuickReply[] };
 
 describe('CodeDiffMessage', () => {
 	beforeEach(() => {
@@ -63,7 +65,10 @@ describe('CodeDiffMessage', () => {
 		it('should render code diff message correctly', () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -76,7 +81,10 @@ describe('CodeDiffMessage', () => {
 				description: 'Fix authentication bug in login function',
 			});
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -89,7 +97,10 @@ describe('CodeDiffMessage', () => {
 				description: 'JavaScript changes',
 			});
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -101,7 +112,10 @@ describe('CodeDiffMessage', () => {
 		it('should handle empty description gracefully', () => {
 			const message = createCodeDiffMessage({ description: '' });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -111,7 +125,10 @@ describe('CodeDiffMessage', () => {
 		it('should handle undefined description', () => {
 			const message = { ...createCodeDiffMessage(), description: undefined };
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -123,7 +140,10 @@ describe('CodeDiffMessage', () => {
 		it('should display apply changes button', () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -135,7 +155,10 @@ describe('CodeDiffMessage', () => {
 		it('should emit codeReplace event when apply button clicked', async () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -150,7 +173,10 @@ describe('CodeDiffMessage', () => {
 		it('should display undo button when in replaced state', () => {
 			const message = createCodeDiffMessage({ replaced: true });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -160,7 +186,10 @@ describe('CodeDiffMessage', () => {
 		it('should emit codeUndo event when undo button clicked', async () => {
 			const message = createCodeDiffMessage({ replaced: true });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -175,7 +204,10 @@ describe('CodeDiffMessage', () => {
 		it('should show loading state when applying changes', () => {
 			const message = createCodeDiffMessage({ replacing: true });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -194,7 +226,10 @@ describe('CodeDiffMessage', () => {
 		it('should disable buttons during applying state', () => {
 			const message = createCodeDiffMessage({ replacing: true });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -215,7 +250,10 @@ describe('CodeDiffMessage', () => {
 		it('should display error message when code diff fails to load', () => {
 			const message = createCodeDiffMessage({ error: true });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -227,7 +265,10 @@ describe('CodeDiffMessage', () => {
 				codeDiff: 'not-a-valid-diff',
 			});
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -244,10 +285,13 @@ describe('CodeDiffMessage', () => {
 		it('should show retry option when diff loading fails', () => {
 			const message = createCodeDiffMessage({
 				error: true,
-			}) as ChatUI.AssistantMessage & { retryable: boolean };
+			}) as ChatUI.CodeDiffMessage & { id: string; read: boolean; retryable: boolean };
 			message.retryable = true;
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -257,7 +301,10 @@ describe('CodeDiffMessage', () => {
 		it('should handle empty code diff', () => {
 			const message = createCodeDiffMessage({ codeDiff: '' });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -267,7 +314,10 @@ describe('CodeDiffMessage', () => {
 		it('should handle null code diff', () => {
 			const message = { ...createCodeDiffMessage(), codeDiff: null as string | null };
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -299,7 +349,10 @@ describe('CodeDiffMessage', () => {
 		it('should transition between states correctly', async () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -322,7 +375,10 @@ describe('CodeDiffMessage', () => {
 		it('should handle state transitions with appropriate button updates', async () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -346,7 +402,10 @@ describe('CodeDiffMessage', () => {
 				],
 			});
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -356,7 +415,10 @@ describe('CodeDiffMessage', () => {
 		it('should not display quick replies when not provided', () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -368,7 +430,10 @@ describe('CodeDiffMessage', () => {
 				quickReplies: [{ type: 'resolved', text: 'Perfect' }],
 			});
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -466,7 +531,10 @@ describe('CodeDiffMessage', () => {
 			).join('\n');
 			const message = createCodeDiffMessage({ codeDiff: largeDiff });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -476,7 +544,10 @@ describe('CodeDiffMessage', () => {
 		it('should handle frequent state changes without memory leaks', async () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -499,7 +570,10 @@ describe('CodeDiffMessage', () => {
 		it('should have proper semantic structure', () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -511,7 +585,10 @@ describe('CodeDiffMessage', () => {
 		it('should have accessible action buttons', () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -522,7 +599,10 @@ describe('CodeDiffMessage', () => {
 		it('should announce state changes to screen readers', async () => {
 			const message = createCodeDiffMessage();
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -539,7 +619,10 @@ describe('CodeDiffMessage', () => {
 				quickReplies: [{ type: 'resolved', text: 'Done' }],
 			});
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -552,7 +635,10 @@ describe('CodeDiffMessage', () => {
 		it('should handle message type inconsistency', () => {
 			const message = { ...createCodeDiffMessage(), type: 'not-code-diff' as any };
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -563,7 +649,10 @@ describe('CodeDiffMessage', () => {
 			const message = { ...createCodeDiffMessage() } as any;
 			message.suggestionId = undefined;
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -586,7 +675,10 @@ describe('CodeDiffMessage', () => {
 -}`;
 			const message = createCodeDiffMessage({ codeDiff: complexDiff });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -597,7 +689,10 @@ describe('CodeDiffMessage', () => {
 			const unicodeDiff = '@@ -1 +1 @@\n-const msg = "Hello";\n+const msg = "你好 🎉";';
 			const message = createCodeDiffMessage({ codeDiff: unicodeDiff });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 

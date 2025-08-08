@@ -518,8 +518,8 @@ describe('BlockMessage', () => {
 		it('should handle null title and content', () => {
 			const message = {
 				...createBlockMessage(),
-				title: null as string | null,
-				content: null as string | null,
+				title: '',
+				content: '',
 			};
 			const wrapper = render(BlockMessage, {
 				props: {
@@ -535,8 +535,8 @@ describe('BlockMessage', () => {
 		it('should handle undefined properties', () => {
 			const message = {
 				...createBlockMessage(),
-				title: undefined,
-				content: undefined,
+				title: '',
+				content: '',
 				quickReplies: undefined,
 			};
 			const wrapper = render(BlockMessage, {
@@ -571,7 +571,7 @@ describe('BlockMessage', () => {
 				title: '',
 				content: '',
 				read: false,
-			} as ChatUI.AssistantMessage;
+			} as ChatUI.SummaryBlock & { id: string; read: boolean };
 
 			const wrapper = render(BlockMessage, {
 				props: {
@@ -632,8 +632,10 @@ describe('BlockMessage', () => {
 		});
 
 		it('should maintain focus order for interactive elements', () => {
-			const message = createBlockMessage() as ChatUI.AssistantMessage & {
-				quickReplies: ChatUI.QuickReply[];
+			const message = createBlockMessage() as ChatUI.SummaryBlock & {
+				id: string;
+				read: boolean;
+				quickReplies?: ChatUI.QuickReply[];
 			};
 			message.quickReplies = [
 				{ type: 'new-suggestion', text: 'Try again' },
