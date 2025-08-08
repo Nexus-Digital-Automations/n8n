@@ -5,17 +5,42 @@ exports[`CodeDiffMessage > Basic Rendering > should render code diff message cor
   <div
     class="message"
   >
-    <!--v-if-->
     
     <div
       class="code-diff"
-      content="@@ -1,3 +1,3 @@
+      data-test-id="code-diff-suggestion"
+    >
+      <div
+        class="title"
+      >
+        Code changes description
+      </div>
+      <div
+        class="diff-section"
+      >
+        <div
+          class="diff"
+        >
+          @@ -1,3 +1,3 @@
 -old line
 +new line
- unchanged line"
-      streaming="false"
-      title="Code changes description"
-    />
+ unchanged line
+        </div>
+      </div>
+      <div
+        class="actions"
+      >
+        <button
+          class="n8n-button"
+          data-test-id="replace-code-button"
+          type="submit"
+        >
+          
+          Replace my code
+          
+        </button>
+      </div>
+    </div>
     
     <!--v-if-->
   </div>

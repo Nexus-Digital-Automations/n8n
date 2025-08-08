@@ -961,9 +961,34 @@
       "created_at": "2025-08-07T19:55:48.692Z",
       "completed_at": "2025-08-08T04:29:37.483Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754596548695_3g28rpnjk",
+      "title": "Fix MessageRating component tests (20 failures)",
+      "description": "Fix rating button interactions, feedback form display, accessibility, and performance tests in MessageRating.test.ts. Component structure and behavior differs from test expectations.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/MessageRating.test.ts",
+        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/MessageRating.vue"
+      ],
+      "success_criteria": [
+        "All MessageRating tests pass without failures",
+        "Button interactions and event emissions work correctly",
+        "Feedback form behavior properly tested",
+        "Accessibility and performance tests fixed"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-07T19:55:48.695Z",
+      "completed_at": "2025-08-08T04:35:50.720Z",
+      "archived_from_todo": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/TODO.json"
     }
   ],
-  "total_completed": 38,
-  "last_completion": "2025-08-08T04:29:37.483Z",
+  "total_completed": 39,
+  "last_completion": "2025-08-08T04:35:50.720Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

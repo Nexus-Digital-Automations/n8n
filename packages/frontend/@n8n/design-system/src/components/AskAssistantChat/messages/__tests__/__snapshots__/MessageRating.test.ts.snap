@@ -12,8 +12,6 @@ exports[`MessageRating > Basic Rendering > should render rating component correc
       <button
         class="n8n-icon-button"
         data-test-id="message-thumbs-up-button"
-        text=""
-        type="submit"
       >
         
         
@@ -21,8 +19,6 @@ exports[`MessageRating > Basic Rendering > should render rating component correc
       <button
         class="n8n-icon-button"
         data-test-id="message-thumbs-down-button"
-        text=""
-        type="submit"
       >
         
         
@@ -47,20 +43,18 @@ exports[`MessageRating > Basic Rendering > should render rating component correc
       <button
         class="n8n-button"
         data-test-id="message-thumbs-up-button"
-        icon="thumbs-up"
-        label="assistantChat.builder.thumbsUp"
         type="submit"
       >
+        Thumbs up
         
         
       </button>
       <button
         class="n8n-button"
         data-test-id="message-thumbs-down-button"
-        icon="thumbs-down"
-        label="assistantChat.builder.thumbsDown"
         type="submit"
       >
+        Thumbs down
         
         
       </button>
