@@ -1,7 +1,7 @@
-import type { ChatUI } from '../../../../types';
 import { render } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
+import type { ChatUI } from '../../../../types';
 import BlockMessage from '../BlockMessage.vue';
 
 // Mock dependencies
@@ -207,7 +207,7 @@ describe('BlockMessage', () => {
 			expect(cursor).toBeInTheDocument();
 
 			// Cursor should be in title section when no content
-			const titleElement = wrapper.container.querySelector('.blockTitle') as HTMLElement | null;
+			const titleElement = wrapper.container.querySelector('.blockTitle');
 			expect(titleElement).toContainElement(cursor as HTMLElement | SVGElement | null);
 		});
 
@@ -230,7 +230,7 @@ describe('BlockMessage', () => {
 			expect(cursor).toBeInTheDocument();
 
 			// Cursor should be in content section
-			const contentElement = wrapper.container.querySelector('.blockBody') as HTMLElement | null;
+			const contentElement = wrapper.container.querySelector('.blockBody');
 			expect(contentElement).toContainElement(cursor as HTMLElement | SVGElement | null);
 		});
 
@@ -534,7 +534,7 @@ describe('BlockMessage', () => {
 		});
 
 		it('should handle message type inconsistency', () => {
-			const message = { ...createBlockMessage(), type: 'not-block' as any };
+			const message = { ...createBlockMessage(), type: 'not-block' as unknown as MessageType };
 			const wrapper = render(BlockMessage, {
 				props: {
 					message,

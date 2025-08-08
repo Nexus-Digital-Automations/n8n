@@ -1,7 +1,7 @@
-import type { ChatUI } from '../../../../types';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
+import type { ChatUI } from '../../../../types';
 import CodeDiffMessage from '../CodeDiffMessage.vue';
 
 // Mock dependencies
@@ -666,7 +666,10 @@ describe('CodeDiffMessage', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle message type inconsistency', () => {
-			const message = { ...createCodeDiffMessage(), type: 'not-code-diff' as any };
+			const message = {
+				...createCodeDiffMessage(),
+				type: 'not-code-diff' as unknown as MessageType,
+			};
 			const wrapper = render(CodeDiffMessage, {
 				props: {
 					message,
@@ -679,7 +682,7 @@ describe('CodeDiffMessage', () => {
 		});
 
 		it('should handle missing suggestionId', () => {
-			const message = { ...createCodeDiffMessage() } as any;
+			const message = { ...createCodeDiffMessage() } as { suggestionId?: string };
 			message.suggestionId = undefined;
 			const wrapper = render(CodeDiffMessage, {
 				props: {

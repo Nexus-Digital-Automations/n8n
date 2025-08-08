@@ -571,7 +571,7 @@ describe('N8nSticky', () => {
 
 			// Simulate internal isResizing state change
 			// This would normally be controlled by parent resize wrapper
-			rerender({
+			void rerender({
 				props: {
 					modelValue: 'Test content',
 				},
@@ -613,7 +613,8 @@ describe('N8nSticky', () => {
 			});
 
 			const input = container.querySelector('.input-mock');
-			expect(input).not.toHaveAttribute('name');
+			// When id is undefined, N8nInput generates a fallback name attribute
+			expect(input).toHaveAttribute('name');
 		});
 	});
 

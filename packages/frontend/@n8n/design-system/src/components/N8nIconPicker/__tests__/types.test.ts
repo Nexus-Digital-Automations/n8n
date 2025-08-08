@@ -280,7 +280,7 @@ describe('N8nIconPicker types', () => {
 
 		describe('Performance and Reliability', () => {
 			it('should handle circular references safely', () => {
-				const circularObject: any = {
+				const circularObject: Record<string, unknown> = {
 					type: 'icon',
 					value: 'user',
 				};

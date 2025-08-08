@@ -1,5 +1,4 @@
 import type { StoryFn } from '@storybook/vue3';
-import type { ComponentInstance } from 'vue';
 
 import N8nRecycleScroller from './RecycleScroller.vue';
 
@@ -24,9 +23,7 @@ const Template: StoryFn = (args) => ({
 	},
 	methods: {
 		resizeItem(item: { id: string; height: string }, fn: (item: { id: string }) => void) {
-			const itemRef = (this as ComponentInstance<typeof N8nRecycleScroller>).$refs[
-				`item-${item.id}`
-			] as HTMLElement;
+			const itemRef = this.$refs[`item-${item.id}`] as HTMLElement;
 
 			item.height = '200px';
 			itemRef.style.height = '200px';

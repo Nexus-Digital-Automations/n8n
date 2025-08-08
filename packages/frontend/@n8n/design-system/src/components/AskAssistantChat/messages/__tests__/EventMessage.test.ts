@@ -1,8 +1,7 @@
-import type { ChatUI } from '../../../../types';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import { nextTick } from 'vue';
 
+import type { ChatUI } from '../../../../types';
 import EventMessage from '../EventMessage.vue';
 
 // Mock dependencies
@@ -308,7 +307,10 @@ describe('EventMessage', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle message type inconsistency', () => {
-			const message = { ...createEventMessage('end-session'), type: 'not-event' as any };
+			const message = {
+				...createEventMessage('end-session'),
+				type: 'not-event' as unknown as MessageType,
+			};
 			const wrapper = render(EventMessage, {
 				props: {
 					message,
@@ -321,7 +323,10 @@ describe('EventMessage', () => {
 		});
 
 		it('should handle missing eventName gracefully', () => {
-			const message = { ...createEventMessage('end-session'), eventName: undefined as any };
+			const message = {
+				...createEventMessage('end-session'),
+				eventName: undefined as unknown as EventName,
+			};
 			const wrapper = render(EventMessage, {
 				props: {
 					message,
@@ -335,7 +340,10 @@ describe('EventMessage', () => {
 		});
 
 		it('should handle null or undefined message properties', () => {
-			const message = { ...createEventMessage('session-error'), eventName: null as any };
+			const message = {
+				...createEventMessage('session-error'),
+				eventName: null as unknown as EventName,
+			};
 			const wrapper = render(EventMessage, {
 				props: {
 					message,

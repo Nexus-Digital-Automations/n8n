@@ -1,9 +1,7 @@
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import { nextTick } from 'vue';
 
 import type { ChatUI } from '../../../../types';
-
 import ErrorMessage from '../ErrorMessage.vue';
 
 // Mock dependencies
@@ -318,7 +316,7 @@ describe('ErrorMessage', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle message type inconsistency', () => {
-			const message = { ...createErrorMessage(), type: 'not-error' } as any;
+			const message = { ...createErrorMessage(), type: 'not-error' as unknown as MessageType };
 			const wrapper = render(ErrorMessage, {
 				props: {
 					message,

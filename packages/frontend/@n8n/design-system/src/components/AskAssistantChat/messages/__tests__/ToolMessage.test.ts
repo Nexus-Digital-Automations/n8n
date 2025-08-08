@@ -1,7 +1,7 @@
-import type { ChatUI } from '../../../../types';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
+import type { ChatUI } from '../../../../types';
 import ToolMessage from '../ToolMessage.vue';
 
 // Mock dependencies
@@ -56,10 +56,10 @@ const createToolMessage = (
 		ChatUI.ToolMessage & {
 			id?: string;
 			read?: boolean;
-			input?: any;
-			output?: any;
-			progressMessages?: any[];
-			error?: any;
+			input?: unknown;
+			output?: unknown;
+			progressMessages?: unknown[];
+			error?: unknown;
 			executionTime?: number;
 			progress?: number;
 		}
@@ -657,7 +657,9 @@ describe('ToolMessage', () => {
 	describe('JSON Data Display', () => {
 		it('should display JSON formatted data', async () => {
 			const message = createToolMessage({
-				updates: [{ type: 'input', data: { string: 'value', number: 42, boolean: true } }],
+				updates: [
+					{ type: 'input', data: { stringValue: 'value', numberValue: 42, booleanValue: true } },
+				],
 			});
 			const wrapper = render(ToolMessage, {
 				props: { message, isFirstOfRole: true },
@@ -699,7 +701,7 @@ describe('ToolMessage', () => {
 		});
 
 		it('should handle circular references gracefully', async () => {
-			const circularData: any = { name: 'test' };
+			const circularData: Record<PropertyKey, unknown> = { name: 'test' };
 			circularData.self = circularData; // Create circular reference
 
 			const message = createToolMessage({
@@ -720,7 +722,7 @@ describe('ToolMessage', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle message type inconsistency', () => {
-			const message = { ...createToolMessage(), type: 'not-tool' as any };
+			const message = { ...createToolMessage(), type: 'not-tool' as unknown as MessageType };
 			const wrapper = render(ToolMessage, {
 				props: { message, isFirstOfRole: true },
 				global: { stubs },

@@ -101,7 +101,7 @@ describe('MessageRating', () => {
 			);
 			await fireEvent.click(thumbsUpButton!);
 
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents).toBeTruthy();
 			expect(emittedEvents[0][0]).toMatchObject({
 				rating: 'up',
@@ -119,7 +119,7 @@ describe('MessageRating', () => {
 			);
 			await fireEvent.click(thumbsDownButton!);
 
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents).toBeTruthy();
 			expect(emittedEvents[0][0]).toMatchObject({
 				rating: 'down',
@@ -174,7 +174,7 @@ describe('MessageRating', () => {
 			await fireEvent.click(thumbsUpButton!);
 
 			// After first click, button should be gone so subsequent clicks won't work
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents?.length).toBe(1);
 		});
 	});
@@ -308,7 +308,7 @@ describe('MessageRating', () => {
 			);
 			await fireEvent.click(submitButton!);
 
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents?.length).toBe(2); // Initial rating + feedback submission
 			expect(emittedEvents[1][0]).toMatchObject({
 				feedback: 'Needs improvement',
@@ -392,7 +392,7 @@ describe('MessageRating', () => {
 			);
 			await fireEvent.click(thumbsUpButton!);
 
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents?.length).toBe(2);
 			expect(emittedEvents[1][0]).toMatchObject({ rating: 'up' });
 		});
@@ -587,7 +587,7 @@ describe('MessageRating', () => {
 			);
 			await fireEvent.click(submitButton!);
 
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents[1][0]).toMatchObject({
 				feedback: '',
 			});
@@ -613,7 +613,7 @@ describe('MessageRating', () => {
 			);
 			await fireEvent.click(submitButton!);
 
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents[1][0]).toMatchObject({
 				feedback: longComment,
 			});
@@ -639,7 +639,7 @@ describe('MessageRating', () => {
 			);
 			await fireEvent.click(submitButton!);
 
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents[1][0]).toMatchObject({
 				feedback: specialComment,
 			});
@@ -705,7 +705,7 @@ describe('MessageRating', () => {
 			);
 			await fireEvent.click(thumbsUpButton!);
 
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents).toBeTruthy();
 			expect(emittedEvents[0][0]).toMatchObject({
 				rating: 'up',
@@ -731,7 +731,7 @@ describe('MessageRating', () => {
 			);
 			await fireEvent.click(submitButton!);
 
-			const emittedEvents = wrapper.emitted('feedback') as any[];
+			const emittedEvents = wrapper.emitted('feedback');
 			expect(emittedEvents?.length).toBe(2); // Rating + feedback submission
 			expect(emittedEvents[1][0]).toMatchObject({
 				feedback: 'Test feedback',

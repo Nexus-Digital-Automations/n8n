@@ -491,7 +491,13 @@ describe('N8nUsersList', () => {
 			});
 
 			const actionToggle = container.querySelector('.action-toggle-mock');
-			const actions = JSON.parse(actionToggle?.getAttribute('data-actions') || '[]');
+			const actionsAttr = actionToggle?.getAttribute('data-actions') || '[]';
+			let actions;
+			try {
+				actions = JSON.parse(actionsAttr);
+			} catch {
+				actions = [];
+			}
 
 			expect(actions).toHaveLength(1);
 			expect(actions[0].value).toBe('regular-action');

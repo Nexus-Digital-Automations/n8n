@@ -33,13 +33,13 @@ vi.mock('../../../../composables/useI18n', () => ({
 }));
 
 describe('useMarkdown', () => {
-	let mockMarkdownInstance: any;
+	let mockMarkdownInstance: { render: ReturnType<typeof vi.fn>; use: ReturnType<typeof vi.fn> };
 
-	beforeEach(() => {
+	beforeEach(async () => {
 		vi.clearAllMocks();
 
 		// Get the mocked markdown instance
-		const Markdown = require('markdown-it').default;
+		const { default: Markdown } = await import('markdown-it');
 		mockMarkdownInstance = Markdown();
 	});
 
@@ -51,8 +51,8 @@ describe('useMarkdown', () => {
 			expect(typeof renderMarkdown).toBe('function');
 		});
 
-		it('should initialize markdown-it with correct configuration', () => {
-			const Markdown = require('markdown-it').default;
+		it('should initialize markdown-it with correct configuration', async () => {
+			const { default: Markdown } = await import('markdown-it');
 
 			useMarkdown();
 
@@ -61,8 +61,8 @@ describe('useMarkdown', () => {
 			});
 		});
 
-		it('should configure markdown-it with link attributes plugin', () => {
-			const markdownLinkPlugin = require('markdown-it-link-attributes').default;
+		it('should configure markdown-it with link attributes plugin', async () => {
+			const { default: markdownLinkPlugin } = await import('markdown-it-link-attributes');
 
 			useMarkdown();
 
@@ -74,8 +74,8 @@ describe('useMarkdown', () => {
 			});
 		});
 
-		it('should initialize i18n correctly', () => {
-			const { useI18n } = require('../../../../composables/useI18n');
+		it('should initialize i18n correctly', async () => {
+			const { useI18n } = await import('../../../../composables/useI18n');
 
 			useMarkdown();
 
@@ -190,7 +190,7 @@ describe('useMarkdown', () => {
 
 				errorTypes.forEach((error, index) => {
 					mockMarkdownInstance.render.mockImplementationOnce(() => {
-						throw error;
+						throw new Error(String(error));
 					});
 
 					const { renderMarkdown } = useMarkdown();
@@ -296,9 +296,9 @@ describe('useMarkdown', () => {
 		});
 
 		describe('Plugin configuration', () => {
-			it('should configure link attributes correctly', () => {
+			it('should configure link attributes correctly', async () => {
 				// Verify that the plugin was called with correct configuration
-				const markdownLinkPlugin = require('markdown-it-link-attributes').default;
+				const { default: markdownLinkPlugin } = await import('markdown-it-link-attributes');
 
 				useMarkdown();
 
@@ -310,8 +310,8 @@ describe('useMarkdown', () => {
 				});
 			});
 
-			it('should maintain plugin configuration across multiple calls', () => {
-				const markdownLinkPlugin = require('markdown-it-link-attributes').default;
+			it('should maintain plugin configuration across multiple calls', async () => {
+				const { default: markdownLinkPlugin } = await import('markdown-it-link-attributes');
 
 				// Create multiple instances
 				useMarkdown();

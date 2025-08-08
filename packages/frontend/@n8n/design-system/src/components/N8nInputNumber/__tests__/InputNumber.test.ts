@@ -126,7 +126,7 @@ describe('N8nInputNumber', () => {
 
 			sizeMapping.forEach(({ n8n, expected }) => {
 				const { container } = render(N8nInputNumber, {
-					props: { size: n8n as any },
+					props: { size: n8n },
 					global: {
 						stubs,
 					},

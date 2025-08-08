@@ -163,7 +163,7 @@ describe('N8nNodeCreatorNode', () => {
 			expect(container.querySelector('[class*="creatorNode"]')).toBeInTheDocument();
 
 			// Change active state
-			rerender({
+			void rerender({
 				props: {
 					title: 'Test Node',
 					active: true,

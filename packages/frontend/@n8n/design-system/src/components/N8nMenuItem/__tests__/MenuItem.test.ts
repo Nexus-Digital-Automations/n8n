@@ -24,7 +24,7 @@ const mockRouter = createRouter({
 	],
 });
 
-const renderWithRouter = (component: any, options: any = {}) => {
+const renderWithRouter = (component: unknown, options: Record<string, unknown> = {}) => {
 	return render(component, {
 		global: {
 			plugins: [mockRouter],

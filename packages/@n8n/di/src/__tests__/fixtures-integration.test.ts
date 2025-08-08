@@ -26,7 +26,7 @@ describe('Fixture Integration Tests', () => {
 		it('should provide proper error messages for circular dependencies', () => {
 			try {
 				Container.get(ServiceA);
-				fail('Should have thrown circular dependency error');
+				throw new Error('Should have thrown circular dependency error');
 			} catch (error) {
 				expect((error as Error).message).toContain('[DI]');
 				expect((error as Error).message).toContain('Circular dependency detected');

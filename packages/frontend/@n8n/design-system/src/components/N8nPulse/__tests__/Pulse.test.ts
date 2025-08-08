@@ -322,7 +322,7 @@ describe('N8nPulse', () => {
 			let content = container.querySelector('.dynamic');
 			expect(content).toHaveTextContent('Initial');
 
-			rerender({
+			void rerender({
 				slots: {
 					default: '<span class="dynamic">Updated</span>',
 				},
@@ -351,7 +351,7 @@ describe('N8nPulse', () => {
 
 			expect(() => {
 				for (let i = 0; i < 10; i++) {
-					rerender({
+					void rerender({
 						slots: {
 							default: `<span>Content ${i}</span>`,
 						},

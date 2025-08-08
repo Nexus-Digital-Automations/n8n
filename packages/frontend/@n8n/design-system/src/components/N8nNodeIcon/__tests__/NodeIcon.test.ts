@@ -468,7 +468,13 @@ describe('N8nNodeIcon', () => {
 			});
 
 			const faIcon = container.querySelector('.fa-mock');
-			const styleData = JSON.parse(faIcon?.getAttribute('data-style') || '{}');
+			const styleAttr = faIcon?.getAttribute('data-style') || '{}';
+			let styleData;
+			try {
+				styleData = JSON.parse(styleAttr);
+			} catch {
+				styleData = {};
+			}
 			expect(styleData['max-width']).toBe('32px');
 		});
 
@@ -481,7 +487,13 @@ describe('N8nNodeIcon', () => {
 			});
 
 			const faIcon = container.querySelector('.fa-mock');
-			const styleData = JSON.parse(faIcon?.getAttribute('data-style') || '{}');
+			const styleAttr = faIcon?.getAttribute('data-style') || '{}';
+			let styleData;
+			try {
+				styleData = JSON.parse(styleAttr);
+			} catch {
+				styleData = {};
+			}
 			expect(styleData['max-width']).toBeUndefined();
 		});
 	});

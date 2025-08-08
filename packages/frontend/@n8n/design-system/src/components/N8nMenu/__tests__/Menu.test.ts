@@ -21,7 +21,7 @@ const mockRouter = createRouter({
 	],
 });
 
-const renderWithRouter = (component: any, options: any = {}) => {
+const renderWithRouter = (component: unknown, options: Record<string, unknown> = {}) => {
 	return render(component, {
 		global: {
 			plugins: [mockRouter],
@@ -285,7 +285,7 @@ describe('N8nMenu', () => {
 
 	describe('Events', () => {
 		it('should emit select event when menu item is selected', async () => {
-			let emittedEvent: any = null;
+			let emittedEvent: string | null = null;
 
 			const { container } = renderWithRouter(N8nMenu, {
 				props: {
@@ -302,7 +302,7 @@ describe('N8nMenu', () => {
 		});
 
 		it('should emit update:modelValue event', async () => {
-			let modelValue: any = null;
+			let modelValue: string | null = null;
 
 			const { container } = renderWithRouter(N8nMenu, {
 				props: {

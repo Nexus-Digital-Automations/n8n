@@ -96,6 +96,19 @@ class ContainerClass {
 						`Circular dependency detected in ${type.name} at index ${index}.\n${resolutionStack.map((t) => t.name).join(' -> ')}\n`,
 					);
 				}
+				// Check for circular dependency by seeing if the paramType is already in resolution stack
+				if (resolutionStack.includes(paramType)) {
+					throw new DIError(
+						`Circular dependency detected in ${type.name} at index ${index}.\n${resolutionStack.map((t) => t.name).join(' -> ')} -> ${paramType.name}`,
+					);
+				}
+				// Handle the case where TypeScript reflection shows 'Object' due to circular imports
+				// This happens when circular dependencies prevent proper type resolution
+				if (paramType.name === 'Object' || (paramType as any) === Object) {
+					throw new DIError(
+						`Circular dependency detected in ${type.name} at index ${index}.\n${resolutionStack.map((t) => t.name).join(' -> ')}`,
+					);
+				}
 				return this.get(paramType);
 			});
 

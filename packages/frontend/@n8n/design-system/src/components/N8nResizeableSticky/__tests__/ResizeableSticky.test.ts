@@ -486,7 +486,7 @@ describe('N8nResizeableSticky', () => {
 		});
 
 		it('should handle multiple resize events between start and end', async () => {
-			const resizeEvents: any[] = [];
+			const resizeEvents: ResizeData[] = [];
 			const { container } = render(N8nResizeableSticky, {
 				props: {
 					onResize: (data: ResizeData) => resizeEvents.push(data),

@@ -366,7 +366,7 @@ describe('N8nResizeWrapper', () => {
 			const mockWindow = {
 				addEventListener: vi.fn(),
 				removeEventListener: vi.fn(),
-			} as any;
+			} as Partial<Window>;
 
 			const { container } = render(N8nResizeWrapper, {
 				props: {
@@ -376,7 +376,7 @@ describe('N8nResizeWrapper', () => {
 			});
 
 			const handle = container.querySelector('[data-dir="right"]');
-			fireEvent.mouseDown(handle!, {
+			void fireEvent.mouseDown(handle!, {
 				pageX: 100,
 				pageY: 100,
 			});

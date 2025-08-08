@@ -1,8 +1,8 @@
-import type { ChatUI } from '../../../../types';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { nextTick } from 'vue';
 
+import type { ChatUI } from '../../../../types';
 import TextMessage from '../TextMessage.vue';
 
 // Mock the clipboard API
@@ -215,7 +215,7 @@ describe('TextMessage', () => {
 		it('should handle missing clipboard API', async () => {
 			// Temporarily remove clipboard API
 			const originalClipboard = navigator.clipboard;
-			// @ts-ignore
+			// @ts-expect-error - temporarily removing clipboard API for test
 			delete navigator.clipboard;
 
 			const message = createTextMessage({
@@ -424,7 +424,7 @@ describe('TextMessage', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle null content gracefully', () => {
-			const message = { ...createTextMessage(), content: null as any };
+			const message = { ...createTextMessage(), content: null as unknown as string };
 			const wrapper = render(TextMessage, {
 				props: { message, isFirstOfRole: true },
 				global: { stubs },
@@ -455,7 +455,7 @@ describe('TextMessage', () => {
 		});
 
 		it('should handle message type inconsistency', () => {
-			const message = { ...createTextMessage(), type: 'not-text' as any };
+			const message = { ...createTextMessage(), type: 'not-text' as unknown as MessageType };
 			const wrapper = render(TextMessage, {
 				props: { message, isFirstOfRole: true },
 				global: { stubs },

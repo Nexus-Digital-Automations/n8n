@@ -543,7 +543,7 @@ describe('N8nRadioButtons', () => {
 
 			expect(() => {
 				for (let i = 0; i < 10; i++) {
-					rerender({
+					void rerender({
 						options: sampleOptions,
 						modelValue: sampleOptions[i % 3].value,
 					});

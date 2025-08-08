@@ -1,7 +1,7 @@
-import type { ChatUI } from '../../../../types';
 import { render, fireEvent } from '@testing-library/vue';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
+import type { ChatUI } from '../../../../types';
 import MessageWrapper from '../MessageWrapper.vue';
 
 // Mock dependencies
@@ -52,7 +52,7 @@ const createMessage = (
 	overrides: Partial<ChatUI.AssistantMessage> = {},
 ): ChatUI.AssistantMessage => ({
 	id: '1',
-	type: type as any,
+	type: type as ChatUI.AssistantMessage['type'],
 	role: 'assistant',
 	content: 'Test content',
 	read: false,

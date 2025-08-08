@@ -407,7 +407,7 @@ describe('N8nInput', () => {
 			autocompleteValues.forEach((value) => {
 				const { container } = render(N8nInput, {
 					props: {
-						autocomplete: value as any,
+						autocomplete: value,
 					},
 				});
 				const input = container.querySelector('input') as HTMLInputElement;

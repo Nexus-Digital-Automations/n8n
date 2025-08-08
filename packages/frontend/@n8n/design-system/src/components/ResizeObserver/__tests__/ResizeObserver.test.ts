@@ -10,11 +10,11 @@ import type { BreakpointDefinition } from '../ResizeObserver.vue';
 
 // Mock ResizeObserver API
 class MockResizeObserver {
-	private callback: ResizeObserverCallback;
+	private observerCallback: ResizeObserverCallback;
 	private elements: Set<Element> = new Set();
 
-	constructor(callback: ResizeObserverCallback) {
-		this.callback = callback;
+	constructor(observerCallback: ResizeObserverCallback) {
+		this.observerCallback = observerCallback;
 	}
 
 	observe(target: Element) {
@@ -39,7 +39,7 @@ class MockResizeObserver {
 
 		// Use requestAnimationFrame to simulate async behavior
 		requestAnimationFrame(() => {
-			this.callback([entry], this);
+			this.observerCallback([entry], this);
 		});
 	}
 
@@ -71,7 +71,7 @@ class MockResizeObserver {
 		};
 
 		requestAnimationFrame(() => {
-			this.callback([entry], this);
+			this.observerCallback([entry], this);
 		});
 	}
 }
@@ -460,10 +460,12 @@ describe('ResizeObserver', () => {
 
 	describe('requestAnimationFrame Usage', () => {
 		it('should use requestAnimationFrame for breakpoint updates', async () => {
-			const rafSpy = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
-				cb(0);
-				return 0;
-			});
+			const rafSpy = vi
+				.spyOn(window, 'requestAnimationFrame')
+				.mockImplementation((frameCallback) => {
+					frameCallback(0);
+					return 0;
+				});
 
 			const TestComponent = {
 				template:

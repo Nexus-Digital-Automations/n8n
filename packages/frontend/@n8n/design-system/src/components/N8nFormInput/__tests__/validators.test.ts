@@ -375,14 +375,14 @@ describe('Form Input Validators', () => {
 			expect(firstRuleGroup.rules).toHaveLength(3);
 
 			// Second rule
-			const secondRule = defaultPasswordRules.rules[1] as { name: string; config: any };
+			const secondRule = defaultPasswordRules.rules[1] as { name: string; config: unknown };
 			expect(secondRule).toHaveProperty('name', 'MAX_LENGTH');
 			expect(secondRule).toHaveProperty('config', { maximum: 64 });
 		});
 
 		it('should contain expected password rules', () => {
 			const firstRuleGroup = defaultPasswordRules.rules[0] as RuleGroup;
-			const rules = firstRuleGroup.rules as Array<{ name: string; config: any }>;
+			const rules = firstRuleGroup.rules as Array<{ name: string; config: unknown }>;
 
 			expect(rules[0]).toEqual({ name: 'MIN_LENGTH', config: { minimum: 8 } });
 			expect(rules[1]).toEqual({ name: 'CONTAINS_NUMBER', config: { minimum: 1 } });
@@ -535,7 +535,7 @@ describe('Form Input Validators', () => {
 		});
 
 		it('should handle invalid validator objects gracefully', () => {
-			const invalidValidator = {} as any;
+			const invalidValidator = {} as Record<string, unknown>;
 			const result = getValidationError('test', validators, invalidValidator);
 			expect(result).toBe(false);
 		});

@@ -257,7 +257,7 @@ describe('Router Utilities', () => {
 			it('should handle malformed route objects gracefully', () => {
 				const menuItemWithMalformedRoute = createMenuItem({
 					route: {
-						to: {} as any, // Use empty object instead of null to avoid 'in' operator error
+						to: {} as Record<string, unknown>, // Use empty object instead of null to avoid 'in' operator error
 					},
 				});
 
