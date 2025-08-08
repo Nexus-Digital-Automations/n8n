@@ -177,7 +177,7 @@ import {
 	faExclamationCircle,
 	faMinusCircle,
 	faAdjust,
-	faVectorPolygon,
+	faDrawPolygon,
 } from '@fortawesome/free-solid-svg-icons';
 import {
 	faVariable,
@@ -378,7 +378,7 @@ export const FontAwesomePlugin: Plugin = {
 		addIcon(faUsers);
 		addIcon(faVariable);
 		addIcon(faVault);
-		addIcon(faVectorPolygon);
+		addIcon(faDrawPolygon);
 		addIcon(faVideo);
 		addIcon(faTree);
 		addIcon(faUserLock);
