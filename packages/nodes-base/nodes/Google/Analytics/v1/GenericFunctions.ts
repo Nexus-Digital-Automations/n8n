@@ -124,7 +124,7 @@ export function merge(responseData: [any]) {
 		columnHeader: responseData[0].columnHeader,
 		data: responseData[0].data,
 	};
-	const allRows = [];
+	const allRows: IDataObject[] = [];
 	for (const {
 		data: { rows },
 	} of responseData) {

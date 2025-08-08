@@ -25,18 +25,23 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 		}
 
 		try {
+			let result: INodeExecutionData[] | INodeExecutionData[][] = [];
+
 			if (bamboohr.resource === 'employee') {
-				operationResult.push(...(await employee[bamboohr.operation].execute.call(this, i)));
+				result = await employee[bamboohr.operation].execute.call(this, i);
 			} else if (bamboohr.resource === 'employeeDocument') {
-				//@ts-ignore
-				operationResult.push(...(await employeeDocument[bamboohr.operation].execute.call(this, i)));
+				result = await (employeeDocument as any)[bamboohr.operation].execute.call(this, i);
 			} else if (bamboohr.resource === 'file') {
-				//@ts-ignore
-				operationResult.push(...(await file[bamboohr.operation].execute.call(this, i)));
+				result = await (file as any)[bamboohr.operation].execute.call(this, i);
 			} else if (bamboohr.resource === 'companyReport') {
-				//@ts-ignore
-				operationResult.push(...(await companyReport[bamboohr.operation].execute.call(this, i)));
+				result = await (companyReport as any)[bamboohr.operation].execute.call(this, i);
 			}
+
+			// Flatten the result if it's a 2D array
+			const flatResult = Array.isArray(result[0])
+				? (result as INodeExecutionData[][]).flat()
+				: (result as INodeExecutionData[]);
+			operationResult.push(...flatResult);
 		} catch (err) {
 			if (this.continueOnFail()) {
 				operationResult.push({ json: this.getInputData(i)[0].json, error: err });

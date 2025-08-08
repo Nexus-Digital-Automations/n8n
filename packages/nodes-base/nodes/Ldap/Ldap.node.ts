@@ -177,10 +177,23 @@ export class Ldap implements INodeType {
 
 				const objects = [];
 				for (const entry of results.searchEntries) {
-					if (typeof entry.objectClass === 'string') {
-						objects.push(entry.objectClass);
-					} else {
-						objects.push(...entry.objectClass);
+					if (entry.objectClass) {
+						if (typeof entry.objectClass === 'string') {
+							objects.push(entry.objectClass);
+						} else if (Array.isArray(entry.objectClass)) {
+							// Handle both string[] and Buffer[] cases
+							const stringArray = entry.objectClass.map((item) =>
+								item instanceof Buffer ? item.toString() : String(item),
+							);
+							objects.push(...stringArray);
+						} else {
+							// Handle single Buffer case
+							const str =
+								entry.objectClass instanceof Buffer
+									? entry.objectClass.toString()
+									: String(entry.objectClass);
+							objects.push(str);
+						}
 					}
 				}
 
@@ -190,7 +203,7 @@ export class Ldap implements INodeType {
 				for (const value of unique) {
 					if (value === 'custom') {
 						result.push({ name: 'custom', value: 'custom' });
-					} else result.push({ name: value as string, value: `(objectclass=${value})` });
+					} else result.push({ name: value, value: `(objectclass=${value})` });
 				}
 				return result;
 			},

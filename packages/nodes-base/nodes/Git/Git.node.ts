@@ -1,5 +1,6 @@
 import { access, mkdir } from 'fs/promises';
 import type {
+	IDataObject,
 	IExecuteFunctions,
 	INodeExecutionData,
 	INodeType,
@@ -351,9 +352,9 @@ export class Git implements INodeType {
 
 					const log = await git.log(logOptions);
 
-					returnItems.push(
-						// @ts-ignore
-						...this.helpers.returnJsonArray(log.all).map((item) => {
+					returnItems.push.apply(
+						returnItems,
+						this.helpers.returnJsonArray([...log.all] as unknown as IDataObject[]).map((item) => {
 							return {
 								...item,
 								pairedItem: { item: itemIndex },
@@ -440,8 +441,9 @@ export class Git implements INodeType {
 						});
 					}
 
-					returnItems.push(
-						...this.helpers.returnJsonArray(data).map((item) => {
+					returnItems.push.apply(
+						returnItems,
+						this.helpers.returnJsonArray(data).map((item) => {
 							return {
 								...item,
 								pairedItem: { item: itemIndex },
@@ -455,9 +457,9 @@ export class Git implements INodeType {
 
 					const status = await git.status();
 
-					returnItems.push(
-						// @ts-ignore
-						...this.helpers.returnJsonArray([status]).map((item) => {
+					returnItems.push.apply(
+						returnItems,
+						this.helpers.returnJsonArray([{ ...status } as IDataObject]).map((item) => {
 							return {
 								...item,
 								pairedItem: { item: itemIndex },
