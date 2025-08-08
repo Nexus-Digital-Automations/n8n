@@ -312,7 +312,7 @@ describe('CodeDiffMessage', () => {
 		});
 
 		it('should handle null code diff', () => {
-			const message = { ...createCodeDiffMessage(), codeDiff: null as string | null };
+			const message = { ...createCodeDiffMessage(), codeDiff: undefined };
 			const wrapper = render(CodeDiffMessage, {
 				props: {
 					message,
@@ -337,7 +337,10 @@ describe('CodeDiffMessage', () => {
 			scenarios.forEach(({ props }) => {
 				const message = createCodeDiffMessage(props);
 				const wrapper = render(CodeDiffMessage, {
-					props: { message },
+					props: {
+						message,
+						isFirstOfRole: true,
+					},
 					global: { stubs },
 				});
 
@@ -448,7 +451,10 @@ describe('CodeDiffMessage', () => {
 		it('should pass props to CodeDiff component when specified', () => {
 			const message = createCodeDiffMessage({ description: 'TypeScript changes' });
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -474,7 +480,10 @@ describe('CodeDiffMessage', () => {
 			diffFormats.forEach((codeDiff) => {
 				const message = createCodeDiffMessage({ codeDiff });
 				const wrapper = render(CodeDiffMessage, {
-					props: { message },
+					props: {
+						message,
+						isFirstOfRole: true,
+					},
 					global: { stubs },
 				});
 
@@ -486,7 +495,10 @@ describe('CodeDiffMessage', () => {
 			const message = createCodeDiffMessage({ description: 'Test with line numbers' }) as any;
 			message.showLineNumbers = true;
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,
@@ -506,7 +518,10 @@ describe('CodeDiffMessage', () => {
 			const message = createCodeDiffMessage({ description: 'Readonly test' }) as any;
 			message.readonly = true;
 			const wrapper = render(CodeDiffMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: {
 					stubs: {
 						...stubs,

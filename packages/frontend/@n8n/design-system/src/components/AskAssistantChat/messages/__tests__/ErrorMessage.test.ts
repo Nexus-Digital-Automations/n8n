@@ -34,8 +34,8 @@ const stubs = {
 };
 
 const createErrorMessage = (
-	overrides: Partial<ChatUI.AssistantMessage> = {},
-): ChatUI.AssistantMessage =>
+	overrides: Partial<ChatUI.ErrorMessage & { id?: string; read?: boolean }> = {},
+): ChatUI.ErrorMessage & { id: string; read: boolean } =>
 	({
 		id: '1',
 		type: 'error',
@@ -43,7 +43,7 @@ const createErrorMessage = (
 		content: 'Something went wrong',
 		read: false,
 		...overrides,
-	}) as ChatUI.AssistantMessage;
+	}) as ChatUI.ErrorMessage & { id: string; read: boolean };
 
 describe('ErrorMessage', () => {
 	beforeEach(() => {
@@ -54,7 +54,10 @@ describe('ErrorMessage', () => {
 		it('should render error message correctly', () => {
 			const message = createErrorMessage();
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -65,7 +68,10 @@ describe('ErrorMessage', () => {
 		it('should display error icon', () => {
 			const message = createErrorMessage();
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -77,7 +83,10 @@ describe('ErrorMessage', () => {
 		it('should apply error styling classes', () => {
 			const message = createErrorMessage();
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -89,7 +98,10 @@ describe('ErrorMessage', () => {
 		it('should handle empty content gracefully', () => {
 			const message = createErrorMessage({ content: '' });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -97,9 +109,12 @@ describe('ErrorMessage', () => {
 		});
 
 		it('should handle null content', () => {
-			const message = { ...createErrorMessage(), content: null as string | null };
+			const message = { ...createErrorMessage(), content: '' };
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -113,7 +128,10 @@ describe('ErrorMessage', () => {
 				content: 'Network error',
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -127,7 +145,10 @@ describe('ErrorMessage', () => {
 				content: longError,
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -140,7 +161,10 @@ describe('ErrorMessage', () => {
 				content: technicalError,
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -153,7 +177,10 @@ describe('ErrorMessage', () => {
 				content: multilineError,
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -168,7 +195,10 @@ describe('ErrorMessage', () => {
 				content: htmlError,
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -182,7 +212,10 @@ describe('ErrorMessage', () => {
 			const retryFn = vi.fn();
 			const message = createErrorMessage({ retry: retryFn });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -194,7 +227,10 @@ describe('ErrorMessage', () => {
 		it('should not show retry button when retry function is not provided', () => {
 			const message = createErrorMessage();
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -205,7 +241,10 @@ describe('ErrorMessage', () => {
 			const retryFn = vi.fn().mockResolvedValue(undefined);
 			const message = createErrorMessage({ retry: retryFn });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -221,7 +260,10 @@ describe('ErrorMessage', () => {
 			const message = createErrorMessage({ retry: retryFn });
 
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -279,7 +321,10 @@ describe('ErrorMessage', () => {
 			const message = createErrorMessage({ retry: retryFn });
 
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -302,7 +347,7 @@ describe('ErrorMessage', () => {
 			const errorTypes = ['warning', 'error', 'critical'];
 
 			errorTypes.forEach((severity) => {
-				const message = createErrorMessage({ severity } as ChatUI.ErrorMessage);
+				const message = createErrorMessage({ severity } as any);
 				const wrapper = render(ErrorMessage, {
 					props: { message },
 					global: { stubs },
@@ -322,7 +367,7 @@ describe('ErrorMessage', () => {
 			];
 
 			errorConfigs.forEach(({ type, expectedIcon }) => {
-				const message = createErrorMessage({ errorType: type } as ChatUI.ErrorMessage);
+				const message = createErrorMessage({ errorType: type } as any);
 				const wrapper = render(ErrorMessage, {
 					props: { message },
 					global: { stubs },
@@ -334,9 +379,12 @@ describe('ErrorMessage', () => {
 		});
 
 		it('should use default error icon for unknown error types', () => {
-			const message = createErrorMessage({ errorType: 'unknown-type' } as ChatUI.ErrorMessage);
+			const message = createErrorMessage({ errorType: 'unknown-type' } as any);
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -352,7 +400,10 @@ describe('ErrorMessage', () => {
 				errorCode: 'ERR_NETWORK_001',
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -366,7 +417,10 @@ describe('ErrorMessage', () => {
 				timestamp,
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -383,7 +437,10 @@ describe('ErrorMessage', () => {
 				},
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -399,7 +456,10 @@ describe('ErrorMessage', () => {
 				details: { info: 'Additional context' },
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -416,7 +476,10 @@ describe('ErrorMessage', () => {
 		it('should have proper ARIA attributes', () => {
 			const message = createErrorMessage();
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -429,7 +492,10 @@ describe('ErrorMessage', () => {
 			const retryFn = vi.fn();
 			const message = createErrorMessage({ retry: retryFn });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -441,7 +507,10 @@ describe('ErrorMessage', () => {
 			const retryFn = vi.fn().mockResolvedValue(undefined);
 			const message = createErrorMessage({ retry: retryFn });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -455,7 +524,10 @@ describe('ErrorMessage', () => {
 		it('should have proper error icon accessibility', () => {
 			const message = createErrorMessage();
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -468,7 +540,10 @@ describe('ErrorMessage', () => {
 			const retryFn = vi.fn();
 			const message = createErrorMessage({ retry: retryFn });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -481,7 +556,10 @@ describe('ErrorMessage', () => {
 		it('should handle message type inconsistency', () => {
 			const message = { ...createErrorMessage(), type: 'not-error' } as ChatUI.ErrorMessage;
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -491,7 +569,10 @@ describe('ErrorMessage', () => {
 		it('should handle undefined retry function', () => {
 			const message = { ...createErrorMessage(), retry: undefined };
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -501,7 +582,10 @@ describe('ErrorMessage', () => {
 		it('should handle null retry function', () => {
 			const message = { ...createErrorMessage(), retry: null as (() => Promise<void>) | null };
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -512,7 +596,10 @@ describe('ErrorMessage', () => {
 			const longError = 'A'.repeat(10000);
 			const message = createErrorMessage({ content: longError });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -523,7 +610,10 @@ describe('ErrorMessage', () => {
 			const specialError = 'Error with special chars: <>&"\'`~!@#$%^&*()[]{}|\\';
 			const message = createErrorMessage({ content: specialError });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -534,7 +624,10 @@ describe('ErrorMessage', () => {
 			const unicodeError = 'Error: 操作失败 🚫 العملية فشلت';
 			const message = createErrorMessage({ content: unicodeError });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -547,7 +640,10 @@ describe('ErrorMessage', () => {
 			const retryFn = vi.fn().mockResolvedValue('success');
 			const message = createErrorMessage({ retry: retryFn });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -568,7 +664,10 @@ describe('ErrorMessage', () => {
 
 			const message = createErrorMessage({ retry: retryFn });
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
@@ -594,7 +693,10 @@ describe('ErrorMessage', () => {
 				maxRetries: 2,
 			});
 			const wrapper = render(ErrorMessage, {
-				props: { message },
+				props: {
+					message,
+					isFirstOfRole: true,
+				},
 				global: { stubs },
 			});
 
