@@ -9,10 +9,11 @@ vi.mock('../../../../composables/useI18n', () => ({
 	useI18n: vi.fn(() => ({
 		t: vi.fn((key: string) => {
 			const translations: Record<string, string> = {
-				'assistantChat.applyChanges': 'Apply Changes',
-				'assistantChat.undoChanges': 'Undo Changes',
-				'assistantChat.viewDiff': 'View Diff',
-				'assistantChat.codeDiffError': 'Error displaying code diff',
+				'codeDiff.replaceMyCode': 'Replace my code',
+				'codeDiff.replacing': 'Replacing...',
+				'codeDiff.undo': 'Undo',
+				'codeDiff.codeReplaced': 'Code replaced',
+				'codeDiff.couldNotReplace': 'Could not replace code',
 			};
 			return translations[key] || key;
 		}),
@@ -21,22 +22,52 @@ vi.mock('../../../../composables/useI18n', () => ({
 
 const stubs = {
 	'code-diff': {
-		template: '<div class="code-diff" :data-diff="codeDiff" :data-error="hasError" />',
-		props: ['codeDiff', 'language', 'showLineNumbers', 'readonly'],
+		template: `
+			<div class="code-diff" data-test-id="code-diff-suggestion">
+				<div class="title">{{ title }}</div>
+				<div class="diff-section">
+					<div class="diff" v-if="content">{{ content }}</div>
+				</div>
+				<div class="actions">
+					<div v-if="error">
+						<n8n-icon icon="triangle-alert" color="danger" />
+						<span>Could not replace code</span>
+					</div>
+					<div v-else-if="replaced">
+						<n8n-button type="secondary" size="mini" icon="undo-2" data-test-id="undo-replace-button" @click="$emit('undo')">Undo</n8n-button>
+						<n8n-icon icon="check" color="success" />
+						<span data-test-id="code-replaced-message">Code replaced</span>
+					</div>
+					<n8n-button 
+						v-else
+						:type="replacing ? 'secondary' : 'primary'"
+						size="mini"
+						icon="refresh-cw"
+						data-test-id="replace-code-button"
+						:disabled="!content || streaming"
+						:loading="replacing"
+						@click="$emit('replace')"
+					>{{ replacing ? 'Replacing...' : 'Replace my code' }}</n8n-button>
+				</div>
+			</div>
+		`,
+		props: ['title', 'content', 'replacing', 'replaced', 'error', 'streaming'],
+		emits: ['replace', 'undo'],
+	},
+	'base-message': {
+		template: '<div class="message"><slot /></div>',
+		props: ['message', 'isFirstOfRole', 'user'],
+		emits: ['feedback'],
 	},
 	'n8n-button': {
 		template:
-			'<button class="n8n-button" @click="$emit(\'click\')" :disabled="disabled" :type="type"><slot /></button>',
-		props: ['disabled', 'type', 'size', 'loading'],
+			'<button class="n8n-button" @click="$emit(\'click\')" :disabled="disabled" :type="type" :data-test-id="$attrs[\'data-test-id\']" :loading="loading"><slot /></button>',
+		props: ['disabled', 'type', 'size', 'loading', 'icon'],
 		emits: ['click'],
 	},
 	'n8n-icon': {
 		template: '<span class="n8n-icon" :data-icon="icon" />',
-		props: ['icon'],
-	},
-	'quick-replies': {
-		template: '<div class="quick-replies"><slot /></div>',
-		props: ['replies'],
+		props: ['icon', 'color'],
 	},
 };
 
