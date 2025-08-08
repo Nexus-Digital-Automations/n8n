@@ -187,7 +187,13 @@ describe('AuditController', () => {
 				path: '/audit/events/statistics',
 			});
 
-			const mockStats = { totalEvents: 100, eventsByType: { user_login: 50 } };
+			const mockStats = {
+				totalEvents: 100,
+				eventsByType: { user_login: 50 },
+				eventsByCategory: { user: 50 },
+				eventsBySeverity: { medium: 50 },
+				highRiskEvents: 10,
+			};
 			auditLoggingService.getStatistics.mockResolvedValue(mockStats);
 
 			// Act
@@ -211,7 +217,13 @@ describe('AuditController', () => {
 			const startDate = '2023-01-01';
 			const endDate = '2023-12-31';
 
-			auditLoggingService.getStatistics.mockResolvedValue({});
+			auditLoggingService.getStatistics.mockResolvedValue({
+				totalEvents: 0,
+				eventsByType: {},
+				eventsByCategory: {},
+				eventsBySeverity: {},
+				highRiskEvents: 0,
+			});
 
 			// Act
 			await controller.getAuditStatistics(req, mockResponse, { startDate, endDate });
@@ -240,7 +252,7 @@ describe('AuditController', () => {
 
 			const eventData: ManualAuditEventDto = {
 				eventType: 'workflow_updated',
-				category: 'workflow',
+				category: 'workflow_management',
 				severity: 'medium',
 				description: 'Workflow manually updated',
 				resourceId: 'workflow-123',
@@ -279,7 +291,7 @@ describe('AuditController', () => {
 			const req = mock<AuthenticatedRequest>({ user: mockUser });
 			const eventData: ManualAuditEventDto = {
 				eventType: 'workflow_updated',
-				category: 'workflow',
+				category: 'workflow_management',
 				description: 'Test event',
 			};
 
@@ -386,7 +398,18 @@ describe('AuditController', () => {
 				path: '/audit/security/metrics',
 			});
 
-			const mockMetrics = { totalEvents: 25, threatsByLevel: { high: 5 } };
+			const mockMetrics = {
+				period: '24h',
+				totalEvents: 25,
+				eventsBySeverity: { info: 0, low: 10, medium: 10, high: 5, critical: 0 },
+				eventsByType: { suspicious_activity: 15, failed_login_attempt: 10 },
+				threatLevelDistribution: { high: 5, moderate: 10, low: 10 },
+				averageResponseTime: 30,
+				escalatedEvents: 2,
+				resolvedEvents: 20,
+				topAttackVectors: [{ vector: 'brute_force', count: 10 }],
+				topSourceIPs: [{ ip: '192.168.1.1', count: 5, threatLevel: 'high' as const }],
+			};
 			securityMonitoringService.getSecurityMetrics.mockResolvedValue(mockMetrics);
 
 			// Act
@@ -500,7 +523,7 @@ describe('AuditController', () => {
 				title: 'Q4 SOC2 Report',
 				periodStart: '2023-10-01',
 				periodEnd: '2023-12-31',
-				format: 'PDF',
+				format: 'pdf',
 			};
 
 			const mockReport = mock<ComplianceReport>({ id: 'report-123' });
@@ -527,7 +550,7 @@ describe('AuditController', () => {
 				title: 'Report',
 				periodStart: '2023-01-01',
 				periodEnd: '2023-12-31',
-				format: 'PDF',
+				format: 'pdf',
 			};
 
 			// Act & Assert
@@ -544,7 +567,7 @@ describe('AuditController', () => {
 				title: 'Invalid Report',
 				periodStart: '2023-12-31',
 				periodEnd: '2023-01-01',
-				format: 'PDF',
+				format: 'pdf',
 			};
 
 			// Act & Assert
@@ -565,7 +588,7 @@ describe('AuditController', () => {
 				filePath: '/reports/report.pdf',
 				mimeType: 'application/pdf',
 				complianceStandard: 'SOC2',
-				format: 'PDF',
+				format: 'pdf',
 			});
 
 			complianceReportingService.getReports.mockResolvedValue({

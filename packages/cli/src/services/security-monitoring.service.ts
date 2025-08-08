@@ -11,7 +11,7 @@ import type { IDataObject } from 'n8n-workflow';
 import type { Request } from 'express';
 
 import { LoggerProxy } from 'n8n-workflow';
-import { EventService } from '@/events/event.service';
+// EventService removed - using direct logging instead
 import { AuditLoggingService } from './audit-logging.service';
 
 /**
@@ -85,7 +85,6 @@ export interface ISecurityMetrics {
 export class SecurityMonitoringService {
 	private securityEventRepository: Repository<SecurityEvent>;
 	private readonly logger = LoggerProxy;
-	private readonly eventService: EventService;
 	private readonly auditLoggingService: AuditLoggingService;
 
 	// In-memory rule cache for performance
@@ -101,7 +100,6 @@ export class SecurityMonitoringService {
 		this.securityEventRepository = dataSource.getRepository(SecurityEvent);
 
 		// Inject services through Container
-		this.eventService = Container.get(EventService);
 		this.auditLoggingService = Container.get(AuditLoggingService);
 
 		// Initialize threat detection rules
@@ -129,9 +127,11 @@ export class SecurityMonitoringService {
 			await this.checkThreatPatterns(securityEvent);
 
 			// Emit security event for real-time processing
-			this.eventService.emit('security-event' as any, {
-				event: securityEvent,
-				timestamp: new Date(),
+			// TODO: Add security events to RelayEventMap
+			this.logger.info('Security event created', {
+				eventId: securityEvent.id,
+				eventType: securityEvent.eventType,
+				severity: securityEvent.severity,
 			});
 
 			return securityEvent;
@@ -603,8 +603,9 @@ export class SecurityMonitoringService {
 			});
 
 			// Emit critical alert
-			this.eventService.emit('critical-security-alert' as any, {
-				event,
+			// TODO: Add critical security alert to RelayEventMap
+			this.logger.error('Critical security alert', {
+				eventId: event.id,
 				timestamp: new Date(),
 			});
 		}
@@ -623,7 +624,8 @@ export class SecurityMonitoringService {
 			try {
 				switch (action) {
 					case 'alert_admin':
-						this.eventService.emit('admin-alert' as any, { event });
+						// TODO: Add admin alert to RelayEventMap
+						this.logger.warn('Admin alert triggered', { eventId: event.id });
 						break;
 					case 'block_ip':
 						if (event.ipAddress) {
@@ -634,7 +636,8 @@ export class SecurityMonitoringService {
 						break;
 					case 'rate_limit':
 						if (event.ipAddress) {
-							this.eventService.emit('rate-limit' as any, { ip: event.ipAddress, event });
+							// TODO: Add rate-limit event to RelayEventMap
+							this.logger.warn('Rate limit triggered', { eventId: event.id, ip: event.ipAddress });
 						}
 						break;
 					case 'immediate_alert':

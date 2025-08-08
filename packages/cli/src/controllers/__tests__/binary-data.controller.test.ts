@@ -13,13 +13,22 @@ import type { Readable } from 'node:stream';
 
 import { BinaryDataController } from '../binary-data.controller';
 import type { BinaryDataService } from '@/services/binary-data.service';
+import type { BinaryMigrationService } from '@/services/binary-migration.service';
+import type { BinaryExportService } from '@/services/binary-export.service';
 
 describe('BinaryDataController', () => {
 	const request = mock<Request>();
 	const response = mock<Response>();
 	const binaryDataService = mock<BinaryDataService>();
 	const coreBinaryDataService = mock<CoreBinaryDataService>();
-	const controller = new BinaryDataController(binaryDataService, coreBinaryDataService);
+	const binaryMigrationService = mock<BinaryMigrationService>();
+	const binaryExportService = mock<BinaryExportService>();
+	const controller = new BinaryDataController(
+		binaryDataService,
+		coreBinaryDataService,
+		binaryMigrationService,
+		binaryExportService,
+	);
 
 	beforeEach(() => {
 		jest.resetAllMocks();
@@ -282,12 +291,12 @@ describe('BinaryDataController', () => {
 	});
 
 	describe('download', () => {
-		const params = { id: 'filesystem:123' } as BinaryDataDeleteParamsDto;
+		const binaryDataId = 'filesystem:123';
 
 		it('should return 400 if binary data ID is missing', async () => {
-			const emptyParams = { id: '' } as BinaryDataDeleteParamsDto;
+			const emptyBinaryDataId = '';
 
-			await controller.download(request, response, emptyParams);
+			await controller.download(request, response, emptyBinaryDataId);
 
 			expect(response.status).toHaveBeenCalledWith(400);
 		});
@@ -296,7 +305,7 @@ describe('BinaryDataController', () => {
 			const stream = mock<Readable>();
 			binaryDataService.getBinaryDataStream.mockResolvedValue(stream);
 
-			const result = await controller.download(request, response, params);
+			const result = await controller.download(request, response, binaryDataId);
 
 			expect(result).toBe(stream);
 			expect(binaryDataService.getBinaryDataStream).toHaveBeenCalledWith('filesystem:123');
@@ -314,12 +323,12 @@ describe('BinaryDataController', () => {
 	});
 
 	describe('delete', () => {
-		const params = { id: 'filesystem:123' } as BinaryDataDeleteParamsDto;
+		const binaryDataId = 'filesystem:123';
 
 		it('should return 400 if binary data ID is missing', async () => {
-			const emptyParams = { id: '' } as BinaryDataDeleteParamsDto;
+			const emptyBinaryDataId = '';
 
-			await controller.delete(request, response, emptyParams);
+			await controller.delete(request, response, emptyBinaryDataId);
 
 			expect(response.status).toHaveBeenCalledWith(400);
 		});
@@ -327,7 +336,7 @@ describe('BinaryDataController', () => {
 		it('should delete file successfully', async () => {
 			binaryDataService.deleteBinaryData.mockResolvedValue(undefined);
 
-			await controller.delete(request, response, params);
+			await controller.delete(request, response, binaryDataId);
 
 			expect(binaryDataService.deleteBinaryData).toHaveBeenCalledWith('filesystem:123');
 			expect(response.status).toHaveBeenCalledWith(200);
@@ -336,7 +345,7 @@ describe('BinaryDataController', () => {
 		it('should return 404 if file is not found', async () => {
 			binaryDataService.deleteBinaryData.mockRejectedValue(new FileNotFoundError('File not found'));
 
-			await controller.delete(request, response, params);
+			await controller.delete(request, response, binaryDataId);
 
 			expect(response.status).toHaveBeenCalledWith(404);
 		});

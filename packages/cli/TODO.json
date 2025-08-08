@@ -1,6 +1,26 @@
 {
 	"tasks": [
 		{
+			"id": "task_1754669668007_5jnd6iu1m",
+			"title": "Fix ALL linting errors throughout codebase",
+			"description": "Resolve all linting errors across the entire n8n monorepo. First attempt automatic fixes using npm run lint:fix, then manually fix remaining errors. Run linting in subdirectories to catch all issues. Ensure complete code quality compliance.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [],
+			"success_criteria": [
+				"All linting errors resolved across entire codebase",
+				"npm run lint passes with zero errors and warnings",
+				"All subdirectory linting passes",
+				"Code meets quality standards"
+			],
+			"estimate": "1-2 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T16:14:28.007Z"
+		},
+		{
 			"id": "quality-improvement-1753925463525",
 			"title": "Create Quality Improvement Tasks",
 			"description": "Analyze project quality issues and create specific tasks to reach 100% quality for all strikes",
@@ -1004,11 +1024,11 @@
 		"removedCount": 1,
 		"finalTaskCount": 20
 	},
-	"execution_count": 48,
-	"last_hook_activation": 1754593442914,
+	"execution_count": 49,
+	"last_hook_activation": 1754669764267,
 	"project": "unnamed-project",
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,
 	"current_task_index": 0,
-	"last_mode": "TASK_CREATION"
+	"last_mode": "DEVELOPMENT"
 }

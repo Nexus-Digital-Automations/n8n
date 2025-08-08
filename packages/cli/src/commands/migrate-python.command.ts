@@ -1,7 +1,6 @@
 import { Command } from '@oclif/core';
 import { Flags } from '@oclif/core';
 import { Container } from '@n8n/di';
-import { Logger } from '@n8n/backend-common';
 import { PyodideToLocalPythonMigrationService } from '../migration/pyodide-to-local-python.service';
 import { PyodideCompatibilityService } from '../compatibility/pyodide-compat';
 import { promises as fs } from 'fs';
@@ -76,7 +75,6 @@ export class MigratePythonCommand extends Command {
 		}),
 	};
 
-	private logger!: Logger;
 	private migrationService!: PyodideToLocalPythonMigrationService;
 	private compatibilityService!: PyodideCompatibilityService;
 
@@ -84,7 +82,6 @@ export class MigratePythonCommand extends Command {
 		const { flags } = await this.parse(MigratePythonCommand);
 
 		// Initialize services
-		this.logger = Container.get(Logger);
 		this.migrationService = Container.get(PyodideToLocalPythonMigrationService);
 		this.compatibilityService = Container.get(PyodideCompatibilityService);
 

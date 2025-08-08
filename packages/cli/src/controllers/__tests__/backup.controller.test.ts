@@ -11,7 +11,6 @@ import { InternalServerError } from '../../errors/response-errors/internal-serve
 import { NotFoundError } from '../../errors/response-errors/not-found.error';
 
 describe('BackupController', () => {
-	const logger = mockInstance(Logger);
 	const backupService = mock<BackupService>();
 	const restoreService = mock<RestoreService>();
 	const controller = new BackupController(backupService, restoreService);

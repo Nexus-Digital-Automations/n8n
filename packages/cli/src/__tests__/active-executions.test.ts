@@ -32,7 +32,6 @@ const FAKE_SECOND_EXECUTION_ID = '20';
 const executionRepository = mock<ExecutionRepository>();
 
 const concurrencyControl = mockInstance(ConcurrencyControlService, {
-	// @ts-expect-error Private property
 	isEnabled: false,
 });
 
@@ -367,6 +366,9 @@ describe('ActiveExecutions', () => {
 				workflowData: {
 					id: '123',
 					name: 'Test Workflow',
+					isArchived: false,
+					createdAt: new Date(),
+					updatedAt: new Date(),
 					nodes: [
 						{
 							id: 'node1',
@@ -392,13 +394,15 @@ describe('ActiveExecutions', () => {
 					settings: {},
 				},
 				executionData: {
-					nodeExecutionStack: [],
-					metadata: {},
-					waitingExecution: {},
-					waitingExecutionSource: {},
+					executionData: {
+						contextData: {},
+						nodeExecutionStack: [],
+						metadata: {},
+						waitingExecution: {},
+						waitingExecutionSource: null,
+					},
 					resultData: {
 						runData: {},
-						lastNodeExecuted: 'node1',
 					},
 				},
 			};
@@ -510,6 +514,9 @@ describe('ActiveExecutions', () => {
 				workflowData: {
 					id: '123',
 					name: 'Test Workflow',
+					isArchived: false,
+					createdAt: new Date(),
+					updatedAt: new Date(),
 					nodes: [
 						{
 							id: 'start',
@@ -544,13 +551,15 @@ describe('ActiveExecutions', () => {
 					settings: {},
 				},
 				executionData: {
-					nodeExecutionStack: [],
-					metadata: {},
-					waitingExecution: {},
-					waitingExecutionSource: {},
+					executionData: {
+						contextData: {},
+						nodeExecutionStack: [],
+						metadata: {},
+						waitingExecution: {},
+						waitingExecutionSource: null,
+					},
 					resultData: {
 						runData: {},
-						lastNodeExecuted: 'start',
 					},
 				},
 			};
@@ -619,6 +628,9 @@ describe('ActiveExecutions', () => {
 				workflowData: {
 					id: '123',
 					name: 'Test Workflow',
+					isArchived: false,
+					createdAt: new Date(),
+					updatedAt: new Date(),
 					nodes: [
 						{
 							id: 'testNode',
@@ -634,10 +646,6 @@ describe('ActiveExecutions', () => {
 					settings: {},
 				},
 				executionData: {
-					nodeExecutionStack: [],
-					metadata: {},
-					waitingExecution: {},
-					waitingExecutionSource: {},
 					resultData: {
 						runData: {
 							testNode: [
@@ -650,6 +658,13 @@ describe('ActiveExecutions', () => {
 								},
 							],
 						},
+					},
+					executionData: {
+						contextData: {},
+						nodeExecutionStack: [],
+						metadata: {},
+						waitingExecution: {},
+						waitingExecutionSource: null,
 					},
 				},
 			};

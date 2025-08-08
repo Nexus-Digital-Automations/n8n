@@ -45,7 +45,7 @@ export class PyodideCompatibilityService {
 		private readonly logger: Logger,
 		private readonly pythonExecutor: PythonExecutorService,
 		private readonly pythonPool: PythonPoolService,
-		private readonly pythonCache: PythonCacheService,
+		private readonly _pythonCache: PythonCacheService,
 	) {
 		this.compatibilityOptions = {
 			enableLegacyMode: process.env.N8N_PYTHON_LEGACY_MODE === 'true',
@@ -501,7 +501,7 @@ export class PyodideCompatibilityService {
 	 */
 	private async postProcessResult(
 		result: any,
-		compatibility: PyodideExecutionResult['compatibility'],
+		_compatibility: PyodideExecutionResult['compatibility'],
 	): Promise<any> {
 		// If result is a Python object that needs JavaScript-style conversion
 		if (result && typeof result === 'object') {
@@ -587,7 +587,7 @@ ${usedShims.join('\n\n')}
 					(global as any)[name] = value;
 				},
 			},
-			runPython: (code: string) => {
+			runPython: (_code: string) => {
 				// This would need to be implemented to actually execute Python
 				throw new Error('pyodide.runPython() is not supported in local execution mode');
 			},
