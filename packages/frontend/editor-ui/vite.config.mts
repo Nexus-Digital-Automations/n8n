@@ -1,5 +1,6 @@
 import vue from '@vitejs/plugin-vue';
-import { posix as pathPosix, resolve } from 'path';
+import { posix as pathPosix, resolve, join } from 'path';
+import { readFileSync, existsSync } from 'fs';
 import { defineConfig, mergeConfig, type UserConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
@@ -120,7 +121,7 @@ const plugins: UserConfig['plugins'] = [
 		renderLegacyChunks: false,
 	}),
 	{
-		name: 'Insert config script',
+		name: 'Template placeholder processor',
 		transformIndexHtml: (html, ctx) => {
 			const replacement = ctx.server
 				? '<script src="/rest/config.js"></script>' // Use direct path in development
@@ -136,6 +137,37 @@ const plugins: UserConfig['plugins'] = [
 			}
 
 			return processedHtml;
+		},
+		configureServer(server) {
+			// Handle static file placeholders in development mode
+			server.middlewares.use((req, res, next) => {
+				if (req.url && req.url.startsWith('/static/') && req.url.endsWith('.js')) {
+					try {
+						// Get the file path relative to public directory
+						const relativePath = req.url.replace('/static/', '/static/');
+						const filePath = join(__dirname, 'public', relativePath);
+						
+						// Check if file exists
+						if (existsSync(filePath)) {
+							// Read the file
+							const data = readFileSync(filePath, 'utf8');
+							
+							// Replace BASE_PATH placeholders in static JS files
+							let processedData = data.replace(/\{\{BASE_PATH\}\}/g, '');
+							processedData = processedData.replace(/\{\{REST_ENDPOINT\}\}/g, 'rest');
+							
+							// Set appropriate headers
+							res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+							res.setHeader('Cache-Control', 'no-cache');
+							res.end(processedData);
+							return;
+						}
+					} catch (error) {
+						console.error('Error processing static file:', error);
+					}
+				}
+				next();
+			});
 		},
 	},
 	// For sanitize-html

@@ -150,7 +150,7 @@ const expressionLocalResolveCtx = inject(ExpressionLocalResolveContextSymbol, un
 
 // ESLint: false positive
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-const inputField = ref<InstanceType<typeof N8nInput | typeof N8nSelect> | HTMLElement>();
+const inputField = ref<InstanceType<typeof N8nInput> | HTMLElement>();
 const wrapper = ref<HTMLDivElement>();
 const mapperRef = ref<InstanceType<typeof ExperimentalEmbeddedNdvMapper>>();
 
