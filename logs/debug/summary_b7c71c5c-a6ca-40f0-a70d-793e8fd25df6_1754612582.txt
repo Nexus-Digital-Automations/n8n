@@ -1,0 +1,11 @@
+Timeout Debug Summary for Agent b7c71c5c-a6ca-40f0-a70d-793e8fd25df6
+==========================================
+
+Timestamp: 2025-08-07T19:23:02.694736
+Elapsed Time: 0m 0.0s
+Timeout Limit: 120s
+Timeout Exceeded: False
+Hook Type: SubagentStop
+Tool Name: unknown
+
+Full report: logs/debug/debug_report_b7c71c5c-a6ca-40f0-a70d-793e8fd25df6_1754612582.json
