@@ -3,9 +3,8 @@
 exports[`TextMessage > Basic Rendering > should render assistant text message correctly 1`] = `
 <div>
   <div
-    class="message"
+    class="base-message"
   >
-    <!--v-if-->
     
     <div
       class="textMessage"
@@ -21,7 +20,6 @@ exports[`TextMessage > Basic Rendering > should render assistant text message co
       <!--v-if-->
     </div>
     
-    <!--v-if-->
   </div>
 </div>
 `;
