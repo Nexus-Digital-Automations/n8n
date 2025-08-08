@@ -2,30 +2,75 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754596548703_oz27g788y",
-      "title": "Fix remaining message component tests (EventMessage, ErrorMessage, MessageWrapper)",
-      "description": "Fix any remaining test failures in EventMessage, ErrorMessage, and MessageWrapper test suites. Address DOM structure mismatches and component behavior expectations.",
-      "mode": "TESTING",
-      "priority": "medium",
+      "id": "task_1754681179280_wb3rmbwol",
+      "title": "Implement Real-time Workflow Failure Notifications",
+      "description": "Add system for real-time alerts when workflows fail. Should support multiple notification channels (email, webhooks, SMS) and configurable alert rules based on workflow importance and failure patterns.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:26:19.280Z"
+    },
+    {
+      "id": "task_1754681173556_vy0p99k08",
+      "title": "Implement Autosave for Workflows",
+      "description": "Add automatic saving functionality for workflows to prevent data loss. Current implementation requires manual saves only. Should include configurable autosave intervals and visual indicators when autosave occurs.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:26:13.556Z"
+    },
+    {
+      "id": "task_1754680301789_tnhy8olbi",
+      "title": "Fix util._extend deprecation warning",
+      "description": "Replace deprecated util._extend usage with Object.assign() - warning from node:18158 DEP0060. Search codebase for util._extend usage and replace with Object.assign() equivalent functionality. This is a Node.js deprecation (DEP0060) that needs immediate attention.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "in_progress",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:11:41.789Z"
+    },
+    {
+      "id": "task_1754680119898_gbwgueb62",
+      "title": "Fix n8n localhost server 404 error - server not responding",
+      "description": "The n8n development server at localhost:5678 is returning 404 errors, indicating the server is not running correctly or there are configuration issues. Need to diagnose and fix server startup, build issues, or configuration problems preventing the application from serving properly.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
       "status": "pending",
       "dependencies": [],
       "important_files": [
-        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/EventMessage.test.ts",
-        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/ErrorMessage.test.ts",
-        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/__tests__/MessageWrapper.test.ts",
-        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/EventMessage.vue",
-        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/ErrorMessage.vue",
-        "packages/frontend/@n8n/design-system/src/components/AskAssistantChat/messages/MessageWrapper.vue"
+        "package.json",
+        "packages/cli/src/server.ts",
+        "packages/cli/package.json",
+        "docker-compose.yml",
+        "turbo.json"
       ],
       "success_criteria": [
-        "All remaining message component tests pass",
-        "Complete message component test suite has zero failures",
-        "All components properly tested with correct expectations"
+        "localhost:5678 loads without 404 errors",
+        "n8n application serves correctly",
+        "Development server starts and runs without issues",
+        "All necessary services are running properly"
       ],
-      "estimate": "2-4 hours",
+      "estimate": "1-2 hours",
       "requires_research": false,
       "subtasks": [],
-      "created_at": "2025-08-07T19:55:48.703Z"
+      "created_at": "2025-08-08T19:08:39.898Z"
     },
     {
       "id": "task_1754631357949_guhb78l9q",
@@ -209,13 +254,62 @@
         },
         "overallReady": false
       }
+    },
+    {
+      "id": "task_1754681184384_ya1potpyb",
+      "title": "Enhance OAuth Setup for Cloud Providers",
+      "description": "Simplify OAuth integration setup for services like Google, Microsoft, etc. The current manual setup process is cumbersome compared to SaaS alternatives. Create guided setup wizards and automated OAuth app configuration.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:26:24.384Z"
+    },
+    {
+      "id": "task_1754681190635_69e69x5j9",
+      "title": "Add CRUD Operations to QuickBooks Node",
+      "description": "Enhance QuickBooks node with missing basic CRUD operations (Create, Read, Update, Delete). Current implementation may be missing some standard operations available in competing platforms.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:26:30.635Z"
+    },
+    {
+      "id": "task_1754681196945_y27bkf9kl",
+      "title": "Restore Missing AI Features in Self-hosted Version",
+      "description": "Investigate and restore any AI-powered parameters or tools that may have been removed or restricted in self-hosted versions after updates. Ensure feature parity with cloud versions where licensing permits.",
+      "mode": "RESEARCH",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754681196945_y27bkf9kl.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754681196945_y27bkf9kl.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:26:36.945Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TASK_CREATION",
-  "execution_count": 84,
-  "last_hook_activation": 1754679870202,
+  "last_mode": "DEVELOPMENT",
+  "execution_count": 86,
+  "last_hook_activation": 1754680494722,
   "current_mode": "DEVELOPMENT"
 }
