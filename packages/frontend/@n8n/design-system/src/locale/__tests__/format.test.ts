@@ -232,7 +232,7 @@ describe('createFormatTemplate', () => {
 		});
 
 		it('should handle circular reference in replacements safely', () => {
-			const circular: any = { name: 'Test' };
+			const circular: Record<string, unknown> = { name: 'Test' };
 			circular.self = circular;
 
 			const result = template('Circular {name}', circular);

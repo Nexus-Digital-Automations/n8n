@@ -32,9 +32,9 @@ class MockResizeObserver {
 				x: 0,
 				y: 0,
 			},
-			borderBoxSize: [] as any,
-			contentBoxSize: [] as any,
-			devicePixelContentBoxSize: [] as any,
+			borderBoxSize: [] as ResizeObserverSize[],
+			contentBoxSize: [] as ResizeObserverSize[],
+			devicePixelContentBoxSize: [] as ResizeObserverSize[],
 		};
 
 		// Use requestAnimationFrame to simulate async behavior
@@ -65,9 +65,9 @@ class MockResizeObserver {
 				x: 0,
 				y: 0,
 			},
-			borderBoxSize: [] as any,
-			contentBoxSize: [] as any,
-			devicePixelContentBoxSize: [] as any,
+			borderBoxSize: [] as ResizeObserverSize[],
+			contentBoxSize: [] as ResizeObserverSize[],
+			devicePixelContentBoxSize: [] as ResizeObserverSize[],
 		};
 
 		requestAnimationFrame(() => {
@@ -85,8 +85,8 @@ describe('ResizeObserver', () => {
 		vi.clearAllMocks();
 
 		// Mock ResizeObserver constructor
-		global.ResizeObserver = vi.fn().mockImplementation((callback) => {
-			mockResizeObserver = new MockResizeObserver(callback);
+		global.ResizeObserver = vi.fn().mockImplementation((observerCallback) => {
+			mockResizeObserver = new MockResizeObserver(observerCallback);
 			return mockResizeObserver;
 		});
 
@@ -462,7 +462,7 @@ describe('ResizeObserver', () => {
 		it('should use requestAnimationFrame for breakpoint updates', async () => {
 			const rafSpy = vi
 				.spyOn(window, 'requestAnimationFrame')
-				.mockImplementation((frameCallback) => {
+				.mockImplementation((frameCallback: FrameRequestCallback) => {
 					frameCallback(0);
 					return 0;
 				});
@@ -678,6 +678,7 @@ describe('ResizeObserver', () => {
 		it('should handle missing ResizeObserver gracefully', async () => {
 			// Temporarily remove ResizeObserver
 			const tempResizeObserver = global.ResizeObserver;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			delete (global as any).ResizeObserver;
 
 			expect(() => {

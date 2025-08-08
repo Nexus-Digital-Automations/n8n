@@ -28,7 +28,9 @@ vi.mock('../lang/en', () => ({
 }));
 
 describe('locale utilities', () => {
-	let t: any, use: any, i18n: any;
+	let t: (...args: unknown[]) => string,
+		use: (lang: string) => Promise<void>,
+		i18n: (handler: unknown) => void;
 
 	beforeEach(async () => {
 		vi.clearAllMocks();
@@ -186,11 +188,11 @@ describe('locale utilities', () => {
 			});
 
 			it('should handle null language code', async () => {
-				await expect(use(null as any)).resolves.toBeUndefined();
+				await expect(use(null as unknown as string)).resolves.toBeUndefined();
 			});
 
 			it('should handle undefined language code', async () => {
-				await expect(use(undefined as any)).resolves.toBeUndefined();
+				await expect(use(undefined as unknown as string)).resolves.toBeUndefined();
 			});
 
 			it('should handle multiple consecutive language changes', async () => {
@@ -227,19 +229,19 @@ describe('locale utilities', () => {
 
 			it('should handle null handler', () => {
 				expect(() => {
-					i18n(null as any);
+					i18n(null as unknown);
 				}).not.toThrow();
 			});
 
 			it('should handle undefined handler', () => {
 				expect(() => {
-					i18n(undefined as any);
+					i18n(undefined as unknown);
 				}).not.toThrow();
 			});
 
 			it('should handle non-function handlers gracefully', () => {
 				expect(() => {
-					i18n('not a function' as any);
+					i18n('not a function' as unknown);
 				}).not.toThrow();
 			});
 

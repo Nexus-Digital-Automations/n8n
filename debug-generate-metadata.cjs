@@ -81,7 +81,6 @@ function findReferencedMethods(obj, refs = {}, latestName = '') {
 	console.log('nodeTypes array completed, length:', nodeTypes.length);
 
 	console.log('Getting credentials...');
-	const knownCredentials = loader.known.credentials;
 	const credentialTypes = Object.values(loader.credentialTypes).map(({ type }) => type);
 	console.log('credentialTypes completed, length:', credentialTypes.length);
 	

@@ -91,6 +91,10 @@ export default [
 			
 			// PERFORMANCE: Delegate package linting to individual package configs
 			'packages/**',        // All package files handled by their own eslint configs
+			
+			// Debug and temporary files
+			'debug-generate-metadata.cjs',
+			'create-specific-tasks.js',
 		],
 	},
 	{

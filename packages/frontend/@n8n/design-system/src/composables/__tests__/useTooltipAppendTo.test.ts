@@ -74,8 +74,8 @@ describe('useTooltipAppendTo', () => {
 		it('should handle edge case computed values', () => {
 			const nullValue = computed(() => null);
 			const undefinedValue = computed(() => undefined);
-			const numberValue = computed(() => 42 as any);
-			const objectValue = computed(() => ({ selector: 'test' }) as any);
+			const numberValue = computed(() => 42 as unknown);
+			const objectValue = computed(() => ({ selector: 'test' }) as unknown);
 
 			expect(() => {
 				useProvideTooltipAppendTo(nullValue);

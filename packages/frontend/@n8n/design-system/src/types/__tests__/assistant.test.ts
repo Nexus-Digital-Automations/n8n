@@ -209,7 +209,7 @@ describe('Assistant Type Guards', () => {
 				type: 'text',
 				eventName: 'end-session',
 				content: 'Text message',
-			}) as any;
+			}) as unknown as ChatUI.AssistantMessage;
 
 			expect(isEndSessionMessage(message)).toBe(false);
 		});
@@ -448,7 +448,7 @@ describe('Assistant Type Guards', () => {
 				role: 'assistant',
 				id: 123, // Not a string
 				read: true,
-			} as any;
+			} as unknown as Record<string, unknown>;
 
 			expect(hasRequiredProps(message)).toBe(false);
 		});
@@ -460,7 +460,7 @@ describe('Assistant Type Guards', () => {
 				role: 'assistant',
 				id: 'test-id',
 				read: 'true', // Not a boolean
-			} as any;
+			} as unknown as Record<string, unknown>;
 
 			expect(hasRequiredProps(message)).toBe(false);
 		});
@@ -470,7 +470,7 @@ describe('Assistant Type Guards', () => {
 				type: 'text',
 				content: 'Test message',
 				role: 'assistant',
-			} as any;
+			} as unknown as Record<string, unknown>;
 
 			expect(hasRequiredProps(message)).toBe(false);
 		});
@@ -514,7 +514,7 @@ describe('Assistant Type Guards', () => {
 				}),
 				extraProp: 'should be ignored',
 				anotherExtra: 123,
-			} as any;
+			} as unknown as Record<string, unknown>;
 
 			expect(isTextMessage(messageWithExtra)).toBe(true);
 		});
@@ -524,7 +524,7 @@ describe('Assistant Type Guards', () => {
 				// Missing required properties
 				type: 'text',
 				// missing content, role, etc.
-			} as any;
+			} as unknown as Record<string, unknown>;
 
 			expect(isTextMessage(malformedMessage)).toBe(true); // Only checks type
 			expect(hasRequiredProps(malformedMessage)).toBe(false);
@@ -532,14 +532,14 @@ describe('Assistant Type Guards', () => {
 
 		it('should handle null and undefined inputs safely', () => {
 			// These may throw errors for null/undefined since they try to access .type property
-			expect(() => isTextMessage(null as any)).toThrow();
-			expect(() => isTextMessage(undefined as any)).toThrow();
-			expect(() => hasRequiredProps(null as any)).toThrow();
-			expect(() => hasRequiredProps(undefined as any)).toThrow();
+			expect(() => isTextMessage(null as unknown as ChatUI.AssistantMessage)).toThrow();
+			expect(() => isTextMessage(undefined as unknown as ChatUI.AssistantMessage)).toThrow();
+			expect(() => hasRequiredProps(null as unknown as Record<string, unknown>)).toThrow();
+			expect(() => hasRequiredProps(undefined as unknown as Record<string, unknown>)).toThrow();
 		});
 
 		it('should handle empty object', () => {
-			const emptyMessage = {} as any;
+			const emptyMessage = {} as Record<string, unknown>;
 
 			expect(isTextMessage(emptyMessage)).toBe(false);
 			expect(isErrorMessage(emptyMessage)).toBe(false);

@@ -177,6 +177,7 @@ import {
 	faExclamationCircle,
 	faMinusCircle,
 	faAdjust,
+	faVectorPolygon,
 } from '@fortawesome/free-solid-svg-icons';
 import {
 	faVariable,
