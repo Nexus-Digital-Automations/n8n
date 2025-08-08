@@ -19,6 +19,7 @@ import { LoggingConfig } from './configs/logging.config';
 import { MfaConfig } from './configs/mfa.config';
 import { MultiMainSetupConfig } from './configs/multi-main-setup.config';
 import { NodesConfig } from './configs/nodes.config';
+import { NotificationConfig } from './configs/notification.config';
 import { PartialExecutionsConfig } from './configs/partial-executions.config';
 import { PersonalizationConfig } from './configs/personalization.config';
 import { PublicApiConfig } from './configs/public-api.config';
@@ -51,6 +52,7 @@ export { MfaConfig } from './configs/mfa.config';
 export { HiringBannerConfig } from './configs/hiring-banner.config';
 export { PersonalizationConfig } from './configs/personalization.config';
 export { NodesConfig } from './configs/nodes.config';
+export { NotificationConfig } from './configs/notification.config';
 export { CronLoggingConfig } from './configs/logging.config';
 
 const protocolSchema = z.enum(['http', 'https']);
@@ -208,4 +210,7 @@ export class GlobalConfig {
 
 	@Nested
 	ai: AiConfig;
+
+	@Nested
+	notifications: NotificationConfig;
 }

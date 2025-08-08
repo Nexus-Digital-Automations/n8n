@@ -18,6 +18,8 @@ import { FolderTagMapping } from './folder-tag-mapping';
 import { InstalledNodes } from './installed-nodes';
 import { InstalledPackages } from './installed-packages';
 import { InvalidAuthToken } from './invalid-auth-token';
+import { NotificationHistoryEntity } from './notification-history.entity';
+import { NotificationSettingsEntity } from './notification-settings.entity';
 import { ProcessedData } from './processed-data';
 import { Project } from './project';
 import { ProjectRelation } from './project-relation';
@@ -42,6 +44,8 @@ export {
 	InstalledNodes,
 	InstalledPackages,
 	InvalidAuthToken,
+	NotificationHistoryEntity,
+	NotificationSettingsEntity,
 	ProcessedData,
 	Settings,
 	Variables,
@@ -97,6 +101,8 @@ export const entities = {
 	InstalledNodes,
 	InstalledPackages,
 	InvalidAuthToken,
+	NotificationHistoryEntity,
+	NotificationSettingsEntity,
 	ProcessedData,
 	Settings,
 	Variables,

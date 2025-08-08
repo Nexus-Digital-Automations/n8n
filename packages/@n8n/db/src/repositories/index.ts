@@ -15,6 +15,8 @@ export { InstalledNodesRepository } from './installed-nodes.repository';
 export { InstalledPackagesRepository } from './installed-packages.repository';
 export { InvalidAuthTokenRepository } from './invalid-auth-token.repository';
 export { LicenseMetricsRepository } from './license-metrics.repository';
+export { NotificationHistoryRepository } from './notification-history.repository';
+export { NotificationSettingsRepository } from './notification-settings.repository';
 export { ProjectRelationRepository } from './project-relation.repository';
 export { ProjectRepository } from './project.repository';
 export { ProcessedDataRepository } from './processed-data.repository';

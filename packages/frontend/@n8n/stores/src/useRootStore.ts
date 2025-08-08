@@ -102,7 +102,7 @@ export const useRootStore = defineStore(STORES.ROOT, () => {
 
 	const versionCli = computed(() => state.value.versionCli);
 
-	const OAuthCallbackUrls = computed(() => state.value.oauthCallbackUrls);
+	const oAuthCallbackUrls = computed(() => state.value.oauthCallbackUrls);
 
 	const restUrl = computed(() => `${state.value.baseUrl}${state.value.restEndpoint}`);
 
@@ -214,7 +214,7 @@ export const useRootStore = defineStore(STORES.ROOT, () => {
 		pushRef,
 		defaultLocale,
 		binaryDataMode,
-		OAuthCallbackUrls,
+		oAuthCallbackUrls,
 		executionTimeout,
 		maxExecutionTimeout,
 		timezone,
