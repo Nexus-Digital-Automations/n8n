@@ -5,6 +5,7 @@ import { nextTick } from 'vue';
 import Message from '@/components/Message.vue';
 import { useOptions } from '@/composables';
 import type { ChatMessageText, ChatMessageComponent } from '@/types';
+import type { ChatOptions } from '@n8n/chat/types/options';
 
 // Mock the composables
 vi.mock('@/composables', () => ({
@@ -41,8 +42,8 @@ vi.mock('highlight.js/lib/core', () => ({
 // Mock FileReader for file tests
 global.FileReader = class MockFileReader {
 	result: string | null = null;
-	onload: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null = null;
-	onerror: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null = null;
+	onload: ((this: FileReader, ev: ProgressEvent<FileReader>) => void) | null = null;
+	onerror: ((this: FileReader, ev: ProgressEvent<FileReader>) => void) | null = null;
 
 	readAsDataURL(_file: Blob) {
 		setTimeout(() => {
@@ -52,10 +53,10 @@ global.FileReader = class MockFileReader {
 			}
 		}, 0);
 	}
-} as any;
+} as typeof FileReader;
 
 describe('Message.vue', () => {
-	let mockOptions: any;
+	let mockOptions: { options: ChatOptions };
 
 	beforeEach(() => {
 		vi.clearAllMocks();
@@ -174,7 +175,7 @@ describe('Message.vue', () => {
 			type: 'component',
 			key: 'non-existent-component',
 			arguments: {},
-		} as any;
+		} as ChatMessageComponent;
 
 		const wrapper = mount(Message, {
 			props: { message },
@@ -346,8 +347,8 @@ describe('Message.vue', () => {
 		// Mock FileReader to simulate error
 		global.FileReader = class MockFileReader {
 			result: string | null = null;
-			onload: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null = null;
-			onerror: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null = null;
+			onload: ((this: FileReader, ev: ProgressEvent<FileReader>) => void) | null = null;
+			onerror: ((this: FileReader, ev: ProgressEvent<FileReader>) => void) | null = null;
 
 			readAsDataURL(_file: Blob) {
 				setTimeout(() => {
@@ -356,7 +357,7 @@ describe('Message.vue', () => {
 					}
 				}, 0);
 			}
-		} as any;
+		} as typeof FileReader;
 
 		const mockFile = new File(['test content'], 'test.txt', { type: 'text/plain' });
 

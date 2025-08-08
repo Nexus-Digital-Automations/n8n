@@ -12,6 +12,7 @@
     "test:watch": "jest --watch",
     "lint": "eslint . --quiet",
     "lint:fix": "eslint . --fix",
+    "dev": "pnpm watch",
     "watch": "tsc-watch -p tsconfig.build.json --onCompilationComplete \"tsc-alias -p tsconfig.build.json\"",
     "deps:graph": "madge src/index.ts --image deps-graph.svg",
     "deps:graph:service": "madge src/ai-workflow-builder-agent.service.ts --image deps-service.svg",

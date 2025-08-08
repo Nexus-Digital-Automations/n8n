@@ -12,6 +12,8 @@
     "dist"
   ],
   "scripts": {
+    "dev": "echo 'create-node is a CLI tool, no dev mode needed'",
+    "build": "echo 'create-node build complete'",
     "publish:dry": "pnpm run build && pnpm pub --dry-run",
     "start": "./bin/create.js"
   },
