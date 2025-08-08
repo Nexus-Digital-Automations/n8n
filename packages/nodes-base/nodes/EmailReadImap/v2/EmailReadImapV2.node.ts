@@ -1,5 +1,5 @@
-import type { ICredentialsDataImap } from '@credentials/Imap.credentials';
-import { isCredentialsDataImap } from '@credentials/Imap.credentials';
+import type { ICredentialsDataImap } from '../../../credentials/Imap.credentials';
+import { isCredentialsDataImap } from '../../../credentials/Imap.credentials';
 import type {
 	ImapSimple,
 	ImapSimpleOptions,

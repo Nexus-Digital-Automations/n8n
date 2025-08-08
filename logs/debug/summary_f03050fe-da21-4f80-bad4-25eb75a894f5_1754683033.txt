@@ -1,0 +1,11 @@
+Timeout Debug Summary for Agent f03050fe-da21-4f80-bad4-25eb75a894f5
+==========================================
+
+Timestamp: 2025-08-08T14:57:13.927901
+Elapsed Time: 0m 0.0s
+Timeout Limit: 120s
+Timeout Exceeded: False
+Hook Type: SubagentStop
+Tool Name: unknown
+
+Full report: logs/debug/debug_report_f03050fe-da21-4f80-bad4-25eb75a894f5_1754683033.json

@@ -7,7 +7,7 @@ import type {
 } from 'n8n-workflow';
 import { NodeApiError } from 'n8n-workflow';
 
-import { createUtmCampaignLink, updateDisplayOptions } from '@utils/utilities';
+import { createUtmCampaignLink, updateDisplayOptions } from '../../../utils/utilities';
 
 import { fromEmailProperty, toEmailProperty } from './descriptions';
 import { configureTransport, type EmailSendOptions } from './utils';
