@@ -2,6 +2,103 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
+      "id": "task_1754703907092_i6m9yqmm7",
+      "title": "Implement comprehensive test coverage validation",
+      "description": "Set up proper test coverage reporting and validation. Ensure coverage scripts are defined and working across all packages. Add coverage thresholds and reporting infrastructure.",
+      "mode": "TESTING",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [
+        "task_1754703907088_3i0dw692g"
+      ],
+      "important_files": [
+        "package.json",
+        "jest.config.js",
+        "packages/*/jest.config.js"
+      ],
+      "success_criteria": [
+        "Coverage scripts defined and working",
+        "Coverage reports generated successfully",
+        "Coverage thresholds established",
+        "npm run coverage completes without errors"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T01:45:07.092Z"
+    },
+    {
+      "id": "task_1754703907088_3i0dw692g",
+      "title": "Fix failing tests across packages",
+      "description": "Identify and resolve failing unit tests, integration tests, and test setup issues causing test failures. Ensure all test suites run successfully and address any broken test dependencies.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "jest.config.js",
+        "packages/*/jest.config.js",
+        "**/__tests__/**",
+        "**/*.test.ts"
+      ],
+      "success_criteria": [
+        "All test suites pass without failures",
+        "npm run test completes successfully",
+        "Test setup issues resolved",
+        "No broken test dependencies remain"
+      ],
+      "estimate": "3-5 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T01:45:07.088Z"
+    },
+    {
+      "id": "task_1754703907085_x1ngpoqgj",
+      "title": "Fix nodes-base package lint errors",
+      "description": "Resolve ESLint violations in packages/nodes-base that are causing lint failures. Identify and fix code quality issues, naming convention violations, and other ESLint rule violations.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/nodes-base/",
+        "packages/nodes-base/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "packages/nodes-base passes ESLint without errors",
+        "npm run lint completes successfully for entire monorepo",
+        "All code quality violations resolved",
+        "No new lint violations introduced"
+      ],
+      "estimate": "2-4 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T01:45:07.085Z"
+    },
+    {
+      "id": "task_1754703907075_g2n7p6k6s",
+      "title": "Fix CLI package build errors",
+      "description": "Resolve TypeScript compilation errors in packages/cli preventing successful build completion. Specific issues include: ExecutionStatusList import error from n8n-workflow and implicit any type parameter in execution.service.ts.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/cli/src/executions/execution.service.ts",
+        "packages/cli/tsconfig.build.json"
+      ],
+      "success_criteria": [
+        "CLI package builds successfully without TypeScript errors",
+        "npm run build completes for entire monorepo",
+        "All import statements resolved correctly",
+        "No implicit any types remain"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T01:45:07.075Z"
+    },
+    {
       "id": "task_1754684443812_5gwkt446y",
       "title": "Fix TypeScript Safety Violations in Core Package",
       "description": "Resolve ~570 TypeScript safety violations in packages/core including: 317 naming-convention violations, 88 unbound-method violations, 49 require-await violations, 35 no-unsafe-member-access, 27 no-unsafe-assignment, and 26 no-argument-spread violations. Focus on type annotations and safe property access patterns.",
@@ -116,51 +213,6 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-08T16:02:26.023Z"
-    },
-    {
-      "id": "quality-improvement-1754676025125",
-      "title": "Create Quality Improvement Tasks",
-      "description": "Analyze project quality issues and create specific tasks to reach 100% quality for all strikes",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "prompt": "Project quality assessment shows issues preventing 100% strike success:\n\nQuality Status:\n- Strike 1 (Build): 50%\n- Strike 2 (Lint): 100%  \n- Strike 3 (Tests): 30%\n\nIssues Found:\n- Build Verification: Build command fails\n- Test Coverage and Success: Tests are failing\n- Test Coverage and Success: Coverage check failed\n\nTASK: Analyze these quality gaps and create specific improvement tasks to bring ALL strikes to 100% quality. Create tasks for:\n1. Build issues (missing dependencies, build failures, configuration)\n2. Code quality issues (lint errors, style violations, code standards)\n3. Testing issues (failing tests, missing coverage, test setup)\n\nInsert all improvement tasks BEFORE the strike review tasks. Strikes should always remain last in the task list.",
-      "success_criteria": [
-        "All quality issues identified and analyzed",
-        "Specific improvement tasks created for each quality gap",
-        "Tasks properly prioritized and ordered before strikes",
-        "Clear path to 100% quality established"
-      ],
-      "important_files": [
-        "package.json",
-        "eslint.config.js",
-        "**/*.test.js"
-      ],
-      "requires_research": true,
-      "is_quality_improvement_task": true,
-      "quality_analysis": {
-        "strike1": {
-          "name": "Build Verification",
-          "quality": 50,
-          "issues": [
-            "Build command fails"
-          ]
-        },
-        "strike2": {
-          "name": "Lint and Code Quality",
-          "quality": 100,
-          "issues": []
-        },
-        "strike3": {
-          "name": "Test Coverage and Success",
-          "quality": 30,
-          "issues": [
-            "Tests are failing",
-            "Coverage check failed"
-          ]
-        },
-        "overallReady": false
-      }
     },
     {
       "id": "task_1754681184384_ya1potpyb",
@@ -505,8 +557,8 @@
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TASK_CREATION",
-  "execution_count": 112,
-  "last_hook_activation": 1754700828779,
+  "last_mode": "DEVELOPMENT",
+  "execution_count": 113,
+  "last_hook_activation": 1754702924546,
   "current_mode": "DEVELOPMENT"
 }

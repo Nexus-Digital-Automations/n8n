@@ -1,6 +1,8 @@
 import { NodeConnectionTypes } from '../interfaces';
 import type { IConnections, NodeConnectionType } from '../interfaces';
 
+const { hasOwnProperty } = Object.prototype;
+
 /**
  * Gets all the nodes which are connected nodes starting from
  * the given one
@@ -21,7 +23,7 @@ export function getConnectedNodes(
 		return [];
 	}
 
-	if (!connections.hasOwnProperty(nodeName)) {
+	if (!hasOwnProperty.call(connections, nodeName)) {
 		// Node does not have incoming connections
 		return [];
 	}
@@ -44,7 +46,7 @@ export function getConnectedNodes(
 	const returnNodes: string[] = [];
 
 	types.forEach((type) => {
-		if (!connections[nodeName].hasOwnProperty(type)) {
+		if (!hasOwnProperty.call(connections[nodeName], type)) {
 			// Node does not have incoming connections of given type
 			return;
 		}

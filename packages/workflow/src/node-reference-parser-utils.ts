@@ -15,7 +15,7 @@ class LazyRegExp {
 	) {}
 
 	get(): RegExp {
-		if (!this.regExp) this.regExp = new RegExp(this.pattern(), this.flags);
+		this.regExp ??= new RegExp(this.pattern(), this.flags);
 
 		return this.regExp;
 	}

@@ -1,5 +1,7 @@
 import type { INode, INodes } from '../interfaces';
 
+const { hasOwnProperty } = Object.prototype;
+
 /**
  * Returns the node with the given name if it exists else null
  *
@@ -8,10 +10,10 @@ import type { INode, INodes } from '../interfaces';
  */
 export function getNodeByName(nodes: INodes | INode[], name: string) {
 	if (Array.isArray(nodes)) {
-		return nodes.find((node) => node.name === name) || null;
+		return nodes.find((node) => node.name === name) ?? null;
 	}
 
-	if (nodes.hasOwnProperty(name)) {
+	if (hasOwnProperty.call(nodes, name)) {
 		return nodes[name];
 	}
 

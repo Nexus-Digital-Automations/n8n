@@ -7,6 +7,8 @@ import {
 	mapConnectionsByDestination,
 } from './common';
 
+const { hasOwnProperty } = Object.prototype;
+
 import {
 	MANUAL_CHAT_TRIGGER_LANGCHAIN_NODE_TYPE,
 	NODES_WITH_RENAMABLE_CONTENT,
@@ -116,7 +118,7 @@ export class Workflow {
 				node,
 				nodeType.description,
 			);
-			node.parameters = nodeParameters !== null ? nodeParameters : {};
+			node.parameters = nodeParameters ?? {};
 		}
 
 		this.setNodes(parameters.nodes);
@@ -126,7 +128,7 @@ export class Workflow {
 
 		this.active = parameters.active || false;
 
-		this.staticData = ObservableObject.create(parameters.staticData || {}, undefined, {
+		this.staticData = ObservableObject.create(parameters.staticData ?? {}, undefined, {
 			ignoreEmptyOnFirstChild: true,
 		});
 
@@ -157,7 +159,7 @@ export class Workflow {
 	}
 
 	overrideStaticData(staticData?: IDataObject) {
-		this.staticData = ObservableObject.create(staticData || {}, undefined, {
+		this.staticData = ObservableObject.create(staticData ?? {}, undefined, {
 			ignoreEmptyOnFirstChild: true,
 		});
 		this.staticData.__dataChanged = true;
@@ -169,24 +171,24 @@ export class Workflow {
 		let connectionInfo;
 		let maxIndex: number;
 		for (const sourceNode in connections) {
-			if (!connections.hasOwnProperty(sourceNode)) {
+			if (!hasOwnProperty.call(connections, sourceNode)) {
 				continue;
 			}
 
 			for (const type of Object.keys(connections[sourceNode]) as NodeConnectionType[]) {
-				if (!connections[sourceNode].hasOwnProperty(type)) {
+				if (!hasOwnProperty.call(connections[sourceNode], type)) {
 					continue;
 				}
 				for (const inputIndex in connections[sourceNode][type]) {
-					if (!connections[sourceNode][type].hasOwnProperty(inputIndex)) {
+					if (!hasOwnProperty.call(connections[sourceNode][type], inputIndex)) {
 						continue;
 					}
 
 					for (connectionInfo of connections[sourceNode][type][inputIndex] ?? []) {
-						if (!returnConnection.hasOwnProperty(connectionInfo.node)) {
+						if (!hasOwnProperty.call(returnConnection, connectionInfo.node)) {
 							returnConnection[connectionInfo.node] = {};
 						}
-						if (!returnConnection[connectionInfo.node].hasOwnProperty(connectionInfo.type)) {
+						if (!hasOwnProperty.call(returnConnection[connectionInfo.node], connectionInfo.type)) {
 							returnConnection[connectionInfo.node][connectionInfo.type] = [];
 						}
 
@@ -369,7 +371,7 @@ export class Workflow {
 
 		const returnData: INodeParameters = {};
 
-		for (const parameterName of Object.keys(parameterValue || {})) {
+		for (const parameterName of Object.keys(parameterValue ?? {})) {
 			returnData[parameterName] = this.renameNodeInParameterValue(
 				parameterValue![parameterName as keyof typeof parameterValue],
 				currentName,
@@ -453,7 +455,7 @@ export class Workflow {
 		}
 
 		// Change all source connections
-		if (this.connectionsBySourceNode.hasOwnProperty(currentName)) {
+		if (hasOwnProperty.call(this.connectionsBySourceNode, currentName)) {
 			this.connectionsBySourceNode[newName] = this.connectionsBySourceNode[currentName];
 			delete this.connectionsBySourceNode[currentName];
 		}
@@ -468,7 +470,7 @@ export class Workflow {
 			for (type of Object.keys(this.connectionsBySourceNode[sourceNode])) {
 				for (sourceIndex of Object.keys(this.connectionsBySourceNode[sourceNode][type])) {
 					for (connectionIndex of Object.keys(
-						this.connectionsBySourceNode[sourceNode][type][parseInt(sourceIndex, 10)] || [],
+						this.connectionsBySourceNode[sourceNode][type][parseInt(sourceIndex, 10)] ?? [],
 					)) {
 						connectionData =
 							this.connectionsBySourceNode[sourceNode][type][parseInt(sourceIndex, 10)]?.[
@@ -499,17 +501,19 @@ export class Workflow {
 			currentHighest.push(nodeName);
 		}
 
-		if (!this.connectionsByDestinationNode.hasOwnProperty(nodeName)) {
+		if (!hasOwnProperty.call(this.connectionsByDestinationNode, nodeName)) {
 			// Node does not have incoming connections
 			return currentHighest;
 		}
 
-		if (!this.connectionsByDestinationNode[nodeName].hasOwnProperty(NodeConnectionTypes.Main)) {
+		if (
+			!hasOwnProperty.call(this.connectionsByDestinationNode[nodeName], NodeConnectionTypes.Main)
+		) {
 			// Node does not have incoming connections of given type
 			return currentHighest;
 		}
 
-		checkedNodes = checkedNodes || [];
+		checkedNodes = checkedNodes ?? [];
 
 		if (checkedNodes.includes(nodeName)) {
 			// Node got checked already before
@@ -662,8 +666,8 @@ export class Workflow {
 				}
 
 				if (
-					!connections.hasOwnProperty(curr.name) ||
-					!connections[curr.name].hasOwnProperty(type)
+					!hasOwnProperty.call(connections, curr.name) ||
+					!hasOwnProperty.call(connections[curr.name], type)
 				) {
 					return;
 				}
@@ -751,17 +755,17 @@ export class Workflow {
 			return undefined;
 		}
 
-		if (!this.connectionsByDestinationNode.hasOwnProperty(nodeName)) {
+		if (!hasOwnProperty.call(this.connectionsByDestinationNode, nodeName)) {
 			// Node does not have incoming connections
 			return undefined;
 		}
 
-		if (!this.connectionsByDestinationNode[nodeName].hasOwnProperty(type)) {
+		if (!hasOwnProperty.call(this.connectionsByDestinationNode[nodeName], type)) {
 			// Node does not have incoming connections of given type
 			return undefined;
 		}
 
-		checkedNodes = checkedNodes || [];
+		checkedNodes = checkedNodes ?? [];
 
 		if (checkedNodes.includes(nodeName)) {
 			// Node got checked already before

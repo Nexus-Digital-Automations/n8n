@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Container } from '@n8n/di';
 import { mock } from 'jest-mock-extended';
 import type {

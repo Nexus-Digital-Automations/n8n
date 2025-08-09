@@ -31,7 +31,10 @@ const executionId = 'execution456';
 
 const bufferToIncomingMessage = (buffer: Buffer, encoding = 'utf-8') => {
 	const incomingMessage = Readable.from(buffer) as IncomingMessage;
-	incomingMessage.headers = { 'content-type': `application/json;charset=${encoding}` };
+	incomingMessage.headers = {
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		'content-type': `application/json;charset=${encoding}`,
+	};
 	// @ts-expect-error need this hack to fake `instanceof IncomingMessage` checks
 	incomingMessage.__proto__ = IncomingMessage.prototype;
 	return incomingMessage;
@@ -166,6 +169,7 @@ describe('binaryToString', () => {
 			]),
 		},
 
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		'iso-8859-15': {
 			text: 'Café € personnalité',
 			buffer: Buffer.from([
@@ -190,6 +194,7 @@ describe('binaryToString', () => {
 			]),
 		},
 
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		'windows-1252': {
 			text: '€ Smart "quotes" • bullet',
 			buffer: Buffer.from([
@@ -198,6 +203,7 @@ describe('binaryToString', () => {
 			]),
 		},
 
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		'shift-jis': {
 			text: 'こんにちは世界',
 			buffer: Buffer.from([
@@ -210,6 +216,7 @@ describe('binaryToString', () => {
 			buffer: Buffer.from([0xab, 0xa2, 0xc5, 0x6f, 0xa5, 0x40, 0xac, 0xc9]),
 		},
 
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		'koi8-r': {
 			text: 'Привет мир',
 			buffer: Buffer.from([0xf0, 0xd2, 0xc9, 0xd7, 0xc5, 0xd4, 0x20, 0xcd, 0xc9, 0xd2]),

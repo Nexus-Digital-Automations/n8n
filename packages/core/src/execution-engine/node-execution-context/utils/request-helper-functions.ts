@@ -376,6 +376,7 @@ async function generateContentLengthHeader(config: AxiosRequestConfig) {
 		});
 		config.headers = {
 			...config.headers,
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'content-length': length,
 		};
 	} catch (error) {
@@ -467,6 +468,7 @@ export async function parseRequestObject(requestObject: IRequestOptions) {
 				axiosConfig.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 			} else {
 				axiosConfig.headers = {
+					// eslint-disable-next-line @typescript-eslint/naming-convention
 					'Content-Type': 'application/x-www-form-urlencoded',
 				};
 			}
@@ -565,6 +567,7 @@ export async function parseRequestObject(requestObject: IRequestOptions) {
 		// Check support for sendImmediately
 		if (requestObject.auth.bearer !== undefined) {
 			axiosConfig.headers = Object.assign(axiosConfig.headers || {}, {
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Authorization: `Bearer ${requestObject.auth.bearer}`,
 			});
 		} else {
@@ -590,6 +593,7 @@ export async function parseRequestObject(requestObject: IRequestOptions) {
 						.includes('accept');
 		if (!acceptHeaderExists) {
 			axiosConfig.headers = Object.assign(axiosConfig.headers || {}, {
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Accept: 'application/json',
 			});
 		}
@@ -664,6 +668,7 @@ export async function parseRequestObject(requestObject: IRequestOptions) {
 		// and this breaks a lot of stuff
 
 		axiosConfig.headers = Object.assign(axiosConfig.headers || {}, {
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'content-type': 'application/json',
 		});
 	}
@@ -863,6 +868,7 @@ export function convertN8nRequestToAxios(n8nRequest: IHttpRequestOptions): Axios
 		if (!key) {
 			axiosRequest.headers = {
 				...axiosRequest.headers,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Accept: 'application/json',
 			};
 		}
@@ -874,6 +880,7 @@ export function convertN8nRequestToAxios(n8nRequest: IHttpRequestOptions): Axios
 	if (!userAgentHeader) {
 		axiosRequest.headers = {
 			...axiosRequest.headers,
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'User-Agent': 'n8n',
 		};
 	}
@@ -1054,6 +1061,7 @@ export async function requestOAuth2(
 					};
 					tokenRefreshOptions.body = body;
 					tokenRefreshOptions.headers = {
+						// eslint-disable-next-line @typescript-eslint/naming-convention
 						Authorization: '',
 					};
 				}
@@ -1131,6 +1139,7 @@ export async function requestOAuth2(
 					tokenRefreshOptions.body = body;
 					// Override authorization property so the credentials are not included in it
 					tokenRefreshOptions.headers = {
+						// eslint-disable-next-line @typescript-eslint/naming-convention
 						Authorization: '',
 					};
 				}
@@ -1216,6 +1225,7 @@ export async function requestOAuth1(
 			secret: credentials.consumerSecret as string,
 		},
 		signature_method: credentials.signatureMethod as string,
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		hash_function(base, key) {
 			let algorithm: string;
 			switch (credentials.signatureMethod) {

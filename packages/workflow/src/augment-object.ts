@@ -22,9 +22,7 @@ export function augmentArray<T>(data: T[]): T[] {
 	let newData: unknown[] | undefined = undefined;
 
 	function getData(): unknown[] {
-		if (newData === undefined) {
-			newData = [...data];
-		}
+		newData ??= [...data];
 		return newData;
 	}
 

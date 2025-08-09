@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 // NOTE: Diagrams in this file have been created with https://asciiflow.com/#/
 // If you update the tests, please update the diagrams as well.
 // If you add a test, please create a new diagram.

@@ -51,6 +51,7 @@ describe('findTriggerForPartialExecution', () => {
 			expectedTrigger?: INode;
 		}>
 	> = {
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		'Single trigger node': [
 			{
 				description: 'should return the destination node if it is a trigger',
@@ -67,6 +68,7 @@ describe('findTriggerForPartialExecution', () => {
 				expectedTrigger: manualTriggerNode,
 			},
 		],
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		'Multiple trigger nodes': [
 			{
 				description: 'should prioritize webhook nodes when multiple parent triggers exist',
@@ -110,6 +112,7 @@ describe('findTriggerForPartialExecution', () => {
 				expectedTrigger: manualTriggerNode,
 			},
 		],
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		'No trigger nodes': [
 			{
 				description: 'should return undefined when no valid parent triggers found',
@@ -119,6 +122,7 @@ describe('findTriggerForPartialExecution', () => {
 				expectedTrigger: undefined,
 			},
 		],
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		'Trigger node with pinned data': [
 			{
 				description: 'should prioritize pinned trigger nodes',

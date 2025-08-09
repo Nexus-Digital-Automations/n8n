@@ -86,6 +86,7 @@ export class ObjectStoreService {
 
 		try {
 			this.logger.debug('Checking connection to S3 bucket', { bucket: this.bucket });
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			const command = new HeadBucketCommand({ Bucket: this.bucket });
 			await this.s3Client.send(command);
 		} catch (e) {
@@ -99,10 +100,15 @@ export class ObjectStoreService {
 	async put(filename: string, buffer: Buffer, metadata: BinaryData.PreWriteMetadata = {}) {
 		try {
 			const params: PutObjectCommandInput = {
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Bucket: this.bucket,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Key: filename,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Body: buffer,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				ContentLength: buffer.length,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				ContentMD5: createHash('md5').update(buffer).digest('base64'),
 			};
 
@@ -131,7 +137,9 @@ export class ObjectStoreService {
 		this.logger.debug('Sending GET request to S3', { bucket: this.bucket, key: fileId });
 
 		const command = new GetObjectCommand({
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			Bucket: this.bucket,
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			Key: fileId,
 		});
 
@@ -156,7 +164,9 @@ export class ObjectStoreService {
 	async getMetadata(fileId: string): Promise<MetadataResponseHeaders> {
 		try {
 			const command = new HeadObjectCommand({
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Bucket: this.bucket,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Key: fileId,
 			});
 
@@ -191,7 +201,9 @@ export class ObjectStoreService {
 	async deleteOne(fileId: string) {
 		try {
 			const command = new DeleteObjectCommand({
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Bucket: this.bucket,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Key: fileId,
 			});
 
@@ -212,9 +224,15 @@ export class ObjectStoreService {
 			if (objects.length === 0) return;
 
 			const params: DeleteObjectsCommandInput = {
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Bucket: this.bucket,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Delete: {
-					Objects: objects.map(({ key }) => ({ Key: key })),
+					// eslint-disable-next-line @typescript-eslint/naming-convention
+					Objects: objects.map(({ key }) => ({
+						// eslint-disable-next-line @typescript-eslint/naming-convention
+						Key: key,
+					})),
 				},
 			};
 
@@ -262,7 +280,9 @@ export class ObjectStoreService {
 	async getListPage(prefix: string, continuationToken?: string) {
 		try {
 			const params: ListObjectsV2CommandInput = {
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Bucket: this.bucket,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Prefix: prefix,
 			};
 

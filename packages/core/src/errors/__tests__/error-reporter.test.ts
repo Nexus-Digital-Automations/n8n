@@ -11,6 +11,7 @@ jest.mock('@sentry/node', () => ({
 	init: jest.fn(),
 	setTag: jest.fn(),
 	captureException: jest.fn(),
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	Integrations: {},
 }));
 

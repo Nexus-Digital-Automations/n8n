@@ -8,6 +8,8 @@ import { ALPHABET } from './constants';
 import { ExecutionCancelledError } from './errors/execution-cancelled.error';
 import type { BinaryFileType, IDisplayOptions, INodeProperties, JsonObject } from './interfaces';
 
+const { hasOwnProperty } = Object.prototype;
+
 const readStreamClasses = new Set(['ReadStream', 'Readable', 'ReadableStream']);
 
 // NOTE: BigInt.prototype.toJSON is not available, which causes JSON.stringify to throw an error
@@ -234,7 +236,7 @@ export function assert<T>(condition: T, msg?: string): asserts condition {
 	if (!condition) {
 		const error = new Error(msg ?? 'Invalid assertion');
 		// hide assert stack frame if supported
-		if (Error.hasOwnProperty('captureStackTrace')) {
+		if (hasOwnProperty.call(Error, 'captureStackTrace')) {
 			// V8 only - https://nodejs.org/api/errors.html#errors_error_capturestacktrace_targetobject_constructoropt
 			Error.captureStackTrace(error, assert);
 		} else if (error.stack) {
@@ -328,7 +330,7 @@ export function randomString(minLength: number, maxLength?: number): string {
  * Checks if a value is an object with a specific key and provides a type guard for the key.
  */
 export function hasKey<T extends PropertyKey>(value: unknown, key: T): value is Record<T, unknown> {
-	return value !== null && typeof value === 'object' && value.hasOwnProperty(key);
+	return value !== null && typeof value === 'object' && hasOwnProperty.call(value, key);
 }
 
 const unsafeObjectProperties = new Set(['__proto__', 'prototype', 'constructor', 'getPrototypeOf']);

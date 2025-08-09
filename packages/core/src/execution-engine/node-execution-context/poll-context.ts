@@ -32,7 +32,9 @@ export class PollContext extends NodeExecutionContext implements IPollFunctions 
 		additionalData: IWorkflowExecuteAdditionalData,
 		mode: WorkflowExecuteMode,
 		private readonly activation: WorkflowActivateMode,
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		readonly __emit: IPollFunctions['__emit'] = throwOnEmit,
+		// eslint-disable-next-line @typescript-eslint/naming-convention
 		readonly __emitError: IPollFunctions['__emitError'] = throwOnEmitError,
 	) {
 		super(workflow, node, additionalData, mode);

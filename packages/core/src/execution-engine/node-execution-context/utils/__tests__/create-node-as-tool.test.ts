@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { createNodeAsTool } from '../create-node-as-tool';
 
 jest.mock('@langchain/core/tools', () => ({
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	DynamicStructuredTool: jest.fn().mockImplementation((config) => ({
 		name: config.name,
 		description: config.description,

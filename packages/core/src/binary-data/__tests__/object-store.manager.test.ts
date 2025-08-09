@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { mock } from 'jest-mock-extended';
 import fs from 'node:fs/promises';
 import { Readable } from 'node:stream';
@@ -79,8 +80,11 @@ describe('getMetadata()', () => {
 
 		objectStoreService.getMetadata.mockResolvedValue(
 			mock<MetadataResponseHeaders>({
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				'content-length': '1',
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				'content-type': mimeType,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				'x-amz-meta-filename': fileName,
 			}),
 		);
