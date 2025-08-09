@@ -370,7 +370,7 @@ export abstract class DirectoryLoader {
 	private applySpecialNodeParameters(nodeType: INodeType): void {
 		const { properties, polling, supportsCORS } = nodeType.description;
 		if (polling) {
-			properties.unshift(...commonPollingParameters);
+			properties.unshift.apply(properties, commonPollingParameters);
 		}
 		if (nodeType.webhook && supportsCORS) {
 			const optionsProperty = properties.find(({ name }) => name === 'options');
@@ -379,7 +379,7 @@ export abstract class DirectoryLoader {
 					...commonCORSParameters,
 					...(optionsProperty.options as INodePropertyOptions[]),
 				];
-			else properties.push(...commonCORSParameters);
+			else properties.push.apply(properties, commonCORSParameters);
 		}
 
 		DirectoryLoader.applyDeclarativeNodeOptionParameters(nodeType);

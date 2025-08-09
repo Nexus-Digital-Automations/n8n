@@ -119,8 +119,7 @@ export class ExecuteContext extends BaseExecuteContext implements IExecuteFuncti
 		this.getNodeParameter = ((
 			parameterName: string,
 			itemIndex: number,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			fallbackValue?: any,
+			fallbackValue?: unknown,
 			options?: IGetNodeParameterOptions,
 		) =>
 			this._getNodeParameter(
@@ -261,6 +260,6 @@ export class ExecuteContext extends BaseExecuteContext implements IExecuteFuncti
 	}
 
 	addExecutionHints(...hints: NodeExecutionHint[]) {
-		this.hints.push(...hints);
+		this.hints.push.apply(this.hints, hints);
 	}
 }

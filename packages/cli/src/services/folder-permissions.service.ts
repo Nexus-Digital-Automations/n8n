@@ -1084,7 +1084,7 @@ export class FolderPermissionsService {
 	}
 
 	private generateShareUrl(shareId: string): string {
-		return `${process.env.WEBHOOK_TUNNEL_URL || 'http://localhost:5678'}/api/v1/folders/share/${shareId}`;
+		return `${process.env.WEBHOOK_TUNNEL_URL ?? 'http://localhost:5678'}/api/v1/folders/share/${shareId}`;
 	}
 
 	private async hashPassword(password: string): Promise<string> {

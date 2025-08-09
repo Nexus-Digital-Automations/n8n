@@ -109,7 +109,7 @@ export class AuditLoggingMiddleware {
 			const startTime = performance.now();
 			const requestId = this.generateRequestId();
 			const ipAddress = this.extractIpAddress(req);
-			const userAgent = req.get('User-Agent') || '';
+			const userAgent = req.get('User-Agent') ?? '';
 
 			req.auditMetadata = {
 				startTime,

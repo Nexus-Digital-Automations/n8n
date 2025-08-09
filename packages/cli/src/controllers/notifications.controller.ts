@@ -1,18 +1,19 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { Logger } from '@n8n/backend-common';
 import { NotificationConfig } from '@n8n/config';
-import type { 
-	NotificationSettingsEntity, 
+import type {
+	NotificationSettingsEntity,
 	NotificationHistoryEntity,
 	WorkflowEntity,
+	AuthenticatedRequest,
 } from '@n8n/db';
-import { 
+import {
 	NotificationSettingsRepository,
 	NotificationHistoryRepository,
 	WorkflowRepository,
 } from '@n8n/db';
 import { Service } from '@n8n/di';
-import { Get, Post, Put, Delete, RestController, GlobalScope } from '@/decorators';
+import { Get, Post, Put, Delete, RestController, GlobalScope } from '@n8n/decorators';
 import { NotificationService, type NotificationContext } from '@/services/notification.service';
 import { BaseNotificationChannel } from '@/services/notification-channels';
 
@@ -33,7 +34,7 @@ interface NotificationTestRequest {
 
 /**
  * REST API controller for managing workflow failure notifications
- * 
+ *
  * Provides endpoints for:
  * - Managing notification settings per workflow/user
  * - Testing notification channels
@@ -58,13 +59,16 @@ export class NotificationsController {
 	 */
 	@Get('/workflows/:workflowId')
 	@GlobalScope(['workflow:read'])
-	async getWorkflowNotificationSettings(req: Request, res: Response): Promise<Response> {
+	async getWorkflowNotificationSettings(
+		req: AuthenticatedRequest,
+		res: Response,
+	): Promise<Response> {
 		try {
 			const { workflowId } = req.params;
 			const userId = req.user?.id;
 
 			if (!workflowId) {
-				return res.status(400).json({ 
+				return res.status(400).json({
 					error: 'Workflow ID is required',
 					code: 'MISSING_WORKFLOW_ID',
 				});
@@ -91,7 +95,7 @@ export class NotificationsController {
 			return res.json({
 				workflowId,
 				workflowName: workflow.name,
-				settings: settings.map(setting => ({
+				settings: settings.map((setting) => ({
 					id: setting.id,
 					enabled: setting.enabled,
 					channels: setting.channels,
@@ -103,7 +107,6 @@ export class NotificationsController {
 					updatedAt: setting.updatedAt,
 				})),
 			});
-
 		} catch (error) {
 			this.logger.error('Failed to get workflow notification settings', {
 				workflowId: req.params.workflowId,
@@ -124,7 +127,10 @@ export class NotificationsController {
 	 */
 	@Put('/workflows/:workflowId')
 	@GlobalScope(['workflow:update'])
-	async updateWorkflowNotificationSettings(req: Request, res: Response): Promise<Response> {
+	async updateWorkflowNotificationSettings(
+		req: AuthenticatedRequest,
+		res: Response,
+	): Promise<Response> {
 		try {
 			const { workflowId } = req.params;
 			const userId = req.user?.id;
@@ -217,7 +223,6 @@ export class NotificationsController {
 				config: settings.config,
 				updatedAt: settings.updatedAt,
 			});
-
 		} catch (error) {
 			this.logger.error('Failed to update workflow notification settings', {
 				workflowId: req.params.workflowId,
@@ -238,7 +243,10 @@ export class NotificationsController {
 	 */
 	@Delete('/workflows/:workflowId')
 	@GlobalScope(['workflow:update'])
-	async deleteWorkflowNotificationSettings(req: Request, res: Response): Promise<Response> {
+	async deleteWorkflowNotificationSettings(
+		req: AuthenticatedRequest,
+		res: Response,
+	): Promise<Response> {
 		try {
 			const { workflowId } = req.params;
 			const userId = req.user?.id;
@@ -268,7 +276,6 @@ export class NotificationsController {
 			});
 
 			return res.status(204).send();
-
 		} catch (error) {
 			this.logger.error('Failed to delete workflow notification settings', {
 				workflowId: req.params.workflowId,
@@ -289,7 +296,7 @@ export class NotificationsController {
 	 */
 	@Post('/test')
 	@GlobalScope(['workflow:update'])
-	async testNotificationChannel(req: Request, res: Response): Promise<Response> {
+	async testNotificationChannel(req: AuthenticatedRequest, res: Response): Promise<Response> {
 		try {
 			const testData: NotificationTestRequest = req.body;
 			const userId = req.user?.id;
@@ -357,7 +364,6 @@ export class NotificationsController {
 					code: 'UNSUPPORTED_CHANNEL',
 				});
 			}
-
 		} catch (error) {
 			this.logger.error('Failed to test notification channel', {
 				channel: req.body.channel,
@@ -379,7 +385,7 @@ export class NotificationsController {
 	 */
 	@Get('/history')
 	@GlobalScope(['workflow:read'])
-	async getNotificationHistory(req: Request, res: Response): Promise<Response> {
+	async getNotificationHistory(req: AuthenticatedRequest, res: Response): Promise<Response> {
 		try {
 			const { workflowId, limit = '50', offset = '0' } = req.query;
 			const userId = req.user?.id;
@@ -397,7 +403,7 @@ export class NotificationsController {
 			});
 
 			return res.json({
-				history: history.map(item => ({
+				history: history.map((item) => ({
 					id: item.id,
 					workflowId: item.workflowId,
 					workflowName: item.workflow?.name,
@@ -417,7 +423,6 @@ export class NotificationsController {
 					offset: parseInt(offset as string, 10),
 				},
 			});
-
 		} catch (error) {
 			this.logger.error('Failed to get notification history', {
 				workflowId: req.query.workflowId,
@@ -438,7 +443,7 @@ export class NotificationsController {
 	 */
 	@Get('/stats')
 	@GlobalScope(['workflow:read'])
-	async getNotificationStats(req: Request, res: Response): Promise<Response> {
+	async getNotificationStats(req: AuthenticatedRequest, res: Response): Promise<Response> {
 		try {
 			const { workflowId, timeRange = '24h' } = req.query;
 			const userId = req.user?.id;
@@ -454,7 +459,6 @@ export class NotificationsController {
 				timeRange,
 				stats,
 			});
-
 		} catch (error) {
 			this.logger.error('Failed to get notification statistics', {
 				workflowId: req.query.workflowId,
@@ -475,7 +479,7 @@ export class NotificationsController {
 	 */
 	@Post('/:notificationId/retry')
 	@GlobalScope(['workflow:update'])
-	async retryFailedNotification(req: Request, res: Response): Promise<Response> {
+	async retryFailedNotification(req: AuthenticatedRequest, res: Response): Promise<Response> {
 		try {
 			const { notificationId } = req.params;
 			const userId = req.user?.id;
@@ -512,7 +516,6 @@ export class NotificationsController {
 				message: 'Notification retry triggered',
 				notificationId,
 			});
-
 		} catch (error) {
 			this.logger.error('Failed to retry notification', {
 				notificationId: req.params.notificationId,

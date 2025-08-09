@@ -102,7 +102,7 @@ export class ExecutionLifecycleHooks {
 		...handlers: Array<ExecutionLifecycleHookHandlers[Hook][number]>
 	): void {
 		// @ts-expect-error FIX THIS
-		this.handlers[hookName].push(...handlers);
+		this.handlers[hookName].push.apply(this.handlers[hookName], handlers);
 	}
 
 	async runHook<

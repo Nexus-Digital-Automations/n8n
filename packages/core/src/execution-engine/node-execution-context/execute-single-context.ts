@@ -98,8 +98,11 @@ export class ExecuteSingleContext extends BaseExecuteContext implements IExecute
 		return this.itemIndex;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	getNodeParameter(parameterName: string, fallbackValue?: any, options?: IGetNodeParameterOptions) {
+	getNodeParameter(
+		parameterName: string,
+		fallbackValue?: unknown,
+		options?: IGetNodeParameterOptions,
+	) {
 		return this._getNodeParameter(parameterName, this.itemIndex, fallbackValue, options);
 	}
 

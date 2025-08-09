@@ -265,15 +265,19 @@ function digestAuthAxiosConfig(
 	if (authDetails) {
 		const nonceCount = '000000001';
 		const cnonce = crypto.randomBytes(24).toString('hex');
-		const realm: string = authDetails
-			.find((el: any) => el[0].toLowerCase().indexOf('realm') > -1)[1]
-			.replace(/"/g, '');
+		const realm: string =
+			authDetails
+				.find((el: [string, string]) => el[0].toLowerCase().indexOf('realm') > -1)?.[1]
+				?.replace(/"/g, '') ?? '';
 		// If authDetails does not have opaque, we should not add it to authorization.
-		const opaqueKV = authDetails.find((el: any) => el[0].toLowerCase().indexOf('opaque') > -1);
-		const opaque: string = opaqueKV ? opaqueKV[1].replace(/"/g, '') : undefined;
-		const nonce: string = authDetails
-			.find((el: any) => el[0].toLowerCase().indexOf('nonce') > -1)[1]
-			.replace(/"/g, '');
+		const opaqueKV = authDetails.find(
+			(el: [string, string]) => el[0].toLowerCase().indexOf('opaque') > -1,
+		);
+		const opaque: string | undefined = opaqueKV ? opaqueKV[1].replace(/"/g, '') : undefined;
+		const nonce: string =
+			authDetails
+				.find((el: [string, string]) => el[0].toLowerCase().indexOf('nonce') > -1)?.[1]
+				?.replace(/"/g, '') ?? '';
 		const ha1 = crypto
 			.createHash('md5')
 			.update(`${auth?.username as string}:${realm}:${auth?.password as string}`)
@@ -325,8 +329,17 @@ export async function invokeAxios(
 	}
 }
 
-const pushFormDataValue = (form: FormData, key: string, value: any) => {
-	if (value?.hasOwnProperty('value') && value.hasOwnProperty('options')) {
+interface FormDataWithOptions {
+	value: string | Blob;
+	options: string | { filename?: string; contentType?: string };
+}
+
+const pushFormDataValue = (
+	form: FormData,
+	key: string,
+	value: string | Blob | FormDataWithOptions,
+) => {
+	if (value && typeof value === 'object' && 'value' in value && 'options' in value) {
 		form.append(key, value.value, value.options);
 	} else {
 		form.append(key, value);
@@ -344,7 +357,7 @@ export const createFormDataObject = (data: Record<string, unknown>) => {
 				pushFormDataValue(formData, key, item);
 			});
 		} else {
-			pushFormDataValue(formData, key, formField);
+			pushFormDataValue(formData, key, formField as string | Blob | FormDataWithOptions);
 		}
 	});
 	return formData;

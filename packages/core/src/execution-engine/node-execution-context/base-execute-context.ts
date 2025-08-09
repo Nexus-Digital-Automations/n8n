@@ -187,8 +187,7 @@ export class BaseExecuteContext extends NodeExecutionContext {
 		).getDataProxy();
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	sendMessageToUI(...args: any[]): void {
+	sendMessageToUI(...args: unknown[]): void {
 		if (this.mode !== 'manual') {
 			return;
 		}
@@ -197,11 +196,26 @@ export class BaseExecuteContext extends NodeExecutionContext {
 				args = args.map((arg) => {
 					// prevent invalid dates from being logged as null
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
-					if (arg.isLuxonDateTime && arg.invalidReason) return { ...arg };
+					if (
+						arg &&
+						typeof arg === 'object' &&
+						'isLuxonDateTime' in arg &&
+						'invalidReason' in arg &&
+						arg.isLuxonDateTime &&
+						arg.invalidReason
+					)
+						return { ...arg };
 
 					// log valid dates in human readable format, as in browser
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
-					if (arg.isLuxonDateTime) return new Date(arg.ts).toString();
+					if (
+						arg &&
+						typeof arg === 'object' &&
+						'isLuxonDateTime' in arg &&
+						'ts' in arg &&
+						arg.isLuxonDateTime
+					)
+						return new Date(arg.ts as number).toString();
 					if (arg instanceof Date) return arg.toString();
 
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-return

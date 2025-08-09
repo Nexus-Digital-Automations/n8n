@@ -108,12 +108,12 @@ function getN8nRestrictedPaths() {
 	const restrictedPaths = [n8nFolder, staticCacheDir];
 
 	if (process.env[CONFIG_FILES]) {
-		restrictedPaths.push(...process.env[CONFIG_FILES].split(','));
+		restrictedPaths.push.apply(restrictedPaths, process.env[CONFIG_FILES].split(','));
 	}
 
 	if (process.env[CUSTOM_EXTENSION_ENV]) {
 		const customExtensionFolders = process.env[CUSTOM_EXTENSION_ENV].split(';');
-		restrictedPaths.push(...customExtensionFolders);
+		restrictedPaths.push.apply(restrictedPaths, customExtensionFolders);
 	}
 
 	if (process.env[BINARY_DATA_STORAGE_PATH]) {

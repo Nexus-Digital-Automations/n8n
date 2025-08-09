@@ -3,8 +3,7 @@ import { ExpressionError } from 'n8n-workflow';
 
 export function ensureType(
 	toType: EnsureTypeOptions,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	parameterValue: any,
+	parameterValue: unknown,
 	parameterName: string,
 	errorOptions?: { itemIndex?: number; runIndex?: number; nodeCause?: string },
 ): string | number | boolean | object {
@@ -79,7 +78,7 @@ export function ensureType(
 			returnData = Number(returnData);
 			if (Number.isNaN(returnData)) {
 				throw new ExpressionError(
-					`Parameter '${parameterName}' must be a number, but we got '${parameterValue}'`,
+					`Parameter '${parameterName}' must be a number, but we got '${String(parameterValue)}'`,
 					errorOptions,
 				);
 			}
@@ -99,5 +98,5 @@ export function ensureType(
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-	return returnData;
+	return returnData as string | number | boolean | object;
 }

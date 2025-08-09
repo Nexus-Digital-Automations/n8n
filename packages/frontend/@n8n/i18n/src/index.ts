@@ -377,7 +377,7 @@ export class I18nClass {
 
 const loadedLanguages = ['en'];
 
-async function setLanguage(language: string) {
+function setLanguage(language: string) {
 	i18nInstance.global.locale.value = language as 'en';
 	document.querySelector('html')!.setAttribute('lang', language);
 
@@ -386,11 +386,11 @@ async function setLanguage(language: string) {
 
 export async function loadLanguage(language: string) {
 	if (i18nInstance.global.locale.value === language) {
-		return await setLanguage(language);
+		return setLanguage(language);
 	}
 
 	if (loadedLanguages.includes(language)) {
-		return await setLanguage(language);
+		return setLanguage(language);
 	}
 
 	const { numberFormats, ...rest } = (await import(`@n8n/i18n/locales/${language}.json`)).default;
@@ -403,7 +403,7 @@ export async function loadLanguage(language: string) {
 
 	loadedLanguages.push(language);
 
-	return await setLanguage(language);
+	return setLanguage(language);
 }
 
 /**

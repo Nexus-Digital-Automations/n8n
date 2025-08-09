@@ -47,8 +47,7 @@ export interface IAbstractEventMessage {
 
 	message: string;
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	payload: any;
+	payload: unknown;
 }
 
 // ===============================

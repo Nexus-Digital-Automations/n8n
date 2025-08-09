@@ -7,6 +7,7 @@ import type { URLSearchParams } from 'url';
 import type { CallbackManager as CallbackManagerLC } from '@langchain/core/callbacks/manager';
 import type { LogScope } from '@n8n/config';
 import type { AxiosProxyConfig, GenericAbortSignal } from 'axios';
+import type { DateTime } from 'luxon';
 import type * as express from 'express';
 import type FormData from 'form-data';
 import type { ReplyHeaders, RequestBodyMatcher, RequestHeaderMatcher } from 'nock';
@@ -274,7 +275,7 @@ export interface IAuthenticateRuleResponseSuccessBody extends IAuthenticateRuleB
 	properties: {
 		message: string;
 		key: string;
-		value: any;
+		value: string | number;
 	};
 }
 
@@ -424,7 +425,7 @@ export interface IExecuteData {
 }
 
 export type IContextObject = {
-	[key: string]: any;
+	[key: string]: unknown;
 };
 
 export interface IExecuteContextData {
@@ -489,7 +490,7 @@ export interface IRequestOptions {
 		password: string;
 		pass: string;
 	}>;
-	body?: any;
+	body?: unknown;
 	formData?: IDataObject | FormData;
 	form?: IDataObject | FormData;
 	json?: boolean;
@@ -647,7 +648,7 @@ namespace ExecuteFunctions {
 		getNodeParameter(
 			parameterName: string,
 			itemIndex: number,
-			fallbackValue?: any,
+			fallbackValue?: unknown,
 			options?: IGetNodeParameterOptions,
 		): NodeParameterValueType | object;
 	};
@@ -951,7 +952,7 @@ export type IExecuteFunctions = ExecuteFunctions.GetNodeParameterFn &
 		getNodeInputs(): INodeInputConfiguration[];
 		getNodeOutputs(): INodeOutputConfiguration[];
 		putExecutionToWait(waitTill: Date): Promise<void>;
-		sendMessageToUI(message: any): void;
+		sendMessageToUI(message: unknown): void;
 		sendResponse(response: IExecuteResponsePromiseData): void;
 		sendChunk(type: ChunkType, itemIndex: number, content?: IDataObject | string): void;
 		isStreaming(): boolean;
@@ -1004,7 +1005,7 @@ export interface IExecuteSingleFunctions extends BaseExecutionFunctions {
 	getItemIndex(): number;
 	getNodeParameter(
 		parameterName: string,
-		fallbackValue?: any,
+		fallbackValue?: unknown,
 		options?: IGetNodeParameterOptions,
 	): NodeParameterValueType | object;
 
@@ -1053,7 +1054,7 @@ export interface IExecutePaginationFunctions extends IExecuteSingleFunctions {
 export interface ILoadOptionsFunctions extends FunctionsBase {
 	getNodeParameter(
 		parameterName: string,
-		fallbackValue?: any,
+		fallbackValue?: unknown,
 		options?: IGetNodeParameterOptions,
 	): NodeParameterValueType | object;
 	getCurrentNodeParameter(
@@ -1088,7 +1089,7 @@ export interface IPollFunctions
 	__emitError(error: Error, responsePromise?: IDeferredPromise<IExecuteResponsePromiseData>): void;
 	getNodeParameter(
 		parameterName: string,
-		fallbackValue?: any,
+		fallbackValue?: unknown,
 		options?: IGetNodeParameterOptions,
 	): NodeParameterValueType | object;
 	helpers: RequestHelperFunctions &
@@ -1107,7 +1108,7 @@ export interface ITriggerFunctions
 	emitError(error: Error, responsePromise?: IDeferredPromise<IExecuteResponsePromiseData>): void;
 	getNodeParameter(
 		parameterName: string,
-		fallbackValue?: any,
+		fallbackValue?: unknown,
 		options?: IGetNodeParameterOptions,
 	): NodeParameterValueType | object;
 	helpers: RequestHelperFunctions &
@@ -1124,7 +1125,7 @@ export interface IHookFunctions
 	getNodeWebhookUrl: (name: WebhookType) => string | undefined;
 	getNodeParameter(
 		parameterName: string,
-		fallbackValue?: any,
+		fallbackValue?: unknown,
 		options?: IGetNodeParameterOptions,
 	): NodeParameterValueType | object;
 	helpers: RequestHelperFunctions;
@@ -1140,7 +1141,7 @@ export interface IWebhookFunctions extends FunctionsBaseWithRequiredKeys<'getMod
 	): Promise<unknown>;
 	getNodeParameter(
 		parameterName: string,
-		fallbackValue?: any,
+		fallbackValue?: unknown,
 		options?: IGetNodeParameterOptions,
 	): NodeParameterValueType | object;
 	getNodeWebhookUrl: (name: WebhookType) => string | undefined;
@@ -1205,7 +1206,7 @@ export interface INodes {
 }
 
 export interface IObservableObject {
-	[key: string]: any;
+	[key: string]: unknown;
 	__dataChanged: boolean;
 }
 
@@ -1396,7 +1397,7 @@ export interface INodePropertyTypeOptions {
 	minRequiredFields?: number; // Supported by: fixedCollection
 	maxAllowedFields?: number; // Supported by: fixedCollection
 	calloutAction?: CalloutAction; // Supported by: callout
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 export interface ResourceMapperTypeOptionsBase {
@@ -1585,7 +1586,7 @@ export interface INodePropertyOptions {
 	description?: string;
 	routing?: INodePropertyRouting;
 	outputConnectionType?: NodeConnectionType;
-	inputSchema?: any;
+	inputSchema?: unknown;
 }
 
 export interface INodeListSearchItems extends INodePropertyOptions {
@@ -2097,7 +2098,7 @@ export interface IWebhookDescription {
 
 export interface ProxyInput {
 	all: () => INodeExecutionData[];
-	context: any;
+	context: IContextObject;
 	first: () => INodeExecutionData | undefined;
 	item: INodeExecutionData | undefined;
 	last: () => INodeExecutionData | undefined;
@@ -2105,31 +2106,31 @@ export interface ProxyInput {
 }
 
 export interface IWorkflowDataProxyData {
-	[key: string]: any;
+	[key: string]: unknown;
 	$binary: INodeExecutionData['binary'];
-	$data: any;
-	$env: any;
+	$data: INodeExecutionData['json'];
+	$env: Record<string, string | undefined>;
 	$evaluateExpression: (expression: string, itemIndex?: number) => NodeParameterValueType;
 	$item: (itemIndex: number, runIndex?: number) => IWorkflowDataProxyData;
 	$items: (nodeName?: string, outputIndex?: number, runIndex?: number) => INodeExecutionData[];
 	$json: INodeExecutionData['json'];
-	$node: any;
+	$node: INode | Record<string, unknown>;
 	$parameter: INodeParameters;
 	$position: number;
-	$workflow: any;
-	$: any;
+	$workflow: IWorkflowMetadata | Record<string, unknown>;
+	$: INodeExecutionData['json'] | ((nodeName: string) => unknown);
 	$input: ProxyInput;
-	$thisItem: any;
+	$thisItem: INodeExecutionData['json'];
 	$thisRunIndex: number;
 	$thisItemIndex: number;
-	$now: any;
-	$today: any;
+	$now: DateTime;
+	$today: DateTime;
 	$getPairedItem: (
 		destinationNodeName: string,
 		incomingSourceData: ISourceData | null,
 		pairedItem: IPairedItemData,
 	) => INodeExecutionData | null;
-	constructor: any;
+	constructor: Function;
 }
 
 export type IWorkflowDataProxyAdditionalKeys = IDataObject & {
@@ -2163,7 +2164,7 @@ export interface IWorkflowMetadata {
 
 export interface IWebhookResponseData {
 	workflowData?: INodeExecutionData[][];
-	webhookResponse?: any;
+	webhookResponse?: unknown;
 	noWebhookResponse?: boolean;
 }
 
@@ -2600,7 +2601,7 @@ export interface WorkflowTestData {
 		nodeExecutionStack?: IExecuteData[];
 		testAllOutputs?: boolean;
 		nodeData: {
-			[key: string]: any[][];
+			[key: string]: INodeExecutionData[][];
 		};
 		error?: string;
 	};
@@ -2870,7 +2871,7 @@ export type FieldTypeMap = {
 	time: string;
 	array: unknown[];
 	object: object;
-	options: any;
+	options: unknown;
 	url: string;
 	jwt: string;
 	'form-fields': FormFieldsParameter;

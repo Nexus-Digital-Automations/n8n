@@ -378,8 +378,7 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 	/** Returns the requested resolved (all expressions replaced) node parameters. */
 	getNodeParameter(
 		parameterName: string,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		fallbackValue?: any,
+		fallbackValue?: unknown,
 		options?: IGetNodeParameterOptions,
 	): NodeParameterValueType | object {
 		const itemIndex = 0;
@@ -389,8 +388,7 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 	protected _getNodeParameter(
 		parameterName: string,
 		itemIndex: number,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		fallbackValue?: any,
+		fallbackValue?: unknown,
 		options?: IGetNodeParameterOptions,
 	): NodeParameterValueType | object {
 		const { workflow, node, mode, runExecutionData, runIndex, connectionInputData, executeData } =
@@ -417,7 +415,7 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 		try {
 			returnData = workflow.expression.getParameterValue(
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-				value,
+				value as NodeParameterValueType,
 				runExecutionData,
 				runIndex,
 				itemIndex,
@@ -476,7 +474,7 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 		);
 
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-		return returnData;
+		return returnData as NodeParameterValueType | object;
 	}
 
 	evaluateExpression(expression: string, itemIndex: number = 0) {

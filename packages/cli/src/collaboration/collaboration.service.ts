@@ -323,7 +323,7 @@ export class CollaborationService {
 					workflowData.connections[connOp.connection.source][connOp.connection.sourceIndex] as any[]
 				).push({
 					node: connOp.connection.destination,
-					type: (connOp.connection.type || 'main') as NodeConnectionType,
+					type: (connOp.connection.type ?? 'main') as NodeConnectionType,
 					index: connOp.connection.destinationIndex,
 				});
 				break;

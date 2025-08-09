@@ -88,8 +88,10 @@ export const hasNativeMethod = (method: string): boolean => {
 //  * recast's types aren't great and we need to use a lot of anys
 //  */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function parseWithEsprimaNext(source: string, options?: any): any {
+function parseWithEsprimaNext(
+	source: string,
+	options?: EsprimaConfig,
+): ReturnType<typeof esprimaParse> {
 	const ast = esprimaParse(source, {
 		loc: true,
 		locations: true,
@@ -475,12 +477,14 @@ function findExtendedFunction(input: unknown, functionName: string): FoundFuncti
 
 	// Look for generic or builtin
 	if (!foundFunction) {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const inputAny: any = input;
 		// This is likely a builtin we're implementing for another type
 		// (e.g. toLocaleString). We'll return that instead
-		if (inputAny && functionName && typeof inputAny[functionName] === 'function') {
-			return { type: 'native', function: inputAny[functionName] };
+		if (
+			input &&
+			functionName &&
+			typeof (input as Record<string, unknown>)[functionName] === 'function'
+		) {
+			return { type: 'native', function: (input as Record<string, Function>)[functionName] };
 		}
 
 		// Use a generic version if available

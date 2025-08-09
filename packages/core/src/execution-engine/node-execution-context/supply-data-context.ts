@@ -17,6 +17,7 @@ import type {
 	WorkflowExecuteMode,
 	NodeConnectionType,
 	ISourceData,
+	NodeParameterValueType,
 } from 'n8n-workflow';
 import { createDeferredPromise, NodeConnectionTypes } from 'n8n-workflow';
 
@@ -103,8 +104,7 @@ export class SupplyDataContext extends BaseExecuteContext implements ISupplyData
 		this.getNodeParameter = ((
 			parameterName: string,
 			itemIndex: number,
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			fallbackValue?: any,
+			fallbackValue?: NodeParameterValueType,
 			options?: IGetNodeParameterOptions,
 		) =>
 			this._getNodeParameter(

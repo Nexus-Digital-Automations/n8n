@@ -232,11 +232,13 @@ export class RoutingNode {
 		}
 
 		const promisesResponses = await Promise.allSettled(requestPromises);
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let responseData: any;
+		let responseData: PromiseSettledResult<INodeExecutionData[]> | undefined;
 		for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 			responseData = promisesResponses.shift();
-			if (responseData!.status !== 'fulfilled') {
+			if (!responseData) {
+				continue;
+			}
+			if (responseData.status !== 'fulfilled') {
 				if (responseData.reason.statusCode === 429) {
 					responseData.reason.message =
 						"Try spacing your requests out using the batching settings under 'Options'";
@@ -264,12 +266,18 @@ export class RoutingNode {
 				});
 			}
 
-			if (itemContext[itemIndex].requestData.maxResults) {
+			if (
+				itemContext[itemIndex].requestData.maxResults &&
+				responseData &&
+				responseData.status === 'fulfilled'
+			) {
 				// Remove not needed items in case APIs return to many
-				responseData.value.splice(itemContext[itemIndex].requestData.maxResults as number);
+				responseData.value.splice(itemContext[itemIndex].requestData.maxResults);
 			}
 
-			returnData.push(...responseData.value);
+			if (responseData && responseData.status === 'fulfilled') {
+				returnData.push(...responseData.value);
+			}
 		}
 
 		return [returnData];
@@ -642,7 +650,7 @@ export class RoutingNode {
 							runIndex,
 						);
 
-						responseData.push(...tempResponseItems);
+						responseData.push.apply(responseData, tempResponseItems);
 
 						makeAdditionalRequest = this.getParameterValue(
 							requestOperations.pagination.properties.continue,
@@ -716,7 +724,7 @@ export class RoutingNode {
 							});
 						}
 
-						responseData.push(...tempResponseData);
+						responseData.push.apply(responseData, tempResponseData);
 					} while (tempResponseData.length && tempResponseData.length === properties.pageSize);
 				}
 			}
@@ -908,7 +916,7 @@ export class RoutingNode {
 				}
 
 				if (nodeProperties.routing.send.preSend) {
-					returnData.preSend.push(...nodeProperties.routing.send.preSend);
+					returnData.preSend.push.apply(returnData.preSend, nodeProperties.routing.send.preSend);
 				}
 			}
 			if (nodeProperties.routing.output) {

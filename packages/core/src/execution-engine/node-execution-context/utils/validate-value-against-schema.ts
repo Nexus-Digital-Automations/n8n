@@ -140,7 +140,7 @@ const validateCollection = (
 					);
 				}
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-				value[key] = fieldValidationResult.newValue;
+				(value as Record<string, unknown>)[key] = fieldValidationResult.newValue;
 			}
 		}
 	}

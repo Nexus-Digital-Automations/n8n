@@ -480,9 +480,9 @@ export class SystemMonitoringMetricsService extends EventEmitter {
 
 		try {
 			if (resolved) {
-				this.metrics.alertsResolved.labels(severity, type, workflowId || '').inc();
+				this.metrics.alertsResolved.labels(severity, type, workflowId ?? '').inc();
 			} else {
-				this.metrics.alertsTotal.labels(severity, type, workflowId || '').inc();
+				this.metrics.alertsTotal.labels(severity, type, workflowId ?? '').inc();
 			}
 
 			this.logger.debug('Recorded alert metrics', {
@@ -734,7 +734,7 @@ export class SystemMonitoringMetricsService extends EventEmitter {
 			if (resources.workflows) {
 				for (const workflow of resources.workflows) {
 					this.metrics.activeWorkflowExecutions
-						.labels(workflow.workflowId, workflow.workflowName || 'unknown')
+						.labels(workflow.workflowId, workflow.workflowName ?? 'unknown')
 						.set(1);
 				}
 			}

@@ -289,7 +289,7 @@ export class Server extends AbstractServer {
 			this.app.get(`/${this.restEndpoint}/config.js`, (_req, res) => {
 				const frontendSentryConfig = JSON.stringify({
 					dsn: this.globalConfig.sentry.frontendDsn,
-					environment: process.env.ENVIRONMENT || 'development',
+					environment: process.env.ENVIRONMENT ?? 'development',
 					serverName: process.env.DEPLOYMENT_NAME,
 					release: `n8n@${N8N_VERSION}`,
 				});
