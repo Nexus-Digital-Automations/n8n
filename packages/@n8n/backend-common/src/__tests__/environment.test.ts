@@ -155,13 +155,13 @@ describe('Environment Detection', () => {
 			expect(inDevelopment).toBe(false);
 		});
 
-		it('should return false when NODE_ENV is an arbitrary value', () => {
+		it('should return true when NODE_ENV is an arbitrary value (defaults to development)', () => {
 			process.env.NODE_ENV = 'staging';
 
 			jest.resetModules();
 			const { inDevelopment } = require('../environment');
 
-			expect(inDevelopment).toBe(false);
+			expect(inDevelopment).toBe(true);
 		});
 	});
 

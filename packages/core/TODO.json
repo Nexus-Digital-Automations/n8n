@@ -76,36 +76,12 @@
 			}
 		},
 		{
-			"id": "task_1754705746688_hgaim6699",
-			"title": "Fix Type Compatibility Issues in Workflow Execute Tests",
-			"description": "Resolve TypeScript type incompatibilities in workflow-execute.test.ts and directory-loader.test.ts related to INodeParameters, IExecuteData, and node type descriptions.",
-			"mode": "DEVELOPMENT",
-			"priority": "medium",
-			"status": "pending",
-			"dependencies": [],
-			"important_files": [
-				"src/execution-engine/__tests__/workflow-execute.test.ts",
-				"src/nodes-loader/__tests__/directory-loader.test.ts",
-				"test/helpers/index.ts"
-			],
-			"success_criteria": [
-				"Type assignments between INodeParameters and expected types resolved",
-				"Node type description compatibility fixed",
-				"Workflow execute tests compile without type errors",
-				"Directory loader tests compile without type errors"
-			],
-			"estimate": "",
-			"requires_research": false,
-			"subtasks": [],
-			"created_at": "2025-08-09T02:15:46.688Z"
-		},
-		{
 			"id": "task_1754705758683_vntnfymtk",
 			"title": "Fix Backend Common Environment Detection Test Failures",
 			"description": "Resolve failing environment detection tests in @n8n/backend-common package related to NODE_ENV handling, case sensitivity, whitespace handling, and edge case scenarios. Multiple tests are failing due to incorrect environment flag logic.",
 			"mode": "TESTING",
 			"priority": "medium",
-			"status": "pending",
+			"status": "in_progress",
 			"dependencies": [],
 			"important_files": [
 				"../@n8n/backend-common/src/__tests__/environment.test.ts",
@@ -164,8 +140,8 @@
 		"removedCount": 0,
 		"finalTaskCount": 0
 	},
-	"execution_count": 21,
-	"last_hook_activation": 1754759176749,
+	"execution_count": 23,
+	"last_hook_activation": 1754759974161,
 	"project": "unnamed-project",
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,

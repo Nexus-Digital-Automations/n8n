@@ -355,7 +355,11 @@ describe('WorkflowExecute', () => {
 		const tests: WorkflowTestData[] = Helpers.workflowToTests(__dirname);
 
 		const executionMode = 'manual';
-		const nodeTypes = Helpers.NodeTypes(Helpers.getNodeTypes(tests));
+		let nodeTypes: INodeTypes;
+
+		beforeAll(async () => {
+			nodeTypes = Helpers.NodeTypes(await Helpers.getNodeTypes(tests));
+		});
 
 		for (const testData of tests) {
 			test(testData.description, async () => {
@@ -1116,12 +1120,21 @@ describe('WorkflowExecute', () => {
 		});
 		const triggerNodeType = mock<INodeType>({
 			description: {
+				displayName: 'Test Trigger',
+				name: 'testTrigger',
+				icon: 'file:trigger.svg',
+				group: ['trigger'],
+				version: 1,
+				subtitle: '',
+				description: 'Test trigger node',
+				inputs: [],
+				outputs: ['main'],
 				properties: [],
 			},
 			execute: undefined,
 			poll: undefined,
 			webhook: undefined,
-			trigger() {
+			async trigger() {
 				return triggerResponse;
 			},
 		});
@@ -2111,7 +2124,7 @@ describe('WorkflowExecute', () => {
 			test(`should execute customOperations - ${title}`, async () => {
 				const testNode = mock<INode>({
 					name: 'nodeName',
-					parameters,
+					parameters: parameters as any,
 					forceCustomOperation,
 				});
 
@@ -2135,10 +2148,10 @@ describe('WorkflowExecute', () => {
 					execute: undefined,
 					customOperations: {
 						test: {
-							test1(this: IExecuteFunctions) {
+							async test1(this: IExecuteFunctions) {
 								return [[{ json: { customOperationsRun: 1 } }]];
 							},
-							test2(this: IExecuteFunctions) {
+							async test2(this: IExecuteFunctions) {
 								return [[{ json: { customOperationsRun: 2 } }]];
 							},
 						},
@@ -2343,7 +2356,7 @@ describe('WorkflowExecute', () => {
 					inputs: [{ type: NodeConnectionTypes.Main }],
 					outputs: [{ type: NodeConnectionTypes.Main }],
 				},
-				execute() {
+				async execute() {
 					return [[{ json: { success: true } }]];
 				},
 			});

@@ -3,6 +3,7 @@ import { mock } from 'jest-mock-extended';
 import type {
 	IDataObject,
 	IDeferredPromise,
+	INodeExecutionData,
 	INodeType,
 	INodeTypes,
 	IRun,
@@ -71,11 +72,11 @@ const preparePinData = (pinData: IDataObject) => {
 	const returnData = Object.keys(pinData).reduce(
 		(acc, key) => {
 			const data = pinData[key] as IDataObject[];
-			acc[key] = [data];
+			acc[key] = [data.map((item) => ({ json: item }))];
 			return acc;
 		},
 		{} as {
-			[key: string]: IDataObject[][];
+			[key: string]: INodeExecutionData[][];
 		},
 	);
 	return returnData;

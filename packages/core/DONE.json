@@ -177,9 +177,35 @@
 			"created_at": "2025-08-09T02:15:46.687Z",
 			"completed_at": "2025-08-09T17:07:57.319Z",
 			"archived_from_todo": "./packages/core/TODO.json"
+		},
+		{
+			"id": "task_1754705746688_hgaim6699",
+			"title": "Fix Type Compatibility Issues in Workflow Execute Tests",
+			"description": "Resolve TypeScript type incompatibilities in workflow-execute.test.ts and directory-loader.test.ts related to INodeParameters, IExecuteData, and node type descriptions.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "completed",
+			"dependencies": [],
+			"important_files": [
+				"src/execution-engine/__tests__/workflow-execute.test.ts",
+				"src/nodes-loader/__tests__/directory-loader.test.ts",
+				"test/helpers/index.ts"
+			],
+			"success_criteria": [
+				"Type assignments between INodeParameters and expected types resolved",
+				"Node type description compatibility fixed",
+				"Workflow execute tests compile without type errors",
+				"Directory loader tests compile without type errors"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T02:15:46.688Z",
+			"completed_at": "2025-08-09T17:18:16.363Z",
+			"archived_from_todo": "./TODO.json"
 		}
 	],
-	"total_completed": 7,
-	"last_completion": "2025-08-09T17:07:57.319Z",
+	"total_completed": 8,
+	"last_completion": "2025-08-09T17:18:16.363Z",
 	"created_at": "2025-08-09T00:15:34.072Z"
 }

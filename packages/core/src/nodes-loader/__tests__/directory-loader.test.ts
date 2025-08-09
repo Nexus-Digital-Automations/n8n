@@ -45,10 +45,16 @@ describe('DirectoryLoader', () => {
 	const createNode = (name: string, credential?: string) =>
 		mock<INodeType>({
 			description: {
+				displayName: name,
 				name,
 				version: 1,
 				icon: `file:${name}.svg`,
 				iconUrl: undefined,
+				group: ['transform'],
+				subtitle: '',
+				description: `Test node: ${name}`,
+				inputs: ['main'],
+				outputs: ['main'],
 				credentials: credential ? [{ name: credential }] : [],
 				properties: [],
 			},
@@ -249,7 +255,7 @@ describe('DirectoryLoader', () => {
 		it('should only load included nodes when includeNodes is set', async () => {
 			mockFs.readFileSync.calledWith(`${directory}/package.json`).mockReturnValue(packageJson);
 
-			mockFsPromises.readFile.mockImplementation((path) => {
+			mockFsPromises.readFile.mockImplementation(async (path) => {
 				if (typeof path !== 'string') throw new Error('Invalid path');
 
 				if (path.endsWith('known/nodes.json')) {
@@ -285,7 +291,7 @@ describe('DirectoryLoader', () => {
 		it('should load no nodes when includeNodes does not match any nodes', async () => {
 			mockFs.readFileSync.calledWith(`${directory}/package.json`).mockReturnValue(packageJson);
 
-			mockFsPromises.readFile.mockImplementation((path) => {
+			mockFsPromises.readFile.mockImplementation(async (path) => {
 				if (typeof path !== 'string') throw new Error('Invalid path');
 
 				if (path.endsWith('known/nodes.json')) {
@@ -322,7 +328,7 @@ describe('DirectoryLoader', () => {
 		it('should not include nodes that are not in "includeNodes" even if they are from a different package', async () => {
 			mockFs.readFileSync.calledWith(`${directory}/package.json`).mockReturnValue(packageJson);
 
-			mockFsPromises.readFile.mockImplementation((path) => {
+			mockFsPromises.readFile.mockImplementation(async (path) => {
 				if (typeof path !== 'string') throw new Error('Invalid path');
 
 				if (path.endsWith('known/nodes.json')) {
@@ -359,7 +365,7 @@ describe('DirectoryLoader', () => {
 		it('should exclude specified nodes when excludeNodes is set', async () => {
 			mockFs.readFileSync.calledWith(`${directory}/package.json`).mockReturnValue(packageJson);
 
-			mockFsPromises.readFile.mockImplementation((path) => {
+			mockFsPromises.readFile.mockImplementation(async (path) => {
 				if (typeof path !== 'string') throw new Error('Invalid path');
 
 				if (path.endsWith('known/nodes.json')) {
@@ -459,9 +465,9 @@ describe('DirectoryLoader', () => {
 				currentVersion: 2,
 				nodeVersions: {
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					1: nodeV1,
+					1: nodeV1 as any,
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					2: nodeV2,
+					2: nodeV2 as any,
 				},
 			});
 
@@ -505,9 +511,9 @@ describe('DirectoryLoader', () => {
 				currentVersion: 2,
 				nodeVersions: {
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					1: nodeV1,
+					1: nodeV1 as any,
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					2: nodeV2,
+					2: nodeV2 as any,
 				},
 			});
 
@@ -528,9 +534,9 @@ describe('DirectoryLoader', () => {
 				currentVersion: 2,
 				nodeVersions: {
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					1: nodeV1,
+					1: nodeV1 as any,
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					2: nodeV2,
+					2: nodeV2 as any,
 				},
 			});
 
@@ -577,7 +583,7 @@ describe('DirectoryLoader', () => {
 				dark: 'file:dark.svg',
 			};
 
-			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(credWithIcon);
+			jest.spyOn(classLoader, 'loadClassInIsolation').mockResolvedValueOnce(credWithIcon);
 
 			await loader.loadCredentialFromFile(filePath);
 
@@ -595,7 +601,7 @@ describe('DirectoryLoader', () => {
 			const credWithAuth = createCredential('credWithAuth');
 			credWithAuth.authenticate = jest.fn();
 
-			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(credWithAuth);
+			jest.spyOn(classLoader, 'loadClassInIsolation').mockResolvedValueOnce(credWithAuth);
 
 			await loader.loadCredentialFromFile(filePath);
 
@@ -610,7 +616,7 @@ describe('DirectoryLoader', () => {
 			const extendingCred = createCredential('extendingCred');
 			extendingCred.extends = ['baseCredential'];
 
-			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(extendingCred);
+			jest.spyOn(classLoader, 'loadClassInIsolation').mockResolvedValueOnce(extendingCred);
 
 			// Set up nodesByCredential before loading
 			loader.nodesByCredential.extendingCred = ['node1', 'node2'];
@@ -731,7 +737,7 @@ describe('DirectoryLoader', () => {
 				dark: 'file:dark.svg',
 			};
 
-			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(nodeWithIcon);
+			jest.spyOn(classLoader, 'loadClassInIsolation').mockResolvedValueOnce(nodeWithIcon);
 
 			await loader.loadNodeFromFile(filePath);
 
@@ -752,7 +758,7 @@ describe('DirectoryLoader', () => {
 				dark: 'file:dark.svg',
 			};
 
-			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(nodeWithIcon);
+			jest.spyOn(classLoader, 'loadClassInIsolation').mockResolvedValueOnce(nodeWithIcon);
 
 			await expect(async () => await loader.loadNodeFromFile(filePath)).rejects.toThrow(
 				'Icon path "../evil" is not contained within',
@@ -785,13 +791,13 @@ describe('DirectoryLoader', () => {
 				currentVersion: 2,
 				nodeVersions: {
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					1: nodeV1,
+					1: nodeV1 as any,
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					2: nodeV2,
+					2: nodeV2 as any,
 				},
 			});
 
-			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(versionedNode);
+			jest.spyOn(classLoader, 'loadClassInIsolation').mockResolvedValueOnce(versionedNode);
 
 			await loader.loadNodeFromFile(filePath);
 
@@ -808,7 +814,7 @@ describe('DirectoryLoader', () => {
 			const filePath = 'dist/Node1/Node1.node.js';
 
 			const nodeWithCreds = createNode('testNode', 'testCred');
-			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(nodeWithCreds);
+			jest.spyOn(classLoader, 'loadClassInIsolation').mockResolvedValueOnce(nodeWithCreds);
 
 			await loader.loadNodeFromFile(filePath);
 

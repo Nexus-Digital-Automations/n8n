@@ -122,7 +122,7 @@ export const predefinedNodesTypes: INodeTypeData = {
 					},
 				],
 			},
-			execute(this: IExecuteFunctions) {
+			async execute(this: IExecuteFunctions) {
 				const items = this.getInputData();
 				const returnData: INodeExecutionData[] = [];
 
@@ -594,41 +594,51 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				'Merge6',
 			],
 			nodeData: {
-				Merge1: [[{}]],
+				Merge1: [[{ json: {} }]],
 				Merge2: [
 					[
 						{
-							test: 'a',
+							json: {
+								test: 'a',
+							},
 						},
 					],
 				],
-				Merge3: [[{}]],
+				Merge3: [[{ json: {} }]],
 				Merge4: [
 					[
-						{},
+						{ json: {} },
 						{
-							test: 'a',
+							json: {
+								test: 'a',
+							},
 						},
 					],
 				],
 				Merge5: [
 					[
-						{},
+						{ json: {} },
 						{
-							test: 'a',
+							json: {
+								test: 'a',
+							},
 						},
-						{},
+						{ json: {} },
 					],
 				],
 				Merge6: [
 					[
-						{},
+						{ json: {} },
 						{
-							test: 'a',
+							json: {
+								test: 'a',
+							},
 						},
-						{},
+						{ json: {} },
 						{
-							test: 'a',
+							json: {
+								test: 'a',
+							},
 						},
 					],
 				],
@@ -873,50 +883,66 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				'Merge2',
 			],
 			nodeData: {
-				Start: [[{}]],
+				Start: [[{ json: {} }]],
 				Set1: [
 					[
 						{
-							counter: 1,
+							json: {
+								counter: 1,
+							},
 						},
 					],
 					[
 						{
-							counter: 2,
+							json: {
+								counter: 2,
+							},
 						},
 					],
 					[
 						{
-							counter: 3,
+							json: {
+								counter: 3,
+							},
 						},
 					],
 				],
 				Set: [
 					[
 						{
-							counter: 1,
+							json: {
+								counter: 1,
+							},
 						},
 					],
 					[
 						{
-							counter: 2,
+							json: {
+								counter: 2,
+							},
 						},
 					],
 					[
 						{
-							counter: 3,
+							json: {
+								counter: 3,
+							},
 						},
 					],
 				],
 				IF1: [
 					[
 						{
-							counter: 1,
+							json: {
+								counter: 1,
+							},
 						},
 					],
 					[
 						{
-							counter: 2,
+							json: {
+								counter: 2,
+							},
 						},
 					],
 					[],
@@ -924,12 +950,16 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				IF: [
 					[
 						{
-							counter: 1,
+							json: {
+								counter: 1,
+							},
 						},
 					],
 					[
 						{
-							counter: 2,
+							json: {
+								counter: 2,
+							},
 						},
 					],
 					[],
@@ -937,48 +967,68 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				Merge1: [
 					[
 						{
-							counter: 1,
+							json: {
+								counter: 1,
+							},
 						},
 						{
-							counter: 1,
+							json: {
+								counter: 1,
+							},
 						},
 					],
 					[
 						{
-							counter: 2,
+							json: {
+								counter: 2,
+							},
 						},
 						{
-							counter: 2,
+							json: {
+								counter: 2,
+							},
 						},
 					],
 				],
 				Merge: [
 					[
 						{
-							counter: 3,
+							json: {
+								counter: 3,
+							},
 						},
-						{},
+						{ json: {} },
 					],
 				],
 				Merge2: [
 					[
 						{
-							counter: 1,
+							json: {
+								counter: 1,
+							},
 						},
 						{
-							counter: 1,
+							json: {
+								counter: 1,
+							},
 						},
 						{
-							counter: 3,
+							json: {
+								counter: 3,
+							},
 						},
-						{},
+						{ json: {} },
 					],
 					[
 						{
-							counter: 2,
+							json: {
+								counter: 2,
+							},
 						},
 						{
-							counter: 2,
+							json: {
+								counter: 2,
+							},
 						},
 					],
 				],
@@ -1039,7 +1089,9 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				Set: [
 					[
 						{
-							value1: 1,
+							json: {
+								value1: 1,
+							},
 						},
 					],
 				],
@@ -1133,20 +1185,26 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				Set1: [
 					[
 						{
-							value1: 1,
+							json: {
+								value1: 1,
+							},
 						},
 					],
 				],
 				Set2: [
 					[
 						{
-							value2: 2,
+							json: {
+								value2: 2,
+							},
 						},
 					],
 					[
 						{
-							value1: 1,
-							value2: 2,
+							json: {
+								value1: 1,
+								value2: 2,
+							},
 						},
 					],
 				],
@@ -1412,72 +1470,94 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				Set1: [
 					[
 						{
-							value1: 1,
+							json: {
+								value1: 1,
+							},
 						},
 					],
 				],
 				Set2: [
 					[
 						{
-							value2: 2,
+							json: {
+								value2: 2,
+							},
 						},
 					],
 				],
 				Set3: [
 					[
 						{
-							value1: 1,
-							value3: 3,
+							json: {
+								value1: 1,
+								value3: 3,
+							},
 						},
 					],
 				],
 				Set4: [
 					[
 						{
-							value1: 1,
-							value3: 3,
-							value4: 4,
+							json: {
+								value1: 1,
+								value3: 3,
+								value4: 4,
+							},
 						},
 					],
 				],
 				Merge1: [
 					[
 						{
-							value1: 1,
+							json: {
+								value1: 1,
+							},
 						},
 						{
-							value2: 2,
+							json: {
+								value2: 2,
+							},
 						},
 					],
 				],
 				Merge2: [
 					[
 						{
-							value2: 2,
+							json: {
+								value2: 2,
+							},
 						},
 					],
 				],
 				Merge3: [
 					[
 						{
-							value1: 1,
-							value3: 3,
-							value4: 4,
+							json: {
+								value1: 1,
+								value3: 3,
+								value4: 4,
+							},
 						},
 						{
-							value2: 2,
+							json: {
+								value2: 2,
+							},
 						},
 					],
 				],
 				Merge4: [
 					[
 						{
-							value1: 1,
-							value3: 3,
-							value4: 4,
+							json: {
+								value1: 1,
+								value3: 3,
+								value4: 4,
+							},
 						},
 						{
-							value2: 2,
+							json: {
+								value2: 2,
+							},
 						},
 					],
 				],
@@ -1628,11 +1708,15 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				Merge1: [
 					[
 						{
-							test1: 'a',
-							test2: 'b',
+							json: {
+								test1: 'a',
+								test2: 'b',
+							},
 						},
 						{
-							test1: 'a',
+							json: {
+								test1: 'a',
+							},
 						},
 					],
 				],
@@ -2002,10 +2086,14 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				Merge: [
 					[
 						{
-							value1: 1,
+							json: {
+								value1: 1,
+							},
 						},
 						{
-							value2: 2,
+							json: {
+								value2: 2,
+							},
 						},
 					],
 				],
@@ -4167,7 +4255,7 @@ export const v1WorkflowExecuteTests: WorkflowTestData[] = [
 							{
 								counter: 3,
 							},
-							{},
+							{ json: {} },
 						],
 					],
 				],
@@ -4183,7 +4271,7 @@ export const v1WorkflowExecuteTests: WorkflowTestData[] = [
 							{
 								counter: 3,
 							},
-							{},
+							{ json: {} },
 						],
 					],
 					[
@@ -5039,73 +5127,75 @@ export const v1WorkflowExecuteTests: WorkflowTestData[] = [
 				Start: [[[{}]]],
 				'Edit Fields': [
 					[
-						[
-							{
+						{
+							json: {
 								name: 'foo',
 								value: 'bar',
 							},
-						],
+						},
 					],
 				],
 				'Edit Fields1': [
 					[
-						[
-							{
+						{
+							json: {
 								name: 'bar',
 								value: 'baz',
 							},
-						],
+						},
 					],
 				],
 				Merge: [
 					[
-						[
-							{
+						{
+							json: {
 								name: 'foo',
 								value: 'bar',
 							},
-							{
+						},
+						{
+							json: {
 								name: 'bar',
 								value: 'baz',
 							},
-						],
+						},
 					],
 				],
 				If1: [
 					[
-						[
-							{
+						{
+							json: {
 								name: 'foo',
 								value: 'bar',
 							},
-						],
-						[
-							{
+						},
+						{
+							json: {
 								name: 'bar',
 								value: 'baz',
 							},
-						],
-						[],
+						},
+						{ json: {} },
 					],
 				],
 				'Edit Fields2': [
 					[
-						[
-							{
+						{
+							json: {
 								name: 'foo',
 								value: 'bar',
 							},
-						],
+						},
 					],
 				],
 				'Edit Fields3': [
 					[
-						[
-							{
+						{
+							json: {
 								name: 'bar',
 								value: 'baz',
 							},
-						],
+						},
 					],
 				],
 			},
