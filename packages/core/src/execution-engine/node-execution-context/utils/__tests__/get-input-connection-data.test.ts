@@ -713,8 +713,11 @@ describe('makeHandleToolInvocation', () => {
 		);
 		await handleToolInvocation(toolArgs);
 
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(contextFactory).toHaveBeenCalledWith(0);
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(contextFactory).toHaveBeenCalledWith(1);
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(contextFactory).toHaveBeenCalledWith(2);
 	});
 
@@ -752,7 +755,9 @@ describe('makeHandleToolInvocation', () => {
 
 			const result = await handleToolInvocation(toolArgs);
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(contextFactory).toHaveBeenCalledTimes(1);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).toHaveBeenCalledTimes(1);
 			expect(result).toContain('Error during node execution');
 		});
@@ -777,7 +782,9 @@ describe('makeHandleToolInvocation', () => {
 
 			const result = await handleToolInvocation(toolArgs);
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(contextFactory).toHaveBeenCalledTimes(3);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).toHaveBeenCalledTimes(3);
 			expect(result).toContain('Error during node execution');
 		});
@@ -805,7 +812,9 @@ describe('makeHandleToolInvocation', () => {
 
 			const result = await handleToolInvocation(toolArgs);
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(contextFactory).toHaveBeenCalledTimes(2);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).toHaveBeenCalledTimes(2);
 			expect(result).toBe(JSON.stringify([{ result: 'success' }]));
 		});
@@ -839,6 +848,7 @@ describe('makeHandleToolInvocation', () => {
 
 				await handleToolInvocation(toolArgs);
 
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(connectedNodeType.execute).toHaveBeenCalledTimes(expected);
 			}
 		});
@@ -915,6 +925,7 @@ describe('makeHandleToolInvocation', () => {
 			const result = await handleToolInvocation(toolArgs);
 
 			expect(result).toBe('Error during node execution: Execution was cancelled');
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).not.toHaveBeenCalled();
 		});
 
@@ -947,6 +958,7 @@ describe('makeHandleToolInvocation', () => {
 
 			expect(result).toBe('Error during node execution: Execution was cancelled');
 			expect(sleepWithAbortSpy).toHaveBeenCalledWith(1000, abortController.signal);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).toHaveBeenCalledTimes(1); // Only first attempt
 
 			sleepWithAbortSpy.mockRestore();
@@ -977,6 +989,7 @@ describe('makeHandleToolInvocation', () => {
 			const result = await handleToolInvocation(toolArgs);
 
 			expect(result).toBe('Error during node execution: Execution was cancelled');
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).toHaveBeenCalledTimes(1);
 		});
 
@@ -1008,6 +1021,7 @@ describe('makeHandleToolInvocation', () => {
 			const result = await handleToolInvocation(toolArgs);
 
 			expect(result).toBe(JSON.stringify([{ result: 'success' }]));
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).toHaveBeenCalledTimes(2);
 			expect(sleepWithAbortSpy).toHaveBeenCalledWith(10, abortController.signal);
 

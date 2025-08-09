@@ -89,10 +89,10 @@ describe('Request Helper Functions', () => {
 
 		test('should not throw if the response status is 404, but `simple` option is set to `false`', async () => {
 			nock(baseUrl).get('/test').reply(404, 'Not Found');
-			const response = await proxyRequestToAxios(workflow, additionalData, node, {
+			const response = (await proxyRequestToAxios(workflow, additionalData, node, {
 				url: `${baseUrl}/test`,
 				simple: false,
-			});
+			})) as string;
 
 			expect(response).toEqual('Not Found');
 			// eslint-disable-next-line @typescript-eslint/unbound-method
@@ -101,11 +101,11 @@ describe('Request Helper Functions', () => {
 
 		test('should return full response when `resolveWithFullResponse` is set to true', async () => {
 			nock(baseUrl).get('/test').reply(404, 'Not Found');
-			const response = await proxyRequestToAxios(workflow, additionalData, node, {
+			const response = (await proxyRequestToAxios(workflow, additionalData, node, {
 				url: `${baseUrl}/test`,
 				resolveWithFullResponse: true,
 				simple: false,
-			});
+			})) as unknown;
 
 			expect(response).toMatchObject({
 				body: 'Not Found',
@@ -126,7 +126,7 @@ describe('Request Helper Functions', () => {
 						return this.req.headers;
 					});
 
-				const response = await proxyRequestToAxios(workflow, additionalData, node, {
+				const response = (await proxyRequestToAxios(workflow, additionalData, node, {
 					url: `${baseUrl}/redirect`,
 					auth: {
 						username: 'testuser',
@@ -136,7 +136,7 @@ describe('Request Helper Functions', () => {
 						'X-Other-Header': 'otherHeaderContent',
 					},
 					resolveWithFullResponse: true,
-				});
+				})) as unknown;
 
 				if (response && typeof response === 'object' && 'statusCode' in response) {
 					expect((response as Record<string, unknown>).statusCode).toBe(200);
@@ -147,7 +147,9 @@ describe('Request Helper Functions', () => {
 					'body' in response &&
 					typeof (response as Record<string, unknown>).body === 'string'
 				) {
-					const forwardedHeaders = JSON.parse((response as Record<string, unknown>).body as string);
+					const forwardedHeaders = JSON.parse(
+						(response as Record<string, unknown>).body as string,
+					) as Record<string, unknown>;
 					if (forwardedHeaders && typeof forwardedHeaders === 'object') {
 						const headersObj = forwardedHeaders as Record<string, unknown>;
 						if ('authorization' in forwardedHeaders)
@@ -164,10 +166,10 @@ describe('Request Helper Functions', () => {
 					.reply(301, '', { Location: `${baseUrl}/test` });
 				nock(baseUrl).get('/test').reply(200, 'Redirected');
 
-				const response = await proxyRequestToAxios(workflow, additionalData, node, {
+				const response = (await proxyRequestToAxios(workflow, additionalData, node, {
 					url: `${baseUrl}/redirect`,
 					resolveWithFullResponse: true,
-				});
+				})) as unknown;
 
 				expect(response).toMatchObject({
 					body: 'Redirected',
@@ -337,7 +339,7 @@ describe('Request Helper Functions', () => {
 			expect(axiosOptions.headers).toMatchObject({
 				accept: '*/*',
 				'content-length': 163,
-				'content-type': expect.stringMatching(/^multipart\/form-data; boundary=/),
+				'content-type': expect.stringMatching(/^multipart\/form-data; boundary=/) as unknown,
 			});
 
 			expect(axiosOptions.data).toBeInstanceOf(FormData);
@@ -503,7 +505,7 @@ describe('Request Helper Functions', () => {
 					headers: expect.objectContaining({
 						'Custom-Header': 'test',
 						'User-Agent': 'n8n',
-					}),
+					}) as unknown,
 					params: { param1: 'value1' },
 				}),
 			);
@@ -525,7 +527,7 @@ describe('Request Helper Functions', () => {
 					data: { key: 'value' },
 					headers: expect.objectContaining({
 						'content-type': 'application/json',
-					}),
+					}) as unknown,
 				}),
 			);
 		});
@@ -547,9 +549,9 @@ describe('Request Helper Functions', () => {
 					method: 'POST',
 					data: formData,
 					headers: expect.objectContaining({
-						...formData.getHeaders(),
+						...(formData.getHeaders() as Record<string, string>),
 						'User-Agent': 'n8n',
-					}),
+					}) as unknown,
 				}),
 			);
 		});
@@ -794,7 +796,7 @@ describe('Request Helper Functions', () => {
 				body: { key: 'value' },
 				headers: expect.objectContaining({
 					'x-custom-header': 'test-header',
-				}),
+				}) as unknown,
 				statusCode: 200,
 				statusMessage: 'OK',
 			});

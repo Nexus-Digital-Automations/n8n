@@ -2150,6 +2150,7 @@ describe('RoutingNode', () => {
 					(parameterName: string) => testData.input.node.parameters[parameterName] || {},
 				);
 
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				const getNodeParameter = executeSingleFunctions.getNodeParameter;
 				// @ts-expect-error overwriting a method
 				executeSingleFunctions.getNodeParameter = (parameterName: string) =>

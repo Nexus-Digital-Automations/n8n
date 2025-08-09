@@ -1048,6 +1048,7 @@ describe('WorkflowExecute', () => {
 
 			const issues = workflowExecute.checkReadyForExecution(workflow);
 			expect(issues).toBe(null);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(nodeTypes.getByNameAndVersion).not.toHaveBeenCalled();
 			expect(nodeParamIssuesSpy).not.toHaveBeenCalled();
 		});
@@ -1064,6 +1065,7 @@ describe('WorkflowExecute', () => {
 				startNode: disabledNode.name,
 			});
 			expect(issues).toBe(null);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(nodeTypes.getByNameAndVersion).toHaveBeenCalledTimes(1);
 			expect(nodeParamIssuesSpy).not.toHaveBeenCalled();
 		});
@@ -1080,6 +1082,7 @@ describe('WorkflowExecute', () => {
 				startNode: unknownNode.name,
 			});
 			expect(issues).toEqual({ [unknownNode.name]: { typeUnknown: true } });
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(nodeTypes.getByNameAndVersion).toHaveBeenCalledTimes(2);
 			expect(nodeParamIssuesSpy).not.toHaveBeenCalled();
 		});
@@ -1097,6 +1100,7 @@ describe('WorkflowExecute', () => {
 				startNode: startNode.name,
 			});
 			expect(issues).toEqual({ [startNode.name]: { execution: false } });
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(nodeTypes.getByNameAndVersion).toHaveBeenCalledTimes(2);
 			expect(nodeParamIssuesSpy).toHaveBeenCalled();
 		});
@@ -1855,6 +1859,7 @@ describe('WorkflowExecute', () => {
 
 			// Verify static data handling
 			expect(result).toBeDefined();
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(workflowExecute.moveNodeMetadata).toHaveBeenCalled();
 			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(additionalData.hooks?.runHook).toHaveBeenCalledWith('workflowExecuteAfter', [
@@ -2238,6 +2243,7 @@ describe('WorkflowExecute', () => {
 			}
 
 			// ASSERT
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(mockHooks.runHook).toHaveBeenCalledWith('sendChunk', [
 				{
 					type: 'error',
@@ -2302,6 +2308,7 @@ describe('WorkflowExecute', () => {
 			}
 
 			// ASSERT
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(mockHooks.runHook).toHaveBeenCalledWith('sendChunk', [
 				{
 					type: 'error',
@@ -2359,6 +2366,7 @@ describe('WorkflowExecute', () => {
 			await workflowExecute.run(workflow, successNode);
 
 			// ASSERT
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(mockHooks.runHook).not.toHaveBeenCalledWith('sendChunk', expect.anything());
 		});
 
@@ -2412,6 +2420,7 @@ describe('WorkflowExecute', () => {
 			}
 
 			// ASSERT
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(mockHooks.runHook).toHaveBeenCalledWith('sendChunk', [
 				{
 					type: 'error',
@@ -2475,6 +2484,7 @@ describe('WorkflowExecute', () => {
 			}
 
 			// ASSERT
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(mockHooks.runHook).toHaveBeenCalledWith('sendChunk', [
 				{
 					type: 'error',

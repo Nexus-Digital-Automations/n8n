@@ -59,7 +59,7 @@ describe('ensureType', () => {
 
 	it('parses valid JSON string to object if toType is object', () => {
 		const value = '{"name": "Alice"}';
-		const expectedValue = JSON.parse(value);
+		const expectedValue = JSON.parse(value) as { name: string };
 		const result = ensureType('object', value, 'myParam');
 		expect(result).toEqual(expectedValue);
 	});

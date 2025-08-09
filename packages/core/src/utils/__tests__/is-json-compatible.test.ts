@@ -3,7 +3,7 @@ import { isJsonCompatible } from '../is-json-compatible';
 describe('isJsonCompatible', () => {
 	type CircularReferenceObject = { self: CircularReferenceObject };
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const circularReferencedObject: CircularReferenceObject = {} as any;
+	const circularReferencedObject: CircularReferenceObject = {} as CircularReferenceObject;
 	circularReferencedObject.self = circularReferencedObject;
 
 	type CircularReferencedArray = CircularReferencedArray[];
@@ -17,7 +17,8 @@ describe('isJsonCompatible', () => {
 
 	type CircularReferencedObjectInArray = Array<{ cycle: CircularReferencedObjectInArray }>;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const circularReferencedObjectInArray: CircularReferencedObjectInArray = [] as any;
+	const circularReferencedObjectInArray: CircularReferencedObjectInArray =
+		[] as CircularReferencedObjectInArray;
 	circularReferencedObjectInArray.push({ cycle: circularReferencedObjectInArray });
 
 	test.each([
@@ -128,7 +129,7 @@ describe('isJsonCompatible', () => {
 		{ name: 'an array of primitives', value: { array: [1, 'string', true, false] } },
 		{
 			name: 'an object without a prototype chain',
-			value: { objectWithoutPrototype: Object.create(null) },
+			value: { objectWithoutPrototype: Object.create(null) as Record<string, unknown> },
 		},
 		{
 			name: 'repeated objects references in an array that are not circular',

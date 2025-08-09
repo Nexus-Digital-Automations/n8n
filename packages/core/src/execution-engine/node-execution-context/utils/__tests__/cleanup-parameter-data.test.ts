@@ -15,7 +15,7 @@ describe('cleanupParameterData', () => {
 	it('should stringify plain Luxon dates in-place', () => {
 		const input = {
 			x: 1,
-			y: toPlainObject(DateTime.now()),
+			y: toPlainObject(DateTime.now()) as NodeParameterValue,
 		};
 		expect(typeof input.y).toBe('object');
 		cleanupParameterData(input);

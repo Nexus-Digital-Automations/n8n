@@ -103,7 +103,7 @@ export function getNodeTypes(testData: WorkflowTestData[] | WorkflowTestData) {
 		}
 		const sourcePath = loadInfo.sourcePath.replace(/^dist\//, './').replace(/\.js$/, '.ts');
 		const nodeSourcePath = path.join(BASE_DIR, 'nodes-base', sourcePath);
-		const requiredModule = require(nodeSourcePath);
+		const requiredModule = require(nodeSourcePath) as Record<string, unknown>;
 		let node: INodeType;
 		if (
 			requiredModule &&
