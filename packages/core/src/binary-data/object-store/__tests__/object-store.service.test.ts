@@ -21,7 +21,7 @@ jest.mock('@aws-sdk/client-s3', () => ({
 	...jest.requireActual('@aws-sdk/client-s3'),
 	S3Client: class {
 		constructor() {
-			return s3Client;
+			return s3Client as never;
 		}
 	},
 }));

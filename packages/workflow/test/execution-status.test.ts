@@ -1,4 +1,7 @@
-import { ExecutionStatusList, type ExecutionStatus } from '../src/execution-status';
+import {
+	EXECUTION_STATUS_LIST as ExecutionStatusList,
+	type ExecutionStatus,
+} from '../src/execution-status';
 
 describe('ExecutionStatus', () => {
 	describe('ExecutionStatusList', () => {

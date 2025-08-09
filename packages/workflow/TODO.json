@@ -517,26 +517,6 @@
 			"created_at": "2025-08-09T00:54:58.298Z"
 		},
 		{
-			"id": "task_1754700916294_ni1h2oxxe",
-			"title": "Fix no-explicit-any violations in workflow package",
-			"description": "Resolve ~44 @typescript-eslint/no-explicit-any violations in packages/workflow. Replace explicit any types with proper TypeScript types and interfaces to improve type safety.",
-			"mode": "DEVELOPMENT",
-			"priority": "medium",
-			"status": "pending",
-			"dependencies": [],
-			"important_files": ["packages/workflow/src/", "packages/workflow/eslint.config.mjs"],
-			"success_criteria": [
-				"All @typescript-eslint/no-explicit-any warnings resolved",
-				"Proper type definitions added for previously any-typed variables",
-				"Generic types used where appropriate instead of any",
-				"No new explicit any violations introduced"
-			],
-			"estimate": "3-4 hours",
-			"requires_research": false,
-			"subtasks": [],
-			"created_at": "2025-08-09T00:55:16.294Z"
-		},
-		{
 			"id": "task_1754700925386_8ohnp3hhx",
 			"title": "Fix no-unsafe-assignment violations in workflow package",
 			"description": "Resolve ~30 @typescript-eslint/no-unsafe-assignment violations in packages/workflow. Add proper type checking and type guards to prevent unsafe assignments from any/unknown types.",
@@ -582,7 +562,7 @@
 	"strikes_completed_last_run": false,
 	"current_task_index": 0,
 	"last_mode": "DEVELOPMENT",
-	"execution_count": 121,
-	"last_hook_activation": 1754756605362,
+	"execution_count": 122,
+	"last_hook_activation": 1754758614286,
 	"current_mode": "DEVELOPMENT"
 }

@@ -9,9 +9,15 @@ export const loadClassInIsolation = async <T>(filePath: string, className: strin
 
 	// Note: Skip the isolation because it breaks nock mocks in tests
 	if (inTest) {
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-		const module = await import(filePath);
-		return new module[className]() as T;
+		const module: Record<string, new () => T> = (await import(filePath)) as Record<
+			string,
+			new () => T
+		>;
+		const ClassConstructor = module[className];
+		if (typeof ClassConstructor !== 'function') {
+			throw new Error(`Class ${className} not found in ${filePath}`);
+		}
+		return new ClassConstructor();
 	} else {
 		const script = new Script(`new (require('${filePath}').${className})()`);
 		return script.runInContext(context) as T;

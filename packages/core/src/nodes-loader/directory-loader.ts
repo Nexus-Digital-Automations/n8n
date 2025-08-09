@@ -126,13 +126,13 @@ export abstract class DirectoryLoader {
 						'Class could not be found. Please check if the class is named correctly.',
 						{ extra: { className } },
 					)
-				: error;
+				: (error as Error);
 		}
 	}
 
 	/** Loads a nodes class from a file, fixes icons, and augments the codex */
-	loadNodeFromFile(filePath: string) {
-		const tempNode = this.loadClass<INodeType | IVersionedNodeType>(filePath);
+	async loadNodeFromFile(filePath: string) {
+		const tempNode = await this.loadClass<INodeType | IVersionedNodeType>(filePath);
 		this.addCodex(tempNode, filePath);
 
 		const nodeType = tempNode.description.name;
@@ -205,14 +205,14 @@ export abstract class DirectoryLoader {
 		}
 	}
 
-	getNode(nodeType: string) {
+	async getNode(nodeType: string) {
 		const {
 			nodeTypes,
 			known: { nodes: knownNodes },
 		} = this;
 		if (!(nodeType in nodeTypes) && nodeType in knownNodes) {
 			const { sourcePath } = knownNodes[nodeType];
-			this.loadNodeFromFile(sourcePath);
+			await this.loadNodeFromFile(sourcePath);
 		}
 
 		if (nodeType in nodeTypes) {
@@ -223,8 +223,8 @@ export abstract class DirectoryLoader {
 	}
 
 	/** Loads a credential class from a file, and fixes icons */
-	loadCredentialFromFile(filePath: string): void {
-		const tempCredential = this.loadClass<ICredentialType>(filePath);
+	async loadCredentialFromFile(filePath: string): Promise<void> {
+		const tempCredential = await this.loadClass<ICredentialType>(filePath);
 		// Add serializer method "toJSON" to the class so that authenticate method (if defined)
 		// gets mapped to the authenticate attribute before it is sent to the client.
 		// The authenticate property is used by the client to decide whether or not to
@@ -250,14 +250,14 @@ export abstract class DirectoryLoader {
 		this.types.credentials.push(tempCredential);
 	}
 
-	getCredential(credentialType: string) {
+	async getCredential(credentialType: string) {
 		const {
 			credentialTypes,
 			known: { credentials: knownCredentials },
 		} = this;
 		if (!(credentialType in credentialTypes) && credentialType in knownCredentials) {
 			const { sourcePath } = knownCredentials[credentialType];
-			this.loadCredentialFromFile(sourcePath);
+			await this.loadCredentialFromFile(sourcePath);
 		}
 
 		if (credentialType in credentialTypes) {

@@ -76,29 +76,6 @@
 			}
 		},
 		{
-			"id": "task_1754705746684_p64c4xj29",
-			"title": "Fix AWS SDK Type Issues in Object Store Service",
-			"description": "Resolve TypeScript compilation errors in object-store.service.ee.ts where AWS SDK _Object type does not have expected properties like key, causing test compilation failures.",
-			"mode": "DEVELOPMENT",
-			"priority": "high",
-			"status": "pending",
-			"dependencies": [],
-			"important_files": [
-				"src/binary-data/object-store/object-store.service.ee.ts",
-				"src/binary-data/__tests__/object-store.manager.test.ts",
-				"src/binary-data/object-store/__tests__/object-store.service.test.ts"
-			],
-			"success_criteria": [
-				"AWS SDK types properly imported and used",
-				"Object store tests compile without TypeScript errors",
-				"Property access on _Object type resolved"
-			],
-			"estimate": "",
-			"requires_research": false,
-			"subtasks": [],
-			"created_at": "2025-08-09T02:15:46.684Z"
-		},
-		{
 			"id": "task_1754705746686_dyk6veuk5",
 			"title": "Fix Core Package Logic Errors in Tests",
 			"description": "Fix specific test logic failures including run-data-utils negative index handling, request helper function error handling, and file system helper function tests.",
@@ -234,8 +211,8 @@
 		"removedCount": 0,
 		"finalTaskCount": 0
 	},
-	"execution_count": 17,
-	"last_hook_activation": 1754757422047,
+	"execution_count": 19,
+	"last_hook_activation": 1754758674991,
 	"project": "unnamed-project",
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,

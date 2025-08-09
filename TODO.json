@@ -7,7 +7,7 @@
       "description": "Resolve ~44 @typescript-eslint/no-explicit-any violations in packages/workflow. Replace explicit any types with proper TypeScript types and interfaces to improve type safety.",
       "mode": "DEVELOPMENT",
       "priority": "medium",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [],
       "important_files": [
         "packages/workflow/src/",
@@ -398,7 +398,7 @@
       "description": "Resolve TypeScript compilation errors in object-store.service.ee.ts and related test files. Issues include unnecessary type assertions and AWS SDK _Object type property access that may need better typing.",
       "mode": "DEVELOPMENT",
       "priority": "medium",
-      "status": "in_progress",
+      "status": "pending",
       "dependencies": [],
       "important_files": [
         "src/binary-data/object-store/object-store.service.ee.ts",
@@ -421,7 +421,7 @@
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 162,
-  "last_hook_activation": 1754755361634,
+  "execution_count": 163,
+  "last_hook_activation": 1754757916419,
   "current_mode": "DEVELOPMENT"
 }

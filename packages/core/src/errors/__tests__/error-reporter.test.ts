@@ -90,7 +90,7 @@ describe('ErrorReporter', () => {
 				(() => {
 					const dbError = new Error('SQLITE_FULL');
 					(dbError as Error & { code: string }).code = 'SQLITE_FULL';
-					return new QueryFailedError('', [] as unknown[], dbError);
+					return new QueryFailedError('', [] as unknown[], dbError) as QueryFailedError;
 				})(),
 			],
 			[
@@ -98,7 +98,7 @@ describe('ErrorReporter', () => {
 				(() => {
 					const dbError = new Error('SQLITE_IOERR');
 					(dbError as Error & { code: string }).code = 'SQLITE_IOERR';
-					return new QueryFailedError('', [] as unknown[], dbError);
+					return new QueryFailedError('', [] as unknown[], dbError) as QueryFailedError;
 				})(),
 			],
 			['an ApplicationError with "warning" level', new ApplicationError('', { level: 'warning' })],

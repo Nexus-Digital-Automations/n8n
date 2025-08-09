@@ -16,7 +16,7 @@ export class CustomDirectoryLoader extends DirectoryLoader {
 		});
 
 		for (const nodePath of nodes) {
-			this.loadNodeFromFile(nodePath);
+			await this.loadNodeFromFile(nodePath);
 		}
 
 		const credentials = await glob('**/*.credentials.js', {
@@ -25,7 +25,7 @@ export class CustomDirectoryLoader extends DirectoryLoader {
 		});
 
 		for (const credentialPath of credentials) {
-			this.loadCredentialFromFile(credentialPath);
+			await this.loadCredentialFromFile(credentialPath);
 		}
 	}
 }

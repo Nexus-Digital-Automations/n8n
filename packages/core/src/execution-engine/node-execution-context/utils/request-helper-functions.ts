@@ -1630,7 +1630,7 @@ export const getRequestHelperFunctions = (
 					typeof contentTypeHeader === 'string'
 						? contentTypeHeader
 						: Array.isArray(contentTypeHeader)
-							? contentTypeHeader.join(', ')
+							? contentTypeHeader.filter((item) => typeof item === 'string').join(', ')
 							: '';
 				if (responseContentType.includes('application/json')) {
 					newResponse.body = jsonParse(contentBody, { fallbackValue: {} });

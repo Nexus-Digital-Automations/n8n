@@ -70,7 +70,16 @@ export function ensureType(
 				returnData = JSON.stringify(returnData);
 			} else {
 				// Only stringify primitive values to avoid [object Object]
-				returnData = returnData !== null && returnData !== undefined ? String(returnData) : '';
+				if (returnData === null || returnData === undefined) {
+					returnData = '';
+				} else if (typeof returnData === 'string') {
+					// Already a string, no conversion needed
+				} else if (typeof returnData === 'number' || typeof returnData === 'boolean') {
+					returnData = String(returnData);
+				} else {
+					// For any other type, convert to string safely
+					returnData = JSON.stringify(returnData);
+				}
 			}
 		}
 

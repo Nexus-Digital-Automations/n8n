@@ -542,11 +542,11 @@ describe('DirectoryLoader', () => {
 	});
 
 	describe('loadCredentialFromFile', () => {
-		it('should load credential and store it correctly', () => {
+		it('should load credential and store it correctly', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Credential1.js';
 
-			loader.loadCredentialFromFile(filePath);
+			await loader.loadCredentialFromFile(filePath);
 
 			expect(loader.credentialTypes).toEqual({
 				credential1: {
@@ -567,7 +567,7 @@ describe('DirectoryLoader', () => {
 			expect(loader.types.credentials).toEqual([mockCredential1]);
 		});
 
-		it('should update credential icon paths', () => {
+		it('should update credential icon paths', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Credential1.js';
 
@@ -579,7 +579,7 @@ describe('DirectoryLoader', () => {
 
 			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(credWithIcon);
 
-			loader.loadCredentialFromFile(filePath);
+			await loader.loadCredentialFromFile(filePath);
 
 			expect(credWithIcon.iconUrl).toEqual({
 				light: 'icons/CUSTOM/dist/light.svg',
@@ -588,7 +588,7 @@ describe('DirectoryLoader', () => {
 			expect(credWithIcon.icon).toBeUndefined();
 		});
 
-		it('should add toJSON method to credential type', () => {
+		it('should add toJSON method to credential type', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Credential1.js';
 
@@ -597,13 +597,13 @@ describe('DirectoryLoader', () => {
 
 			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(credWithAuth);
 
-			loader.loadCredentialFromFile(filePath);
+			await loader.loadCredentialFromFile(filePath);
 
 			const serialized = deepCopy(credWithAuth);
 			expect(serialized.authenticate).toEqual({});
 		});
 
-		it('should store credential extends and supported nodes info', () => {
+		it('should store credential extends and supported nodes info', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Credential1.js';
 
@@ -615,7 +615,7 @@ describe('DirectoryLoader', () => {
 			// Set up nodesByCredential before loading
 			loader.nodesByCredential.extendingCred = ['node1', 'node2'];
 
-			loader.loadCredentialFromFile(filePath);
+			await loader.loadCredentialFromFile(filePath);
 
 			expect(loader.known.credentials.extendingCred).toEqual({
 				className: extendingCred.constructor.name,
@@ -625,7 +625,7 @@ describe('DirectoryLoader', () => {
 			});
 		});
 
-		it('should throw error if credential class cannot be loaded', () => {
+		it('should throw error if credential class cannot be loaded', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/InvalidCred.js';
 
@@ -633,14 +633,16 @@ describe('DirectoryLoader', () => {
 				throw new TypeError('Class not found');
 			});
 
-			expect(() => loader.loadCredentialFromFile(filePath)).toThrow('Class could not be found');
+			await expect(() => loader.loadCredentialFromFile(filePath)).rejects.toThrow(
+				'Class could not be found',
+			);
 		});
 
-		it('should not push credential to types array when lazy loaded', () => {
+		it('should not push credential to types array when lazy loaded', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			loader.isLazyLoaded = true;
 
-			loader.loadCredentialFromFile('dist/Credential1.js');
+			await loader.loadCredentialFromFile('dist/Credential1.js');
 
 			expect(loader.credentialTypes).toEqual({
 				credential1: { sourcePath: 'dist/Credential1.js', type: mockCredential1 },
@@ -650,20 +652,20 @@ describe('DirectoryLoader', () => {
 	});
 
 	describe('getCredential', () => {
-		it('should return existing loaded credential type', () => {
+		it('should return existing loaded credential type', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Credential1.js';
 
-			loader.loadCredentialFromFile(filePath);
+			await loader.loadCredentialFromFile(filePath);
 
-			const result = loader.getCredential('credential1');
+			const result = await loader.getCredential('credential1');
 			expect(result).toEqual({
 				type: mockCredential1,
 				sourcePath: filePath,
 			});
 		});
 
-		it('should load credential from known credentials if not already loaded', () => {
+		it('should load credential from known credentials if not already loaded', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Credential1.js';
 
@@ -673,7 +675,7 @@ describe('DirectoryLoader', () => {
 				sourcePath: filePath,
 			};
 
-			const result = loader.getCredential('credential1');
+			const result = await loader.getCredential('credential1');
 
 			expect(result).toEqual({
 				type: mockCredential1,
@@ -685,21 +687,21 @@ describe('DirectoryLoader', () => {
 			);
 		});
 
-		it('should throw UnrecognizedCredentialTypeError if credential type is not found', () => {
+		it('should throw UnrecognizedCredentialTypeError if credential type is not found', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 
-			expect(() => loader.getCredential('nonexistent')).toThrow(
+			await expect(() => loader.getCredential('nonexistent')).rejects.toThrow(
 				'Unrecognized credential type: nonexistent',
 			);
 		});
 	});
 
 	describe('loadNodeFromFile', () => {
-		it('should load node and store it correctly', () => {
+		it('should load node and store it correctly', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Node1/Node1.node.js';
 
-			loader.loadNodeFromFile(filePath);
+			await loader.loadNodeFromFile(filePath);
 
 			expect(loader.nodeTypes).toEqual({
 				node1: {
@@ -719,7 +721,7 @@ describe('DirectoryLoader', () => {
 			expect(loader.loadedNodes).toEqual([{ name: 'node1', version: 1 }]);
 		});
 
-		it('should update node icon paths', () => {
+		it('should update node icon paths', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Node1/Node1.node.js';
 
@@ -731,7 +733,7 @@ describe('DirectoryLoader', () => {
 
 			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(nodeWithIcon);
 
-			loader.loadNodeFromFile(filePath);
+			await loader.loadNodeFromFile(filePath);
 
 			expect(nodeWithIcon.description.iconUrl).toEqual({
 				light: 'icons/CUSTOM/dist/Node1/light.svg',
@@ -740,7 +742,7 @@ describe('DirectoryLoader', () => {
 			expect(nodeWithIcon.description.icon).toBeUndefined();
 		});
 
-		it('should error if icon path is not contained within the package directory', () => {
+		it('should error if icon path is not contained within the package directory', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Node1/Node1.node.js';
 
@@ -752,16 +754,16 @@ describe('DirectoryLoader', () => {
 
 			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(nodeWithIcon);
 
-			expect(() => loader.loadNodeFromFile(filePath)).toThrow(
+			await expect(async () => await loader.loadNodeFromFile(filePath)).rejects.toThrow(
 				'Icon path "../evil" is not contained within',
 			);
 		});
 
-		it('should skip node if not in includeNodes', () => {
+		it('should skip node if not in includeNodes', async () => {
 			const loader = new CustomDirectoryLoader(directory, [], ['CUSTOM.other']);
 			const filePath = 'dist/Node1/Node1.node.js';
 
-			loader.loadNodeFromFile(filePath);
+			await loader.loadNodeFromFile(filePath);
 
 			expect(loader.nodeTypes).toEqual({});
 			expect(loader.known.nodes).toEqual({});
@@ -769,7 +771,7 @@ describe('DirectoryLoader', () => {
 			expect(loader.loadedNodes).toEqual([]);
 		});
 
-		it('should handle versioned nodes correctly', () => {
+		it('should handle versioned nodes correctly', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Node1/Node1.node.js';
 
@@ -791,7 +793,7 @@ describe('DirectoryLoader', () => {
 
 			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(versionedNode);
 
-			loader.loadNodeFromFile(filePath);
+			await loader.loadNodeFromFile(filePath);
 
 			expect(loader.loadedNodes).toEqual([{ name: 'test', version: 2 }]);
 
@@ -801,21 +803,21 @@ describe('DirectoryLoader', () => {
 			expect(nodes[1]?.version).toBe(1);
 		});
 
-		it('should store credential associations correctly', () => {
+		it('should store credential associations correctly', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Node1/Node1.node.js';
 
 			const nodeWithCreds = createNode('testNode', 'testCred');
 			jest.spyOn(classLoader, 'loadClassInIsolation').mockReturnValueOnce(nodeWithCreds);
 
-			loader.loadNodeFromFile(filePath);
+			await loader.loadNodeFromFile(filePath);
 
 			expect(loader.nodesByCredential).toEqual({
 				testCred: ['testNode'],
 			});
 		});
 
-		it('should throw error if node class cannot be loaded', () => {
+		it('should throw error if node class cannot be loaded', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/InvalidNode/InvalidNode.node.js';
 
@@ -823,25 +825,27 @@ describe('DirectoryLoader', () => {
 				throw new TypeError('Class not found');
 			});
 
-			expect(() => loader.loadNodeFromFile(filePath)).toThrow('Class could not be found');
+			await expect(() => loader.loadNodeFromFile(filePath)).rejects.toThrow(
+				'Class could not be found',
+			);
 		});
 	});
 
 	describe('getNode', () => {
-		it('should return existing loaded node type', () => {
+		it('should return existing loaded node type', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Node1/Node1.node.js';
 
-			loader.loadNodeFromFile(filePath);
+			await loader.loadNodeFromFile(filePath);
 
-			const result = loader.getNode('node1');
+			const result = await loader.getNode('node1');
 			expect(result).toEqual({
 				type: mockNode1,
 				sourcePath: filePath,
 			});
 		});
 
-		it('should load node from known nodes if not already loaded', () => {
+		it('should load node from known nodes if not already loaded', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 			const filePath = 'dist/Node1/Node1.node.js';
 
@@ -851,7 +855,7 @@ describe('DirectoryLoader', () => {
 				sourcePath: filePath,
 			};
 
-			const result = loader.getNode('node1');
+			const result = await loader.getNode('node1');
 
 			expect(result).toEqual({
 				type: mockNode1,
@@ -863,10 +867,10 @@ describe('DirectoryLoader', () => {
 			);
 		});
 
-		it('should throw UnrecognizedNodeTypeError if node type is not found', () => {
+		it('should throw UnrecognizedNodeTypeError if node type is not found', async () => {
 			const loader = new CustomDirectoryLoader(directory);
 
-			expect(() => loader.getNode('nonexistent')).toThrow(
+			await expect(() => loader.getNode('nonexistent')).rejects.toThrow(
 				'Unrecognized node type: CUSTOM.nonexistent',
 			);
 		});

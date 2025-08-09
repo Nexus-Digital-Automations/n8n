@@ -38,13 +38,13 @@ export class PackageDirectoryLoader extends DirectoryLoader {
 
 		if (Array.isArray(nodes)) {
 			for (const nodePath of nodes) {
-				this.loadNodeFromFile(nodePath);
+				await this.loadNodeFromFile(nodePath);
 			}
 		}
 
 		if (Array.isArray(credentials)) {
 			for (const credentialPath of credentials) {
-				this.loadCredentialFromFile(credentialPath);
+				await this.loadCredentialFromFile(credentialPath);
 			}
 		}
 
@@ -55,7 +55,7 @@ export class PackageDirectoryLoader extends DirectoryLoader {
 			nodes: nodes?.length ?? 0,
 		});
 
-		return Promise.resolve();
+		return;
 	}
 
 	private inferSupportedNodes() {

@@ -35,14 +35,14 @@ describe('loadClassInIsolation', () => {
 		const instance = loadClassInIsolation<TestClass>(filePath, className);
 
 		expect(scriptSpy).toHaveBeenCalledWith(`new (require('${filePath}').${className})()`);
-		expect(instance.getValue()).toBe('test value');
+		expect((instance as TestClass).getValue()).toBe('test value');
 	});
 
 	it('should handle Windows-style paths', () => {
 		const originalPlatform = process.platform;
 		Object.defineProperty(process, 'platform', { value: 'win32' });
 
-		loadClassInIsolation('/path\\to\\TestClass.js', 'TestClass');
+		void loadClassInIsolation('/path\\to\\TestClass.js', 'TestClass');
 
 		expect(scriptSpy).toHaveBeenCalledWith(`new (require('${filePath}').${className})()`);
 
