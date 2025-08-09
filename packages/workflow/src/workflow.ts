@@ -820,7 +820,44 @@ export class Workflow {
 	 *
 	 * @param {string[]} nodeNames The potential start nodes
 	 */
-	getStartNode(nodeNames: string[]): INode | undefined {
+	getStartNode(nodeNames: string[]): INode | undefined;
+	/**
+	 * Returns the start node to start the workflow from
+	 *
+	 */
+	getStartNode(destinationNode?: string): INode | undefined;
+	getStartNode(nodeNamesOrDestination?: string[] | string): INode | undefined {
+		// Handle the case where a single destination node is provided
+		if (typeof nodeNamesOrDestination === 'string') {
+			const destinationNode = nodeNamesOrDestination;
+			// Find the highest parent nodes of the given one
+			const nodeNames = this.getHighestNode(destinationNode);
+
+			if (nodeNames.length === 0) {
+				// If no parent nodes have been found then only the destination-node
+				// is in the tree so add that one
+				nodeNames.push(destinationNode);
+			}
+
+			// Check which node to return as start node
+			const node = this.getStartNode(nodeNames);
+			if (node !== undefined) {
+				return node;
+			}
+
+			// If none of the above did find anything simply return the
+			// first parent node in the list
+			return this.nodes[nodeNames[0]];
+		}
+
+		// Handle the case where no parameter is provided (get all nodes)
+		if (nodeNamesOrDestination === undefined) {
+			return this.getStartNode(Object.keys(this.nodes));
+		}
+
+		// Handle the case where an array of node names is provided
+		const nodeNames = nodeNamesOrDestination;
+
 		// Check if there are any trigger or poll nodes and then return the first one
 		let node: INode;
 		let nodeType: INodeType;
@@ -864,35 +901,6 @@ export class Workflow {
 		}
 
 		return undefined;
-	}
-
-	/**
-	 * Returns the start node to start the workflow from
-	 *
-	 */
-	getStartNode(destinationNode?: string): INode | undefined {
-		if (destinationNode) {
-			// Find the highest parent nodes of the given one
-			const nodeNames = this.getHighestNode(destinationNode);
-
-			if (nodeNames.length === 0) {
-				// If no parent nodes have been found then only the destination-node
-				// is in the tree so add that one
-				nodeNames.push(destinationNode);
-			}
-
-			// Check which node to return as start node
-			const node = this.getStartNode(nodeNames);
-			if (node !== undefined) {
-				return node;
-			}
-
-			// If none of the above did find anything simply return the
-			// first parent node in the list
-			return this.nodes[nodeNames[0]];
-		}
-
-		return this.getStartNode(Object.keys(this.nodes));
 	}
 
 	getConnectionsBetweenNodes(

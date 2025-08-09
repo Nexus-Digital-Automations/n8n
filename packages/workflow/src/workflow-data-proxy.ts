@@ -508,7 +508,7 @@ export class WorkflowDataProxy {
 							messageTemplate: EXPRESSION_ERROR_MESSAGES.nodeReferenceTemplate,
 							functionality: 'pairedItem',
 							descriptionKey: isScriptingNode(nodeName, that.workflow)
-								? EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection_CODE_NODE
+								? EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnectionCodeNode
 								: EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection,
 							type: EXPRESSION_ERROR_TYPES.pairedItemNoConnection,
 							nodeCause: nodeName,
@@ -710,7 +710,7 @@ export class WorkflowDataProxy {
 							messageTemplate: EXPRESSION_ERROR_MESSAGES.nodeReferenceTemplate,
 							functionality: 'pairedItem',
 							descriptionKey: isScriptingNode(nodeName, that.workflow)
-								? EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection_CODE_NODE
+								? EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnectionCodeNode
 								: EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection,
 							type: EXPRESSION_ERROR_TYPES.pairedItemNoConnection,
 							nodeCause: nodeName,
@@ -837,7 +837,7 @@ export class WorkflowDataProxy {
 				messageTemplate: EXPRESSION_ERROR_MESSAGES.nodeReferenceTemplate,
 				functionality: 'pairedItem',
 				descriptionKey: isScriptingNode(nodeCause, that.workflow)
-					? EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection_CODE_NODE
+					? EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnectionCodeNode
 					: EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection,
 				type: EXPRESSION_ERROR_TYPES.pairedItemNoConnection,
 				moreInfoLink: true,
@@ -947,7 +947,7 @@ export class WorkflowDataProxy {
 			destinationNodeName: string,
 			incomingSourceData: ISourceData | null,
 			initialPairedItem: IPairedItemData,
-			usedMethodName: PairedItemMethod = PAIRED_ITEM_METHOD.$GET_PAIRED_ITEM,
+			usedMethodName: PairedItemMethod = PAIRED_ITEM_METHOD.$getPairedItem,
 			nodeBeforeLast?: string,
 		): INodeExecutionData => {
 			// Normalize inputs
