@@ -147,13 +147,32 @@ export function tryToParseDateTime(value: unknown, defaultZone?: string): DateTi
  * Try to parse value as time string
  */
 export function tryToParseTime(value: unknown): string {
+	const timeStr = String(value);
 	const isTimeInput = /^\d{2}:\d{2}(:\d{2})?((-|\+)\d{4})?((-|\+)\d{1,2}(:\d{2})?)?$/s.test(
-		String(value),
+		timeStr,
 	);
+
 	if (!isTimeInput) {
 		throw new ValidationError('Value is not a valid time', value);
 	}
-	return String(value);
+
+	// Additional validation for hour/minute ranges
+	const parts = timeStr.split(':');
+	const hours = parseInt(parts[0], 10);
+	const minutes = parseInt(parts[1], 10);
+
+	if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+		throw new ValidationError('Value is not a valid time', value);
+	}
+
+	if (parts.length >= 3) {
+		const seconds = parseInt(parts[2].split(/[-+]/)[0], 10);
+		if (seconds < 0 || seconds > 59) {
+			throw new ValidationError('Value is not a valid time', value);
+		}
+	}
+
+	return timeStr;
 }
 
 /**
@@ -204,14 +223,31 @@ export function tryToParseObject(value: unknown): object {
  * Try to parse value as URL
  */
 export function tryToParseUrl(value: unknown): string {
+	const originalValue = String(value);
+	let urlString = originalValue;
+
+	// Handle empty strings first
+	if (!originalValue || originalValue.trim() === '') {
+		throw new ValidationError(`The value "${originalValue}" is not a valid url.`, value);
+	}
+
 	if (typeof value === 'string' && !value.includes('://')) {
-		value = `http://${value}`;
+		urlString = `http://${value}`;
 	}
-	const urlPattern = /^(https?|ftp|file):\/\/\S+|www\.\S+/;
-	if (!urlPattern.test(String(value))) {
-		throw new ValidationError(`The value "${String(value)}" is not a valid url.`, value);
+
+	// More strict URL validation - must have protocol and domain
+	const urlPattern =
+		/^(https?|ftp|file):\/\/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|localhost)(:[0-9]{1,5})?(\/.*)?$/i;
+	const wwwPattern = /^www\.([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(:[0-9]{1,5})?(\/.*)?$/i;
+
+	const isValidUrl = urlPattern.test(urlString);
+	const isValidWww = wwwPattern.test(originalValue);
+
+	if (!isValidUrl && !isValidWww) {
+		throw new ValidationError(`The value "${originalValue}" is not a valid url.`, value);
 	}
-	return String(value);
+
+	return urlString;
 }
 
 /**
@@ -345,23 +381,29 @@ export function validateRequiredProperties<T extends Record<string, unknown>>(
 }
 
 /**
- * Create a validator that checks multiple conditions
+ * Create a validator that checks multiple conditions (all must pass)
  */
 export function createValidator<T>(
 	...validators: Array<(value: unknown) => ValidationResult<T>>
 ): (value: unknown) => ValidationResult<T> {
 	return (value: unknown): ValidationResult<T> => {
 		const errors: string[] = [];
+		let lastValidValue: T | undefined;
 
 		for (const validator of validators) {
 			const result = validator(value);
-			if (result.valid) {
-				return result;
+			if (!result.valid) {
+				errors.push.apply(errors, result.errors);
+			} else {
+				lastValidValue = result.value;
 			}
-			errors.push.apply(errors, result.errors);
 		}
 
-		return { valid: false, errors };
+		if (errors.length > 0) {
+			return { valid: false, errors };
+		}
+
+		return { valid: true, value: lastValidValue as T };
 	};
 }
 

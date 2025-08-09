@@ -175,7 +175,7 @@ export function hasPropertyOfType<T extends PropertyKey, V>(
  * Check if value is a string that represents a valid number
  */
 export function isNumericString(value: unknown): value is string {
-	return isString(value) && !isNaN(Number(value)) && isFinite(Number(value));
+	return isString(value) && value.trim() !== '' && !isNaN(Number(value)) && isFinite(Number(value));
 }
 
 /**

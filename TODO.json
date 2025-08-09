@@ -7,7 +7,7 @@
       "description": "Investigate and restore any AI-powered parameters or tools that may have been removed or restricted in self-hosted versions after updates. Ensure feature parity with cloud versions where licensing permits.",
       "mode": "RESEARCH",
       "priority": "medium",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [],
       "important_files": [
         "./development/research-reports/research-report-task_1754681196945_y27bkf9kl.md"
@@ -635,8 +635,8 @@
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "DEVELOPMENT",
-  "execution_count": 133,
-  "last_hook_activation": 1754717992808,
+  "last_mode": "RESEARCH",
+  "execution_count": 134,
+  "last_hook_activation": 1754719013403,
   "current_mode": "DEVELOPMENT"
 }

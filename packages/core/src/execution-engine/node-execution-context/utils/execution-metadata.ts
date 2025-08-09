@@ -10,9 +10,7 @@ export function setWorkflowExecutionMetadata(
 	key: string,
 	value: unknown,
 ) {
-	if (!executionData.resultData.metadata) {
-		executionData.resultData.metadata = {};
-	}
+	executionData.resultData.metadata ??= {};
 	// Currently limited to 10 metadata KVs
 	if (
 		!(key in executionData.resultData.metadata) &&

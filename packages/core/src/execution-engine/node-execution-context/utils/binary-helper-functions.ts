@@ -157,10 +157,7 @@ export async function copyBinaryFile(
 		fileExtension = extension(mimeType) || undefined;
 	}
 
-	if (!mimeType) {
-		// Fall back to text
-		mimeType = 'text/plain';
-	}
+	mimeType ??= 'text/plain';
 
 	const returnData: IBinaryData = {
 		mimeType,
@@ -207,9 +204,7 @@ export async function prepareBinaryData(
 				// Ignore URL parsing errors for optional file path extraction
 			}
 		}
-		if (!mimeType) {
-			mimeType = binaryData.contentType;
-		}
+		mimeType ??= binaryData.contentType;
 	}
 
 	if (!mimeType) {
@@ -243,10 +238,7 @@ export async function prepareBinaryData(
 		fileExtension = extension(mimeType) || undefined;
 	}
 
-	if (!mimeType) {
-		// Fall back to text
-		mimeType = 'text/plain';
-	}
+	mimeType ??= 'text/plain';
 
 	const returnData: IBinaryData = {
 		mimeType,
