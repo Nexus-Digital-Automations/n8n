@@ -917,6 +917,7 @@ describe('WorkflowExecute', () => {
 
 			// ASSERT
 			expect(processRunExecutionDataSpy).toHaveBeenCalledTimes(1);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(additionalData.hooks?.runHook).toHaveBeenCalledWith('nodeExecuteBefore', [
 				node2.name,
 				expect.objectContaining({ executionIndex: 5 }),
@@ -966,6 +967,7 @@ describe('WorkflowExecute', () => {
 
 			// ASSERT
 			expect(processRunExecutionDataSpy).toHaveBeenCalledTimes(1);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(additionalData.hooks?.runHook).toHaveBeenCalledWith('nodeExecuteBefore', [
 				node1.name,
 				expect.objectContaining({ executionIndex: 1 }),
@@ -1854,6 +1856,7 @@ describe('WorkflowExecute', () => {
 			// Verify static data handling
 			expect(result).toBeDefined();
 			expect(workflowExecute.moveNodeMetadata).toHaveBeenCalled();
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(additionalData.hooks?.runHook).toHaveBeenCalledWith('workflowExecuteAfter', [
 				result,
 				workflow.staticData,

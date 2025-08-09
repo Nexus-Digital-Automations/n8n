@@ -2,23 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754631369692_t9dvai5eb",
-      "title": "Implement runtime node deployment and hot-reload system",
-      "description": "Create system for safely deploying custom nodes to running n8n instances without requiring restarts. Implement hot-reload functionality, dependency injection, and rollback capabilities. Include proper isolation and error handling for runtime node integration.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
-      ],
-      "success_criteria": [],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T05:36:09.692Z"
-    },
-    {
       "id": "task_1754631375160_vkiq3pok6",
       "title": "Build frontend UI for custom node management",
       "description": "Create frontend interface for custom node management including upload forms, node gallery, deployment controls, and status monitoring. Implement drag-and-drop upload, progress indicators, and integration with existing n8n editor UI patterns.",
@@ -43,7 +26,6 @@
       "priority": "high",
       "status": "pending",
       "dependencies": [
-        "task_1754631369692_t9dvai5eb",
         "task_1754631375160_vkiq3pok6"
       ],
       "important_files": [

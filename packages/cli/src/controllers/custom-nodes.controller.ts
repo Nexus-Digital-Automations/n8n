@@ -300,7 +300,15 @@ export class CustomNodesController {
 	@GlobalScope('customNode:deploy')
 	async deployCustomNode(req: AuthenticatedRequest, res: Response) {
 		const { id } = req.params;
-		const { environment = 'production', config = {} }: CustomNodeDeploymentRequest = req.body;
+		const {
+			environment = 'production',
+			config = {},
+			force = false,
+			skipValidation = false,
+		}: CustomNodeDeploymentRequest & {
+			force?: boolean;
+			skipValidation?: boolean;
+		} = req.body;
 
 		if (!id) {
 			throw new BadRequestError('Node ID is required');
@@ -311,35 +319,22 @@ export class CustomNodesController {
 			throw new BadRequestError('Environment must be development, staging, or production');
 		}
 
-		// Get the node and check if it's validated
-		const node = await this.storageService.getCustomNode(id);
-		if (node.status !== 'validated') {
-			throw new BadRequestError('Node must be validated before deployment');
-		}
-
-		// Create deployment record
-		const deployment = this.deploymentRepository.create({
-			nodeId: id,
+		const deploymentOptions: DeploymentOptions = {
 			environment,
-			status: 'pending' as DeploymentStatus,
 			config,
-			deployedBy: req.user.id,
-		});
+			force: Boolean(force),
+			skipValidation: Boolean(skipValidation),
+		};
 
-		const savedDeployment = await this.deploymentRepository.save(deployment);
-
-		// TODO: Trigger actual deployment process here
-		// This would integrate with the runtime deployment system
+		const result = await this.deploymentService.deployCustomNode(
+			id,
+			deploymentOptions,
+			req.user.id,
+		);
 
 		res.status(202).json({
 			success: true,
-			data: {
-				deploymentId: savedDeployment.id,
-				nodeId: id,
-				environment,
-				status: savedDeployment.status,
-				message: 'Deployment initiated',
-			},
+			data: result,
 		});
 	}
 
@@ -351,33 +346,21 @@ export class CustomNodesController {
 	@GlobalScope('customNode:deploy')
 	async undeployCustomNode(req: AuthenticatedRequest, res: Response) {
 		const { id } = req.params;
+		const { environment = 'production', force = false } = req.query;
 
 		if (!id) {
 			throw new BadRequestError('Node ID is required');
 		}
 
-		// Find active deployment
-		const activeDeployment = await this.deploymentRepository.findOne({
-			where: { nodeId: id, status: 'deployed' },
-		});
-
-		if (!activeDeployment) {
-			throw new NotFoundError('No active deployment found for this node');
-		}
-
-		// Update deployment status
-		await this.deploymentRepository.updateStatus(activeDeployment.id, 'undeploying');
-
-		// TODO: Trigger actual undeployment process here
+		const result = await this.deploymentService.undeployCustomNode(
+			id,
+			environment as 'development' | 'staging' | 'production',
+			Boolean(force),
+		);
 
 		res.json({
 			success: true,
-			data: {
-				deploymentId: activeDeployment.id,
-				nodeId: id,
-				status: 'undeploying',
-				message: 'Undeployment initiated',
-			},
+			data: result,
 		});
 	}
 

@@ -876,7 +876,7 @@ describe('DirectoryLoader', () => {
 				(property) => property.name === 'requestOptions',
 			);
 
-			expect(options?.options).toBeDefined;
+			expect(options?.options).toBeDefined();
 
 			const optionNames = options!.options!.map((option) => option.name);
 

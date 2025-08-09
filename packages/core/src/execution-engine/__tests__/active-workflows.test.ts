@@ -273,6 +273,7 @@ describe('ActiveWorkflows', () => {
 
 			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(triggerResponse.closeFunction).toHaveBeenCalled();
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(errorReporter.error).not.toHaveBeenCalled();
 		});
 	});

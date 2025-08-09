@@ -234,6 +234,7 @@ describe('getInputConnectionData', () => {
 			await expect(executeContext.getInputConnectionData(connectionType, 0)).rejects.toThrow(
 				configError.message,
 			);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(nodeType.supplyData).toHaveBeenCalled();
 		});
 
@@ -494,6 +495,7 @@ describe('getInputConnectionData', () => {
 			const result = await executeContext.getInputConnectionData(NodeConnectionTypes.AiTool, 0);
 			expect(result).toEqual([mockTool, secondMockTool]);
 			expect(supplyData).toHaveBeenCalled();
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(secondToolNodeType.supplyData).toHaveBeenCalled();
 		});
 
@@ -577,6 +579,7 @@ describe('makeHandleToolInvocation', () => {
 		const result = await handleToolInvocation(toolArgs);
 
 		expect(result).toBe(JSON.stringify([{ result: 'success' }]));
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(mockContext.addOutputData).toHaveBeenCalledWith(NodeConnectionTypes.AiTool, 0, [
 			[{ json: { response: [{ result: 'success' }] } }],
 		]);
@@ -599,6 +602,7 @@ describe('makeHandleToolInvocation', () => {
 		expect(result).toBe(
 			'"Error: The Tool attempted to return binary data, which is not supported in Agents"',
 		);
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(mockContext.addOutputData).toHaveBeenCalledWith(NodeConnectionTypes.AiTool, 0, [
 			[
 				{
@@ -631,6 +635,7 @@ describe('makeHandleToolInvocation', () => {
 		const result = await handleToolInvocation(toolArgs);
 
 		expect(result).toBe('[{"a":3}]');
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(mockContext.addOutputData).toHaveBeenCalledWith(NodeConnectionTypes.AiTool, 0, [
 			[
 				{
@@ -658,6 +663,7 @@ describe('makeHandleToolInvocation', () => {
 		const result = await handleToolInvocation(toolArgs);
 
 		expect(result).toBe('Error during node execution: Execution failed');
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(mockContext.addOutputData).toHaveBeenCalledWith(
 			NodeConnectionTypes.AiTool,
 			0,

@@ -177,7 +177,7 @@ export class CustomNodeRepository extends Repository<CustomNode> {
 		};
 
 		stats.forEach((stat) => {
-			const count = parseInt(stat.count, 10);
+			const count = parseInt(String(stat.count), 10);
 			result.total += count;
 
 			switch (stat.status) {

@@ -18,6 +18,7 @@ import { EventEmitter } from 'events';
 import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { InternalServerError } from '@/errors/response-errors/internal-server.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
+import { CustomNodeRuntimeService } from '@/services/custom-node-runtime.service';
 
 export interface DeploymentOptions {
 	environment: DeploymentEnvironment;
@@ -58,6 +59,7 @@ export class CustomNodeDeploymentService extends EventEmitter {
 		private readonly globalConfig: GlobalConfig,
 		private readonly customNodeRepository: CustomNodeRepository,
 		private readonly deploymentRepository: CustomNodeDeploymentRepository,
+		private readonly runtimeService: CustomNodeRuntimeService,
 	) {
 		super();
 		this.NODE_MODULES_PATH =
@@ -505,58 +507,74 @@ export class CustomNodeDeploymentService extends EventEmitter {
 	}
 
 	private async loadNodeIntoRuntime(customNode: CustomNode, deploymentPath: string): Promise<void> {
-		// TODO: Implement actual node loading into n8n runtime
-		// This would need to integrate with n8n's node loading mechanism
-		// For now, we'll simulate the process
-
 		this.logger.info('Loading node into runtime', {
 			nodeName: customNode.name,
 			deploymentPath,
 		});
 
-		// Simulate loading delay
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		// Validate node before loading
+		const validation = await this.runtimeService.validateNodeForLoading(
+			deploymentPath,
+			customNode.name,
+		);
+		if (!validation.valid) {
+			throw new InternalServerError(`Node validation failed: ${validation.issues.join(', ')}`);
+		}
 
-		// Here we would:
-		// 1. Load the node class from the deployment path
-		// 2. Register it with n8n's node registry
-		// 3. Update the runtime node cache
-		// 4. Emit events for UI updates
+		// Load the node into the runtime
+		await this.runtimeService.loadCustomNode(customNode, deploymentPath);
 	}
 
 	private async unloadNodeFromRuntime(nodeName: string): Promise<void> {
-		// TODO: Implement actual node unloading from n8n runtime
 		this.logger.info('Unloading node from runtime', { nodeName });
 
-		// Here we would:
-		// 1. Unregister the node from n8n's node registry
-		// 2. Clean up any cached instances
-		// 3. Remove from runtime node cache
-		// 4. Emit events for UI updates
+		// Check if node is loaded before attempting to unload
+		if (this.runtimeService.isNodeLoaded(nodeName)) {
+			await this.runtimeService.unloadCustomNode(nodeName);
+		} else {
+			this.logger.warn('Node not currently loaded in runtime', { nodeName });
+		}
 	}
 
 	private async reloadNodeInRuntime(nodeName: string): Promise<void> {
-		// TODO: Implement hot reload
 		this.logger.info('Reloading node in runtime', { nodeName });
 
-		// Here we would:
-		// 1. Unload the current node
-		// 2. Clear any caches
-		// 3. Reload the node from disk
-		// 4. Re-register with the runtime
+		// Find the deployment for this node
+		const deployment = await this.deploymentRepository.findOne({
+			where: { node: { name: nodeName }, status: 'deployed' },
+			relations: ['node'],
+		});
+
+		if (!deployment) {
+			throw new NotFoundError(`No active deployment found for node ${nodeName}`);
+		}
+
+		// Get deployment path
+		const deploymentPath = this.getDeploymentPath(deployment.node.name, deployment.environment);
+
+		// Use runtime service to hot reload
+		await this.runtimeService.hotReloadNode(deployment.node, deploymentPath);
 	}
 
 	private async getRuntimeNodeInfo(nodeName: string): Promise<RuntimeNodeInfo> {
-		// TODO: Get actual runtime information
-		// For now, return mock data
+		const loadedNodeInfo = this.runtimeService.getLoadedNodeInfo(nodeName);
+
+		if (!loadedNodeInfo) {
+			throw new NotFoundError(`Node ${nodeName} is not currently loaded in runtime`);
+		}
+
+		const health = this.runtimeService.getNodeHealth(nodeName);
+
 		return {
-			name: nodeName,
-			version: '1.0.0',
-			displayName: nodeName,
-			description: 'Custom node',
-			nodeTypes: [nodeName],
-			dependencies: {},
+			name: loadedNodeInfo.nodeTypeName,
+			version: loadedNodeInfo.version,
+			displayName: loadedNodeInfo.nodeTypeName,
+			description: `Custom node: ${loadedNodeInfo.nodeTypeName}`,
+			nodeTypes: loadedNodeInfo.metadata.nodeTypes,
+			credentials: [], // TODO: Extract credential types if available
+			dependencies: loadedNodeInfo.metadata.dependencies,
 			loaded: true,
+			error: health && !health.isHealthy ? health.issues.join(', ') : undefined,
 		};
 	}
 

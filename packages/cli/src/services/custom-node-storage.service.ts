@@ -19,6 +19,7 @@ import { randomUUID } from 'crypto';
 import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { InternalServerError } from '@/errors/response-errors/internal-server.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
+import { CustomNodeValidationService } from '@/services/custom-node-validation.service';
 
 export interface FileUploadOptions {
 	originalName: string;
@@ -73,6 +74,7 @@ export class CustomNodeStorageService {
 		private readonly globalConfig: GlobalConfig,
 		private readonly customNodeRepository: CustomNodeRepository,
 		private readonly deploymentRepository: CustomNodeDeploymentRepository,
+		private readonly validationService: CustomNodeValidationService,
 	) {
 		this.STORAGE_PATH =
 			this.globalConfig.customNodes?.storageBasePath || join(tmpdir(), 'n8n-custom-nodes');
@@ -320,35 +322,9 @@ export class CustomNodeStorageService {
 
 		this.logger.info('Starting validation for custom node', { nodeId, name: node.name });
 
-		const results: ValidationResults = {
-			syntax: false,
-			dependencies: false,
-			security: false,
-			tests: false,
-			warnings: [],
-			errors: [],
-		};
-
 		try {
-			// Syntax validation
-			if (options.validateSyntax !== false) {
-				results.syntax = await this.validateSyntax(node.filePath);
-			}
-
-			// Dependencies validation
-			if (options.validateDependencies !== false) {
-				results.dependencies = await this.validateDependencies(node.filePath);
-			}
-
-			// Security validation
-			if (options.validateSecurity !== false) {
-				results.security = await this.validateSecurity(node.filePath);
-			}
-
-			// Run tests
-			if (options.runTests === true) {
-				results.tests = await this.runTests(node.filePath);
-			}
+			// Use enhanced validation service
+			const results = await this.validationService.validateNode(node.filePath, options);
 
 			// Determine overall status
 			const hasErrors = results.errors.length > 0;
@@ -376,8 +352,17 @@ export class CustomNodeStorageService {
 				errorsCount: results.errors.length,
 				warningsCount: results.warnings.length,
 			});
+
+			return results;
 		} catch (error) {
-			results.errors.push(`Validation process failed: ${error.message}`);
+			const results: ValidationResults = {
+				syntax: false,
+				dependencies: false,
+				security: false,
+				tests: false,
+				warnings: [],
+				errors: [`Validation process failed: ${error.message}`],
+			};
 
 			await this.customNodeRepository.update(nodeId, {
 				status: 'failed',
@@ -385,9 +370,8 @@ export class CustomNodeStorageService {
 			});
 
 			this.logger.error('Validation process failed', { nodeId, error });
+			return results;
 		}
-
-		return results;
 	}
 
 	/**
@@ -453,67 +437,5 @@ export class CustomNodeStorageService {
 		return createHash('sha256').update(buffer).digest('hex');
 	}
 
-	private async validateSyntax(filePath: string): Promise<boolean> {
-		try {
-			// Basic syntax validation - would be enhanced with actual parsing
-			const content = await fs.readFile(filePath, 'utf-8');
-
-			// Basic checks for common syntax issues
-			if (content.includes('eval(') || content.includes('Function(')) {
-				return false;
-			}
-
-			return true;
-		} catch (error) {
-			this.logger.error('Syntax validation failed', { filePath, error });
-			return false;
-		}
-	}
-
-	private async validateDependencies(filePath: string): Promise<boolean> {
-		try {
-			// Basic dependency validation - would be enhanced with package.json analysis
-			return true;
-		} catch (error) {
-			this.logger.error('Dependencies validation failed', { filePath, error });
-			return false;
-		}
-	}
-
-	private async validateSecurity(filePath: string): Promise<boolean> {
-		try {
-			const content = await fs.readFile(filePath, 'utf-8');
-
-			// Basic security checks
-			const dangerousPatterns = [
-				/require\(['"]child_process['"]\)/,
-				/require\(['"]fs['"]\)/,
-				/process\.exit/,
-				/process\.env/,
-				/__dirname/,
-				/__filename/,
-			];
-
-			for (const pattern of dangerousPatterns) {
-				if (pattern.test(content)) {
-					return false;
-				}
-			}
-
-			return true;
-		} catch (error) {
-			this.logger.error('Security validation failed', { filePath, error });
-			return false;
-		}
-	}
-
-	private async runTests(filePath: string): Promise<boolean> {
-		try {
-			// Basic test execution - would be enhanced with actual test runner
-			return true;
-		} catch (error) {
-			this.logger.error('Test execution failed', { filePath, error });
-			return false;
-		}
-	}
+	// Validation methods removed - now handled by CustomNodeValidationService
 }
