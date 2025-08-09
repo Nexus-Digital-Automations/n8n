@@ -83,7 +83,7 @@ const preparePinData = (pinData: IDataObject) => {
 
 const readJsonFileSync = <T>(filePath: string): T => jsonParse(readFileSync(filePath, 'utf-8'));
 
-export function getNodeTypes(testData: WorkflowTestData[] | WorkflowTestData) {
+export async function getNodeTypes(testData: WorkflowTestData[] | WorkflowTestData) {
 	if (!Array.isArray(testData)) {
 		testData = [testData];
 	}
@@ -105,7 +105,7 @@ export function getNodeTypes(testData: WorkflowTestData[] | WorkflowTestData) {
 		}
 		const sourcePath = loadInfo.sourcePath.replace(/^dist\//, './').replace(/\.js$/, '.ts');
 		const nodeSourcePath = path.join(BASE_DIR, 'nodes-base', sourcePath);
-		const requiredModule = require(nodeSourcePath) as Record<string, unknown>;
+		const requiredModule = (await import(nodeSourcePath)) as Record<string, unknown>;
 		let node: INodeType;
 		if (
 			requiredModule &&

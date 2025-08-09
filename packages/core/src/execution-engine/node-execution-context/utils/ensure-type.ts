@@ -69,7 +69,8 @@ export function ensureType(
 			if (typeof returnData === 'object') {
 				returnData = JSON.stringify(returnData);
 			} else {
-				returnData = String(returnData);
+				// Only stringify primitive values to avoid [object Object]
+				returnData = returnData !== null && returnData !== undefined ? String(returnData) : '';
 			}
 		}
 

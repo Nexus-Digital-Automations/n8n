@@ -127,7 +127,7 @@ describe('ExecuteSingleContext', () => {
 		});
 
 		it('should throw an error if the value of input with given index was not set', () => {
-			inputData.main[inputIndex]![itemIndex] = undefined as any;
+			inputData.main[inputIndex]![itemIndex] = undefined as unknown as INodeExecutionData;
 
 			expect(() => executeSingleContext.getInputData(inputIndex, connectionType)).toThrow(
 				ApplicationError,

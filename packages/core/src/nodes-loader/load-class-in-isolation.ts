@@ -2,7 +2,7 @@ import { inTest } from '@n8n/backend-common';
 import { createContext, Script } from 'vm';
 
 const context = createContext({ require });
-export const loadClassInIsolation = <T>(filePath: string, className: string) => {
+export const loadClassInIsolation = async <T>(filePath: string, className: string): Promise<T> => {
 	if (process.platform === 'win32') {
 		filePath = filePath.replace(/\\/g, '/');
 	}
@@ -10,7 +10,8 @@ export const loadClassInIsolation = <T>(filePath: string, className: string) => 
 	// Note: Skip the isolation because it breaks nock mocks in tests
 	if (inTest) {
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-		return new (require(filePath)[className])() as T;
+		const module = await import(filePath);
+		return new module[className]() as T;
 	} else {
 		const script = new Script(`new (require('${filePath}').${className})()`);
 		return script.runInContext(context) as T;

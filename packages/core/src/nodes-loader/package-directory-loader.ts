@@ -30,7 +30,7 @@ export class PackageDirectoryLoader extends DirectoryLoader {
 			.map(([_, nodeType]) => nodeType);
 	}
 
-	override loadAll(): Promise<void> {
+	override async loadAll(): Promise<void> {
 		const { n8n } = this.packageJson;
 		if (!n8n) return;
 

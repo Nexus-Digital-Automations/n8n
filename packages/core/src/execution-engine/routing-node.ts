@@ -402,8 +402,18 @@ export class RoutingNode {
 			// Sort the returned options
 			const sortKey = action.properties.key;
 			inputData.sort((a, b) => {
-				const aSortValue = a.json[sortKey]?.toString().toLowerCase() ?? '';
-				const bSortValue = b.json[sortKey]?.toString().toLowerCase() ?? '';
+				const aValue = a.json[sortKey];
+				const aSortValue = (
+					typeof aValue === 'object' && aValue !== null
+						? JSON.stringify(aValue)
+						: String(aValue ?? '')
+				).toLowerCase();
+				const bValue = b.json[sortKey];
+				const bSortValue = (
+					typeof bValue === 'object' && bValue !== null
+						? JSON.stringify(bValue)
+						: String(bValue ?? '')
+				).toLowerCase();
 				if (aSortValue < bSortValue) {
 					return -1;
 				}

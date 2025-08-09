@@ -1625,7 +1625,13 @@ export const getRequestHelperFunctions = (
 				// Keep the original string version that we can use it to hash if needed
 				contentBody = await binaryToString(newResponse.body as Buffer | Readable);
 
-				const responseContentType = newResponse.headers['content-type']?.toString() ?? '';
+				const contentTypeHeader = newResponse.headers['content-type'];
+				const responseContentType =
+					typeof contentTypeHeader === 'string'
+						? contentTypeHeader
+						: Array.isArray(contentTypeHeader)
+							? contentTypeHeader.join(', ')
+							: '';
 				if (responseContentType.includes('application/json')) {
 					newResponse.body = jsonParse(contentBody, { fallbackValue: {} });
 				} else {

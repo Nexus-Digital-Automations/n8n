@@ -4,7 +4,7 @@ import { loadClassInIsolation } from '../load-class-in-isolation';
 
 jest.mock('@n8n/backend-common', () => {
 	return {
-		...jest.requireActual('@n8n/backend-common'),
+		...(jest.requireActual('@n8n/backend-common') as object),
 		inTest: false,
 	};
 });

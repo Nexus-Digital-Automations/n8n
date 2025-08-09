@@ -391,13 +391,37 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-09T05:38:50.378Z"
+    },
+    {
+      "id": "task_1754757260113_b8rdkt17f",
+      "title": "Fix TypeScript compilation errors in object-store files",
+      "description": "Resolve TypeScript compilation errors in object-store.service.ee.ts and related test files. Issues include unnecessary type assertions and AWS SDK _Object type property access that may need better typing.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "in_progress",
+      "dependencies": [],
+      "important_files": [
+        "src/binary-data/object-store/object-store.service.ee.ts",
+        "src/binary-data/object-store/__tests__/object-store.service.test.ts",
+        "src/binary-data/__tests__/object-store.manager.test.ts"
+      ],
+      "success_criteria": [
+        "Remove unnecessary type assertion in object-store.service.test.ts line 21",
+        "Ensure _Object type Key property access is properly typed",
+        "All TypeScript compilation errors resolved in object-store files",
+        "All tests continue to pass after fixes"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T16:34:20.113Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 161,
-  "last_hook_activation": 1754751895659,
+  "execution_count": 162,
+  "last_hook_activation": 1754755361634,
   "current_mode": "DEVELOPMENT"
 }

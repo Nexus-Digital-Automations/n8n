@@ -64,7 +64,8 @@ describe('TriggersAndPollers', () => {
 		});
 
 		describe('manual mode', () => {
-			const getMockTriggerFunctions = () => getTriggerFunctions.mock.results[0]?.value;
+			const getMockTriggerFunctions = (): ITriggerFunctions | undefined =>
+				getTriggerFunctions.mock.results[0]?.value as ITriggerFunctions | undefined;
 
 			beforeEach(() => {
 				nodeType.trigger = triggerFn;

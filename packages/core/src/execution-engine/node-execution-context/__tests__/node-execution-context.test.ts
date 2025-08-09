@@ -200,10 +200,10 @@ describe('NodeExecutionContext', () => {
 	});
 
 	describe('prepareOutputData', () => {
-		it('should return the input array wrapped in another array', async () => {
+		it('should return the input array wrapped in another array', () => {
 			const outputData = [mock<INodeExecutionData>(), mock<INodeExecutionData>()];
 
-			const result = await testContext.prepareOutputData(outputData);
+			const result = testContext.prepareOutputData(outputData);
 
 			expect(result).toEqual([outputData]);
 		});

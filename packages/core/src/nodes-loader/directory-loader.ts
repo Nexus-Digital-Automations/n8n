@@ -115,11 +115,11 @@ export abstract class DirectoryLoader {
 		return path.resolve(this.directory, file);
 	}
 
-	private loadClass<T>(sourcePath: string) {
+	private async loadClass<T>(sourcePath: string) {
 		const filePath = this.resolvePath(sourcePath);
 		const [className] = path.parse(sourcePath).name.split('.');
 		try {
-			return loadClassInIsolation<T>(filePath, className);
+			return await loadClassInIsolation<T>(filePath, className);
 		} catch (error) {
 			throw error instanceof TypeError
 				? new ApplicationError(

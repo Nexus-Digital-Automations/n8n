@@ -398,7 +398,7 @@ describe('prepareBinaryData', () => {
 		jest.resetAllMocks();
 		Container.set(BinaryDataService, binaryDataService);
 
-		binaryDataService.store.mockImplementation((_w, _e, _b, binaryData) =>
+		binaryDataService.store.mockImplementation(async (_w, _e, _b, binaryData) =>
 			Promise.resolve(binaryData),
 		);
 	});

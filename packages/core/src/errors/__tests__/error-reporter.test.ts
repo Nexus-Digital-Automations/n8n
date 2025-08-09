@@ -87,11 +87,19 @@ describe('ErrorReporter', () => {
 			['a rejected Promise with AxiosError', Promise.reject(new AxiosError())],
 			[
 				'a QueryFailedError with SQLITE_FULL',
-				new QueryFailedError('', [] as unknown[], new Error('SQLITE_FULL')),
+				(() => {
+					const dbError = new Error('SQLITE_FULL');
+					(dbError as Error & { code: string }).code = 'SQLITE_FULL';
+					return new QueryFailedError('', [] as unknown[], dbError);
+				})(),
 			],
 			[
 				'a QueryFailedError with SQLITE_IOERR',
-				new QueryFailedError('', [] as unknown[], new Error('SQLITE_IOERR')),
+				(() => {
+					const dbError = new Error('SQLITE_IOERR');
+					(dbError as Error & { code: string }).code = 'SQLITE_IOERR';
+					return new QueryFailedError('', [] as unknown[], dbError);
+				})(),
 			],
 			['an ApplicationError with "warning" level', new ApplicationError('', { level: 'warning' })],
 			[
