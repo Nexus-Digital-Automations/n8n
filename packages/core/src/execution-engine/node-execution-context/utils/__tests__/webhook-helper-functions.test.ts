@@ -70,6 +70,7 @@ describe('Webhook Helper Functions', () => {
 			const result = getWebhookDescription(name, workflow, node);
 
 			expect(result).toEqual(expected);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(nodeTypes.getByNameAndVersion).toHaveBeenCalled();
 		});
 	});
@@ -144,6 +145,7 @@ describe('Webhook Helper Functions', () => {
 			);
 
 			expect(result).toEqual(expected);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(expression.getSimpleParameterValue).toHaveBeenCalled();
 		});
 	});

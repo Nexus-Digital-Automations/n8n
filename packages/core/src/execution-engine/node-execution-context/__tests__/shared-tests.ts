@@ -53,10 +53,12 @@ export const describeCommonTests = (
 		context.onExecutionCancellation(handler);
 
 		const fnCaptor = captor<() => void>();
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(abortSignal.addEventListener).toHaveBeenCalledWith('abort', fnCaptor);
 		expect(handler).not.toHaveBeenCalled();
 
 		fnCaptor.value();
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(abortSignal.removeEventListener).toHaveBeenCalledWith('abort', fnCaptor);
 		expect(handler).toHaveBeenCalled();
 	});
@@ -217,6 +219,7 @@ export const describeCommonTests = (
 			});
 
 			expect(result.data).toEqual(data);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(binaryDataService.duplicateBinaryData).toHaveBeenCalledWith(
 				workflow.id,
 				additionalData.executionId,

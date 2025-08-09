@@ -78,6 +78,7 @@ describe('NodeExecutionContext', () => {
 	describe('getWorkflowStaticData', () => {
 		it('should call getStaticData method of workflow', () => {
 			testContext.getWorkflowStaticData('testType');
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(workflow.getStaticData).toHaveBeenCalledWith('testType', node);
 		});
 	});
@@ -148,6 +149,7 @@ describe('NodeExecutionContext', () => {
 	describe('getKnownNodeTypes', () => {
 		it('should call getKnownTypes method of nodeTypes', () => {
 			testContext.getKnownNodeTypes();
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(nodeTypes.getKnownTypes).toHaveBeenCalled();
 		});
 	});
@@ -190,6 +192,7 @@ describe('NodeExecutionContext', () => {
 	describe('getCredentialsProperties', () => {
 		it('should call getCredentialsProperties method of additionalData.credentialsHelper', () => {
 			testContext.getCredentialsProperties('testType');
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(additionalData.credentialsHelper.getCredentialsProperties).toHaveBeenCalledWith(
 				'testType',
 			);
@@ -246,6 +249,7 @@ describe('NodeExecutionContext', () => {
 				{ type: NodeConnectionTypes.Main },
 				{ type: NodeConnectionTypes.AiLanguageModel },
 			]);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(expression.getSimpleParameterValue).toHaveBeenCalledWith(
 				node,
 				inputsExpressions,
@@ -298,6 +302,7 @@ describe('NodeExecutionContext', () => {
 				{ type: NodeConnectionTypes.Main },
 				{ type: NodeConnectionTypes.AiLanguageModel },
 			]);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(expression.getSimpleParameterValue).toHaveBeenCalledWith(
 				node,
 				outputsExpressions,
@@ -335,6 +340,7 @@ describe('NodeExecutionContext', () => {
 			const result = testContext.getConnectedNodes(NodeConnectionTypes.Main);
 
 			expect(result).toEqual([node1, node2]);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(workflow.getParentNodes).toHaveBeenCalledWith(node.name, NodeConnectionTypes.Main, 1);
 		});
 

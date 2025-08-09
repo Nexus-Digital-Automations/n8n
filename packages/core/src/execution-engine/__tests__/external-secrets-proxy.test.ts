@@ -18,6 +18,7 @@ describe('ExternalSecretsProxy', () => {
 
 			await proxy.update();
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(manager.updateSecrets).toHaveBeenCalledTimes(1);
 		});
 
@@ -34,6 +35,7 @@ describe('ExternalSecretsProxy', () => {
 
 			const result = proxy.getSecret('aws', 'api-key');
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(manager.getSecret).toHaveBeenCalledWith('aws', 'api-key');
 			expect(result).toBe(secretValue);
 		});
@@ -52,6 +54,7 @@ describe('ExternalSecretsProxy', () => {
 
 			const result = proxy.hasSecret('aws', 'api-key');
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(manager.hasSecret).toHaveBeenCalledWith('aws', 'api-key');
 			expect(result).toBe(true);
 		});
@@ -70,6 +73,7 @@ describe('ExternalSecretsProxy', () => {
 
 			const result = proxy.hasProvider('aws');
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(manager.hasProvider).toHaveBeenCalledWith('aws');
 			expect(result).toBe(true);
 		});
@@ -89,6 +93,7 @@ describe('ExternalSecretsProxy', () => {
 
 			const result = proxy.listProviders();
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(manager.getProviderNames).toHaveBeenCalledTimes(1);
 			expect(result).toEqual(providers);
 		});
@@ -108,6 +113,7 @@ describe('ExternalSecretsProxy', () => {
 
 			const result = proxy.listSecrets('aws');
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(manager.getSecretNames).toHaveBeenCalledWith('aws');
 			expect(result).toEqual(secrets);
 		});

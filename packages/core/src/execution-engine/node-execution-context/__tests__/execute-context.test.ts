@@ -295,6 +295,7 @@ describe('ExecuteContext', () => {
 
 			await testExecuteContext.sendChunk('item', 0, 'test');
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(hooksMock.runHook).toHaveBeenCalledWith('sendChunk', [
 				expect.objectContaining({
 					type: 'item',
@@ -335,6 +336,7 @@ describe('ExecuteContext', () => {
 
 			await testExecuteContext.sendChunk('begin', 0);
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(hooksMock.runHook).toHaveBeenCalledWith('sendChunk', [
 				expect.objectContaining({
 					type: 'begin',

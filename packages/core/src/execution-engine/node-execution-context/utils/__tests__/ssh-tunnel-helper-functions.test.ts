@@ -20,6 +20,7 @@ describe('getSSHTunnelFunctions', () => {
 		it('should invoke sshClientsManager.getClient', async () => {
 			await sshTunnelFunctions.getSSHClient(credentials, abortController);
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(sshClientsManager.getClient).toHaveBeenCalledWith(credentials, abortController);
 		});
 	});
@@ -33,6 +34,7 @@ describe('getSSHTunnelFunctions', () => {
 			sshTunnelFunctions.updateLastUsed(client);
 
 			// ASSERT
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(sshClientsManager.updateLastUsed).toHaveBeenCalledWith(client);
 		});
 	});

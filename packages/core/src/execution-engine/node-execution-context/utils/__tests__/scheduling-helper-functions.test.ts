@@ -32,6 +32,7 @@ describe('getSchedulingFunctions', () => {
 
 			schedulingFunctions.registerCron({ expression: cronExpression }, onTick);
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(scheduledTaskManager.registerCron).toHaveBeenCalledWith(ctx, onTick);
 		});
 	});

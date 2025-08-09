@@ -1,26 +1,23 @@
-import type { Response } from 'express';
-import { Container } from '@n8n/di';
 import type {
-	CustomNode,
-	CustomNodeDeployment,
 	CustomNodeRepository,
 	CustomNodeDeploymentRepository,
+	CustomNodeStatus,
 } from '@n8n/db';
-import type { CustomNodeStatus, DeploymentStatus } from '@n8n/db';
+import { Container } from '@n8n/di';
+import type { Response } from 'express';
 
-import { Get, Post, Put, Delete, RestController, GlobalScope } from '@/decorators';
-import { AuthenticatedRequest } from '@/requests';
 import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
-import { CustomNodeStorageService } from '@/services/custom-node-storage.service';
+import { AuthenticatedRequest } from '@/requests';
+import type { DeploymentOptions } from '@/services/custom-node-deployment.service';
 import { CustomNodeDeploymentService } from '@/services/custom-node-deployment.service';
 import type {
 	CustomNodeCreateRequest,
 	CustomNodeListQuery,
-	FileUploadOptions,
 	ValidationOptions,
 } from '@/services/custom-node-storage.service';
-import type { DeploymentOptions } from '@/services/custom-node-deployment.service';
+import { CustomNodeStorageService } from '@/services/custom-node-storage.service';
+import { Get, Post, Put, Delete, RestController, GlobalScope } from '@/decorators';
 
 interface CustomNodeUpdateRequest {
 	name?: string;
@@ -55,17 +52,25 @@ export class CustomNodesController {
 	 */
 	@Get('/')
 	@GlobalScope('customNode:list')
-	async listCustomNodes(req: AuthenticatedRequest, res: Response) {
+	async listCustomNodes(
+		req: AuthenticatedRequest<
+			Record<string, never>,
+			Record<string, never>,
+			Record<string, never>,
+			CustomNodeListQuery
+		>,
+		res: Response,
+	) {
 		const query: CustomNodeListQuery = {
-			status: req.query.status as CustomNodeStatus | CustomNodeStatus[],
-			category: req.query.category as string,
-			authorId: req.query.authorId as string,
-			search: req.query.search as string,
-			tags: req.query.tags ? (req.query.tags as string).split(',') : undefined,
-			limit: req.query.limit ? parseInt(req.query.limit as string, 10) : 50,
-			offset: req.query.offset ? parseInt(req.query.offset as string, 10) : 0,
-			sortBy: (req.query.sortBy as 'name' | 'createdAt' | 'version' | 'status') || 'createdAt',
-			sortOrder: (req.query.sortOrder as 'ASC' | 'DESC') || 'DESC',
+			status: req.query.status,
+			category: req.query.category,
+			authorId: req.query.authorId,
+			search: req.query.search,
+			tags: req.query.tags ? req.query.tags.split(',') : undefined,
+			limit: req.query.limit ? parseInt(req.query.limit, 10) : 50,
+			offset: req.query.offset ? parseInt(req.query.offset, 10) : 0,
+			sortBy: req.query.sortBy ?? 'createdAt',
+			sortOrder: req.query.sortOrder ?? 'DESC',
 		};
 
 		// Validate query parameters
@@ -97,7 +102,14 @@ export class CustomNodesController {
 	 */
 	@Post('/')
 	@GlobalScope('customNode:create')
-	async createCustomNode(req: AuthenticatedRequest, res: Response) {
+	async createCustomNode(
+		req: AuthenticatedRequest<
+			Record<string, never>,
+			Record<string, never>,
+			CustomNodeCreateRequest
+		>,
+		res: Response,
+	) {
 		const {
 			name,
 			version,
@@ -105,7 +117,7 @@ export class CustomNodesController {
 			category,
 			tags,
 			validateOnly = false,
-			validationOptions = {},
+			validationOptions = {} as ValidationOptions,
 		} = req.body;
 
 		// Validate required fields
@@ -168,7 +180,7 @@ export class CustomNodesController {
 	 */
 	@Get('/:id')
 	@GlobalScope('customNode:read')
-	async getCustomNode(req: AuthenticatedRequest, res: Response) {
+	async getCustomNode(req: AuthenticatedRequest<{ id: string }>, res: Response) {
 		const { id } = req.params;
 
 		if (!id) {
@@ -194,7 +206,10 @@ export class CustomNodesController {
 	 */
 	@Put('/:id')
 	@GlobalScope('customNode:update')
-	async updateCustomNode(req: AuthenticatedRequest, res: Response) {
+	async updateCustomNode(
+		req: AuthenticatedRequest<{ id: string }, Record<string, never>, CustomNodeUpdateRequest>,
+		res: Response,
+	) {
 		const { id } = req.params;
 		const updates: CustomNodeUpdateRequest = req.body;
 
@@ -245,7 +260,15 @@ export class CustomNodesController {
 	 */
 	@Delete('/:id')
 	@GlobalScope('customNode:delete')
-	async deleteCustomNode(req: AuthenticatedRequest, res: Response) {
+	async deleteCustomNode(
+		req: AuthenticatedRequest<
+			{ id: string },
+			Record<string, never>,
+			Record<string, never>,
+			{ force?: string; cleanup?: string }
+		>,
+		res: Response,
+	) {
 		const { id } = req.params;
 		const { force = false } = req.query;
 
@@ -273,9 +296,16 @@ export class CustomNodesController {
 	 */
 	@Post('/:id/validate')
 	@GlobalScope('customNode:validate')
-	async validateCustomNode(req: AuthenticatedRequest, res: Response) {
+	async validateCustomNode(
+		req: AuthenticatedRequest<
+			{ id: string },
+			Record<string, never>,
+			{ options?: ValidationOptions }
+		>,
+		res: Response,
+	) {
 		const { id } = req.params;
-		const validationOptions: ValidationOptions = req.body.options || {};
+		const validationOptions: ValidationOptions = req.body.options ?? ({} as ValidationOptions);
 
 		if (!id) {
 			throw new BadRequestError('Node ID is required');
@@ -298,11 +328,23 @@ export class CustomNodesController {
 	 */
 	@Post('/:id/deploy')
 	@GlobalScope('customNode:deploy')
-	async deployCustomNode(req: AuthenticatedRequest, res: Response) {
+	async deployCustomNode(
+		req: AuthenticatedRequest<
+			{ id: string },
+			Record<string, never>,
+			{
+				environment?: string;
+				config?: Record<string, any>;
+				force?: boolean;
+				skipValidation?: boolean;
+			}
+		>,
+		res: Response,
+	) {
 		const { id } = req.params;
 		const {
 			environment = 'production',
-			config = {},
+			config = {} as Record<string, any>,
 			force = false,
 			skipValidation = false,
 		}: CustomNodeDeploymentRequest & {
@@ -344,7 +386,18 @@ export class CustomNodesController {
 	 */
 	@Delete('/:id/deploy')
 	@GlobalScope('customNode:deploy')
-	async undeployCustomNode(req: AuthenticatedRequest, res: Response) {
+	async undeployCustomNode(
+		req: AuthenticatedRequest<
+			{ id: string },
+			Record<string, never>,
+			Record<string, never>,
+			{
+				environment?: string;
+				force?: string;
+			}
+		>,
+		res: Response,
+	) {
 		const { id } = req.params;
 		const { environment = 'production', force = false } = req.query;
 
@@ -370,7 +423,7 @@ export class CustomNodesController {
 	 */
 	@Get('/:id/deployments')
 	@GlobalScope('customNode:read')
-	async getNodeDeployments(req: AuthenticatedRequest, res: Response) {
+	async getNodeDeployments(req: AuthenticatedRequest<{ id: string }>, res: Response) {
 		const { id } = req.params;
 		const { limit = 10 } = req.query;
 
@@ -422,7 +475,15 @@ export class CustomNodesController {
 	 */
 	@Get('/stats')
 	@GlobalScope('customNode:list')
-	async getCustomNodeStats(req: AuthenticatedRequest, res: Response) {
+	async getCustomNodeStats(
+		req: AuthenticatedRequest<
+			Record<string, never>,
+			Record<string, never>,
+			Record<string, never>,
+			{ period?: string }
+		>,
+		res: Response,
+	) {
 		const { authorId } = req.query;
 
 		let stats;
@@ -457,7 +518,14 @@ export class CustomNodesController {
 	 */
 	@Post('/bulk')
 	@GlobalScope('customNode:update')
-	async bulkOperation(req: AuthenticatedRequest, res: Response) {
+	async bulkOperation(
+		req: AuthenticatedRequest<
+			Record<string, never>,
+			Record<string, never>,
+			CustomNodeBulkOperationRequest
+		>,
+		res: Response,
+	) {
 		const { nodeIds, action, force = false }: BulkOperationRequest = req.body;
 
 		if (!nodeIds || !Array.isArray(nodeIds) || nodeIds.length === 0) {
@@ -491,7 +559,7 @@ export class CustomNodesController {
 			try {
 				switch (action) {
 					case 'validate':
-						await this.storageService.validateCustomNode(nodeId, {});
+						await this.storageService.validateCustomNode(nodeId, {} as ValidationOptions);
 						results.push({ nodeId, success: true });
 						break;
 
