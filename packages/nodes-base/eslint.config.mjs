@@ -1,10 +1,11 @@
-import { defineConfig, globalIgnores } from 'eslint/config';
 import { nodeConfig } from '@n8n/eslint-config/node';
 import nodesBasePlugin from 'eslint-plugin-n8n-nodes-base';
 
-export default defineConfig(
-	nodeConfig,
-	globalIgnores(['scenarios/**', 'scripts/**']),
+export default [
+	...nodeConfig,
+	{
+		ignores: ['scenarios/**', 'scripts/**'],
+	},
 	{
 		rules: {
 			// TODO: remove all the following rules
@@ -174,4 +175,4 @@ export default defineConfig(
 			'n8n-nodes-base/node-filename-against-convention': 'off',
 		},
 	},
-);
+];

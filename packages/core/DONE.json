@@ -19,9 +19,28 @@
 			"quality_target": "Strike 3 - Testing",
 			"completed_at": "2025-08-09T00:15:34.072Z",
 			"archived_from_todo": "./TODO.json"
+		},
+		{
+			"id": "verify-eslint-detection-1753947604091",
+			"title": "Verify ESLint Detection by Quality System",
+			"description": "The quality system reports \"No ESLint configuration found\" but we have working ESLint configs. Investigate why detection is failing.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "completed",
+			"success_criteria": [
+				"Quality system correctly detects ESLint configuration",
+				"Strike 2 quality score improves from 70% to 100%",
+				"Linting works across all packages without detection issues"
+			],
+			"important_files": ["eslint.config.js", "packages/*/eslint.config.mjs"],
+			"created_at": "2025-07-31T07:40:04.091Z",
+			"is_quality_improvement": true,
+			"quality_target": "Strike 2 - Linting",
+			"completed_at": "2025-08-09T00:40:13.294Z",
+			"archived_from_todo": "./TODO.json"
 		}
 	],
-	"total_completed": 1,
-	"last_completion": "2025-08-09T00:15:34.072Z",
+	"total_completed": 2,
+	"last_completion": "2025-08-09T00:40:13.294Z",
 	"created_at": "2025-08-09T00:15:34.072Z"
 }
