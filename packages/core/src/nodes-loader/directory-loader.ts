@@ -78,9 +78,23 @@ export abstract class DirectoryLoader {
 
 	readonly nodesByCredential: Record<string, string[]> = {};
 
-	protected readonly logger = Container.get(Logger);
+	protected readonly logger = this.getLoggerSafely();
 
 	protected removeNonIncludedNodes = false;
+
+	private getLoggerSafely() {
+		try {
+			return Container.get(Logger);
+		} catch (error) {
+			// Fallback to console logger during metadata generation or when DI isn't available
+			return {
+				debug: console.log.bind(console),
+				info: console.log.bind(console),
+				warn: console.warn.bind(console),
+				error: console.error.bind(console),
+			};
+		}
+	}
 
 	constructor(
 		readonly directory: string,
