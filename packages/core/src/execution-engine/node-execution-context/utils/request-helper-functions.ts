@@ -892,12 +892,12 @@ export function convertN8nRequestToAxios(n8nRequest: IHttpRequestOptions): Axios
 	return axiosRequest;
 }
 
-const NoBodyHttpMethods = ['GET', 'HEAD', 'OPTIONS'];
+const NO_BODY_HTTP_METHODS = ['GET', 'HEAD', 'OPTIONS'];
 
 /** Remove empty request body on GET, HEAD, and OPTIONS requests */
 export const removeEmptyBody = (requestOptions: IHttpRequestOptions | IRequestOptions) => {
 	const method = requestOptions.method || 'GET';
-	if (NoBodyHttpMethods.includes(method) && isEmpty(requestOptions.body)) {
+	if (NO_BODY_HTTP_METHODS.includes(method) && isEmpty(requestOptions.body)) {
 		delete requestOptions.body;
 	}
 };
@@ -1129,7 +1129,7 @@ export async function requestOAuth2(
 				const error = new Error(
 					`Request failed with status code ${response.statusCode}`,
 				) as IResponseError;
-				error.statusCode = response.statusCode as number;
+				error.statusCode = response.statusCode;
 				throw error;
 			}
 			return response;

@@ -1493,7 +1493,7 @@ export class WorkflowDataProxy {
 			$nodeId: that.workflow.getNode(that.activeNodeName)?.id,
 			$agentInfo: this.agentInfo(),
 			$webhookId: that.workflow.getNode(that.activeNodeName)?.webhookId,
-			constructor: (...args: unknown[]) => ({}),
+			constructor: (..._args: unknown[]) => ({}),
 		};
 		const throwOnMissingExecutionData = opts?.throwOnMissingExecutionData ?? true;
 

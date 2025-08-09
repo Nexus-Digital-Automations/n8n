@@ -191,10 +191,10 @@ export const describeCommonTests = (
 	});
 
 	describe('putExecutionToWait', () => {
-		it('should set waitTill and execution status', () => {
+		it('should set waitTill and execution status', async () => {
 			const waitTill = new Date();
 
-			context.putExecutionToWait(waitTill);
+			await context.putExecutionToWait(waitTill);
 
 			expect(runExecutionData.waitTill).toEqual(waitTill);
 			expect(additionalData.setExecutionStatus).toHaveBeenCalledWith('waiting');
