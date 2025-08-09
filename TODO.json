@@ -2,25 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754668946023_rcvujtmyq",
-      "title": "Restore lost upstream features through git analysis",
-      "description": "Analyze git history and upstream branch differences to identify any features or code that may have been lost during fork development. Use git analysis to compare this fork against the upstream branch and restore any missing functionality without removing the custom features added to this fork in previous commits. This includes conducting a comprehensive diff analysis and selective restoration of upstream changes.",
-      "mode": "RESEARCH",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "./development/research-reports/research-report-task_1754668946023_rcvujtmyq.md"
-      ],
-      "success_criteria": [
-        "Research report created: ./development/research-reports/research-report-task_1754668946023_rcvujtmyq.md"
-      ],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T16:02:26.023Z"
-    },
-    {
       "id": "task_1754681184384_ya1potpyb",
       "title": "Enhance OAuth Setup for Cloud Providers",
       "description": "Simplify OAuth integration setup for services like Google, Microsoft, etc. The current manual setup process is cumbersome compared to SaaS alternatives. Create guided setup wizards and automated OAuth app configuration.",

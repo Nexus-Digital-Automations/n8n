@@ -1970,9 +1970,30 @@
       "created_at": "2025-08-08T05:36:20.912Z",
       "completed_at": "2025-08-09T05:32:51.448Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754668946023_rcvujtmyq",
+      "title": "Restore lost upstream features through git analysis",
+      "description": "Analyze git history and upstream branch differences to identify any features or code that may have been lost during fork development. Use git analysis to compare this fork against the upstream branch and restore any missing functionality without removing the custom features added to this fork in previous commits. This includes conducting a comprehensive diff analysis and selective restoration of upstream changes.",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754668946023_rcvujtmyq.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754668946023_rcvujtmyq.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T16:02:26.023Z",
+      "completed_at": "2025-08-09T05:36:40.074Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 81,
-  "last_completion": "2025-08-09T05:32:51.448Z",
+  "total_completed": 82,
+  "last_completion": "2025-08-09T05:36:40.074Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

@@ -76,9 +76,34 @@
 			},
 			"completed_at": "2025-08-09T02:18:00.069Z",
 			"archived_from_todo": "./TODO.json"
+		},
+		{
+			"id": "task_1754705746679_ieq7svoa7",
+			"title": "Fix DI Circular Dependency Issues in Core Package Tests",
+			"description": "Resolve circular dependency between Logger and InstanceSettings that is preventing multiple test suites from running. This affects ExecuteSingleContext, WebhookContext, TriggerContext, ExecuteContext, LoadOptionsContext, SupplyDataContext, HookContext, and PollContext tests.",
+			"mode": "TESTING",
+			"priority": "high",
+			"status": "completed",
+			"dependencies": [],
+			"important_files": [
+				"src/execution-engine/node-execution-context/base-execute-context.ts",
+				"src/execution-engine/node-execution-context/node-execution-context.ts",
+				"src/instance-settings/instance-settings.ts"
+			],
+			"success_criteria": [
+				"All node execution context tests can initialize without DI circular dependency errors",
+				"Logger and InstanceSettings dependency cycle resolved",
+				"Test suites run without instantiation failures"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T02:15:46.679Z",
+			"completed_at": "2025-08-09T05:36:53.249Z",
+			"archived_from_todo": "./TODO.json"
 		}
 	],
-	"total_completed": 3,
-	"last_completion": "2025-08-09T02:18:00.069Z",
+	"total_completed": 4,
+	"last_completion": "2025-08-09T05:36:53.249Z",
 	"created_at": "2025-08-09T00:15:34.072Z"
 }

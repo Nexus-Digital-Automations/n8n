@@ -76,29 +76,6 @@
 			}
 		},
 		{
-			"id": "task_1754705746679_ieq7svoa7",
-			"title": "Fix DI Circular Dependency Issues in Core Package Tests",
-			"description": "Resolve circular dependency between Logger and InstanceSettings that is preventing multiple test suites from running. This affects ExecuteSingleContext, WebhookContext, TriggerContext, ExecuteContext, LoadOptionsContext, SupplyDataContext, HookContext, and PollContext tests.",
-			"mode": "TESTING",
-			"priority": "high",
-			"status": "pending",
-			"dependencies": [],
-			"important_files": [
-				"src/execution-engine/node-execution-context/base-execute-context.ts",
-				"src/execution-engine/node-execution-context/node-execution-context.ts",
-				"src/instance-settings/instance-settings.ts"
-			],
-			"success_criteria": [
-				"All node execution context tests can initialize without DI circular dependency errors",
-				"Logger and InstanceSettings dependency cycle resolved",
-				"Test suites run without instantiation failures"
-			],
-			"estimate": "",
-			"requires_research": false,
-			"subtasks": [],
-			"created_at": "2025-08-09T02:15:46.679Z"
-		},
-		{
 			"id": "task_1754705746684_p64c4xj29",
 			"title": "Fix AWS SDK Type Issues in Object Store Service",
 			"description": "Resolve TypeScript compilation errors in object-store.service.ee.ts where AWS SDK _Object type does not have expected properties like key, causing test compilation failures.",

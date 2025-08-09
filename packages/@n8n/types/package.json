@@ -1,0 +1,51 @@
+{
+	"name": "@n8n/types",
+	"version": "0.1.0",
+	"description": "Shared TypeScript type definitions, type guards, and validation utilities for n8n",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsc -p tsconfig.build.json",
+		"dev": "tsc -p tsconfig.build.json --watch",
+		"clean": "rimraf dist",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint . --ext .ts",
+		"lint:fix": "eslint . --ext .ts --fix",
+		"test": "jest"
+	},
+	"files": [
+		"dist/**/*",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"keywords": [
+		"n8n",
+		"typescript",
+		"types",
+		"type-guards",
+		"validation",
+		"utilities"
+	],
+	"author": "n8n team",
+	"license": "SEE LICENSE IN LICENSE.md",
+	"dependencies": {
+		"lodash": "^4.17.21",
+		"luxon": "^3.4.4"
+	},
+	"devDependencies": {
+		"@types/lodash": "^4.17.7",
+		"@types/luxon": "^3.4.2",
+		"typescript": "*",
+		"jest": "*",
+		"@types/jest": "*",
+		"eslint": "*",
+		"rimraf": "*"
+	},
+	"peerDependencies": {
+		"@n8n/constants": "*"
+	},
+	"publishConfig": {
+		"access": "restricted"
+	}
+}
