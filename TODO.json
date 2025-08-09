@@ -2,21 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754681184384_ya1potpyb",
-      "title": "Enhance OAuth Setup for Cloud Providers",
-      "description": "Simplify OAuth integration setup for services like Google, Microsoft, etc. The current manual setup process is cumbersome compared to SaaS alternatives. Create guided setup wizards and automated OAuth app configuration.",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [],
-      "success_criteria": [],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T19:26:24.384Z"
-    },
-    {
       "id": "task_1754681190635_69e69x5j9",
       "title": "Add CRUD Operations to QuickBooks Node",
       "description": "Enhance QuickBooks node with missing basic CRUD operations (Create, Read, Update, Delete). Current implementation may be missing some standard operations available in competing platforms.",
@@ -525,13 +510,148 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-09T04:35:29.724Z"
+    },
+    {
+      "id": "task_1754717930371_f254e3tn4",
+      "title": "Research current OAuth setup pain points and requirements",
+      "description": "Analyze existing OAuth setup process for major providers (Google, Microsoft, Azure, AWS) to identify specific pain points, manual steps, and requirements for automated configuration. Compare with SaaS alternatives.",
+      "mode": "RESEARCH",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-oauth-setup-analysis.md",
+        "./packages/cli/src/credentials/",
+        "./packages/nodes-base/nodes/",
+        "./development/research-reports/research-report-task_1754717930371_f254e3tn4.md"
+      ],
+      "success_criteria": [
+        "Research report created documenting current OAuth setup process",
+        "Pain points and manual steps identified for each major provider",
+        "Requirements defined for guided setup wizard",
+        "Technical requirements for automated OAuth app configuration documented",
+        "Research report created: ./development/research-reports/research-report-task_1754717930371_f254e3tn4.md"
+      ],
+      "estimate": "3-4 hours",
+      "requires_research": true,
+      "subtasks": [],
+      "created_at": "2025-08-09T05:38:50.371Z"
+    },
+    {
+      "id": "task_1754717930374_okcb89mf8",
+      "title": "Create OAuth app configuration API endpoints",
+      "description": "Implement backend API endpoints for automated OAuth app creation and configuration. Support Google, Microsoft, and other major providers with proper validation and error handling.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [
+        "task_1754717930371_f254e3tn4"
+      ],
+      "important_files": [
+        "./packages/cli/src/controllers/oauth.controller.ts",
+        "./packages/cli/src/services/oauth-config.service.ts",
+        "./packages/cli/src/databases/entities/OAuthApp.ts"
+      ],
+      "success_criteria": [
+        "OAuth configuration API endpoints created",
+        "Support for Google OAuth app creation",
+        "Support for Microsoft OAuth app creation",
+        "Proper validation and error handling implemented",
+        "Database entities for storing OAuth app configurations"
+      ],
+      "estimate": "6-8 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T05:38:50.374Z"
+    },
+    {
+      "id": "task_1754717930375_m8zri88ee",
+      "title": "Implement OAuth setup wizard UI components",
+      "description": "Create guided setup wizard components for OAuth provider configuration. Include step-by-step forms, validation, progress indicators, and provider-specific instructions.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [
+        "task_1754717930371_f254e3tn4"
+      ],
+      "important_files": [
+        "./packages/frontend/editor-ui/src/components/OAuthSetupWizard.vue",
+        "./packages/frontend/editor-ui/src/components/OAuthProviderConfig.vue",
+        "./packages/frontend/editor-ui/src/views/SettingsOAuthView.vue"
+      ],
+      "success_criteria": [
+        "OAuth setup wizard component created",
+        "Provider-specific configuration forms",
+        "Step-by-step guided flow with validation",
+        "Progress indicators and user feedback",
+        "Integration with OAuth configuration API"
+      ],
+      "estimate": "5-7 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T05:38:50.375Z"
+    },
+    {
+      "id": "task_1754717930377_h3f28c4z2",
+      "title": "Implement automated OAuth app provisioning for major providers",
+      "description": "Implement automated OAuth application creation and configuration for Google Cloud Platform, Microsoft Azure, and other major providers using their respective APIs.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [
+        "task_1754717930374_okcb89mf8"
+      ],
+      "important_files": [
+        "./packages/cli/src/services/providers/google-oauth.service.ts",
+        "./packages/cli/src/services/providers/microsoft-oauth.service.ts",
+        "./packages/cli/src/services/providers/oauth-provider.interface.ts"
+      ],
+      "success_criteria": [
+        "Google Cloud OAuth app creation via API",
+        "Microsoft Azure OAuth app creation via API",
+        "Provider interface for extensibility",
+        "Error handling for API failures",
+        "Validation of OAuth app configurations"
+      ],
+      "estimate": "8-10 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T05:38:50.377Z"
+    },
+    {
+      "id": "task_1754717930378_zclb7fe3k",
+      "title": "Add comprehensive testing for OAuth setup automation",
+      "description": "Create unit tests, integration tests, and E2E tests for OAuth setup wizard and automated configuration. Include testing for error scenarios and validation.",
+      "mode": "TESTING",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [
+        "task_1754717930375_m8zri88ee",
+        "task_1754717930377_h3f28c4z2"
+      ],
+      "important_files": [
+        "./packages/cli/test/integration/oauth-config.test.ts",
+        "./packages/frontend/editor-ui/src/components/__tests__/OAuthSetupWizard.test.ts",
+        "./cypress/e2e/oauth-setup.cy.ts"
+      ],
+      "success_criteria": [
+        "Unit tests for OAuth configuration services (>90% coverage)",
+        "Integration tests for OAuth API endpoints",
+        "Vue component tests for setup wizard",
+        "E2E tests for complete OAuth setup flow",
+        "Error scenario testing and validation"
+      ],
+      "estimate": "4-6 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T05:38:50.378Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "RESEARCH",
-  "execution_count": 131,
-  "last_hook_activation": 1754717654765,
+  "last_mode": "TASK_CREATION",
+  "execution_count": 132,
+  "last_hook_activation": 1754717919662,
   "current_mode": "DEVELOPMENT"
 }
