@@ -351,6 +351,18 @@ describe('GlobalConfig', () => {
 		ai: {
 			enabled: false,
 		},
+		autosave: {
+			enabled: false,
+			interval: 30,
+			maxFiles: 10,
+			maxFileAge: 1440,
+			showIndicators: true,
+			preventConflicts: true,
+			storagePath: 'autosave',
+			autoStart: true,
+			debounceTime: 5000,
+			compress: false,
+		},
 		notifications: {
 			enabled: true,
 			defaultChannels: 'email',

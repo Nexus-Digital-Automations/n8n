@@ -339,9 +339,7 @@ export abstract class DirectoryLoader {
 				codex = node.description.codex;
 			}
 
-			if (codex === undefined) {
-				codex = this.getCodex(filePath);
-			}
+			codex ??= this.getCodex(filePath);
 
 			if (isCustom) {
 				codex.categories = codex.categories

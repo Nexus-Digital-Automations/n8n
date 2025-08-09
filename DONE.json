@@ -2008,9 +2008,55 @@
       "created_at": "2025-08-08T19:26:30.635Z",
       "completed_at": "2025-08-09T05:52:18.757Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754681196945_y27bkf9kl",
+      "title": "Restore Missing AI Features in Self-hosted Version",
+      "description": "Investigate and restore any AI-powered parameters or tools that may have been removed or restricted in self-hosted versions after updates. Ensure feature parity with cloud versions where licensing permits.",
+      "mode": "RESEARCH",
+      "priority": "medium",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754681196945_y27bkf9kl.md"
+      ],
+      "success_criteria": [
+        "Research report created: ./development/research-reports/research-report-task_1754681196945_y27bkf9kl.md"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:26:36.945Z",
+      "completed_at": "2025-08-09T06:04:26.759Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754683157799_i5mt4d1r5",
+      "title": "Create autosave configuration system with environment variables",
+      "description": "Add autosave configuration to n8n config system with environment variables for enabling autosave, setting intervals (default 30 seconds), and configuring autosave behavior. Include validation and type safety.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/@n8n/config/src/configs/autosave.config.ts",
+        "packages/@n8n/config/src/index.ts"
+      ],
+      "success_criteria": [
+        "AutosaveConfig class created in @n8n/config package",
+        "Environment variables defined for autosave settings",
+        "Configuration validation implemented",
+        "Default autosave interval set to 30 seconds"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:59:17.799Z",
+      "completed_at": "2025-08-09T06:08:28.314Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 83,
-  "last_completion": "2025-08-09T05:52:18.757Z",
+  "total_completed": 85,
+  "last_completion": "2025-08-09T06:08:28.314Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

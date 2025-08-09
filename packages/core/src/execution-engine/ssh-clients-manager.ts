@@ -75,9 +75,9 @@ export class SSHClientsManager {
 		} catch {
 			// Fallback to console if circular dependency during construction
 			return {
-				warn: (msg: string, meta?: any) => console.warn(`[SSHClientsManager] ${msg}`, meta || ''),
-				debug: (msg: string, meta?: any) => console.log(`[SSHClientsManager] ${msg}`, meta || ''),
-				error: (msg: string, meta?: any) => console.error(`[SSHClientsManager] ${msg}`, meta || ''),
+				warn: (msg: string, meta?: any) => console.warn(`[SSHClientsManager] ${msg}`, meta ?? ''),
+				debug: (msg: string, meta?: any) => console.log(`[SSHClientsManager] ${msg}`, meta ?? ''),
+				error: (msg: string, meta?: any) => console.error(`[SSHClientsManager] ${msg}`, meta ?? ''),
 			};
 		}
 	}

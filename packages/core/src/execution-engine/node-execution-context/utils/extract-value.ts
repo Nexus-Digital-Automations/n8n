@@ -108,9 +108,8 @@ function extractValueRLC(
 		let typeName: string | undefined = value.value?.constructor.name;
 		if (value.value === null) {
 			typeName = 'null';
-		} else if (typeName === undefined) {
-			typeName = 'undefined';
 		}
+		typeName ??= 'undefined';
 		LoggerProxy.error(
 			`Only strings can be passed to extractValue. Parameter "${parameterName}" passed "${typeName}"`,
 		);
@@ -163,9 +162,8 @@ function extractValueOther(
 		let typeName: string | undefined = value?.constructor.name;
 		if (value === null) {
 			typeName = 'null';
-		} else if (typeName === undefined) {
-			typeName = 'undefined';
 		}
+		typeName ??= 'undefined';
 		LoggerProxy.error(
 			`Only strings can be passed to extractValue. Parameter "${parameterName}" passed "${typeName}"`,
 		);

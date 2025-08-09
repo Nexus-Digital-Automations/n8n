@@ -54,13 +54,13 @@ export class ScheduledTaskManager {
 			// Fallback to console if circular dependency during construction
 			return {
 				debug: (msg: string, meta?: any) =>
-					console.log(`[ScheduledTaskManager] ${msg}`, meta || ''),
+					console.log(`[ScheduledTaskManager] ${msg}`, meta ?? ''),
 				warn: (msg: string, meta?: any) =>
-					console.warn(`[ScheduledTaskManager] ${msg}`, meta || ''),
+					console.warn(`[ScheduledTaskManager] ${msg}`, meta ?? ''),
 				error: (msg: string, meta?: any) =>
-					console.error(`[ScheduledTaskManager] ${msg}`, meta || ''),
+					console.error(`[ScheduledTaskManager] ${msg}`, meta ?? ''),
 				info: (msg: string, meta?: any) =>
-					console.info(`[ScheduledTaskManager] ${msg}`, meta || ''),
+					console.info(`[ScheduledTaskManager] ${msg}`, meta ?? ''),
 			};
 		}
 	}

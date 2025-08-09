@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { AiAssistantConfig } from './configs/ai-assistant.config';
 import { AiConfig } from './configs/ai.config';
 import { AuthConfig } from './configs/auth.config';
+import { AutosaveConfig } from './configs/autosave.config';
 import { CacheConfig } from './configs/cache.config';
 import { CredentialsConfig } from './configs/credentials.config';
 import { DatabaseConfig } from './configs/database.config';
@@ -38,6 +39,7 @@ import { WorkflowsConfig } from './configs/workflows.config';
 import { Config, Env, Nested } from './decorators';
 
 export { Config, Env, Nested } from './decorators';
+export { AutosaveConfig } from './configs/autosave.config';
 export { DatabaseConfig } from './configs/database.config';
 export { InstanceSettingsConfig } from './configs/instance-settings-config';
 export { TaskRunnersConfig } from './configs/runners.config';
@@ -63,6 +65,9 @@ export type Protocol = z.infer<typeof protocolSchema>;
 export class GlobalConfig {
 	@Nested
 	auth: AuthConfig;
+
+	@Nested
+	autosave: AutosaveConfig;
 
 	@Nested
 	database: DatabaseConfig;

@@ -40,7 +40,7 @@ const preSendFunction1 = function (
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): IHttpRequestOptions {
-	requestOptions.headers = requestOptions.headers || {};
+	requestOptions.headers = requestOptions.headers ?? {};
 	requestOptions.headers.addedIn = 'preSendFunction1';
 	return requestOptions;
 };
@@ -2147,7 +2147,7 @@ describe('RoutingNode', () => {
 				spy.mockClear();
 
 				executeFunctions.getNodeParameter.mockImplementation(
-					(parameterName: string) => testData.input.node.parameters[parameterName] || {},
+					(parameterName: string) => testData.input.node.parameters[parameterName] ?? {},
 				);
 
 				// eslint-disable-next-line @typescript-eslint/unbound-method

@@ -141,7 +141,7 @@ export class WebhookContext extends NodeExecutionContext implements IWebhookFunc
 		// incoming node data.
 		const connectionInputData: INodeExecutionData[] = [
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-			{ json: this.additionalData.httpRequest?.body || {} },
+			{ json: this.additionalData.httpRequest?.body ?? {} },
 		];
 		const runExecutionData: IRunExecutionData = this.runExecutionData ?? {
 			resultData: {

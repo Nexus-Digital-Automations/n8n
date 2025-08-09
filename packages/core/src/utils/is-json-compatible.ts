@@ -63,7 +63,7 @@ const check = (
 				isValid: false,
 				errorPath: path,
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-				errorMessage: `has non-plain prototype (${proto?.constructor?.name || 'unknown'})`,
+				errorMessage: `has non-plain prototype (${proto?.constructor?.name ?? 'unknown'})`,
 			};
 		}
 		for (const key of Reflect.ownKeys(val as object)) {
