@@ -28,18 +28,18 @@ import { NodeTypes } from '@test/helpers';
 
 import { RoutingNode } from '../routing-node';
 
-const postReceiveFunction1 = async function (
+const postReceiveFunction1 = function (
 	this: IExecuteSingleFunctions,
 	items: INodeExecutionData[],
-): Promise<INodeExecutionData[]> {
+): INodeExecutionData[] {
 	items.forEach((item) => (item.json1 = { success: true }));
 	return items;
 };
 
-const preSendFunction1 = async function (
+const preSendFunction1 = function (
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
-): Promise<IHttpRequestOptions> {
+): IHttpRequestOptions {
 	requestOptions.headers = requestOptions.headers || {};
 	requestOptions.headers.addedIn = 'preSendFunction1';
 	return requestOptions;
@@ -71,9 +71,7 @@ const getExecuteSingleFunctions = (
 			active: workflow.active,
 		}),
 		helpers: mock<IExecuteSingleFunctions['helpers']>({
-			async httpRequest(
-				requestOptions: IHttpRequestOptions,
-			): Promise<IN8nHttpFullResponse | IN8nHttpResponse> {
+			httpRequest(requestOptions: IHttpRequestOptions): IN8nHttpFullResponse | IN8nHttpResponse {
 				return {
 					body: {
 						headers: {},
@@ -82,10 +80,10 @@ const getExecuteSingleFunctions = (
 					},
 				};
 			},
-			async httpRequestWithAuthentication(
+			httpRequestWithAuthentication(
 				_credentialType: string,
 				requestOptions: IHttpRequestOptions,
-			): Promise<IN8nHttpFullResponse | IN8nHttpResponse> {
+			): IN8nHttpFullResponse | IN8nHttpResponse {
 				return {
 					body: {
 						headers: {},
@@ -730,7 +728,7 @@ describe('RoutingNode', () => {
 		};
 
 		for (const testData of tests) {
-			test(testData.description, async () => {
+			test(testData.description, () => {
 				node.parameters = testData.input.nodeParameters;
 				nodeType.description.properties = [testData.input.nodeTypeProperties];
 
@@ -2276,7 +2274,7 @@ describe('RoutingNode', () => {
 		};
 
 		for (const testData of tests) {
-			test(testData.description, async () => {
+			test(testData.description, () => {
 				const node: INode = { ...baseNode, ...testData.input.node };
 
 				const workflowData = {

@@ -508,7 +508,7 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 		);
 	}
 
-	async prepareOutputData(outputData: INodeExecutionData[]) {
+	prepareOutputData(outputData: INodeExecutionData[]) {
 		return [outputData];
 	}
 }

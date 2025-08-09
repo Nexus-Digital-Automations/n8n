@@ -23,7 +23,7 @@ pre-commit:
     eslint_check:
       glob: 'packages/**/*.{js,ts,vue}'
       exclude: 'packages/**/coverage/**/*'
-      run: pnpm eslint --fix --max-warnings 10 {staged_files}
+      run: pnpm eslint --fix --max-warnings 5 {staged_files}
       stage_fixed: true
       skip:
         - merge

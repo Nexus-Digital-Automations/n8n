@@ -30,9 +30,9 @@ export class PackageDirectoryLoader extends DirectoryLoader {
 			.map(([_, nodeType]) => nodeType);
 	}
 
-	override async loadAll() {
+	override loadAll(): Promise<void> {
 		const { n8n } = this.packageJson;
-		if (!n8n) return;
+		if (!n8n) return Promise.resolve();
 
 		const { nodes, credentials } = n8n;
 
@@ -54,6 +54,8 @@ export class PackageDirectoryLoader extends DirectoryLoader {
 			credentials: credentials?.length ?? 0,
 			nodes: nodes?.length ?? 0,
 		});
+
+		return Promise.resolve();
 	}
 
 	private inferSupportedNodes() {

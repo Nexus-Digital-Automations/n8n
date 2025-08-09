@@ -19,7 +19,7 @@ fs.realpathSync = mockFs.realpathSync;
 fs.readFileSync = mockFs.readFileSync;
 fsPromises.readFile = mockFsPromises.readFile;
 
-jest.mock('fast-glob', () => async (pattern: string) => {
+jest.mock('fast-glob', () => (pattern: string) => {
 	return pattern.endsWith('.node.js')
 		? ['dist/Node1/Node1.node.js', 'dist/Node2/Node2.node.js']
 		: ['dist/Credential1.js'];
@@ -149,7 +149,7 @@ describe('DirectoryLoader', () => {
 			);
 		});
 
-		it('should throw error when package.json is missing', async () => {
+		it('should throw error when package.json is missing', () => {
 			mockFs.readFileSync.mockImplementationOnce(() => {
 				throw new Error('ENOENT');
 			});
@@ -157,7 +157,7 @@ describe('DirectoryLoader', () => {
 			expect(() => new PackageDirectoryLoader(directory)).toThrow();
 		});
 
-		it('should throw error when package.json is invalid', async () => {
+		it('should throw error when package.json is invalid', () => {
 			mockFs.readFileSync.calledWith(`${directory}/package.json`).mockReturnValue('invalid json');
 
 			expect(() => new PackageDirectoryLoader(directory)).toThrow('Failed to parse JSON');
@@ -250,7 +250,7 @@ describe('DirectoryLoader', () => {
 		it('should only load included nodes when includeNodes is set', async () => {
 			mockFs.readFileSync.calledWith(`${directory}/package.json`).mockReturnValue(packageJson);
 
-			mockFsPromises.readFile.mockImplementation(async (path) => {
+			mockFsPromises.readFile.mockImplementation((path) => {
 				if (typeof path !== 'string') throw new Error('Invalid path');
 
 				if (path.endsWith('known/nodes.json')) {
@@ -286,7 +286,7 @@ describe('DirectoryLoader', () => {
 		it('should load no nodes when includeNodes does not match any nodes', async () => {
 			mockFs.readFileSync.calledWith(`${directory}/package.json`).mockReturnValue(packageJson);
 
-			mockFsPromises.readFile.mockImplementation(async (path) => {
+			mockFsPromises.readFile.mockImplementation((path) => {
 				if (typeof path !== 'string') throw new Error('Invalid path');
 
 				if (path.endsWith('known/nodes.json')) {
@@ -323,7 +323,7 @@ describe('DirectoryLoader', () => {
 		it('should not include nodes that are not in "includeNodes" even if they are from a different package', async () => {
 			mockFs.readFileSync.calledWith(`${directory}/package.json`).mockReturnValue(packageJson);
 
-			mockFsPromises.readFile.mockImplementation(async (path) => {
+			mockFsPromises.readFile.mockImplementation((path) => {
 				if (typeof path !== 'string') throw new Error('Invalid path');
 
 				if (path.endsWith('known/nodes.json')) {
@@ -360,7 +360,7 @@ describe('DirectoryLoader', () => {
 		it('should exclude specified nodes when excludeNodes is set', async () => {
 			mockFs.readFileSync.calledWith(`${directory}/package.json`).mockReturnValue(packageJson);
 
-			mockFsPromises.readFile.mockImplementation(async (path) => {
+			mockFsPromises.readFile.mockImplementation((path) => {
 				if (typeof path !== 'string') throw new Error('Invalid path');
 
 				if (path.endsWith('known/nodes.json')) {

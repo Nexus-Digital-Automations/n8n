@@ -117,7 +117,9 @@ describe('ActiveWorkflows', () => {
 				await addWorkflow({ pollNodes: [pollNode] });
 
 				expect(activeWorkflows.isActive(workflowId)).toBe(true);
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(workflow.getPollNodes).toHaveBeenCalled();
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(scheduledTaskManager.registerCron).toHaveBeenCalled();
 			});
 
@@ -125,8 +127,11 @@ describe('ActiveWorkflows', () => {
 				await addWorkflow({ triggerNodes: [triggerNode], pollNodes: [pollNode] });
 
 				expect(activeWorkflows.isActive(workflowId)).toBe(true);
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(workflow.getTriggerNodes).toHaveBeenCalled();
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(workflow.getPollNodes).toHaveBeenCalled();
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(triggersAndPollers.runTrigger).toHaveBeenCalledWith(
 					workflow,
 					triggerNode,
@@ -135,7 +140,9 @@ describe('ActiveWorkflows', () => {
 					mode,
 					activation,
 				);
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(scheduledTaskManager.registerCron).toHaveBeenCalled();
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(triggersAndPollers.runPoll).toHaveBeenCalledWith(workflow, pollNode, pollFunctions);
 			});
 		});
@@ -171,6 +178,7 @@ describe('ActiveWorkflows', () => {
 					'The polling interval is too short. It has to be at least a minute.',
 				);
 
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(scheduledTaskManager.registerCron).not.toHaveBeenCalled();
 			});
 		});
@@ -183,6 +191,7 @@ describe('ActiveWorkflows', () => {
 					WorkflowActivationError,
 				);
 
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(triggersAndPollers.runPoll).toHaveBeenCalledWith(workflow, pollNode, pollFunctions);
 				expect(pollFunctions.__emit).not.toHaveBeenCalled();
 				expect(pollFunctions.__emitError).not.toHaveBeenCalled();
@@ -203,6 +212,7 @@ describe('ActiveWorkflows', () => {
 				// Execute the trigger function to simulate a regular poll
 				await executeTrigger();
 
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(triggersAndPollers.runPoll).toHaveBeenCalledTimes(2);
 				expect(pollFunctions.__emit).not.toHaveBeenCalled();
 				expect(pollFunctions.__emitError).toHaveBeenCalledWith(error);
@@ -221,7 +231,9 @@ describe('ActiveWorkflows', () => {
 
 			expect(result).toBe(true);
 			expect(activeWorkflows.isActive(workflowId)).toBe(false);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(scheduledTaskManager.deregisterCrons).toHaveBeenCalledWith(workflowId);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(triggerResponse.closeFunction).toHaveBeenCalled();
 		});
 
@@ -229,6 +241,7 @@ describe('ActiveWorkflows', () => {
 			const result = await activeWorkflows.remove('non-existent');
 
 			expect(result).toBe(false);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(scheduledTaskManager.deregisterCrons).not.toHaveBeenCalled();
 		});
 
@@ -240,7 +253,9 @@ describe('ActiveWorkflows', () => {
 
 			expect(result).toBe(true);
 			expect(activeWorkflows.isActive(workflowId)).toBe(false);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(triggerResponse.closeFunction).toHaveBeenCalled();
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(errorReporter.error).toHaveBeenCalledWith(triggerCloseError, {
 				extra: { workflowId },
 			});
@@ -256,6 +271,7 @@ describe('ActiveWorkflows', () => {
 				`Failed to deactivate trigger of workflow ID "${workflowId}": "Close function failed"`,
 			);
 
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(triggerResponse.closeFunction).toHaveBeenCalled();
 			expect(errorReporter.error).not.toHaveBeenCalled();
 		});
@@ -292,6 +308,7 @@ describe('ActiveWorkflows', () => {
 			await activeWorkflows.removeAllTriggerAndPollerBasedWorkflows();
 
 			expect(activeWorkflows.allActiveWorkflows()).toEqual([]);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(scheduledTaskManager.deregisterCrons).toHaveBeenCalledWith(workflowId);
 		});
 	});

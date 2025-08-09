@@ -242,7 +242,7 @@ describe('Request Helper Functions', () => {
 	describe('removeEmptyBody', () => {
 		test.each(['GET', 'HEAD', 'OPTIONS'] as IHttpRequestMethods[])(
 			'Should remove empty body for %s',
-			async (method) => {
+			(method) => {
 				const requestOptions = {
 					method,
 					body: {},
@@ -254,7 +254,7 @@ describe('Request Helper Functions', () => {
 
 		test.each(['GET', 'HEAD', 'OPTIONS'] as IHttpRequestMethods[])(
 			'Should not remove non-empty body for %s',
-			async (method) => {
+			(method) => {
 				const requestOptions = {
 					method,
 					body: { test: true },
@@ -266,7 +266,7 @@ describe('Request Helper Functions', () => {
 
 		test.each(['POST', 'PUT', 'PATCH', 'DELETE'] as IHttpRequestMethods[])(
 			'Should not remove empty body for %s',
-			async (method) => {
+			(method) => {
 				const requestOptions = {
 					method,
 					body: {},
@@ -877,7 +877,7 @@ describe('Request Helper Functions', () => {
 		const proxyUrlHttps = 'http://proxy-for-https.com:8080/';
 		const proxyUrlHttp = 'http://proxy-for-http.com:8080/';
 
-		test('should return a regular HTTP agent when no proxy is set', async () => {
+		test('should return a regular HTTP agent when no proxy is set', () => {
 			const { agent, protocol } = getAgentWithProxy({
 				targetUrl: baseUrlHttp,
 			});
@@ -885,7 +885,7 @@ describe('Request Helper Functions', () => {
 			expect(agent).toBeInstanceOf(HttpAgent);
 		});
 
-		test('should return a regular HTTPS agent when no proxy is set', async () => {
+		test('should return a regular HTTPS agent when no proxy is set', () => {
 			const { agent, protocol } = getAgentWithProxy({
 				targetUrl: baseUrlHttps,
 			});
@@ -893,7 +893,7 @@ describe('Request Helper Functions', () => {
 			expect(agent).toBeInstanceOf(HttpsAgent);
 		});
 
-		test('should use a proxyConfig object', async () => {
+		test('should use a proxyConfig object', () => {
 			const { agent, protocol } = getAgentWithProxy({
 				targetUrl: baseUrlHttps,
 				proxyConfig: {
@@ -905,7 +905,7 @@ describe('Request Helper Functions', () => {
 			expect((agent as HttpsProxyAgent<string>).proxy.href).toEqual(proxyUrlHttps);
 		});
 
-		test('should use a proxyConfig string', async () => {
+		test('should use a proxyConfig string', () => {
 			const { agent, protocol } = getAgentWithProxy({
 				targetUrl: baseUrlHttps,
 				proxyConfig: proxyUrlHttps,
@@ -929,7 +929,7 @@ describe('Request Helper Functions', () => {
 				process.env = originalEnv;
 			});
 
-			test('should proxy http requests (HTTP_PROXY)', async () => {
+			test('should proxy http requests (HTTP_PROXY)', () => {
 				const { agent, protocol } = getAgentWithProxy({
 					targetUrl: baseUrlHttp,
 				});
@@ -938,7 +938,7 @@ describe('Request Helper Functions', () => {
 				expect((agent as HttpsProxyAgent<string>).proxy.href).toEqual(proxyUrlHttp);
 			});
 
-			test('should proxy https requests (HTTPS_PROXY)', async () => {
+			test('should proxy https requests (HTTPS_PROXY)', () => {
 				const { agent, protocol } = getAgentWithProxy({
 					targetUrl: baseUrlHttps,
 				});
@@ -947,7 +947,7 @@ describe('Request Helper Functions', () => {
 				expect((agent as HttpsProxyAgent<string>).proxy.href).toEqual(proxyUrlHttps);
 			});
 
-			test('should not proxy some hosts based on NO_PROXY', async () => {
+			test('should not proxy some hosts based on NO_PROXY', () => {
 				const { agent, protocol } = getAgentWithProxy({
 					targetUrl: 'https://should-not-proxy.com/foo',
 				});

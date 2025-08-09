@@ -1115,7 +1115,7 @@ describe('WorkflowExecute', () => {
 			execute: undefined,
 			poll: undefined,
 			webhook: undefined,
-			async trigger() {
+			trigger() {
 				return triggerResponse;
 			},
 		});
@@ -2127,10 +2127,10 @@ describe('WorkflowExecute', () => {
 					execute: undefined,
 					customOperations: {
 						test: {
-							async test1(this: IExecuteFunctions) {
+							test1(this: IExecuteFunctions) {
 								return [[{ json: { customOperationsRun: 1 } }]];
 							},
-							async test2(this: IExecuteFunctions) {
+							test2(this: IExecuteFunctions) {
 								return [[{ json: { customOperationsRun: 2 } }]];
 							},
 						},
@@ -2208,7 +2208,7 @@ describe('WorkflowExecute', () => {
 					inputs: [{ type: NodeConnectionTypes.Main }],
 					outputs: [{ type: NodeConnectionTypes.Main }],
 				},
-				async execute() {
+				execute() {
 					throw nodeOperationError;
 				},
 			});
@@ -2272,7 +2272,7 @@ describe('WorkflowExecute', () => {
 					inputs: [{ type: NodeConnectionTypes.Main }],
 					outputs: [{ type: NodeConnectionTypes.Main }],
 				},
-				async execute() {
+				execute() {
 					throw nodeApiError;
 				},
 			});
@@ -2333,7 +2333,7 @@ describe('WorkflowExecute', () => {
 					inputs: [{ type: NodeConnectionTypes.Main }],
 					outputs: [{ type: NodeConnectionTypes.Main }],
 				},
-				async execute() {
+				execute() {
 					return [[{ json: { success: true } }]];
 				},
 			});
@@ -2382,7 +2382,7 @@ describe('WorkflowExecute', () => {
 					inputs: [{ type: NodeConnectionTypes.Main }],
 					outputs: [{ type: NodeConnectionTypes.Main }],
 				},
-				async execute() {
+				execute() {
 					throw nodeOperationError;
 				},
 			});
@@ -2445,7 +2445,7 @@ describe('WorkflowExecute', () => {
 					inputs: [{ type: NodeConnectionTypes.Main }],
 					outputs: [{ type: NodeConnectionTypes.Main }],
 				},
-				async execute() {
+				execute() {
 					throw simpleError;
 				},
 			});

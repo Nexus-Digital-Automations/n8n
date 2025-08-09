@@ -21,14 +21,14 @@ export const properties: INodeProperties[] = [
 		displayName: 'Start',
 		name: 'startDateTime',
 		type: 'dateTime',
-		default: DateTime.now().toISO() ?? '',
+		default: '',
 		required: true,
 	},
 	{
 		displayName: 'End',
 		name: 'endDateTime',
 		type: 'dateTime',
-		default: DateTime.now().plus({ minutes: 30 }).toISO() ?? '',
+		default: '',
 		required: true,
 	},
 	{

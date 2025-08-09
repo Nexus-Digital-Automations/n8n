@@ -26,7 +26,7 @@ import type {
 	IWorkflowExecutionDataProcess,
 } from 'n8n-workflow';
 import {
-	ExecutionStatusList,
+	EXECUTION_STATUS_LIST,
 	UnexpectedError,
 	UserError,
 	Workflow,
@@ -404,7 +404,9 @@ export class ExecutionService {
 	async findLatestCurrentAndCompleted(query: ExecutionSummaries.RangeQuery) {
 		const currentStatuses: ExecutionStatus[] = ['new', 'running'];
 
-		const completedStatuses = ExecutionStatusList.filter((s) => !currentStatuses.includes(s));
+		const completedStatuses = EXECUTION_STATUS_LIST.filter(
+			(s: ExecutionStatus) => !currentStatuses.includes(s),
+		);
 
 		const [current, completed] = await Promise.all([
 			this.findRangeWithCount({

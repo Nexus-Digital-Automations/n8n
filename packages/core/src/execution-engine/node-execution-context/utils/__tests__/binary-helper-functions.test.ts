@@ -398,7 +398,7 @@ describe('prepareBinaryData', () => {
 		jest.resetAllMocks();
 		Container.set(BinaryDataService, binaryDataService);
 
-		binaryDataService.store.mockImplementation(async (_w, _e, _b, binaryData) => binaryData);
+		binaryDataService.store.mockImplementation((_w, _e, _b, binaryData) => binaryData);
 	});
 
 	it('parses filenames correctly', async () => {
@@ -491,7 +491,7 @@ describe('getBinaryHelperFunctions', () => {
 describe('createBinarySignedUrl', () => {
 	const restApiUrl = 'https://n8n.host/rest';
 
-	it('should get a signed url', async () => {
+	it('should get a signed url', () => {
 		const additionalData = { restApiUrl } as IWorkflowExecuteAdditionalData;
 		const helperFunctions = getBinaryHelperFunctions(additionalData, workflowId);
 

@@ -105,7 +105,7 @@ describe('onShutdown', () => {
 });
 
 describe('cleanup', () => {
-	beforeEach(async () => {
+	beforeEach(() => {
 		jest.useFakeTimers();
 		sshClientsManager = new SSHClientsManager(mock({ idleTimeout }));
 	});
@@ -203,7 +203,7 @@ describe('SSHClientsConfig', () => {
 		Container.reset();
 	});
 
-	test('allows overriding the default idle timeout', async () => {
+	test('allows overriding the default idle timeout', () => {
 		// ARRANGE
 		process.env.N8N_SSH_TUNNEL_IDLE_TIMEOUT = '5';
 
@@ -216,7 +216,7 @@ describe('SSHClientsConfig', () => {
 
 	test.each(['-5', '0', 'foo'])(
 		'fall back to default if N8N_SSH_TUNNEL_IDLE_TIMEOUT is `%s`',
-		async (value) => {
+		(value) => {
 			// ARRANGE
 			process.env.N8N_SSH_TUNNEL_IDLE_TIMEOUT = value;
 

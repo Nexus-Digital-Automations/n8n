@@ -2,29 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754703907085_x1ngpoqgj",
-      "title": "Fix nodes-base package lint errors",
-      "description": "Resolve ESLint violations in packages/nodes-base that are causing lint failures. Identify and fix code quality issues, naming convention violations, and other ESLint rule violations.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/nodes-base/",
-        "packages/nodes-base/eslint.config.mjs"
-      ],
-      "success_criteria": [
-        "packages/nodes-base passes ESLint without errors",
-        "npm run lint completes successfully for entire monorepo",
-        "All code quality violations resolved",
-        "No new lint violations introduced"
-      ],
-      "estimate": "2-4 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-09T01:45:07.085Z"
-    },
-    {
       "id": "task_1754703907075_g2n7p6k6s",
       "title": "Fix CLI package build errors",
       "description": "Resolve TypeScript compilation errors in packages/cli preventing successful build completion. Specific issues include: ExecutionStatusList import error from n8n-workflow and implicit any type parameter in execution.service.ts.",
@@ -553,8 +530,8 @@
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TESTING",
-  "execution_count": 118,
-  "last_hook_activation": 1754705864699,
+  "last_mode": "TASK_CREATION",
+  "execution_count": 120,
+  "last_hook_activation": 1754712379535,
   "current_mode": "DEVELOPMENT"
 }

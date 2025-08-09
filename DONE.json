@@ -1818,9 +1818,34 @@
       "created_at": "2025-08-09T01:45:07.088Z",
       "completed_at": "2025-08-09T02:24:26.041Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754703907085_x1ngpoqgj",
+      "title": "Fix nodes-base package lint errors",
+      "description": "Resolve ESLint violations in packages/nodes-base that are causing lint failures. Identify and fix code quality issues, naming convention violations, and other ESLint rule violations.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/nodes-base/",
+        "packages/nodes-base/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "packages/nodes-base passes ESLint without errors",
+        "npm run lint completes successfully for entire monorepo",
+        "All code quality violations resolved",
+        "No new lint violations introduced"
+      ],
+      "estimate": "2-4 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T01:45:07.085Z",
+      "completed_at": "2025-08-09T04:04:26.746Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 74,
-  "last_completion": "2025-08-09T02:24:26.041Z",
+  "total_completed": 75,
+  "last_completion": "2025-08-09T04:04:26.746Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

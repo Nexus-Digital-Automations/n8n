@@ -122,7 +122,7 @@ export const predefinedNodesTypes: INodeTypeData = {
 					},
 				],
 			},
-			async execute(this: IExecuteFunctions) {
+			execute(this: IExecuteFunctions) {
 				const items = this.getInputData();
 				const returnData: INodeExecutionData[] = [];
 

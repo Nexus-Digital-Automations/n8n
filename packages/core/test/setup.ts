@@ -1,5 +1,5 @@
 import nock from 'nock';
 
-export default async () => {
+export default () => {
 	nock.disableNetConnect();
 };

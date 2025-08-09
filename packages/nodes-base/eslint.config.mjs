@@ -169,6 +169,28 @@ export default [
 		},
 	},
 	{
+		// Overrides for external API constraints where naming conventions can't be changed
+		files: ['utils/binary.ts'],
+		rules: {
+			'@typescript-eslint/naming-convention': [
+				'warn',
+				{
+					selector: 'default',
+					format: ['camelCase', 'snake_case', 'UPPER_CASE'],
+				},
+				{
+					// Allow external library API property names (e.g., XLSX SheetNames, Sheets)
+					selector: 'objectLiteralProperty',
+					format: ['camelCase', 'snake_case', 'UPPER_CASE', 'PascalCase'],
+					filter: {
+						regex: '^(SheetNames|Sheets|Workbook|WorkSheet)$',
+						match: true,
+					},
+				},
+			],
+		},
+	},
+	{
 		files: ['**/*.test.ts', '**/test/**/*.ts'],
 		rules: {
 			'import-x/no-extraneous-dependencies': 'off',

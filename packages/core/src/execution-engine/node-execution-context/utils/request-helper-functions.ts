@@ -1268,7 +1268,7 @@ export async function requestOAuth1(
 
 	return await this.helpers
 		.request(requestOptions as IRequestOptions)
-		.catch(async (error: IResponseError) => {
+		.catch((error: IResponseError) => {
 			// Unknown error so simply throw it
 			throw error;
 		});
