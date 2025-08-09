@@ -418,11 +418,11 @@ export const extendTransform = (expression: string): { code: string } | undefine
 
 					path.replace(
 						types.builders.conditionalExpression(
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							// eslint-disable-temp-no-explicit-any
 							test as any,
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							// eslint-disable-temp-no-explicit-any
 							consequent as any,
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							// eslint-disable-temp-no-explicit-any
 							alternative as any,
 						),
 					);

@@ -35,11 +35,11 @@ export const prototypeSanitizer: ASTAfterHook = (ast, dataNode) => {
 				// This isn't a literal value, so we need to wrap it
 				path.replace(
 					b.memberExpression(
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						// eslint-disable-temp-no-explicit-any
 						node.object as any,
 
 						b.callExpression(b.memberExpression(dataNode, sanitizerIdentifier), [
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							// eslint-disable-temp-no-explicit-any
 							node.property as any,
 						]),
 						true,

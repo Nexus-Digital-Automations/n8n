@@ -26,7 +26,7 @@ function removeField(value: object, extraArgs: string[]): object {
 	const [name] = extraArgs;
 	if (name in value) {
 		const newObject = { ...value };
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// eslint-disable-temp-no-explicit-any
 		delete (newObject as any)[name];
 		return newObject;
 	}
@@ -41,7 +41,7 @@ function removeFieldsContaining(value: object, extraArgs: string[]): object {
 	const newObject = { ...value };
 	for (const [key, val] of Object.entries(value)) {
 		if (typeof val === 'string' && val.includes(match)) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			// eslint-disable-temp-no-explicit-any
 			delete (newObject as any)[key];
 		}
 	}
@@ -58,7 +58,7 @@ function keepFieldsContaining(value: object, extraArgs: string[]): object {
 	const newObject = { ...value };
 	for (const [key, val] of Object.entries(value)) {
 		if (typeof val !== 'string' || (typeof val === 'string' && !val.includes(match))) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			// eslint-disable-temp-no-explicit-any
 			delete (newObject as any)[key];
 		}
 	}

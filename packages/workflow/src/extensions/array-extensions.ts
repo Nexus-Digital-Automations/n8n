@@ -152,10 +152,10 @@ function smartJoin(value: unknown[], extraArgs: string[]): object {
 			'smartJoin(): expected two string args, e.g. .smartJoin("name", "value")',
 		);
 	}
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-temp-no-explicit-any
 	return value.reduce<any>((o, v) => {
 		if (typeof v === 'object' && v !== null && keyField in v && valueField in v) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			// eslint-disable-temp-no-explicit-any
 			o[(v as any)[keyField]] = (v as any)[valueField];
 		}
 
@@ -187,7 +187,7 @@ function renameKeys(value: unknown[], extraArgs: string[]): unknown[] {
 		if (typeof v !== 'object' || v === null) {
 			return v;
 		}
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// eslint-disable-temp-no-explicit-any
 		const newObj = { ...(v as any) };
 		const chunkedArgs = chunk(extraArgs, [2]) as string[][];
 		chunkedArgs.forEach(([from, to]) => {

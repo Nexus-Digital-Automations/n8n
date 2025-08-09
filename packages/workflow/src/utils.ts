@@ -39,7 +39,7 @@ export const isObjectEmpty = (obj: object | null | undefined): boolean => {
 
 export type Primitives = string | number | boolean | bigint | symbol | null | undefined;
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable-temp-no-explicit-any */
 export const deepCopy = <T extends ((object | Date) & { toJSON?: () => string }) | Primitives>(
 	source: T,
 	hash = new WeakMap(),

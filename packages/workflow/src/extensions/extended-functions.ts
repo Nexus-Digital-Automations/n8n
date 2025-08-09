@@ -26,7 +26,7 @@ const zip = (keys: unknown[], values: unknown[]): unknown => {
 		throw new ExpressionExtensionError('keys and values not of equal length');
 	}
 	return keys.reduce((p, c, i) => {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// eslint-disable-temp-no-explicit-any
 		(p as any)[c as any] = values[i];
 		return p;
 	}, {});

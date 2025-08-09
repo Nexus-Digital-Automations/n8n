@@ -1,4 +1,4 @@
-import type { MigrationContext, ReversibleMigration } from '@n8n/typeorm';
+import type { MigrationContext, ReversibleMigration } from '../migration-types';
 
 export class CreateCustomNodesSchema1754714580000 implements ReversibleMigration {
 	async up({ queryRunner, tablePrefix }: MigrationContext) {
