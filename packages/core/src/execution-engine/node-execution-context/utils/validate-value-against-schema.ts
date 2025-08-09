@@ -139,7 +139,7 @@ const validateCollection = (
 						},
 					);
 				}
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
 				(value as Record<string, unknown>)[key] = fieldValidationResult.newValue;
 			}
 		}
@@ -217,6 +217,6 @@ export const validateValueAgainstSchema = (
 			},
 		);
 	}
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+
 	return validationResult.newValue;
 };

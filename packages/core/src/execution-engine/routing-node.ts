@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -539,16 +538,16 @@ export class RoutingNode {
 		let responseData: IN8nHttpFullResponse;
 		requestData.options.returnFullResponse = true;
 		if (credentialType) {
-			responseData = (await executeSingleFunctions.helpers.httpRequestWithAuthentication.call(
+			responseData = await executeSingleFunctions.helpers.httpRequestWithAuthentication.call(
 				executeSingleFunctions,
 				credentialType,
 				requestData.options as IHttpRequestOptions,
 				{ credentialsDecrypted },
-			)) as IN8nHttpFullResponse;
+			);
 		} else {
-			responseData = (await executeSingleFunctions.helpers.httpRequest(
+			responseData = await executeSingleFunctions.helpers.httpRequest(
 				requestData.options as IHttpRequestOptions,
-			)) as IN8nHttpFullResponse;
+			);
 		}
 
 		return responseData;

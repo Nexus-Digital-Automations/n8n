@@ -1123,7 +1123,11 @@ export async function requestOAuth2(
 				requestOptions.simple === false &&
 				response.statusCode === tokenExpiredStatusCode
 			) {
-				throw response;
+				const error = new Error(
+					`Request failed with status code ${response.statusCode}`,
+				) as IResponseError;
+				error.statusCode = response.statusCode;
+				throw error;
 			}
 			return response;
 		})

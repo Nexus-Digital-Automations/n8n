@@ -23,23 +23,23 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.58% </span>
+                <span class="strong">96.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>113/117</span>
+                <span class='fraction'>112/116</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.56% </span>
+                <span class="strong">74.07% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>25/37</span>
+                <span class='fraction'>20/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -373,13 +373,8 @@
 <a name='L308'></a><a href='#L308'>308</a>
 <a name='L309'></a><a href='#L309'>309</a>
 <a name='L310'></a><a href='#L310'>310</a>
-<a name='L311'></a><a href='#L311'>311</a>
-<a name='L312'></a><a href='#L312'>312</a>
-<a name='L313'></a><a href='#L313'>313</a>
-<a name='L314'></a><a href='#L314'>314</a>
-<a name='L315'></a><a href='#L315'>315</a>
-<a name='L316'></a><a href='#L316'>316</a>
-<a name='L317'></a><a href='#L317'>317</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L311'></a><a href='#L311'>311</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -676,14 +671,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -699,6 +687,7 @@
 	PutObjectCommandInput,
 	DeleteObjectsCommandInput,
 	ListObjectsV2CommandInput,
+	_Object,
 	S3ClientConfig,
 } from '@aws-sdk/client-s3';
 import {
@@ -926,9 +915,9 @@ export class ObjectStoreService {
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Delete: {
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					Objects: objects.map(({ key }) =&gt; ({
+					Objects: objects.map((obj) =&gt; ({
 						// eslint-disable-next-line @typescript-eslint/naming-convention
-						Key: key,
+						Key: obj.Key as string,
 					})),
 				},
 			};
@@ -948,8 +937,8 @@ export class ObjectStoreService {
 	/**
 	 * List objects with a common prefix in the configured bucket.
 	 */
-	async list(prefix: string) {
-		const items = [];
+	async list(prefix: string): Promise&lt;_Object[]&gt; {
+		const items: _Object[] = [];
 		let isTruncated = true;
 		let continuationToken;
 &nbsp;
@@ -958,7 +947,7 @@ export class ObjectStoreService {
 				const listPage = await this.getListPage(prefix, continuationToken);
 &nbsp;
 				if (listPage.contents?.length &gt; 0) {
-					items.push(...listPage.contents);
+					items.push.apply(items, listPage.contents);
 				}
 &nbsp;
 				isTruncated = listPage.isTruncated;
@@ -991,15 +980,8 @@ export class ObjectStoreService {
 			const command = new ListObjectsV2Command(params);
 			const response = await this.s3Client.send(command);
 &nbsp;
-			// Convert response to match expected format for compatibility
-			const contents =
-				response.Contents?.map((item) =&gt; ({
-					key: item.Key ?? <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-					lastModified: item.LastModified?.toISOString() ?? <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-					eTag: item.ETag ?? <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-					size: item.Size ?? <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
-					storageClass: item.StorageClass ?? <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-				})) ?? <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+			// Return contents in AWS SDK format to maintain type compatibility
+			const contents = response.Contents ?? <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
 &nbsp;
 			return {
 				contents,
@@ -1018,7 +1000,7 @@ export class ObjectStoreService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-09T01:34:21.142Z
+                at 2025-08-09T15:32:18.902Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

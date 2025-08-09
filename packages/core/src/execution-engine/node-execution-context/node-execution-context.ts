@@ -412,7 +412,6 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 
 		const nodeType = workflow.nodeTypes.getByNameAndVersion(node.type, node.typeVersion);
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		const value = get(node.parameters, parameterName, fallbackValue);
 
 		if (value === undefined) {
@@ -420,7 +419,6 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 		}
 
 		if (options?.rawExpressions) {
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 			return value;
 		}
 
@@ -430,7 +428,6 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 
 		try {
 			returnData = workflow.expression.getParameterValue(
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 				value as NodeParameterValueType,
 				runExecutionData,
 				runIndex,
@@ -456,7 +453,7 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 			} else {
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 				if (e.context) e.context.parameter = parameterName;
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 				e.cause = value;
 				throw e;
 			}
@@ -479,7 +476,7 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 		if (options?.skipValidation) return returnData;
 
 		// Validate parameter value if it has a schema defined(RMC) or validateType defined
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
 		returnData = validateValueAgainstSchema(
 			node,
 			nodeType,
@@ -489,7 +486,6 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 			itemIndex,
 		);
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 		return returnData as NodeParameterValueType | object;
 	}
 
@@ -508,7 +504,7 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 		);
 	}
 
-	async prepareOutputData(outputData: INodeExecutionData[]): Promise<INodeExecutionData[][]> {
+	prepareOutputData(outputData: INodeExecutionData[]): INodeExecutionData[][] {
 		return [outputData];
 	}
 }

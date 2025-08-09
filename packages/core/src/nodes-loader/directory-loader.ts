@@ -162,7 +162,7 @@ export abstract class DirectoryLoader {
 			this.addCodex(currentVersionNode, filePath);
 			nodeVersion = tempNode.currentVersion;
 
-			if (currentVersionNode.hasOwnProperty('executeSingle')) {
+			if (Object.prototype.hasOwnProperty.call(currentVersionNode, 'executeSingle')) {
 				throw new ApplicationError(
 					'"executeSingle" has been removed. Please update the code of this node to use "execute" instead.',
 					{ extra: { nodeType } },

@@ -160,7 +160,7 @@ export class SupplyDataContext extends BaseExecuteContext implements ISupplyData
 	}
 
 	getInputData(inputIndex = 0, connectionType = this.connectionType) {
-		if (!this.inputData.hasOwnProperty(connectionType)) {
+		if (!Object.prototype.hasOwnProperty.call(this.inputData, connectionType)) {
 			// Return empty array because else it would throw error when nothing is connected to input
 			return [];
 		}
@@ -298,7 +298,7 @@ export class SupplyDataContext extends BaseExecuteContext implements ISupplyData
 				} as ITaskDataConnections;
 			}
 
-			if (!runExecutionData.resultData.runData.hasOwnProperty(nodeName)) {
+			if (!Object.prototype.hasOwnProperty.call(runExecutionData.resultData.runData, nodeName)) {
 				runExecutionData.resultData.runData[nodeName] = [];
 			}
 

@@ -13,7 +13,7 @@ import type {
 	WorkflowTestData,
 	INodeTypeData,
 } from 'n8n-workflow';
-import { ApplicationError, NodeHelpers } from 'n8n-workflow';
+import { ApplicationError, NodeHelpers, jsonParse } from 'n8n-workflow';
 import path from 'path';
 
 import { UnrecognizedNodeTypeError } from '@/errors';
@@ -81,7 +81,7 @@ const preparePinData = (pinData: IDataObject) => {
 	return returnData;
 };
 
-const readJsonFileSync = <T>(filePath: string) => JSON.parse(readFileSync(filePath, 'utf-8')) as T;
+const readJsonFileSync = <T>(filePath: string): T => jsonParse(readFileSync(filePath, 'utf-8'));
 
 export function getNodeTypes(testData: WorkflowTestData[] | WorkflowTestData) {
 	if (!Array.isArray(testData)) {
@@ -112,9 +112,8 @@ export function getNodeTypes(testData: WorkflowTestData[] | WorkflowTestData) {
 			typeof requiredModule === 'object' &&
 			loadInfo.className in requiredModule
 		) {
-			node = new (
-				(requiredModule as Record<string, unknown>)[loadInfo.className] as new () => INodeType
-			)();
+			const NodeClass = requiredModule[loadInfo.className] as new () => INodeType;
+			node = new NodeClass();
 		} else {
 			throw new Error(`Could not find class ${loadInfo.className} in module ${nodeSourcePath}`);
 		}

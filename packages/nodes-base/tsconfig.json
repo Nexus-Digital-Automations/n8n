@@ -8,6 +8,7 @@
 			"@nodes-testing/*": ["../core/nodes-testing/*"]
 		},
 		"tsBuildInfoFile": "dist/typecheck.tsbuildinfo",
+		"skipLibCheck": true,
 
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,

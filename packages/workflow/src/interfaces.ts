@@ -1,4 +1,4 @@
-/* eslint-disable-temp-no-explicit-any */
+// TODO: Fix explicit any violations below
 /* eslint-disable @typescript-eslint/naming-convention */
 import type { PathLike } from 'fs';
 import type { IncomingHttpHeaders } from 'http';
@@ -668,7 +668,7 @@ export type ICredentialTestFunction = (
 export interface ICredentialTestFunctions {
 	logger: Logger;
 	helpers: SSHTunnelFunctions & {
-		request: (uriOrObject: string | object, options?: object) => Promise<any>;
+		request: (uriOrObject: string | object, options?: object) => Promise<IN8nHttpResponse>;
 	};
 }
 
@@ -765,13 +765,13 @@ interface NodeHelperFunctions {
 }
 
 export interface RequestHelperFunctions {
-	httpRequest(requestOptions: IHttpRequestOptions): Promise<any>;
+	httpRequest(requestOptions: IHttpRequestOptions): Promise<IN8nHttpFullResponse>;
 	httpRequestWithAuthentication(
 		this: IAllExecuteFunctions,
 		credentialsType: string,
 		requestOptions: IHttpRequestOptions,
 		additionalCredentialOptions?: IAdditionalCredentialOptions,
-	): Promise<any>;
+	): Promise<IN8nHttpFullResponse>;
 	requestWithAuthenticationPaginated(
 		this: IAllExecuteFunctions,
 		requestOptions: IRequestOptions,
@@ -779,13 +779,16 @@ export interface RequestHelperFunctions {
 		paginationOptions: PaginationOptions,
 		credentialsType?: string,
 		additionalCredentialOptions?: IAdditionalCredentialOptions,
-	): Promise<any[]>;
+	): Promise<unknown[]>;
 
 	/**
 	 * @deprecated Use .httpRequest instead
 	 * @see RequestHelperFunctions.httpRequest
 	 */
-	request(uriOrObject: string | IRequestOptions, options?: IRequestOptions): Promise<any>;
+	request(
+		uriOrObject: string | IRequestOptions,
+		options?: IRequestOptions,
+	): Promise<IN8nHttpResponse>;
 	/**
 	 * @deprecated Use .httpRequestWithAuthentication instead
 	 * @see RequestHelperFunctions.requestWithAuthentication
@@ -796,7 +799,7 @@ export interface RequestHelperFunctions {
 		requestOptions: IRequestOptions,
 		additionalCredentialOptions?: IAdditionalCredentialOptions,
 		itemIndex?: number,
-	): Promise<any>;
+	): Promise<IN8nHttpResponse>;
 	/**
 	 * @deprecated Use .httpRequestWithAuthentication instead
 	 * @see RequestHelperFunctions.requestWithAuthentication
@@ -805,7 +808,7 @@ export interface RequestHelperFunctions {
 		this: IAllExecuteFunctions,
 		credentialsType: string,
 		requestOptions: IRequestOptions,
-	): Promise<any>;
+	): Promise<IN8nHttpResponse>;
 	/**
 	 * @deprecated Use .httpRequestWithAuthentication instead
 	 * @see RequestHelperFunctions.requestWithAuthentication
@@ -815,7 +818,7 @@ export interface RequestHelperFunctions {
 		credentialsType: string,
 		requestOptions: IRequestOptions,
 		oAuth2Options?: IOAuth2Options,
-	): Promise<any>;
+	): Promise<IN8nHttpResponse>;
 }
 
 export type SSHCredentials = {

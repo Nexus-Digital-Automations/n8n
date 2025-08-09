@@ -66,7 +66,7 @@ describe('getInputConnectionData', () => {
 
 		jest.spyOn(executeContext, 'getNode').mockReturnValue(agentNode);
 		nodeTypes.getByNameAndVersion
-			.calledWith(agentNode.type, expect.anything() as number)
+			.calledWith(agentNode.type, expect.anything() as number | undefined as number)
 			.mockReturnValue(agentNodeType);
 
 		// Mock getConnections method used by validateInputConfiguration
@@ -98,7 +98,7 @@ describe('getInputConnectionData', () => {
 
 		beforeEach(() => {
 			nodeTypes.getByNameAndVersion
-				.calledWith(node.type, expect.anything())
+				.calledWith(node.type, expect.anything() as number | undefined as number | undefined)
 				.mockReturnValue(nodeType);
 			workflow.getParentNodes
 				.calledWith(agentNode.name, connectionType)
@@ -278,10 +278,10 @@ describe('getInputConnectionData', () => {
 
 			// Mock node types for all connected nodes
 			nodeTypes.getByNameAndVersion
-				.calledWith(secondNode.type, expect.anything())
+				.calledWith(secondNode.type, expect.anything() as number | undefined)
 				.mockReturnValue(nodeType);
 			nodeTypes.getByNameAndVersion
-				.calledWith(thirdNode.type, expect.anything())
+				.calledWith(thirdNode.type, expect.anything() as number | undefined)
 				.mockReturnValue(nodeType);
 
 			workflow.getParentNodes.mockReturnValueOnce([node.name, secondNode.name, thirdNode.name]);
@@ -317,10 +317,10 @@ describe('getInputConnectionData', () => {
 
 			// Mock node types for all connected nodes
 			nodeTypes.getByNameAndVersion
-				.calledWith(secondNode.type, expect.anything())
+				.calledWith(secondNode.type, expect.anything() as number | undefined)
 				.mockReturnValue(nodeType);
 			nodeTypes.getByNameAndVersion
-				.calledWith(thirdNode.type, expect.anything())
+				.calledWith(thirdNode.type, expect.anything() as number | undefined)
 				.mockReturnValue(nodeType);
 
 			workflow.getParentNodes.mockReturnValueOnce([node.name, secondNode.name, thirdNode.name]);
@@ -400,7 +400,7 @@ describe('getInputConnectionData', () => {
 
 		beforeEach(() => {
 			nodeTypes.getByNameAndVersion
-				.calledWith(toolNode.type, expect.anything())
+				.calledWith(toolNode.type, expect.anything() as number | undefined)
 				.mockReturnValue(toolNodeType);
 			workflow.getParentNodes
 				.calledWith(agentNode.name, NodeConnectionTypes.AiTool)
@@ -479,7 +479,7 @@ describe('getInputConnectionData', () => {
 			];
 
 			nodeTypes.getByNameAndVersion
-				.calledWith(secondToolNode.type, expect.anything())
+				.calledWith(secondToolNode.type, expect.anything() as number | undefined)
 				.mockReturnValue(secondToolNodeType);
 
 			workflow.getParentNodes
@@ -713,11 +713,10 @@ describe('makeHandleToolInvocation', () => {
 		);
 		await handleToolInvocation(toolArgs);
 
-		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(contextFactory).toHaveBeenCalledWith(0);
-		// eslint-disable-next-line @typescript-eslint/unbound-method
+
 		expect(contextFactory).toHaveBeenCalledWith(1);
-		// eslint-disable-next-line @typescript-eslint/unbound-method
+
 		expect(contextFactory).toHaveBeenCalledWith(2);
 	});
 
@@ -755,7 +754,6 @@ describe('makeHandleToolInvocation', () => {
 
 			const result = await handleToolInvocation(toolArgs);
 
-			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(contextFactory).toHaveBeenCalledTimes(1);
 			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).toHaveBeenCalledTimes(1);
@@ -782,7 +780,6 @@ describe('makeHandleToolInvocation', () => {
 
 			const result = await handleToolInvocation(toolArgs);
 
-			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(contextFactory).toHaveBeenCalledTimes(3);
 			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).toHaveBeenCalledTimes(3);
@@ -812,7 +809,6 @@ describe('makeHandleToolInvocation', () => {
 
 			const result = await handleToolInvocation(toolArgs);
 
-			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(contextFactory).toHaveBeenCalledTimes(2);
 			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(connectedNodeType.execute).toHaveBeenCalledTimes(2);

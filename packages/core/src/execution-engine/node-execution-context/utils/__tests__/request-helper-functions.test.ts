@@ -5,14 +5,15 @@ import { HttpProxyAgent } from 'http-proxy-agent';
 import { Agent as HttpsAgent } from 'https';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 import { mock } from 'jest-mock-extended';
-import type {
-	IHttpRequestMethods,
-	IHttpRequestOptions,
-	INode,
-	IRequestOptions,
-	IWorkflowExecuteAdditionalData,
-	PaginationOptions,
-	Workflow,
+import {
+	jsonParse,
+	type IHttpRequestMethods,
+	type IHttpRequestOptions,
+	type INode,
+	type IRequestOptions,
+	type IWorkflowExecuteAdditionalData,
+	type PaginationOptions,
+	type Workflow,
 } from 'n8n-workflow';
 import nock from 'nock';
 import type { SecureContextOptions } from 'tls';
@@ -148,11 +149,11 @@ describe('Request Helper Functions', () => {
 					'body' in response &&
 					typeof (response as Record<string, unknown>).body === 'string'
 				) {
-					const forwardedHeaders = JSON.parse(
+					const forwardedHeaders = jsonParse<Record<string, unknown>>(
 						(response as Record<string, unknown>).body as string,
-					) as Record<string, unknown>;
+					);
 					if (forwardedHeaders && typeof forwardedHeaders === 'object') {
-						const headersObj = forwardedHeaders as Record<string, unknown>;
+						const headersObj = forwardedHeaders;
 						if ('authorization' in forwardedHeaders)
 							expect(headersObj.authorization).toBe('Basic dGVzdHVzZXI6dGVzdHBhc3N3b3Jk');
 						if ('x-other-header' in forwardedHeaders)
@@ -191,7 +192,7 @@ describe('Request Helper Functions', () => {
 						resolveWithFullResponse: true,
 						followRedirect: false,
 					}),
-				).rejects.toThrowError(expect.objectContaining({ statusCode: 301 }));
+				).rejects.toThrowError(expect.objectContaining({ statusCode: 301 }) as Error);
 			});
 		});
 	});
@@ -456,9 +457,7 @@ describe('Request Helper Functions', () => {
 			formData.getHeaders(); // Ensures form data is processed
 
 			formData.on('data', (chunk) => {
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 				if (chunk && typeof (chunk as { toString?: () => string }).toString === 'function') {
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
 					formDataEntries.push((chunk as { toString: () => string }).toString());
 				}
 			});

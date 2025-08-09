@@ -32,7 +32,7 @@ export class PackageDirectoryLoader extends DirectoryLoader {
 
 	override loadAll(): Promise<void> {
 		const { n8n } = this.packageJson;
-		if (!n8n) return Promise.resolve();
+		if (!n8n) return;
 
 		const { nodes, credentials } = n8n;
 

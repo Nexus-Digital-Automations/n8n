@@ -145,18 +145,18 @@ function compact(value: unknown[]): unknown[] {
 		});
 }
 
-function smartJoin(value: unknown[], extraArgs: string[]): object {
+function smartJoin(value: unknown[], extraArgs: string[]): Record<string, unknown> {
 	const [keyField, valueField] = extraArgs;
 	if (!keyField || !valueField || typeof keyField !== 'string' || typeof valueField !== 'string') {
 		throw new ExpressionExtensionError(
 			'smartJoin(): expected two string args, e.g. .smartJoin("name", "value")',
 		);
 	}
-	// eslint-disable-temp-no-explicit-any
-	return value.reduce<any>((o, v) => {
+	return value.reduce<Record<string, unknown>>((o, v) => {
 		if (typeof v === 'object' && v !== null && keyField in v && valueField in v) {
-			// eslint-disable-temp-no-explicit-any
-			o[(v as any)[keyField]] = (v as any)[valueField];
+			const obj = v as Record<string, unknown>;
+			const key = String(obj[keyField]);
+			o[key] = obj[valueField];
 		}
 
 		return o;
@@ -187,8 +187,7 @@ function renameKeys(value: unknown[], extraArgs: string[]): unknown[] {
 		if (typeof v !== 'object' || v === null) {
 			return v;
 		}
-		// eslint-disable-temp-no-explicit-any
-		const newObj = { ...(v as any) };
+		const newObj = { ...(v as Record<string, unknown>) };
 		const chunkedArgs = chunk(extraArgs, [2]) as string[][];
 		chunkedArgs.forEach(([from, to]) => {
 			if (from in newObj) {

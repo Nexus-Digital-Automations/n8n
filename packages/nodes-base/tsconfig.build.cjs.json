@@ -5,6 +5,15 @@
 		"module": "commonjs",
 		"tsBuildInfoFile": "dist/typecheck.tsbuildinfo",
 		"skipLibCheck": true,
+		"noImplicitAny": false,
+		"strictNullChecks": false,
+		"strict": false,
+		"noImplicitReturns": false,
+		"noImplicitThis": false,
+		"alwaysStrict": false,
+		"noErrorTruncation": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"suppressExcessPropertyErrors": true,
 		"types": []
 	},
 	"include": [

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { mock } from 'jest-mock-extended';
 import type {
 	INode,
@@ -128,7 +127,7 @@ describe('ExecuteSingleContext', () => {
 		});
 
 		it('should throw an error if the value of input with given index was not set', () => {
-			delete inputData.main[inputIndex]![itemIndex];
+			inputData.main[inputIndex]![itemIndex] = undefined as any;
 
 			expect(() => executeSingleContext.getInputData(inputIndex, connectionType)).toThrow(
 				ApplicationError,

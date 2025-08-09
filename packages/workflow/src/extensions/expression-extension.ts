@@ -418,12 +418,9 @@ export const extendTransform = (expression: string): { code: string } | undefine
 
 					path.replace(
 						types.builders.conditionalExpression(
-							// eslint-disable-temp-no-explicit-any
-							test as any,
-							// eslint-disable-temp-no-explicit-any
-							consequent as any,
-							// eslint-disable-temp-no-explicit-any
-							alternative as any,
+							test as ExpressionKind,
+							consequent as ExpressionKind,
+							alternative as ExpressionKind,
 						),
 					);
 				}

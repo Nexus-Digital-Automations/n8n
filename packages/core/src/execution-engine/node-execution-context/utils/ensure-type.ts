@@ -7,7 +7,6 @@ export function ensureType(
 	parameterName: string,
 	errorOptions?: { itemIndex?: number; runIndex?: number; nodeCause?: string },
 ): string | number | boolean | object {
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	let returnData = parameterValue;
 
 	if (returnData === null) {
@@ -28,7 +27,7 @@ export function ensureType(
 				try {
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 					const parsedValue = JSON.parse(returnData);
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
 					returnData = parsedValue;
 				} catch (error) {
 					throw new ExpressionError(`Parameter '${parameterName}' could not be parsed`, {
@@ -97,6 +96,5 @@ export function ensureType(
 		});
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return returnData as string | number | boolean | object;
 }

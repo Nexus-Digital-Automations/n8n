@@ -21,15 +21,19 @@ const numberList = (start: number, end: number): number[] => {
 	return arr;
 };
 
-const zip = (keys: unknown[], values: unknown[]): unknown => {
+const zip = (keys: unknown[], values: unknown[]): Record<string, unknown> => {
 	if (keys.length !== values.length) {
 		throw new ExpressionExtensionError('keys and values not of equal length');
 	}
-	return keys.reduce((p, c, i) => {
-		// eslint-disable-temp-no-explicit-any
-		(p as any)[c as any] = values[i];
-		return p;
-	}, {});
+	return keys.reduce<Record<string, unknown>>(
+		(p, c, i) => {
+			if (typeof c === 'string' || typeof c === 'number') {
+				p[String(c)] = values[i];
+			}
+			return p;
+		},
+		{} as Record<string, unknown>,
+	);
 };
 
 const average = (...args: number[]) => {

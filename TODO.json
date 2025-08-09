@@ -2,21 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754750531674_expk18s50",
-      "title": "Fix build and dev server issues",
-      "description": "Ensure pnpm run build completes successfully and pnpm run dev starts without errors",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "in_progress",
-      "dependencies": [],
-      "important_files": [],
-      "success_criteria": [],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-09T14:42:11.674Z"
-    },
-    {
       "id": "task_1754700916294_ni1h2oxxe",
       "title": "Fix no-explicit-any violations in workflow package",
       "description": "Resolve ~44 @typescript-eslint/no-explicit-any violations in packages/workflow. Replace explicit any types with proper TypeScript types and interfaces to improve type safety.",
@@ -412,7 +397,7 @@
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 159,
-  "last_hook_activation": 1754751476776,
+  "execution_count": 161,
+  "last_hook_activation": 1754751895659,
   "current_mode": "DEVELOPMENT"
 }

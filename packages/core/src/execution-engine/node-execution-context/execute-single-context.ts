@@ -77,7 +77,7 @@ export class ExecuteSingleContext extends BaseExecuteContext implements IExecute
 	}
 
 	getInputData(inputIndex = 0, connectionType = NodeConnectionTypes.Main) {
-		if (!this.inputData.hasOwnProperty(connectionType)) {
+		if (!Object.prototype.hasOwnProperty.call(this.inputData, connectionType)) {
 			// Return empty array because else it would throw error when nothing is connected to input
 			return { json: {} };
 		}

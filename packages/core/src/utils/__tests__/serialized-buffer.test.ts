@@ -1,3 +1,5 @@
+import { jsonParse } from 'n8n-workflow';
+
 import type { SerializedBuffer } from '../serialized-buffer';
 import { toBuffer, isSerializedBuffer } from '../serialized-buffer';
 
@@ -16,7 +18,7 @@ describe('toBuffer', () => {
 
 	it('should serialize stringified buffer to the same buffer', () => {
 		const serializedBuffer = JSON.stringify(Buffer.from('n8n on the rocks'));
-		const buffer = toBuffer(JSON.parse(serializedBuffer) as SerializedBuffer);
+		const buffer = toBuffer(jsonParse<SerializedBuffer>(serializedBuffer));
 		expect(buffer).toBeInstanceOf(Buffer);
 		expect(buffer.toString()).toBe('n8n on the rocks');
 	});

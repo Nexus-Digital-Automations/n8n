@@ -1,5 +1,5 @@
 import { UnexpectedError } from 'n8n-workflow';
-import fs from 'node:fs/promises';
+import { promises as fs } from 'node:fs';
 import type { Readable } from 'node:stream';
 
 import type { BinaryData } from './types';

@@ -102,7 +102,7 @@ export class BaseExecuteContext extends NodeExecutionContext {
 		);
 	}
 
-	async putExecutionToWait(waitTill: Date): Promise<void> {
+	putExecutionToWait(waitTill: Date): void {
 		this.runExecutionData.waitTill = waitTill;
 		if (this.additionalData.setExecutionStatus) {
 			this.additionalData.setExecutionStatus('waiting');
@@ -216,7 +216,6 @@ export class BaseExecuteContext extends NodeExecutionContext {
 						return new Date(arg.ts as number).toString();
 					if (arg instanceof Date) return arg.toString();
 
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 					return arg;
 				});
 

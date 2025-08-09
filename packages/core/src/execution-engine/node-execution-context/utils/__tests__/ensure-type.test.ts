@@ -1,4 +1,4 @@
-import { ExpressionError } from 'n8n-workflow';
+import { ExpressionError, jsonParse } from 'n8n-workflow';
 
 import { ensureType } from '../ensure-type';
 
@@ -59,7 +59,7 @@ describe('ensureType', () => {
 
 	it('parses valid JSON string to object if toType is object', () => {
 		const value = '{"name": "Alice"}';
-		const expectedValue = JSON.parse(value) as { name: string };
+		const expectedValue = jsonParse<{ name: string }>(value);
 		const result = ensureType('object', value, 'myParam');
 		expect(result).toEqual(expectedValue);
 	});
