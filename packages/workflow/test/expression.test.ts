@@ -194,7 +194,7 @@ describe('Expression', () => {
 				);
 
 				for (const test of evaluationTests) {
-					const input = test.input.map((d) => ({ json: d })) as any;
+					const input = test.input.map((d) => ({ json: d })) as INodeExecutionData[];
 
 					if ('error' in test) {
 						vi.useFakeTimers({ now: test.error.timestamp });

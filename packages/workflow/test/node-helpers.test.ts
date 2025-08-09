@@ -3447,7 +3447,7 @@ describe('NodeHelpers', () => {
 					],
 					nodeValues: {
 						// This simulates when propertyValues is incorrectly set as an array instead of an object
-						values: [] as any,
+						values: [] as unknown,
 					},
 				},
 				output: {
@@ -3496,7 +3496,7 @@ describe('NodeHelpers', () => {
 					],
 					nodeValues: {
 						// This simulates when propertyValues is incorrectly set as a string
-						values: 'invalid value' as any,
+						values: 'invalid value' as unknown,
 					},
 				},
 				output: {

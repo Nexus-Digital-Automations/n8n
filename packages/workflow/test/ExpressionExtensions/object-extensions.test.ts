@@ -129,7 +129,7 @@ describe('Data Transformation Functions', () => {
 						expect(() => evaluate(`={{ (${testExpression}).compact() }}`)).toThrow(
 							ApplicationError,
 						);
-						expect(({} as any).polluted).toBeUndefined();
+						expect(({} as unknown as Record<string, unknown>).polluted).toBeUndefined();
 					},
 				);
 			});

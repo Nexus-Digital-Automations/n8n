@@ -116,7 +116,7 @@ describe('logger-proxy', () => {
 
 			LoggerProxy.error('message');
 			LoggerProxy.warn('message', undefined);
-			LoggerProxy.info('message', null as any);
+			LoggerProxy.info('message', null);
 
 			expect(mockLogger.error).toHaveBeenCalledWith('message', undefined);
 			expect(mockLogger.warn).toHaveBeenCalledWith('message', undefined);

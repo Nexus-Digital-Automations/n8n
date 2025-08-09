@@ -294,7 +294,7 @@ describe('AugmentObject', () => {
 		});
 
 		test('should work with complex values on first level', () => {
-			const originalObject: any = {
+			const originalObject: Record<string, unknown> = {
 				a: {
 					b: {
 						cc: '3',
@@ -489,7 +489,7 @@ describe('AugmentObject', () => {
 		// eslint-disable-next-line n8n-local-rules/no-skipped-tests
 		test.skip('should be faster than doing a deepCopy', () => {
 			const iterations = 100;
-			const originalObject: any = {
+			const originalObject: Record<string, unknown> = {
 				a: {
 					b: {
 						c: {
@@ -536,7 +536,7 @@ describe('AugmentObject', () => {
 		});
 
 		test('should return property descriptors', () => {
-			const originalObject: any = {
+			const originalObject: Record<string, unknown> = {
 				x: {
 					y: {},
 					z: {},
@@ -565,7 +565,7 @@ describe('AugmentObject', () => {
 		});
 
 		test('should return valid values on `has` calls', () => {
-			const originalObject: any = {
+			const originalObject: Record<string, unknown> = {
 				x: {
 					y: {},
 				},
@@ -597,7 +597,7 @@ describe('AugmentObject', () => {
 		});
 
 		test('should handle constructor property correctly', () => {
-			const originalObject: any = {
+			const originalObject: Record<string, unknown> = {
 				a: {
 					b: {
 						c: {

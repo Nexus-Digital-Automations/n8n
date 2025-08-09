@@ -110,7 +110,12 @@ describe('jsonParse', () => {
 });
 
 describe('jsonStringify', () => {
-	const source: any = { a: 1, b: 2, d: new Date(1680089084200), r: new RegExp('^test$', 'ig') };
+	const source: Record<string, unknown> = {
+		a: 1,
+		b: 2,
+		d: new Date(1680089084200),
+		r: new RegExp('^test$', 'ig'),
+	};
 	source.c = source;
 
 	it('should throw errors on circular references by default', () => {
@@ -172,7 +177,7 @@ describe('deepCopy', () => {
 	});
 
 	it('should avoid max call stack in case of circular deps', () => {
-		const object: Record<string, any> = {
+		const object: Record<string, unknown> = {
 			deep: {
 				props: {
 					list: [{ a: 1 }, { b: 2 }, { c: 3 }],

@@ -194,9 +194,9 @@ describe('result', () => {
 		});
 
 		it('should preserve Error properties when rethrowing', () => {
-			const customError = new Error('custom error');
+			const customError = new Error('custom error') as Error & { code: string };
 			customError.name = 'CustomError';
-			(customError as any).code = 'CUSTOM_CODE';
+			customError.code = 'CUSTOM_CODE';
 
 			const errorFn = () => {
 				throw customError;
@@ -207,7 +207,7 @@ describe('result', () => {
 			if (!result.ok) {
 				expect(result.error).toBe(customError);
 				expect(result.error.name).toBe('CustomError');
-				expect((result.error as any).code).toBe('CUSTOM_CODE');
+				expect((result.error as Error & { code: string }).code).toBe('CUSTOM_CODE');
 			}
 		});
 
@@ -260,7 +260,7 @@ describe('result', () => {
 
 		it('should work in practical scenarios', () => {
 			// Simulate a function that might fail
-			const parseJsonString = (jsonStr: string): Result<any, Error> => {
+			const parseJsonString = (jsonStr: string): Result<unknown, Error> => {
 				return toResult(() => JSON.parse(jsonStr));
 			};
 

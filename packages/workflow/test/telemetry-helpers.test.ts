@@ -2408,7 +2408,7 @@ describe('resolveVectorStoreMetrics', () => {
 });
 
 describe('extractLastExecutedNodeStructuredOutputErrorInfo', () => {
-	const mockWorkflow = (nodes: INode[], connections?: any): IWorkflowBase => ({
+	const mockWorkflow = (nodes: INode[], connections?: IConnections): IWorkflowBase => ({
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		id: 'test-workflow',
@@ -2453,7 +2453,11 @@ describe('extractLastExecutedNodeStructuredOutputErrorInfo', () => {
 		parameters: {},
 	});
 
-	const mockRunData = (lastNodeExecuted: string, error?: any, nodeRunData?: any): IRun => ({
+	const mockRunData = (
+		lastNodeExecuted: string,
+		error?: ExecutionError,
+		nodeRunData?: IRunData,
+	): IRun => ({
 		mode: 'manual',
 		status: error ? 'error' : 'success',
 		startedAt: new Date(),
@@ -2465,7 +2469,7 @@ describe('extractLastExecutedNodeStructuredOutputErrorInfo', () => {
 				error,
 				runData: nodeRunData || {},
 			},
-		} as any,
+		} as IRunExecutionData,
 	});
 
 	it('should return empty object when there is no error', () => {

@@ -301,7 +301,7 @@ describe('VersionedNodeType', () => {
 			const nodeVersions = {
 				'1': createMockNodeType(1),
 				'2': createMockNodeType(2),
-				abc: createMockNodeType(99) as any, // Invalid key
+				abc: createMockNodeType(99) as unknown, // Invalid key
 			};
 			const description = createMockBaseDescription();
 

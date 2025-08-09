@@ -269,7 +269,7 @@ describe('NodeApiError message and description logic', () => {
 		};
 		const [message, ...rest] = error.message.split('\n');
 		const description = rest.join('\n');
-		const httpCode = error.code as any;
+		const httpCode = error.code as unknown;
 		const nodeApiError = new NodeApiError(node, error as JsonObject, {
 			message,
 			description,

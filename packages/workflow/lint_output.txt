@@ -1,0 +1,968 @@
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/jest.config.js
+  0:0  error  Parsing error: /Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/jest.config.js was not found by the project service. Consider either including it in the tsconfig.json or including it in allowDefaultProject
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/errors/base/base.error.ts
+  53:32  warning  Unnecessary escape character: \/  no-useless-escape
+  56:11  warning  Empty block statement             no-empty
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/errors/node-api.error.ts
+  233:29  warning  Prefer using an optional chain expression instead, as it's more concise and easier to read  @typescript-eslint/prefer-optional-chain
+  306:25  warning  Prefer using an optional chain expression instead, as it's more concise and easier to read  @typescript-eslint/prefer-optional-chain
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/extensions/expression-extension.ts
+  262:7  warning  Prefer using nullish coalescing operator (`??=`) instead of an assignment expression, as it is simpler to read  @typescript-eslint/prefer-nullish-coalescing
+  320:8  warning  Prefer using nullish coalescing operator (`??=`) instead of an assignment expression, as it is simpler to read  @typescript-eslint/prefer-nullish-coalescing
+  415:7  warning  Prefer using nullish coalescing operator (`??`) instead of a ternary expression, as it is simpler to read       @typescript-eslint/prefer-nullish-coalescing
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/extensions/extensions.ts
+  6:25  warning  The `Function` type accepts any function-like value.
+Prefer explicitly defining any function parameters and return type  @typescript-eslint/no-unsafe-function-type
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/extensions/string-extensions.ts
+   86:11  warning  Unnecessary escape character: \[              no-useless-escape
+   86:36  warning  Unnecessary escape character: \[              no-useless-escape
+  132:4   warning  Unexpected lexical declaration in case block  no-case-declarations
+  364:15  warning  Unnecessary escape character: \-              no-useless-escape
+  365:55  warning  Unnecessary escape character: \/              no-useless-escape
+  365:64  warning  Unnecessary escape character: \[              no-useless-escape
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/node-helpers.ts
+  1204:7  warning  'value' may use Object's default stringification format ('[object Object]') when stringified                             @typescript-eslint/no-base-to-string
+  1726:5  warning  'newParameters.toolDescription' may use Object's default stringification format ('[object Object]') when stringified     @typescript-eslint/no-base-to-string
+  1743:4  warning  'node?.parameters.toolDescription' may use Object's default stringification format ('[object Object]') when stringified  @typescript-eslint/no-base-to-string
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/node-reference-parser-utils.ts
+  35:48  warning  Unnecessary escape character: \$  no-useless-escape
+  36:32  warning  Unnecessary escape character: \.  no-useless-escape
+  36:39  warning  Unnecessary escape character: \$  no-useless-escape
+  37:37  warning  Unnecessary escape character: \$  no-useless-escape
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/observable-object.ts
+  61:7  warning  Empty block statement  no-empty
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/telemetry-helpers.ts
+   64:18  warning  Empty block statement                                                                                                                                                                                                                                                                                                                                                                      no-empty
+   78:43  warning  'parameter.value' may use Object's default stringification format ('[object Object]') when stringified                                                                                                                                                                                                                                                                                     @typescript-eslint/no-base-to-string
+  303:4   warning  Prefer using nullish coalescing operator (`??=`) instead of an assignment expression, as it is simpler to read                                                                                                                                                                                                                                                                             @typescript-eslint/prefer-nullish-coalescing
+  446:27  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                                                                                                                                                                                                                                                                                                                  no-prototype-builtins
+  447:25  warning  'nodeParameters[key]' may use Object's default stringification format ('[object Object]') when stringified                                                                                                                                                                                                                                                                                 @typescript-eslint/no-base-to-string
+  462:7   warning  Prefer using an optional chain expression instead, as it's more concise and easier to read                                                                                                                                                                                                                                                                                                 @typescript-eslint/prefer-optional-chain
+  498:24  warning  Prefer using an optional chain expression instead, as it's more concise and easier to read                                                                                                                                                                                                                                                                                                 @typescript-eslint/prefer-optional-chain
+  499:7   warning  Prefer using an optional chain expression instead, as it's more concise and easier to read                                                                                                                                                                                                                                                                                                 @typescript-eslint/prefer-optional-chain
+  512:7   warning  Prefer using an optional chain expression instead, as it's more concise and easier to read                                                                                                                                                                                                                                                                                                 @typescript-eslint/prefer-optional-chain
+  599:88  warning  The `{}` ("empty object") type allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowObjectTypes' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  658:25  warning  The `{}` ("empty object") type allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowObjectTypes' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/tool-helpers.ts
+  9:47  warning  Unnecessary escape character: \/  no-useless-escape
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/type-validation.ts
+   34:16  warning  'value' will use Object's default stringification format ('[object Object]') when stringified  @typescript-eslint/no-base-to-string
+  113:46  warning  Unnecessary escape character: \-                                                               no-useless-escape
+  113:61  warning  Unnecessary escape character: \-                                                               no-useless-escape
+  282:30  warning  'value' will use Object's default stringification format ('[object Object]') when stringified  @typescript-eslint/no-base-to-string
+  284:16  warning  'value' will use Object's default stringification format ('[object Object]') when stringified  @typescript-eslint/no-base-to-string
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/src/workflow-data-proxy.ts
+   209:28  warning  'value' may use Object's default stringification format ('[object Object]') when stringified  @typescript-eslint/no-base-to-string
+   288:34  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                     no-prototype-builtins
+   295:27  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                     no-prototype-builtins
+   409:47  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                     no-prototype-builtins
+  1079:52  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                     no-prototype-builtins
+  1136:54  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                     no-prototype-builtins
+  1201:42  warning  Unnecessary escape character: \'                                                              no-useless-escape
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/ExpressionExtensions/expression-extension.test.ts
+  3:1  error  Definition for rule 'n8n-local-rules/no-interpolation-in-regular-string' was not found  n8n-local-rules/no-interpolation-in-regular-string
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/ExpressionExtensions/number-extensions.test.ts
+   10:5  warning  Unsafe call of a(n) `Function` typed value                                              @typescript-eslint/no-unsafe-call
+  112:4  error    Definition for rule 'n8n-local-rules/no-interpolation-in-regular-string' was not found  n8n-local-rules/no-interpolation-in-regular-string
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/ExpressionFixtures/base.ts
+   41:26  warning  Object Literal Property name `FirstName` must match one of the following formats: camelCase         @typescript-eslint/naming-convention
+   85:42  warning  Object Literal Property name `message_id` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+   97:15  warning  Object Literal Property name `Set2` must match one of the following formats: camelCase              @typescript-eslint/naming-convention
+  122:15  warning  Object Literal Property name `Clockify1` must match one of the following formats: camelCase         @typescript-eslint/naming-convention
+  134:15  warning  Object Literal Property name `dig check CF` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+  146:15  warning  Object Literal Property name `Set URL` must match one of the following formats: camelCase           @typescript-eslint/naming-convention
+  146:36  warning  Object Literal Property name `base_domain` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+  185:7   warning  Object Literal Property name `IF Zoom meeting` must match one of the following formats: camelCase   @typescript-eslint/naming-convention
+  204:15  warning  Object Literal Property name `GetTicket` must match one of the following formats: camelCase         @typescript-eslint/naming-convention
+  292:15  warning  Object Literal Property name `Webhook1` must match one of the following formats: camelCase          @typescript-eslint/naming-convention
+  292:46  warning  Object Literal Property name `x-api-key` must match one of the following formats: camelCase         @typescript-eslint/naming-convention
+  305:15  warning  Object Literal Property name `Webhook1` must match one of the following formats: camelCase          @typescript-eslint/naming-convention
+  305:46  warning  Object Literal Property name `x-api-key` must match one of the following formats: camelCase         @typescript-eslint/naming-convention
+  317:15  warning  Object Literal Property name `Create or update` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  329:15  warning  Object Literal Property name `Crypto` must match one of the following formats: camelCase            @typescript-eslint/naming-convention
+  389:15  warning  Object Literal Property name `created_at` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  401:15  warning  Object Literal Property name `Find by ID1` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+  414:15  warning  Object Literal Property name `Bid` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+  414:28  warning  Object Literal Property name `Baserow` must match one of the following formats: camelCase           @typescript-eslint/naming-convention
+  414:47  warning  Object Literal Property name `Count` must match one of the following formats: camelCase             @typescript-eslint/naming-convention
+  428:25  warning  Object Literal Property name `Title` must match one of the following formats: camelCase             @typescript-eslint/naming-convention
+  428:41  warning  Object Literal Property name `PostContent` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+  428:71  warning  Object Literal Property name `Tag` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+  449:15  warning  Object Literal Property name `Find by ID` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  454:15  warning  Object Literal Property name `Find by ID` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  459:15  warning  Object Literal Property name `Find by ID` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  464:15  warning  Object Literal Property name `Find by ID` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  476:15  warning  Object Literal Property name `HTTP Request` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+  481:15  warning  Object Literal Property name `HTTP Request` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+  567:15  warning  Object Literal Property name `search_term` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+  572:15  warning  Object Literal Property name `search_term` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+  731:35  warning  Object Literal Property name `batch_size` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  731:53  warning  Object Literal Property name `ignore_cols` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/augment-object.test.ts
+  201:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                  @typescript-eslint/naming-convention
+  202:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                                  @typescript-eslint/naming-convention
+  235:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                  @typescript-eslint/naming-convention
+  236:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                                  @typescript-eslint/naming-convention
+  267:4   warning  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  272:4   warning  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  275:4   warning  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  276:28  warning  Unsafe member access .d on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+  277:4   warning  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  278:35  warning  Unsafe member access .d on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+  489:3   error    Definition for rule 'n8n-local-rules/no-skipped-tests' was not found                                                 n8n-local-rules/no-skipped-tests
+  513:27  warning  Unsafe member access .c on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+  522:24  warning  Unsafe member access .c on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+  555:11  warning  Unsafe call of a(n) `error` type typed value                                                                         @typescript-eslint/no-unsafe-call
+  555:29  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                                            no-prototype-builtins
+  558:11  warning  Unsafe call of a(n) `error` type typed value                                                                         @typescript-eslint/no-unsafe-call
+  558:29  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                                            no-prototype-builtins
+  612:41  warning  Unsafe member access .name on an `error` typed value                                                                 @typescript-eslint/no-unsafe-member-access
+  613:31  warning  Unsafe member access .constructor on an `error` typed value                                                          @typescript-eslint/no-unsafe-member-access
+  614:31  warning  Unsafe member access .c on an `error` typed value                                                                    @typescript-eslint/no-unsafe-member-access
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/common.test.ts
+   14:4  warning  Object Literal Property name `Node1` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   25:4  warning  Object Literal Property name `Node2` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   28:4  warning  Object Literal Property name `Node3` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   39:4  warning  Object Literal Property name `Node1` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   49:4  warning  Object Literal Property name `Node2` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   52:4  warning  Object Literal Property name `Node3` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   62:4  warning  Object Literal Property name `Node1` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   74:4  warning  Object Literal Property name `Node1` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   84:4  warning  Object Literal Property name `Node2` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   92:4  warning  Object Literal Property name `Node1` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   95:4  warning  Object Literal Property name `Node3` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  102:4  warning  Object Literal Property name `Node2` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/expression-sandboxing.test.ts
+  13:3   warning  Unsafe assignment of type `any[]` to a variable of type `ASTAfterHook[]`                                             @typescript-eslint/no-unsafe-assignment
+  33:52  warning  Object Literal Property name `Number` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  37:55  warning  Object Literal Property name `Number` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  44:6   warning  Object Literal Property name `__sanitize` trimmed as `_sanitize` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  45:6   warning  Object Literal Property name `Number` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  51:6   warning  Object Literal Property name `__sanitize` trimmed as `_sanitize` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  52:6   warning  Object Literal Property name `Number` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  62:6   warning  Object Literal Property name `__sanitize` trimmed as `_sanitize` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  70:6   warning  Object Literal Property name `__sanitize` trimmed as `_sanitize` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  71:6   warning  Object Literal Property name `Number` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  79:6   warning  Object Literal Property name `__sanitize` trimmed as `_sanitize` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  80:6   warning  Object Literal Property name `Number` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/from-ai-parse-utils.test.ts
+   99:16  warning  Unsafe return of a value of type `any`                @typescript-eslint/no-unsafe-return
+  103:16  warning  Unsafe return of a value of type `any`                @typescript-eslint/no-unsafe-return
+  115:10  warning  Unsafe call of a(n) `any` typed value                 @typescript-eslint/no-unsafe-call
+  115:22  warning  Unsafe member access .defaultValue on an `any` value  @typescript-eslint/no-unsafe-member-access
+  125:10  warning  Unsafe call of a(n) `any` typed value                 @typescript-eslint/no-unsafe-call
+  125:22  warning  Unsafe member access .defaultValue on an `any` value  @typescript-eslint/no-unsafe-member-access
+  128:16  warning  Unsafe return of a value of type `any`                @typescript-eslint/no-unsafe-return
+  140:10  warning  Unsafe call of a(n) `any` typed value                 @typescript-eslint/no-unsafe-call
+  140:22  warning  Unsafe member access .defaultValue on an `any` value  @typescript-eslint/no-unsafe-member-access
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/graph/graph-utils.test.ts
+  420:5  warning  Object Literal Property name `A` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  428:5  warning  Object Literal Property name `B` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  453:5  warning  Object Literal Property name `A` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  455:6  warning  Object Literal Property name `ai_tool` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  470:5  warning  Object Literal Property name `A` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/helpers.ts
+   9:17  warning  Function name `NodeTypes` must match one of the following formats: camelCase                                    @typescript-eslint/naming-convention
+  10:2   warning  Prefer using nullish coalescing operator (`??=`) instead of an assignment expression, as it is simpler to read  @typescript-eslint/prefer-nullish-coalescing
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/logger-proxy.test.ts
+  119:40  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/node-errors.test.ts
+  143:5   warning  Object Literal Property name `MYMAPPEDMESSAGE` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  156:6   warning  Object Literal Property name `MYMAPPEDMESSAGE` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  167:5   warning  Object Literal Property name `MYMAPPEDMESSAGE` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  272:9   warning  Unsafe assignment of an `any` value                                                                @typescript-eslint/no-unsafe-assignment
+  272:34  warning  Unexpected any. Specify a different type                                                           @typescript-eslint/no-explicit-any
+  276:4   warning  Unsafe assignment of an `any` value                                                                @typescript-eslint/no-unsafe-assignment
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/node-helpers.conditions.test.ts
+   777:14  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   867:14  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   949:12  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  1024:12  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  1099:12  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  1188:12  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/node-helpers.test.ts
+  1224:14  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  1314:14  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  1396:12  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  1471:12  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  1546:12  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  1635:12  warning  Object Literal Property name `/mode` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  3450:7   warning  Unsafe assignment of an `any` value                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  3450:21  warning  Unexpected any. Specify a different type                                                                                                                       @typescript-eslint/no-explicit-any
+  3499:7   warning  Unsafe assignment of an `any` value                                                                                                                            @typescript-eslint/no-unsafe-assignment
+  3499:34  warning  Unexpected any. Specify a different type                                                                                                                       @typescript-eslint/no-explicit-any
+  3610:9   warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                                                     @typescript-eslint/naming-convention
+  3715:9   warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                                                     @typescript-eslint/naming-convention
+  3830:9   warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                                                     @typescript-eslint/naming-convention
+  3938:9   warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                                                     @typescript-eslint/naming-convention
+  4056:9   warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                                                     @typescript-eslint/naming-convention
+  4660:9   warning  Object Literal Property name `@tool` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  4675:9   warning  Object Literal Property name `@tool` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  4694:9   warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                                                     @typescript-eslint/naming-convention
+  4719:9   warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                                                     @typescript-eslint/naming-convention
+  4748:9   warning  Object Literal Property name `@tool` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  4749:9   warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                                                     @typescript-eslint/naming-convention
+  4778:9   warning  Object Literal Property name `@tool` must match one of the following formats: camelCase                                                                        @typescript-eslint/naming-convention
+  4779:9   warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                                                     @typescript-eslint/naming-convention
+  4844:9   warning  Object Literal Property name `/condition` must match one of the following formats: camelCase                                                                   @typescript-eslint/naming-convention
+  4861:9   warning  Object Literal Property name `/condition` must match one of the following formats: camelCase                                                                   @typescript-eslint/naming-convention
+  5026:7   warning  Include a description after the "@ts-expect-error" directive to explain why the @ts-expect-error is necessary. The description must be 3 characters or longer  @typescript-eslint/ban-ts-comment
+  5601:7   warning  Include a description after the "@ts-expect-error" directive to explain why the @ts-expect-error is necessary. The description must be 3 characters or longer  @typescript-eslint/ban-ts-comment
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/node-types.ts
+    48:4   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                        @typescript-eslint/naming-convention
+   113:10  warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+   134:10  warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+   258:4   warning  Object Literal Property name `4` must match one of the following formats: camelCase                                        @typescript-eslint/naming-convention
+   958:32  warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+   985:32  warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1005:32  warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1011:54  warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1022:54  warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1062:32  warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1085:37  warning  Object Literal Property name `@version` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1139:22  warning  Object Literal Property name `Core Nodes` must match one of the following formats: camelCase                               @typescript-eslint/naming-convention
+  1329:3   warning  Object Literal Property name `n8n-nodes-base.stickyNote` must match one of the following formats: camelCase                @typescript-eslint/naming-convention
+  1330:3   warning  Object Literal Property name `n8n-nodes-base.set` must match one of the following formats: camelCase                       @typescript-eslint/naming-convention
+  1331:3   warning  Object Literal Property name `n8n-nodes-base.code` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1332:3   warning  Object Literal Property name `n8n-nodes-base.html` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1333:3   warning  Object Literal Property name `n8n-nodes-base.form` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1334:3   warning  Object Literal Property name `test.googleSheets` must match one of the following formats: camelCase                        @typescript-eslint/naming-convention
+  1335:3   warning  Object Literal Property name `test.set` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1336:3   warning  Object Literal Property name `n8n-nodes-base.executeWorkflow` must match one of the following formats: camelCase           @typescript-eslint/naming-convention
+  1337:3   warning  Object Literal Property name `test.setMulti` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  1388:3   warning  Object Literal Property name `n8n-nodes-base.manualTrigger` must match one of the following formats: camelCase             @typescript-eslint/naming-convention
+  1389:3   warning  Object Literal Property name `@n8n/n8n-nodes-langchain.agent` must match one of the following formats: camelCase           @typescript-eslint/naming-convention
+  1390:3   warning  Object Literal Property name `n8n-nodes-base.googleCalendarTool` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  1391:3   warning  Object Literal Property name `@n8n/n8n-nodes-langchain.toolCalculator` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  1392:3   warning  Object Literal Property name `@n8n/n8n-nodes-langchain.toolWikipedia` must match one of the following formats: camelCase   @typescript-eslint/naming-convention
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/paired-item-path-detection.test.ts
+    98:5   warning  Object Literal Property name `Code1` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+   103:5   warning  Object Literal Property name `Default Data Loader` must match one of the following formats: camelCase            @typescript-eslint/naming-convention
+   108:5   warning  Object Literal Property name `Vector Store` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+   192:5   warning  Object Literal Property name `Tool1` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+   197:5   warning  Object Literal Property name `Tool2` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+   202:5   warning  Object Literal Property name `Memory` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+   269:5   warning  Object Literal Property name `A` must match one of the following formats: camelCase                              @typescript-eslint/naming-convention
+   272:5   warning  Object Literal Property name `B` must match one of the following formats: camelCase                              @typescript-eslint/naming-convention
+   281:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+   282:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+   325:5   warning  Object Literal Property name `A` must match one of the following formats: camelCase                              @typescript-eslint/naming-convention
+   328:5   warning  Object Literal Property name `B` must match one of the following formats: camelCase                              @typescript-eslint/naming-convention
+   358:5   warning  Expected an assignment or function call and instead saw an expression                                            @typescript-eslint/no-unused-expressions
+   358:18  warning  Unsafe member access .item on an `error` typed value                                                             @typescript-eslint/no-unsafe-member-access
+   418:5   warning  Object Literal Property name `A` must match one of the following formats: camelCase                              @typescript-eslint/naming-convention
+   471:5   warning  Object Literal Property name `A` must match one of the following formats: camelCase                              @typescript-eslint/naming-convention
+   474:5   warning  Object Literal Property name `B` must match one of the following formats: camelCase                              @typescript-eslint/naming-convention
+   477:5   warning  Object Literal Property name `C` must match one of the following formats: camelCase                              @typescript-eslint/naming-convention
+   554:5   warning  Object Literal Property name `On form submission` must match one of the following formats: camelCase             @typescript-eslint/naming-convention
+   557:5   warning  Object Literal Property name `When clicking 'Test workflow'` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   573:5   warning  Unsafe call of a(n) `error` type typed value                                                                     @typescript-eslint/no-unsafe-call
+   573:35  warning  Unsafe member access .all on an `error` typed value                                                              @typescript-eslint/no-unsafe-member-access
+   641:5   warning  Object Literal Property name `On form submission` must match one of the following formats: camelCase             @typescript-eslint/naming-convention
+   644:5   warning  Object Literal Property name `When clicking 'Test workflow'` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   660:5   warning  Expected an assignment or function call and instead saw an expression                                            @typescript-eslint/no-unused-expressions
+   660:35  warning  Unsafe member access .item on an `error` typed value                                                             @typescript-eslint/no-unsafe-member-access
+   709:5   warning  Object Literal Property name `On form submission` must match one of the following formats: camelCase             @typescript-eslint/naming-convention
+   712:5   warning  Object Literal Property name `When clicking 'Test workflow'` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   743:5   warning  Unsafe call of a(n) `error` type typed value                                                                     @typescript-eslint/no-unsafe-call
+   743:35  warning  Unsafe member access .all on an `error` typed value                                                              @typescript-eslint/no-unsafe-member-access
+   793:8   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase          @typescript-eslint/naming-convention
+   839:5   warning  Object Literal Property name `Telegram Trigger` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+   844:5   warning  Object Literal Property name `AI Agent` must match one of the following formats: camelCase                       @typescript-eslint/naming-convention
+   849:5   warning  Object Literal Property name `Anthropic Chat Model` must match one of the following formats: camelCase           @typescript-eslint/naming-convention
+   857:5   warning  Object Literal Property name `Zep` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   865:5   warning  Object Literal Property name `AI Agent Tool` must match one of the following formats: camelCase                  @typescript-eslint/naming-convention
+   942:5   warning  Object Literal Property name `Agent1` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+   947:5   warning  Object Literal Property name `Agent2` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+   952:5   warning  Object Literal Property name `Tool1` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+  1018:5   warning  Object Literal Property name `Trigger` must match one of the following formats: camelCase                        @typescript-eslint/naming-convention
+  1023:5   warning  Object Literal Property name `Memory` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+  1028:5   warning  Object Literal Property name `ChatModel` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1147:5   warning  Object Literal Property name `Telegram Trigger` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+  1152:5   warning  Object Literal Property name `AI Agent` must match one of the following formats: camelCase                       @typescript-eslint/naming-convention
+  1157:5   warning  Object Literal Property name `Anthropic Chat Model` must match one of the following formats: camelCase           @typescript-eslint/naming-convention
+  1162:5   warning  Object Literal Property name `Zep` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  1167:5   warning  Object Literal Property name `Anthropic Chat Model1` must match one of the following formats: camelCase          @typescript-eslint/naming-convention
+  1172:5   warning  Object Literal Property name `AI Agent Tool` must match one of the following formats: camelCase                  @typescript-eslint/naming-convention
+  1177:5   warning  Object Literal Property name `Switch` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+  1182:5   warning  Object Literal Property name `Edit Fields` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1187:5   warning  Object Literal Property name `Typing ...` must match one of the following formats: camelCase                     @typescript-eslint/naming-convention
+  1222:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+  1223:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+  1224:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+  1225:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+  1226:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+  1227:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+  1228:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+  1229:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+  1230:17  warning  Unsafe return of a value of type error                                                                           @typescript-eslint/no-unsafe-return
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/result.test.ts
+    6:7   error    'ResultOk' is defined but never used. Allowed unused vars must match /^(_.*|e|error)$/u     @typescript-eslint/no-unused-vars
+    7:7   error    'ResultError' is defined but never used. Allowed unused vars must match /^(_.*|e|error)$/u  @typescript-eslint/no-unused-vars
+  199:20  warning  Unexpected any. Specify a different type                                                    @typescript-eslint/no-explicit-any
+  199:25  warning  Unsafe member access .code on an `any` value                                                @typescript-eslint/no-unsafe-member-access
+  210:29  warning  Unexpected any. Specify a different type                                                    @typescript-eslint/no-explicit-any
+  210:34  warning  Unsafe member access .code on an `any` value                                                @typescript-eslint/no-unsafe-member-access
+  263:54  warning  Unexpected any. Specify a different type                                                    @typescript-eslint/no-explicit-any
+  264:27  warning  Unsafe return of a value of type `any`                                                      @typescript-eslint/no-unsafe-return
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/telemetry-helpers.test.ts
+   118:21  warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+   119:20  warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+   129:5   warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   139:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   140:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   142:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   148:6   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   156:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   158:19  warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   158:60  warning  Object Literal Property name `Google Sheets` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+   180:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   181:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   184:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   196:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   197:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   200:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   227:21  warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+   228:20  warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+   238:5   warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   248:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   249:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   251:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   257:6   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   267:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   269:19  warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   269:60  warning  Object Literal Property name `Google Sheets` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+   294:21  warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+   295:20  warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+   316:5   warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   326:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   327:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   329:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   335:6   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   344:14  warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   345:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   347:19  warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   347:60  warning  Object Literal Property name `Google Sheets` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+   391:5   warning  Object Literal Property name `Agent Node` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   400:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   401:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   403:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   411:6   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   419:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   421:19  warning  Object Literal Property name `Agent Node` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   421:38  warning  Object Literal Property name `Other Node` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   465:5   warning  Object Literal Property name `Agent Node` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   474:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   475:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   477:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   484:6   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   492:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   494:19  warning  Object Literal Property name `Agent Node` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   494:38  warning  Object Literal Property name `Other Node` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   534:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   535:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   537:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   546:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   548:19  warning  Object Literal Property name `Agent Tool Node` must match one of the following formats: camelCase                       @typescript-eslint/naming-convention
+   579:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   580:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   582:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   590:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   592:19  warning  Object Literal Property name `OpenAI Node` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+   622:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   623:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   625:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   634:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   636:19  warning  Object Literal Property name `Summarization Node` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   662:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   663:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   665:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   674:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   676:19  warning  Object Literal Property name `Custom Tool Node` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   707:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   708:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   710:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   722:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   724:19  warning  Object Literal Property name `Chain LLM Node` must match one of the following formats: camelCase                        @typescript-eslint/naming-convention
+   749:21  warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+   750:20  warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+   773:5   warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   784:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   785:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   787:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   793:6   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   802:14  warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   803:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   805:19  warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   805:60  warning  Object Literal Property name `Google Sheets` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+   824:5   warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   829:5   warning  Object Literal Property name `When clicking "Execute Workflow"` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   832:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   833:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   834:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   836:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   872:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   873:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   875:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   880:7   warning  Object Literal Property name `response_mode` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+   884:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   886:19  warning  Object Literal Property name `Webhook` must match one of the following formats: camelCase                               @typescript-eslint/naming-convention
+   920:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   921:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   923:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   928:7   warning  Object Literal Property name `credential_type` must match one of the following formats: camelCase                       @typescript-eslint/naming-convention
+   929:7   warning  Object Literal Property name `credential_set` must match one of the following formats: camelCase                        @typescript-eslint/naming-convention
+   930:7   warning  Object Literal Property name `domain_base` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+   931:7   warning  Object Literal Property name `domain_path` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+   935:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   937:19  warning  Object Literal Property name `HTTP Request V4 with generic auth` must match one of the following formats: camelCase     @typescript-eslint/naming-convention
+   975:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+   976:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   978:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+   983:7   warning  Object Literal Property name `credential_type` must match one of the following formats: camelCase                       @typescript-eslint/naming-convention
+   984:7   warning  Object Literal Property name `credential_set` must match one of the following formats: camelCase                        @typescript-eslint/naming-convention
+   985:7   warning  Object Literal Property name `domain_base` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+   986:7   warning  Object Literal Property name `domain_path` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+   990:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+   992:19  warning  Object Literal Property name `HTTP Request V4 with predefined cred` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  1019:6   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  1020:6   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1022:7   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1031:6   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  1033:20  warning  Object Literal Property name `Merge Node V3` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+  1058:6   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  1059:6   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1061:7   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1070:6   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  1072:20  warning  Object Literal Property name `Merge Node V3` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+  1098:6   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  1099:6   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1101:7   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1111:6   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  1113:20  warning  Object Literal Property name `Merge Node V3` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+  1142:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  1143:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1145:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1154:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  1156:19  warning  Object Literal Property name `HTTP Request V1` must match one of the following formats: camelCase                       @typescript-eslint/naming-convention
+  1181:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  1182:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1184:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1189:7   warning  Object Literal Property name `credential_set` must match one of the following formats: camelCase                        @typescript-eslint/naming-convention
+  1190:7   warning  Object Literal Property name `domain_base` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1191:7   warning  Object Literal Property name `domain_path` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1195:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  1197:19  warning  Object Literal Property name `HTTP Request v4 with defaults` must match one of the following formats: camelCase         @typescript-eslint/naming-convention
+  1234:5   warning  Object Literal Property name `When clicking ‘Execute workflow’` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+  1245:5   warning  Object Literal Property name `Model` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1246:6   warning  Object Literal Property name `ai_languageModel` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1261:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  1266:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1277:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1283:6   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1289:6   warning  Object Literal Property name `2` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1297:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  1300:5   warning  Object Literal Property name `When clicking ‘Execute workflow’` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+  1301:5   warning  Object Literal Property name `Chain` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1302:5   warning  Object Literal Property name `Model` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  1324:5   warning  Object Literal Property name `DebugHelper` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1325:5   warning  Object Literal Property name `Edit Fields` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1326:5   warning  Object Literal Property name `Edit Fields1` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+  1327:5   warning  Object Literal Property name `Edit Fields2` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+  1328:5   warning  Object Literal Property name `Execute Workflow Trigger` must match one of the following formats: camelCase              @typescript-eslint/naming-convention
+  1329:5   warning  Object Literal Property name `Switch` must match one of the following formats: camelCase                                @typescript-eslint/naming-convention
+  1332:5   warning  Object Literal Property name `is_pinned` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  1333:5   warning  Object Literal Property name `node_connections` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  1359:5   warning  Object Literal Property name `node_types` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  1368:6   warning  Object Literal Property name `0` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1370:7   warning  Object Literal Property name `items_total` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1376:6   warning  Object Literal Property name `1` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1378:7   warning  Object Literal Property name `items_total` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1384:6   warning  Object Literal Property name `2` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1386:7   warning  Object Literal Property name `items_total` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1392:6   warning  Object Literal Property name `3` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1398:6   warning  Object Literal Property name `4` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1400:7   warning  Object Literal Property name `items_total` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1406:6   warning  Object Literal Property name `5` must match one of the following formats: camelCase                                     @typescript-eslint/naming-convention
+  1408:7   warning  Object Literal Property name `items_total` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1856:4   warning  Object Literal Property name `Execute Workflow Trigger` must match one of the following formats: camelCase              @typescript-eslint/naming-convention
+  1872:4   warning  Object Literal Property name `Edit Fields` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1883:4   warning  Object Literal Property name `DebugHelper` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1894:4   warning  Object Literal Property name `Switch` must match one of the following formats: camelCase                                @typescript-eslint/naming-convention
+  1919:3   warning  Object Literal Property name `Execute Workflow Trigger` must match one of the following formats: camelCase              @typescript-eslint/naming-convention
+  1930:3   warning  Object Literal Property name `DebugHelper` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  1964:3   warning  Object Literal Property name `Edit Fields` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  2007:3   warning  Object Literal Property name `Switch` must match one of the following formats: camelCase                                @typescript-eslint/naming-convention
+  2053:3   warning  Object Literal Property name `Edit Fields1` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+  2127:24  warning  Object Literal Property name `AI` must match one of the following formats: camelCase                                    @typescript-eslint/naming-convention
+  2250:24  warning  Object Literal Property name `AI` must match one of the following formats: camelCase                                    @typescript-eslint/naming-convention
+  2260:7   warning  Object Literal Property name `a name` must match one of the following formats: camelCase                                @typescript-eslint/naming-convention
+  2292:24  warning  Object Literal Property name `AI` must match one of the following formats: camelCase                                    @typescript-eslint/naming-convention
+  2302:7   warning  Object Literal Property name `a name` must match one of the following formats: camelCase                                @typescript-eslint/naming-convention
+  2340:24  warning  Object Literal Property name `AI` must match one of the following formats: camelCase                                    @typescript-eslint/naming-convention
+  2350:7   warning  Object Literal Property name `a name` must match one of the following formats: camelCase                                @typescript-eslint/naming-convention
+  2382:24  warning  Object Literal Property name `AI` must match one of the following formats: camelCase                                    @typescript-eslint/naming-convention
+  2392:7   warning  Object Literal Property name `a name` must match one of the following formats: camelCase                                @typescript-eslint/naming-convention
+  2411:54  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  2419:3   warning  Unsafe assignment of an `any` value                                                                                     @typescript-eslint/no-unsafe-assignment
+  2419:28  warning  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator               @typescript-eslint/prefer-nullish-coalescing
+  2456:57  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  2456:76  warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  2461:3   warning  Unsafe assignment of an `any` value                                                                                     @typescript-eslint/no-unsafe-assignment
+  2465:5   warning  Unsafe assignment of an `any` value                                                                                     @typescript-eslint/no-unsafe-assignment
+  2466:5   warning  Unsafe assignment of an `any` value                                                                                     @typescript-eslint/no-unsafe-assignment
+  2466:26  warning  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator               @typescript-eslint/prefer-nullish-coalescing
+  2468:8   warning  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  2514:4   warning  Object Literal Property name `Agent` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  2525:4   warning  Object Literal Property name `num_tools` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  2532:4   warning  Object Literal Property name `Agent` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  2546:4   warning  Object Literal Property name `output_parser_fail_reason` must match one of the following formats: camelCase             @typescript-eslint/naming-convention
+  2547:4   warning  Object Literal Property name `num_tools` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  2556:4   warning  Object Literal Property name `Tool1` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  2561:4   warning  Object Literal Property name `Tool2` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  2571:4   warning  Object Literal Property name `num_tools` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  2579:4   warning  Object Literal Property name `OpenAI Model` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+  2592:4   warning  Object Literal Property name `num_tools` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  2593:4   warning  Object Literal Property name `model_name` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  2605:4   warning  Object Literal Property name `OpenAI Model` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+  2610:4   warning  Object Literal Property name `HTTPTool` must match one of the following formats: camelCase                              @typescript-eslint/naming-convention
+  2615:4   warning  Object Literal Property name `SlackTool` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  2620:4   warning  Object Literal Property name `GoogleSheetsTool` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  2628:4   warning  Object Literal Property name `Agent` must match one of the following formats: camelCase                                 @typescript-eslint/naming-convention
+  2646:4   warning  Object Literal Property name `output_parser_fail_reason` must match one of the following formats: camelCase             @typescript-eslint/naming-convention
+  2647:4   warning  Object Literal Property name `num_tools` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  2648:4   warning  Object Literal Property name `model_name` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  2658:4   warning  Object Literal Property name `Connected Model` must match one of the following formats: camelCase                       @typescript-eslint/naming-convention
+  2674:4   warning  Object Literal Property name `num_tools` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  2675:4   warning  Object Literal Property name `model_name` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  2704:5   warning  Object Literal Property name `ConnectedTool1` must match one of the following formats: camelCase                        @typescript-eslint/naming-convention
+  2709:5   warning  Object Literal Property name `ConnectedTool2` must match one of the following formats: camelCase                        @typescript-eslint/naming-convention
+  2715:5   warning  Object Literal Property name `UnconnectedTool1` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  2720:5   warning  Object Literal Property name `UnconnectedTool2` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+  2732:4   warning  Object Literal Property name `num_tools` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  2750:4   warning  Object Literal Property name `Google Gemini Model` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+  2764:4   warning  Object Literal Property name `num_tools` must match one of the following formats: camelCase                             @typescript-eslint/naming-convention
+  2765:4   warning  Object Literal Property name `model_name` must match one of the following formats: camelCase                            @typescript-eslint/naming-convention
+  2820:4   warning  Object Literal Property name `is_streaming` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+  2829:4   warning  Object Literal Property name `is_streaming` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+  2838:4   warning  Object Literal Property name `is_streaming` must match one of the following formats: camelCase                          @typescript-eslint/naming-convention
+  2882:4   warning  Object Literal Property name `response_mode` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+  2883:4   warning  Object Literal Property name `public_chat` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+  2891:4   warning  Object Literal Property name `response_mode` must match one of the following formats: camelCase                         @typescript-eslint/naming-convention
+  2892:4   warning  Object Literal Property name `public_chat` must match one of the following formats: camelCase                           @typescript-eslint/naming-convention
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/type-guards.test.ts
+   30:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   48:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   57:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  116:48  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  125:48  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  155:51  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  163:51  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  184:58  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  193:58  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  202:58  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  231:51  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  248:47  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  267:56  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  281:52  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  308:59  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  321:55  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  330:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  340:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  346:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  352:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  364:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  373:5   warning  Unsafe assignment of an `any` value                                                                      @typescript-eslint/no-unsafe-assignment
+  373:20  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  374:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  383:5   warning  Unsafe assignment of an `any` value                                                                      @typescript-eslint/no-unsafe-assignment
+  383:25  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  384:5   warning  Object Literal Property name `__rl` trimmed as `_rl` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+  391:66  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  392:54  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  393:56  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  397:54  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  398:57  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+  399:61  warning  Unexpected any. Specify a different type                                                                 @typescript-eslint/no-explicit-any
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/type-validation.test.ts
+   56:6   warning  Unsafe assignment of an `any` value                                                                                @typescript-eslint/no-unsafe-assignment
+   70:6   warning  Unsafe assignment of an `any` value                                                                                @typescript-eslint/no-unsafe-assignment
+   85:6   warning  Unsafe assignment of an `any` value                                                                                @typescript-eslint/no-unsafe-assignment
+   95:6   warning  Unsafe assignment of an `any` value                                                                                @typescript-eslint/no-unsafe-assignment
+  111:6   warning  Unsafe assignment of an `any` value                                                                                @typescript-eslint/no-unsafe-assignment
+  186:55  warning  Object Literal Property name `'single quoted' "double quoted"` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/utils.test.ts
+  113:16  warning  Unexpected any. Specify a different type                               @typescript-eslint/no-explicit-any
+  114:2   warning  Unsafe assignment of an `any` value                                    @typescript-eslint/no-unsafe-assignment
+  114:9   warning  Unsafe member access .c on an `any` value                              @typescript-eslint/no-unsafe-member-access
+  175:32  warning  Unexpected any. Specify a different type                               @typescript-eslint/no-explicit-any
+  198:15  warning  Unsafe member access .props on an `any` value                          @typescript-eslint/no-unsafe-member-access
+  199:3   warning  Unsafe call of a(n) `any` typed value                                  @typescript-eslint/no-unsafe-call
+  199:15  warning  Unsafe member access .arr on an `any` value                            @typescript-eslint/no-unsafe-member-access
+  206:20  warning  Unsafe member access .props on an `any` value                          @typescript-eslint/no-unsafe-member-access
+  207:20  warning  Unsafe member access .props on an `any` value                          @typescript-eslint/no-unsafe-member-access
+  208:10  warning  Unsafe call of a(n) `any` typed value                                  @typescript-eslint/no-unsafe-call
+  208:20  warning  Unsafe member access .arr on an `any` value                            @typescript-eslint/no-unsafe-member-access
+  208:34  warning  Unsafe member access [0] on an `any` value                             @typescript-eslint/no-unsafe-member-access
+  209:10  warning  Unsafe call of a(n) `any` typed value                                  @typescript-eslint/no-unsafe-call
+  209:20  warning  Unsafe member access .arr on an `any` value                            @typescript-eslint/no-unsafe-member-access
+  209:34  warning  Unsafe member access [0] on an `any` value                             @typescript-eslint/no-unsafe-member-access
+  366:4   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+  369:4   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/versioned-node-type.test.ts
+   32:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   33:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   45:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   46:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   47:5   warning  Object Literal Property name `3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   58:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   59:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   60:5   warning  Object Literal Property name `3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   71:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   82:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   83:5   warning  Object Literal Property name `5` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   84:5   warning  Object Literal Property name `3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   95:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   96:5   warning  Object Literal Property name `4` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  109:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  110:5   warning  Object Literal Property name `3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  111:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  122:5   warning  Object Literal Property name `7` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  133:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  134:5   warning  Object Literal Property name `10` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+  135:5   warning  Object Literal Property name `5` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  136:5   warning  Object Literal Property name `20` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+  147:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  148:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  149:5   warning  Object Literal Property name `10` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+  165:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  166:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  167:5   warning  Object Literal Property name `3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  200:5   warning  Object Literal Property name `0` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  201:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  202:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  225:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  226:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  227:5   warning  Object Literal Property name `3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  240:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  241:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  242:5   warning  Object Literal Property name `3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  258:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  259:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  273:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  274:5   warning  Object Literal Property name `11` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+  275:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  276:5   warning  Object Literal Property name `21` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+  277:5   warning  Object Literal Property name `3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  302:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  303:5   warning  Object Literal Property name `2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  304:5   warning  Unsafe assignment of an `any` value                                                                    @typescript-eslint/no-unsafe-assignment
+  304:36  warning  Unexpected any. Specify a different type                                                               @typescript-eslint/no-explicit-any
+  316:5   warning  Object Literal Property name `1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  327:7   warning  Object Literal Property name `Data Transformation` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/workflow-data-proxy.test.ts
+    95:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+    95:25  warning  Unsafe member access .last on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+    95:32  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+    99:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+    99:25  warning  Unsafe member access .last on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   103:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   103:25  warning  Unsafe member access .last on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   103:33  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   107:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   107:25  warning  Unsafe member access .first on an `error` typed value                                               @typescript-eslint/no-unsafe-member-access
+   107:33  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   110:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   110:25  warning  Unsafe member access .first on an `error` typed value                                               @typescript-eslint/no-unsafe-member-access
+   113:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   113:25  warning  Unsafe member access .first on an `error` typed value                                               @typescript-eslint/no-unsafe-member-access
+   113:34  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   117:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   117:25  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   117:31  warning  Unsafe member access [0] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   118:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   118:25  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   118:31  warning  Unsafe member access [1] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   121:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   121:25  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   121:32  warning  Unsafe member access [0] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   122:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   122:25  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   122:32  warning  Unsafe member access [1] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   125:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   125:25  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   125:32  warning  Unsafe member access [0] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   126:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   126:25  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   126:32  warning  Unsafe member access [1] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   135:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   135:29  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   135:35  warning  Unsafe member access [1] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   138:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   138:29  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   138:35  warning  Unsafe member access .length on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+   141:29  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   144:31  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   150:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   150:29  warning  Unsafe member access .itemMatching on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+   150:45  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   153:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   153:29  warning  Unsafe member access .first on an `error` typed value                                               @typescript-eslint/no-unsafe-member-access
+   153:37  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   156:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   156:29  warning  Unsafe member access .last on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   156:36  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   160:29  warning  Unsafe member access .params on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+   164:17  warning  Unsafe return of a value of type error                                                              @typescript-eslint/no-unsafe-return
+   168:17  warning  Unsafe return of a value of type error                                                              @typescript-eslint/no-unsafe-return
+   168:32  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   172:31  warning  Unsafe member access .isExecuted on an `error` typed value                                          @typescript-eslint/no-unsafe-member-access
+   173:26  warning  Unsafe member access .isExecuted on an `error` typed value                                          @typescript-eslint/no-unsafe-member-access
+   234:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   234:31  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   245:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   245:50  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   261:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   261:5   warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   261:27  warning  Unsafe member access .first on an `error` typed value                                               @typescript-eslint/no-unsafe-member-access
+   261:35  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   273:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   285:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   285:30  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   299:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   311:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   311:28  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   323:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   323:28  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   337:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   337:28  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   352:32  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   356:32  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   360:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   360:32  warning  Unsafe member access .pairedItem on an `error` typed value                                          @typescript-eslint/no-unsafe-member-access
+   360:45  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   364:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   364:32  warning  Unsafe member access .first on an `error` typed value                                               @typescript-eslint/no-unsafe-member-access
+   364:40  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   368:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   368:32  warning  Unsafe member access .first on an `error` typed value                                               @typescript-eslint/no-unsafe-member-access
+   368:40  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   372:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   372:32  warning  Unsafe member access .last on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   372:39  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   376:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   376:32  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   376:38  warning  Unsafe member access [0] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   380:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   380:32  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   380:38  warning  Unsafe member access [1] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   384:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   384:32  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+   384:38  warning  Unsafe member access [2] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   388:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   388:32  warning  Unsafe member access .itemMatching on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+   388:48  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   392:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   392:32  warning  Unsafe member access .itemMatching on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+   392:48  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   396:11  warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   396:32  warning  Unsafe member access .itemMatching on an `error` typed value                                        @typescript-eslint/no-unsafe-member-access
+   400:33  warning  Unsafe member access .json on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   415:6   warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+   415:29  warning  Unsafe member access [methodName] on an `error` typed value                                         @typescript-eslint/no-unsafe-member-access
+   441:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   441:28  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   533:17  warning  Unsafe return of a value of type error                                                              @typescript-eslint/no-unsafe-return
+   534:17  warning  Unsafe return of a value of type error                                                              @typescript-eslint/no-unsafe-return
+   535:17  warning  Unsafe return of a value of type error                                                              @typescript-eslint/no-unsafe-return
+   659:17  warning  Unsafe return of a value of type error                                                              @typescript-eslint/no-unsafe-return
+   660:17  warning  Unsafe return of a value of type error                                                              @typescript-eslint/no-unsafe-return
+   793:10  warning  Unsafe assignment of an error typed value                                                           @typescript-eslint/no-unsafe-assignment
+   795:17  warning  Unsafe member access .length on an `error` typed value                                              @typescript-eslint/no-unsafe-member-access
+   796:17  warning  Unsafe member access [0] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   804:17  warning  Unsafe member access [1] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   815:10  warning  Unsafe assignment of an error typed value                                                           @typescript-eslint/no-unsafe-assignment
+   816:17  warning  Unsafe member access [0] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   817:17  warning  Unsafe member access [0] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   818:17  warning  Unsafe member access [0] on an `error` typed value                                                  @typescript-eslint/no-unsafe-member-access
+   827:37  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   828:40  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   860:6   warning  Object Literal Property name `Telegram Trigger` must match one of the following formats: camelCase  @typescript-eslint/naming-convention
+   887:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   887:33  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   924:6   warning  Object Literal Property name `HTTP Request` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+   949:5   warning  Expected an assignment or function call and instead saw an expression                               @typescript-eslint/no-unused-expressions
+   949:29  warning  Unsafe member access .item on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+   982:6   warning  Object Literal Property name `Start Node` must match one of the following formats: camelCase        @typescript-eslint/naming-convention
+  1008:5   warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+  1008:27  warning  Unsafe member access .first on an `error` typed value                                               @typescript-eslint/no-unsafe-member-access
+  1017:5   warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+  1017:27  warning  Unsafe member access .last on an `error` typed value                                                @typescript-eslint/no-unsafe-member-access
+  1026:5   warning  Unsafe call of a(n) `error` type typed value                                                        @typescript-eslint/no-unsafe-call
+  1026:27  warning  Unsafe member access .all on an `error` typed value                                                 @typescript-eslint/no-unsafe-member-access
+
+/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/packages/workflow/test/workflow.test.ts
+     1:1   error    Definition for rule 'import/order' was not found                                                           import/order
+     8:2   error    'IConnection' is defined but never used. Allowed unused vars must match /^(_.*|e|error)$/u                 @typescript-eslint/no-unused-vars
+    22:1   error    Definition for rule 'import/order' was not found                                                           import/order
+    67:4   warning  Object Literal Property name `Start` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+    78:4   warning  Object Literal Property name `Set` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   137:4   warning  Object Literal Property name `Switch` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+   162:4   warning  Object Literal Property name `Set` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   173:4   warning  Object Literal Property name `Set1` must match one of the following formats: camelCase                     @typescript-eslint/naming-convention
+   237:4   warning  Object Literal Property name `Switch` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+   256:4   warning  Object Literal Property name `Start` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   267:4   warning  Object Literal Property name `Set1` must match one of the following formats: camelCase                     @typescript-eslint/naming-convention
+   283:4   warning  Object Literal Property name `Set` must match one of the following formats: camelCase                      @typescript-eslint/naming-convention
+   326:4   warning  Object Literal Property name `Start` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   337:4   warning  Object Literal Property name `AINode` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+   710:7   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   741:7   warning  Object Literal Property name `Node1New` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+   777:7   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   808:7   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   865:7   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   876:7   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   892:7   warning  Object Literal Property name `Node3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   949:7   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   960:7   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+   976:7   warning  Object Literal Property name `Node3New` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+  1328:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1333:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1346:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1351:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1364:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1369:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1383:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1388:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1402:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1415:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1428:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1433:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1446:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1459:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1473:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1486:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1500:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1514:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1528:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1542:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1555:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1560:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1573:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1578:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1591:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1596:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1609:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1614:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1630:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1635:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1651:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1656:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1672:6   warning  Object Literal Property name `Node 4 with spaces` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+  1677:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1682:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1696:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1701:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1706:6   warning  Object Literal Property name `Node3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1767:34  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                                  no-prototype-builtins
+  1777:34  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                                  no-prototype-builtins
+  1787:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1798:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1809:6   warning  Object Literal Property name `Node 4 with spaces` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+  1823:43  warning  Do not access Object.prototype method 'hasOwnProperty' from target object                                  no-prototype-builtins
+  1828:8   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1842:52  warning  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  1850:8   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  1851:8   warning  Object Literal Property name `Node 4 with spaces` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+  1912:7   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2156:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2159:5   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2182:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2185:5   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2209:5   warning  Object Literal Property name `Node3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2215:5   warning  Object Literal Property name `TargetNode` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+  2238:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2241:5   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2267:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2270:5   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2273:5   warning  Object Literal Property name `TargetNode` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+  2295:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2298:5   warning  Object Literal Property name `TargetNode` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+  2321:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  2324:5   warning  Object Literal Property name `NonExistentNode` must match one of the following formats: camelCase          @typescript-eslint/naming-convention
+  2389:6   warning  Object Literal Property name `SimpleNode` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+  2460:7   warning  Object Literal Property name `ToolNode` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+  2498:7   warning  Object Literal Property name `MemoryNode` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+  2544:7   warning  Object Literal Property name `MixedNode` must match one of the following formats: camelCase                @typescript-eslint/naming-convention
+  2596:7   warning  Object Literal Property name `StartTool` must match one of the following formats: camelCase                @typescript-eslint/naming-convention
+  2601:7   warning  Object Literal Property name `MiddleTool` must match one of the following formats: camelCase               @typescript-eslint/naming-convention
+  2647:7   warning  Object Literal Property name `ToolNode` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+  2652:7   warning  Object Literal Property name `IntermediateNode` must match one of the following formats: camelCase         @typescript-eslint/naming-convention
+  2698:7   warning  Object Literal Property name `MultiTool` must match one of the following formats: camelCase                @typescript-eslint/naming-convention
+  2729:60  warning  Unexpected any. Specify a different type                                                                   @typescript-eslint/no-explicit-any
+  2742:65  warning  Unexpected any. Specify a different type                                                                   @typescript-eslint/no-explicit-any
+  2760:7   warning  Object Literal Property name `ToolNode` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+  2791:7   warning  Object Literal Property name `EmptyConnectionNode` must match one of the following formats: camelCase      @typescript-eslint/naming-convention
+  2821:7   warning  Object Literal Property name `NullConnectionNode` must match one of the following formats: camelCase       @typescript-eslint/naming-convention
+  3039:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3042:5   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3095:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3153:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3210:5   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3318:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3354:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3402:6   warning  Object Literal Property name `Tool1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3407:6   warning  Object Literal Property name `Memory` must match one of the following formats: camelCase                   @typescript-eslint/naming-convention
+  3460:6   warning  Object Literal Property name `Start` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3465:6   warning  Object Literal Property name `Document` must match one of the following formats: camelCase                 @typescript-eslint/naming-convention
+  3470:6   warning  Object Literal Property name `VectorStore` must match one of the following formats: camelCase              @typescript-eslint/naming-convention
+  3515:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3520:6   warning  Object Literal Property name `Node2` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3525:6   warning  Object Literal Property name `Node3` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3574:6   warning  Object Literal Property name `Node1` must match one of the following formats: camelCase                    @typescript-eslint/naming-convention
+  3607:5   warning  Object Literal Property name `Trigger` must match one of the following formats: camelCase                  @typescript-eslint/naming-convention
+  3613:5   warning  Object Literal Property name `Trigger` must match one of the following formats: camelCase                  @typescript-eslint/naming-convention
+
+✖ 886 problems (9 errors, 877 warnings)
+

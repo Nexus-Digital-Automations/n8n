@@ -2726,7 +2726,7 @@ describe('Workflow', () => {
 					nodeTypes,
 				});
 
-				const result = workflow.getParentMainInputNode(null as any);
+				const result = workflow.getParentMainInputNode(null);
 				expect(result).toBeNull();
 			});
 
@@ -2739,7 +2739,7 @@ describe('Workflow', () => {
 					nodeTypes,
 				});
 
-				const result = workflow.getParentMainInputNode(undefined as any);
+				const result = workflow.getParentMainInputNode(undefined);
 				expect(result).toBeUndefined();
 			});
 

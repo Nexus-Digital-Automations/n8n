@@ -113,7 +113,7 @@ describe('type-guards', () => {
 				displayName: 'Test',
 			};
 
-			expect(isINodeProperties(invalidProperty as any)).toBe(false);
+			expect(isINodeProperties(invalidProperty as unknown)).toBe(false);
 		});
 
 		it('should return false for objects without type', () => {
@@ -122,7 +122,7 @@ describe('type-guards', () => {
 				displayName: 'Test',
 			};
 
-			expect(isINodeProperties(invalidProperty as any)).toBe(false);
+			expect(isINodeProperties(invalidProperty as unknown)).toBe(false);
 		});
 	});
 
@@ -152,7 +152,7 @@ describe('type-guards', () => {
 				name: 'option1',
 			};
 
-			expect(isINodePropertyOptions(invalidOption as any)).toBe(false);
+			expect(isINodePropertyOptions(invalidOption as unknown)).toBe(false);
 		});
 
 		it('should return false for objects without name', () => {
@@ -160,7 +160,7 @@ describe('type-guards', () => {
 				value: 'value1',
 			};
 
-			expect(isINodePropertyOptions(invalidOption as any)).toBe(false);
+			expect(isINodePropertyOptions(invalidOption as unknown)).toBe(false);
 		});
 	});
 
@@ -181,7 +181,7 @@ describe('type-guards', () => {
 				displayName: 'Collection 1',
 			};
 
-			expect(isINodePropertyCollection(invalidCollection as any)).toBe(false);
+			expect(isINodePropertyCollection(invalidCollection as unknown)).toBe(false);
 		});
 
 		it('should return false for objects without name', () => {
@@ -190,7 +190,7 @@ describe('type-guards', () => {
 				values: [],
 			};
 
-			expect(isINodePropertyCollection(invalidCollection as any)).toBe(false);
+			expect(isINodePropertyCollection(invalidCollection as unknown)).toBe(false);
 		});
 
 		it('should return false for objects without displayName', () => {
@@ -199,7 +199,7 @@ describe('type-guards', () => {
 				values: [],
 			};
 
-			expect(isINodePropertyCollection(invalidCollection as any)).toBe(false);
+			expect(isINodePropertyCollection(invalidCollection as unknown)).toBe(false);
 		});
 	});
 
@@ -228,7 +228,7 @@ describe('type-guards', () => {
 		});
 
 		it('should return false for non-array', () => {
-			expect(isINodePropertiesList('not an array' as any)).toBe(false);
+			expect(isINodePropertiesList('not an array' as unknown)).toBe(false);
 		});
 
 		it('should return false for array with non-INodeProperties items', () => {
@@ -245,7 +245,7 @@ describe('type-guards', () => {
 				},
 			];
 
-			expect(isINodePropertiesList(mixedArray as any)).toBe(false);
+			expect(isINodePropertiesList(mixedArray as unknown)).toBe(false);
 		});
 	});
 
@@ -264,7 +264,7 @@ describe('type-guards', () => {
 		});
 
 		it('should return false for non-array', () => {
-			expect(isINodePropertyOptionsList('not an array' as any)).toBe(false);
+			expect(isINodePropertyOptionsList('not an array' as unknown)).toBe(false);
 		});
 
 		it('should return false for array with non-INodePropertyOptions items', () => {
@@ -278,7 +278,7 @@ describe('type-guards', () => {
 				},
 			];
 
-			expect(isINodePropertyOptionsList(mixedArray as any)).toBe(false);
+			expect(isINodePropertyOptionsList(mixedArray as unknown)).toBe(false);
 		});
 	});
 
@@ -305,7 +305,7 @@ describe('type-guards', () => {
 		});
 
 		it('should return false for non-array', () => {
-			expect(isINodePropertyCollectionList('not an array' as any)).toBe(false);
+			expect(isINodePropertyCollectionList('not an array' as unknown)).toBe(false);
 		});
 
 		it('should return false for array with non-INodePropertyCollection items', () => {
@@ -318,7 +318,7 @@ describe('type-guards', () => {
 				{ name: 'option1', value: 'value1' },
 			];
 
-			expect(isINodePropertyCollectionList(mixedArray as any)).toBe(false);
+			expect(isINodePropertyCollectionList(mixedArray as unknown)).toBe(false);
 		});
 	});
 
@@ -370,7 +370,7 @@ describe('type-guards', () => {
 		it('should return false for object with null value', () => {
 			const locator: INodeParameterResourceLocator = {
 				mode: 'list',
-				value: null as any,
+				value: null as unknown,
 				__rl: true,
 			};
 
@@ -380,7 +380,7 @@ describe('type-guards', () => {
 		it('should return false for object with undefined value', () => {
 			const locator: INodeParameterResourceLocator = {
 				mode: 'list',
-				value: undefined as any,
+				value: undefined as unknown,
 				__rl: true,
 			};
 
@@ -388,15 +388,15 @@ describe('type-guards', () => {
 		});
 
 		it('should return true for truthy non-object value', () => {
-			expect(isValidResourceLocatorParameterValue('string-value' as any)).toBe(true);
-			expect(isValidResourceLocatorParameterValue(42 as any)).toBe(true);
-			expect(isValidResourceLocatorParameterValue(true as any)).toBe(true);
+			expect(isValidResourceLocatorParameterValue('string-value' as unknown)).toBe(true);
+			expect(isValidResourceLocatorParameterValue(42 as unknown)).toBe(true);
+			expect(isValidResourceLocatorParameterValue(true as unknown)).toBe(true);
 		});
 
 		it('should return false for falsy non-object value', () => {
-			expect(isValidResourceLocatorParameterValue('' as any)).toBe(false);
-			expect(isValidResourceLocatorParameterValue(false as any)).toBe(false);
-			expect(isValidResourceLocatorParameterValue(undefined as any)).toBe(false);
+			expect(isValidResourceLocatorParameterValue('' as unknown)).toBe(false);
+			expect(isValidResourceLocatorParameterValue(false as unknown)).toBe(false);
+			expect(isValidResourceLocatorParameterValue(undefined as unknown)).toBe(false);
 			// Note: 0 and null are handled in the object path since typeof null === 'object'
 		});
 	});
