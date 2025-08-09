@@ -60,15 +60,15 @@ export const deepCopy = <T extends ((object | Date) & { toJSON?: () => string })
 	}
 	// Array
 	if (Array.isArray(source)) {
-		const clone = [];
+		const clone: unknown[] = [];
 		const len = source.length;
 		for (let i = 0; i < len; i++) {
-			clone[i] = deepCopy(source[i], hash, path + `[${i}]`);
+			clone[i] = deepCopy(source[i] as Parameters<typeof deepCopy>[0], hash, path + `[${i}]`);
 		}
 		return clone as T;
 	}
 	// Object
-	const clone = Object.create(Object.getPrototypeOf({}));
+	const clone = Object.create(Object.getPrototypeOf({})) as Record<string, unknown>;
 	hash.set(source, clone);
 	for (const i in source) {
 		if (hasOwnProp(i)) {

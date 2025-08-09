@@ -2,29 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754700925386_8ohnp3hhx",
-      "title": "Fix no-unsafe-assignment violations in workflow package",
-      "description": "Resolve ~30 @typescript-eslint/no-unsafe-assignment violations in packages/workflow. Add proper type checking and type guards to prevent unsafe assignments from any/unknown types.",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/workflow/src/",
-        "packages/workflow/eslint.config.mjs"
-      ],
-      "success_criteria": [
-        "All @typescript-eslint/no-unsafe-assignment warnings resolved",
-        "Proper type checking added before assignments from any/unknown",
-        "Safe type conversion patterns implemented",
-        "No new unsafe assignment violations introduced"
-      ],
-      "estimate": "2-3 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-09T00:55:25.386Z"
-    },
-    {
       "id": "task_1754700936593_yc7ah4kq4",
       "title": "Fix miscellaneous TypeScript violations in workflow package",
       "description": "Resolve remaining TypeScript and ESLint violations in packages/workflow including prefer-nullish-coalescing, no-prototype-builtins, prefer-optional-chain, no-useless-escape, and no-unsafe-function-type violations. Clean up unused eslint-disable directives.",
