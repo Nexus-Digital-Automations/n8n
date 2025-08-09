@@ -1868,9 +1868,54 @@
       "created_at": "2025-08-09T01:45:07.075Z",
       "completed_at": "2025-08-09T04:32:52.821Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754684443812_5gwkt446y",
+      "title": "Fix TypeScript Safety Violations in Core Package",
+      "description": "Resolve ~570 TypeScript safety violations in packages/core including: 317 naming-convention violations, 88 unbound-method violations, 49 require-await violations, 35 no-unsafe-member-access, 27 no-unsafe-assignment, and 26 no-argument-spread violations. Focus on type annotations and safe property access patterns.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/core/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-* errors resolved in core package",
+        "All @typescript-eslint/naming-convention errors resolved",
+        "All @typescript-eslint/unbound-method errors resolved",
+        "Core package ESLint passes without safety warnings",
+        "No regressions in core functionality"
+      ],
+      "estimate": "15-20 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.812Z",
+      "completed_at": "2025-08-09T04:35:48.910Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754631363028_2c30dvwo3",
+      "title": "Implement custom node storage and validation service",
+      "description": "Create backend service for custom node storage, validation, and metadata management. Implement secure file handling, MIME type validation, dependency checking, and node registry functionality. Include database schema for node metadata and version tracking.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+      ],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T05:36:03.028Z",
+      "completed_at": "2025-08-09T04:48:59.254Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 76,
-  "last_completion": "2025-08-09T04:32:52.821Z",
+  "total_completed": 78,
+  "last_completion": "2025-08-09T04:48:59.254Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

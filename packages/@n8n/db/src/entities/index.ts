@@ -6,6 +6,8 @@ import { AuthIdentity } from './auth-identity';
 import { AuthProviderSyncHistory } from './auth-provider-sync-history';
 import { ComplianceReport } from './compliance-report';
 import { CredentialsEntity } from './credentials-entity';
+import { CustomNodeDeployment } from './custom-node-deployment.entity';
+import { CustomNode } from './custom-node.entity';
 import { EventDestinations } from './event-destinations';
 import { ExecutionAnnotation } from './execution-annotation.ee';
 import { ExecutionData } from './execution-data';
@@ -53,6 +55,8 @@ export {
 	WebhookEntity,
 	AuthIdentity,
 	CredentialsEntity,
+	CustomNode,
+	CustomNodeDeployment,
 	Folder,
 	FolderPermission,
 	FolderShare,
@@ -96,6 +100,18 @@ export type {
 	ThreatLevel,
 } from './security-event';
 
+export type {
+	CustomNodeStatus,
+	ValidationResults,
+	NodeMetadata,
+} from './custom-node.entity';
+
+export type {
+	DeploymentStatus,
+	DeploymentEnvironment,
+	DeploymentConfig,
+} from './custom-node-deployment.entity';
+
 export const entities = {
 	EventDestinations,
 	InstalledNodes,
@@ -110,6 +126,8 @@ export const entities = {
 	WebhookEntity,
 	AuthIdentity,
 	CredentialsEntity,
+	CustomNode,
+	CustomNodeDeployment,
 	Folder,
 	Project,
 	ProjectRelation,

@@ -110,10 +110,10 @@ describe('Credentials', () => {
 	});
 
 	describe('setData', () => {
-		test.each<{}>([[123], [null], [undefined]])(
+		test.each<object>([[123], [null], [undefined]])(
 			'should throw an AssertionError when data is %s',
 			(data) => {
-				const credentials = new Credentials<{}>(nodeCredentials, credentialType);
+				const credentials = new Credentials<object>(nodeCredentials, credentialType);
 
 				expect(() => credentials.setData(data)).toThrow(AssertionError);
 			},

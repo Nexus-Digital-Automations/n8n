@@ -57,6 +57,7 @@ describe('Request Helper Functions', () => {
 		test('should not throw if the response status is 200', async () => {
 			nock(baseUrl).get('/test').reply(200);
 			await proxyRequestToAxios(workflow, additionalData, node, `${baseUrl}/test`);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(hooks.runHook).toHaveBeenCalledWith('nodeFetchedData', [workflow.id, node]);
 		});
 
@@ -82,6 +83,7 @@ describe('Request Helper Functions', () => {
 					if ('message' in error) expect(errorObj.message).toEqual('403 - "Forbidden"');
 				}
 			}
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(hooks.runHook).not.toHaveBeenCalled();
 		});
 
@@ -93,6 +95,7 @@ describe('Request Helper Functions', () => {
 			});
 
 			expect(response).toEqual('Not Found');
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(hooks.runHook).toHaveBeenCalledWith('nodeFetchedData', [workflow.id, node]);
 		});
 
@@ -110,6 +113,7 @@ describe('Request Helper Functions', () => {
 				statusCode: 404,
 				statusMessage: 'Not Found',
 			});
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(hooks.runHook).toHaveBeenCalledWith('nodeFetchedData', [workflow.id, node]);
 		});
 
@@ -369,7 +373,7 @@ describe('Request Helper Functions', () => {
 
 			test('on redirected requests', async () => {
 				const axiosOptions = await parseRequestObject(requestObject);
-				expect(axiosOptions.beforeRedirect).toBeDefined;
+				expect(axiosOptions.beforeRedirect).toBeDefined();
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const redirectOptions: Record<string, any> = {
 					agents: {},
@@ -450,9 +454,9 @@ describe('Request Helper Functions', () => {
 
 			formData.on('data', (chunk) => {
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-				if (chunk && typeof (chunk as any).toString === 'function') {
+				if (chunk && typeof (chunk as unknown).toString === 'function') {
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-					formDataEntries.push((chunk as any).toString());
+					formDataEntries.push((chunk as unknown).toString());
 				}
 			});
 		});

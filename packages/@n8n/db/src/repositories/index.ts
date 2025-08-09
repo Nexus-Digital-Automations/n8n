@@ -4,6 +4,8 @@ export { ApiKeyRepository } from './api-key.repository';
 export { AuthIdentityRepository } from './auth-identity.repository';
 export { AuthProviderSyncHistoryRepository } from './auth-provider-sync-history.repository';
 export { CredentialsRepository } from './credentials.repository';
+export { CustomNodeRepository } from './custom-node.repository';
+export { CustomNodeDeploymentRepository } from './custom-node-deployment.repository';
 export { ExecutionAnnotationRepository } from './execution-annotation.repository';
 export { ExecutionDataRepository } from './execution-data.repository';
 export { ExecutionMetadataRepository } from './execution-metadata.repository';
