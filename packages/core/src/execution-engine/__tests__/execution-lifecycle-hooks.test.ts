@@ -73,7 +73,7 @@ describe('ExecutionLifecycleHooks', () => {
 			async ({ hook, args }) => {
 				hooks.addHandler(hook, hooksHandlers[hook]);
 				await hooks.runHook(hook, args);
-				expect(hooksHandlers[hook]).toHaveBeenCalledWith(...args);
+				expect(hooksHandlers[hook]).toHaveBeenCalledWith.apply(expect(hooksHandlers[hook]), args);
 			},
 		);
 	});

@@ -114,10 +114,10 @@ export function getSourceDataGroups(
 	const groups: SourceConnectionGroup[] = [];
 	let currentGroup = newGroup();
 	let currentInputIndex =
-		Math.min(
+		Math.min.apply(Math, [
 			...sortedConnectionsWithData.map((c) => c.inputIndex),
 			...sortedConnectionsWithoutData.map((c) => c.inputIndex),
-		) - 1;
+		]) - 1;
 
 	while (sortedConnectionsWithData.length > 0 || sortedConnectionsWithoutData.length > 0) {
 		currentInputIndex++;
@@ -152,10 +152,10 @@ export function getSourceDataGroups(
 		groups.push(currentGroup);
 		currentGroup = newGroup();
 		currentInputIndex =
-			Math.min(
+			Math.min.apply(Math, [
 				...sortedConnectionsWithData.map((c) => c.inputIndex),
 				...sortedConnectionsWithoutData.map((c) => c.inputIndex),
-			) - 1;
+			]) - 1;
 	}
 
 	groups.push(currentGroup);

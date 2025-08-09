@@ -47,16 +47,11 @@ const isScriptingNode = (nodeName: string, workflow: Workflow) => {
 	return node && SCRIPTING_NODE_TYPES.includes(node.type);
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const PAIRED_ITEM_METHOD = {
-	// eslint-disable-next-line @typescript-eslint/naming-convention
-	PAIRED_ITEM: 'pairedItem',
-	// eslint-disable-next-line @typescript-eslint/naming-convention
-	ITEM_MATCHING: 'itemMatching',
-	// eslint-disable-next-line @typescript-eslint/naming-convention
-	ITEM: 'item',
-	// eslint-disable-next-line @typescript-eslint/naming-convention
-	$GET_PAIRED_ITEM: '$getPairedItem',
+	pairedItem: 'pairedItem',
+	itemMatching: 'itemMatching',
+	item: 'item',
+	$getPairedItem: '$getPairedItem',
 } as const;
 
 type PairedItemMethod = (typeof PAIRED_ITEM_METHOD)[keyof typeof PAIRED_ITEM_METHOD];
@@ -400,13 +395,13 @@ export class WorkflowDataProxy {
 			}
 
 			if (!that.workflow.getNode(nodeName)) {
-				throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.NODE_NOT_FOUND, {
-					messageTemplate: EXPRESSION_ERROR_MESSAGES.NODE_REFERENCE_TEMPLATE,
+				throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.nodeNotFound, {
+					messageTemplate: EXPRESSION_ERROR_MESSAGES.nodeReferenceTemplate,
 					runIndex: that.runIndex,
 					itemIndex: that.itemIndex,
 					nodeCause: nodeName,
-					descriptionKey: EXPRESSION_DESCRIPTION_KEYS.NODE_NOT_FOUND,
-					type: EXPRESSION_ERROR_TYPES.PAIRED_ITEM_NO_CONNECTION,
+					descriptionKey: EXPRESSION_DESCRIPTION_KEYS.nodeNotFound,
+					type: EXPRESSION_ERROR_TYPES.pairedItemNoConnection,
 				});
 			}
 
@@ -414,12 +409,12 @@ export class WorkflowDataProxy {
 				!that.runExecutionData.resultData.runData.hasOwnProperty(nodeName) &&
 				!getPinDataIfManualExecution(that.workflow, nodeName, that.mode)
 			) {
-				throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.NODE_NOT_FOUND, {
-					messageTemplate: EXPRESSION_ERROR_MESSAGES.NODE_REFERENCE_TEMPLATE,
+				throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.nodeNotFound, {
+					messageTemplate: EXPRESSION_ERROR_MESSAGES.nodeReferenceTemplate,
 					runIndex: that.runIndex,
 					itemIndex: that.itemIndex,
-					type: EXPRESSION_ERROR_TYPES.PAIRED_ITEM_NO_CONNECTION,
-					descriptionKey: EXPRESSION_DESCRIPTION_KEYS.NO_NODE_EXECUTION_DATA,
+					type: EXPRESSION_ERROR_TYPES.pairedItemNoConnection,
+					descriptionKey: EXPRESSION_DESCRIPTION_KEYS.noNodeExecutionData,
 					nodeCause: nodeName,
 				});
 			}
@@ -509,13 +504,13 @@ export class WorkflowDataProxy {
 					name = name.toString();
 
 					if (!node) {
-						throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.NODE_NOT_FOUND, {
-							messageTemplate: EXPRESSION_ERROR_MESSAGES.NODE_REFERENCE_TEMPLATE,
+						throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.nodeNotFound, {
+							messageTemplate: EXPRESSION_ERROR_MESSAGES.nodeReferenceTemplate,
 							functionality: 'pairedItem',
 							descriptionKey: isScriptingNode(nodeName, that.workflow)
-								? EXPRESSION_DESCRIPTION_KEYS.PAIRED_ITEM_NO_CONNECTION_CODE_NODE
-								: EXPRESSION_DESCRIPTION_KEYS.PAIRED_ITEM_NO_CONNECTION,
-							type: EXPRESSION_ERROR_TYPES.PAIRED_ITEM_NO_CONNECTION,
+								? EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection_CODE_NODE
+								: EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection,
+							type: EXPRESSION_ERROR_TYPES.pairedItemNoConnection,
 							nodeCause: nodeName,
 							runIndex: that.runIndex,
 							itemIndex: that.itemIndex,
@@ -534,7 +529,7 @@ export class WorkflowDataProxy {
 
 						if (executionData.length === 0) {
 							if (that.workflow.getParentNodes(nodeName).length === 0) {
-								throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.NO_EXECUTION_DATA, {
+								throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.noExecutionData, {
 									messageTemplate:
 										'No execution data available to expression under ‘%%PARAMETER%%’',
 									descriptionKey: 'noInputConnection',
@@ -545,7 +540,7 @@ export class WorkflowDataProxy {
 								});
 							}
 
-							throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.NO_EXECUTION_DATA, {
+							throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.noExecutionData, {
 								runIndex: that.runIndex,
 								itemIndex: that.itemIndex,
 								type: 'no_execution_data',
@@ -711,13 +706,13 @@ export class WorkflowDataProxy {
 					const nodeName = name.toString();
 
 					if (that.workflow.getNode(nodeName) === null) {
-						throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.NODE_NOT_FOUND, {
-							messageTemplate: EXPRESSION_ERROR_MESSAGES.NODE_REFERENCE_TEMPLATE,
+						throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.nodeNotFound, {
+							messageTemplate: EXPRESSION_ERROR_MESSAGES.nodeReferenceTemplate,
 							functionality: 'pairedItem',
 							descriptionKey: isScriptingNode(nodeName, that.workflow)
-								? EXPRESSION_DESCRIPTION_KEYS.PAIRED_ITEM_NO_CONNECTION_CODE_NODE
-								: EXPRESSION_DESCRIPTION_KEYS.PAIRED_ITEM_NO_CONNECTION,
-							type: EXPRESSION_ERROR_TYPES.PAIRED_ITEM_NO_CONNECTION,
+								? EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection_CODE_NODE
+								: EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection,
+							type: EXPRESSION_ERROR_TYPES.pairedItemNoConnection,
 							nodeCause: nodeName,
 							runIndex: that.runIndex,
 							itemIndex: that.itemIndex,
@@ -817,7 +812,7 @@ export class WorkflowDataProxy {
 
 		const createMissingPairedItemError = (
 			nodeCause: string,
-			usedMethodName: PairedItemMethod = PAIRED_ITEM_METHOD.PAIRED_ITEM,
+			usedMethodName: PairedItemMethod = PAIRED_ITEM_METHOD.pairedItem,
 		) => {
 			const pinData = getPinDataIfManualExecution(that.workflow, nodeCause, that.mode);
 			const message = pinData
@@ -838,13 +833,13 @@ export class WorkflowDataProxy {
 		};
 
 		const createNodeReferenceError = (nodeCause: string) => {
-			return createExpressionError(EXPRESSION_ERROR_MESSAGES.NODE_NOT_FOUND, {
-				messageTemplate: EXPRESSION_ERROR_MESSAGES.NODE_REFERENCE_TEMPLATE,
+			return createExpressionError(EXPRESSION_ERROR_MESSAGES.nodeNotFound, {
+				messageTemplate: EXPRESSION_ERROR_MESSAGES.nodeReferenceTemplate,
 				functionality: 'pairedItem',
 				descriptionKey: isScriptingNode(nodeCause, that.workflow)
-					? EXPRESSION_DESCRIPTION_KEYS.PAIRED_ITEM_NO_CONNECTION_CODE_NODE
-					: EXPRESSION_DESCRIPTION_KEYS.PAIRED_ITEM_NO_CONNECTION,
-				type: EXPRESSION_ERROR_TYPES.PAIRED_ITEM_NO_CONNECTION,
+					? EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection_CODE_NODE
+					: EXPRESSION_DESCRIPTION_KEYS.pairedItemNoConnection,
+				type: EXPRESSION_ERROR_TYPES.pairedItemNoConnection,
 				moreInfoLink: true,
 				nodeCause,
 			});
@@ -1054,7 +1049,7 @@ export class WorkflowDataProxy {
 				inputData?.[NodeConnectionTypes.AiTool]?.[0]?.[itemIndex].json;
 
 			if (!placeholdersDataInputData) {
-				throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.NO_EXECUTION_DATA, {
+				throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.noExecutionData, {
 					runIndex,
 					itemIndex,
 					type: 'no_execution_data',
@@ -1085,7 +1080,7 @@ export class WorkflowDataProxy {
 						!getPinDataIfManualExecution(that.workflow, nodeName, that.mode)
 					) {
 						// Always show helpful "Execute node for preview" message
-						throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.NO_EXECUTION_DATA, {
+						throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.noExecutionData, {
 							messageTemplate: `Execute node "${nodeName}" for preview`,
 							nodeCause: nodeName,
 							runIndex: that.runIndex,
@@ -1122,10 +1117,10 @@ export class WorkflowDataProxy {
 						has: () => true,
 						ownKeys() {
 							return [
-								PAIRED_ITEM_METHOD.PAIRED_ITEM,
+								PAIRED_ITEM_METHOD.pairedItem,
 								'isExecuted',
-								PAIRED_ITEM_METHOD.ITEM_MATCHING,
-								PAIRED_ITEM_METHOD.ITEM,
+								PAIRED_ITEM_METHOD.itemMatching,
+								PAIRED_ITEM_METHOD.item,
 								'first',
 								'last',
 								'all',
@@ -1143,9 +1138,9 @@ export class WorkflowDataProxy {
 							}
 
 							if (
-								property === PAIRED_ITEM_METHOD.PAIRED_ITEM ||
-								property === PAIRED_ITEM_METHOD.ITEM_MATCHING ||
-								property === PAIRED_ITEM_METHOD.ITEM
+								property === PAIRED_ITEM_METHOD.pairedItem ||
+								property === PAIRED_ITEM_METHOD.itemMatching ||
+								property === PAIRED_ITEM_METHOD.item
 							) {
 								// Before resolving the pairedItem make sure that the requested node comes in the
 								// graph before the current one or exists in the workflow
@@ -1172,7 +1167,7 @@ export class WorkflowDataProxy {
 
 								const pairedItemMethod = (itemIndex?: number) => {
 									if (itemIndex === undefined) {
-										if (property === PAIRED_ITEM_METHOD.ITEM_MATCHING) {
+										if (property === PAIRED_ITEM_METHOD.itemMatching) {
 											throw createExpressionError('Missing item index for .itemMatching()', {
 												itemIndex,
 											});
@@ -1239,7 +1234,7 @@ export class WorkflowDataProxy {
 									return getPairedItem(nodeName, sourceData, pairedItem, property);
 								};
 
-								if (property === PAIRED_ITEM_METHOD.ITEM) {
+								if (property === PAIRED_ITEM_METHOD.item) {
 									return pairedItemMethod();
 								}
 								return pairedItemMethod;
@@ -1326,7 +1321,7 @@ export class WorkflowDataProxy {
 					if (property === 'isProxy') return true;
 
 					if (that.connectionInputData.length === 0) {
-						throw createExpressionError(EXPRESSION_ERROR_MESSAGES.NO_EXECUTION_DATA, {
+						throw createExpressionError(EXPRESSION_ERROR_MESSAGES.noExecutionData, {
 							runIndex: that.runIndex,
 							itemIndex: that.itemIndex,
 							type: 'no_execution_data',
@@ -1482,14 +1477,9 @@ export class WorkflowDataProxy {
 			$today: DateTime.now().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }),
 			$jmesPath: jmespathWrapper,
 
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			DateTime,
-
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			Interval,
-
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			Duration,
+			dateTime: DateTime,
+			interval: Interval,
+			duration: Duration,
 			...that.additionalKeys,
 			$getPairedItem: getPairedItem,
 

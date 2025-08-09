@@ -2684,11 +2684,11 @@ export interface ITelemetryTrackProperties {
 }
 
 export interface INodesGraph {
-	node_types: string[];
-	node_connections: IDataObject[];
+	nodeTypes: string[];
+	nodeConnections: IDataObject[];
 	nodes: INodesGraphNode;
 	notes: INotesGraphNode;
-	is_pinned: boolean;
+	isPinned: boolean;
 }
 
 export interface INodesGraphNode {

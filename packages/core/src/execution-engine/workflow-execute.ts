@@ -1612,7 +1612,7 @@ export class WorkflowExecute {
 								}
 
 								if (runNodeData.hints?.length) {
-									taskStartedData.hints!.push(...runNodeData.hints);
+									taskStartedData.hints!.push.apply(taskStartedData.hints!, runNodeData.hints);
 								}
 
 								if (nodeSuccessData && executionData.node.onError === 'continueErrorOutput') {

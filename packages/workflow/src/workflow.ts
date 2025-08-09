@@ -820,7 +820,7 @@ export class Workflow {
 	 *
 	 * @param {string[]} nodeNames The potential start nodes
 	 */
-	__getStartNode(nodeNames: string[]): INode | undefined {
+	getStartNode(nodeNames: string[]): INode | undefined {
 		// Check if there are any trigger or poll nodes and then return the first one
 		let node: INode;
 		let nodeType: INodeType;
@@ -882,7 +882,7 @@ export class Workflow {
 			}
 
 			// Check which node to return as start node
-			const node = this.__getStartNode(nodeNames);
+			const node = this.getStartNode(nodeNames);
 			if (node !== undefined) {
 				return node;
 			}
@@ -892,7 +892,7 @@ export class Workflow {
 			return this.nodes[nodeNames[0]];
 		}
 
-		return this.__getStartNode(Object.keys(this.nodes));
+		return this.getStartNode(Object.keys(this.nodes));
 	}
 
 	getConnectionsBetweenNodes(

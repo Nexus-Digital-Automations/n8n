@@ -93,7 +93,6 @@ const POSSIBLE_ERROR_STATUS_KEYS = [
  * Descriptive messages for common HTTP status codes
  * this is used by NodeApiError class
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const STATUS_CODE_MESSAGES: IStatusCodeMessages = {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'4XX': 'Your request is invalid or could not be processed by the service',

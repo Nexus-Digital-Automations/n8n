@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment */
 // Disable task runners until we have fixed the "run test workflows" test
 // to mock the Code Node execution
 process.env.N8N_RUNNERS_ENABLED = 'false';

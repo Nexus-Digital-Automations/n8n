@@ -2,6 +2,7 @@ import type {
 	PutObjectCommandInput,
 	DeleteObjectsCommandInput,
 	ListObjectsV2CommandInput,
+	_Object,
 	S3ClientConfig,
 } from '@aws-sdk/client-s3';
 import {
@@ -231,7 +232,7 @@ export class ObjectStoreService {
 					// eslint-disable-next-line @typescript-eslint/naming-convention
 					Objects: objects.map(({ key }) => ({
 						// eslint-disable-next-line @typescript-eslint/naming-convention
-						Key: key,
+						Key: key as string,
 					})),
 				},
 			};
@@ -251,8 +252,8 @@ export class ObjectStoreService {
 	/**
 	 * List objects with a common prefix in the configured bucket.
 	 */
-	async list(prefix: string) {
-		const items = [];
+	async list(prefix: string): Promise<_Object[]> {
+		const items: _Object[] = [];
 		let isTruncated = true;
 		let continuationToken;
 
@@ -261,7 +262,7 @@ export class ObjectStoreService {
 				const listPage = await this.getListPage(prefix, continuationToken);
 
 				if (listPage.contents?.length > 0) {
-					items.push(...listPage.contents);
+					items.push.apply(items, listPage.contents);
 				}
 
 				isTruncated = listPage.isTruncated;

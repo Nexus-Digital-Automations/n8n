@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { mock } from 'jest-mock-extended';
 import type {
 	INode,

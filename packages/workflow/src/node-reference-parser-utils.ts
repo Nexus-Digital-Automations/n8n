@@ -266,16 +266,16 @@ function extractExpressionCandidate(expression: string, startIndex: number, endI
 
 	// Note that by choosing match 0 we use `itemMatching` matches over `item`
 	// matches by relying on the order in ITEM_TO_DATA_ACCESSORS
-	let after_accessor_idx = endIndex + (firstPartException[0]?.[0].length ?? -1);
+	let afterAccessorIdx = endIndex + (firstPartException[0]?.[0].length ?? -1);
 	// skip `.` to continue, but halt before other symbols like `[` in `all()[0]`
-	if (expression[after_accessor_idx + 1] === '.') after_accessor_idx += 1;
-	const after_accessor = expression.slice(after_accessor_idx);
-	const firstInvalidCharMatch = INVALID_JS_DOT_PATH.exec(after_accessor);
+	if (expression[afterAccessorIdx + 1] === '.') afterAccessorIdx += 1;
+	const afterAccessor = expression.slice(afterAccessorIdx);
+	const firstInvalidCharMatch = INVALID_JS_DOT_PATH.exec(afterAccessor);
 
 	// we should at least find the }} closing the JS expressions in valid cases
 	if (!firstInvalidCharMatch) return null;
 
-	return expression.slice(startIndex, after_accessor_idx + firstInvalidCharMatch.index);
+	return expression.slice(startIndex, afterAccessorIdx + firstInvalidCharMatch.index);
 }
 
 // Parse a given regex accessor match (e.g. `$('nodeName')`, `$node['nodeName']`)

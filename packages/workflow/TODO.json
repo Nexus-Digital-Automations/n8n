@@ -2,32 +2,27 @@
 	"project": "n8n-monorepo",
 	"tasks": [
 		{
-			"id": "task_1754684443815_6c3m39jet",
-			"title": "Fix TypeScript Safety Violations in Workflow Package",
-			"description": "PARENT TASK: Resolve ~1,203 TypeScript safety violations in packages/workflow. This large task has been decomposed into focused subtasks for each violation type to enable parallel development and better progress tracking.",
+			"id": "task_1754705607412_r2fu9ycls",
+			"title": "Fix TypeScript compilation errors in workflow package",
+			"description": "Fix build-blocking TypeScript compilation errors in workflow package caused by naming-convention fixes. Errors include: missing property references (pairedItemNoConnection_CODE_NODE -> pairedItemNoConnectionCodeNode), wrong property access ($GET_PAIRED_ITEM -> $getPairedItem), and duplicate function implementations in workflow.ts. These must be resolved to restore build functionality.",
 			"mode": "DEVELOPMENT",
 			"priority": "critical",
 			"status": "pending",
 			"dependencies": [],
-			"important_files": ["packages/workflow/src/", "packages/workflow/eslint.config.mjs"],
+			"important_files": [
+				"packages/workflow/src/workflow-data-proxy.ts",
+				"packages/workflow/src/workflow.ts"
+			],
 			"success_criteria": [
-				"All @typescript-eslint/no-unsafe-* errors resolved in workflow package",
-				"All @typescript-eslint/naming-convention errors resolved",
-				"All @typescript-eslint/no-explicit-any errors resolved",
-				"Workflow package ESLint passes without safety warnings",
-				"No regressions in workflow functionality"
+				"All TypeScript compilation errors resolved",
+				"Workflow package builds successfully",
+				"No duplicate function implementations",
+				"All property references updated correctly"
 			],
-			"estimate": "25-30 hours",
+			"estimate": "1 hour",
 			"requires_research": false,
-			"subtasks": [
-				"task_1754700874557_galdkhjv0",
-				"task_1754700886631_g3u6fv31b",
-				"task_1754700898298_kenpa9wau",
-				"task_1754700916294_ni1h2oxxe",
-				"task_1754700925386_8ohnp3hhx",
-				"task_1754700936593_yc7ah4kq4"
-			],
-			"created_at": "2025-08-08T20:20:43.815Z"
+			"subtasks": [],
+			"created_at": "2025-08-09T02:13:27.412Z"
 		},
 		{
 			"id": "task_1754684443812_5gwkt446y",
@@ -381,30 +376,6 @@
 			"created_at": "2025-08-08T20:48:43.283Z"
 		},
 		{
-			"id": "task_1754700874557_galdkhjv0",
-			"title": "Fix naming-convention violations in workflow package",
-			"description": "Resolve ~680 @typescript-eslint/naming-convention violations in packages/workflow. Focus on property names that should follow camelCase, constants that should be UPPER_CASE, and other naming standards. This includes error code constants and object property names.",
-			"mode": "DEVELOPMENT",
-			"priority": "high",
-			"status": "pending",
-			"dependencies": [],
-			"important_files": [
-				"packages/workflow/src/errors/",
-				"packages/workflow/src/interfaces.ts",
-				"packages/workflow/eslint.config.mjs"
-			],
-			"success_criteria": [
-				"All @typescript-eslint/naming-convention warnings resolved in workflow package",
-				"Error constants follow UPPER_CASE convention",
-				"Object properties follow camelCase convention",
-				"No new naming convention violations introduced"
-			],
-			"estimate": "8-10 hours",
-			"requires_research": false,
-			"subtasks": [],
-			"created_at": "2025-08-09T00:54:34.557Z"
-		},
-		{
 			"id": "task_1754700886631_g3u6fv31b",
 			"title": "Fix no-unsafe-member-access violations in workflow package",
 			"description": "Resolve ~148 @typescript-eslint/no-unsafe-member-access violations in packages/workflow. Add proper type annotations and safe property access patterns to avoid accessing properties on any/unknown types without proper type checking.",
@@ -513,8 +484,8 @@
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,
 	"current_task_index": 0,
-	"last_mode": "DEVELOPMENT",
-	"execution_count": 114,
-	"last_hook_activation": 1754702824761,
+	"last_mode": "TASK_CREATION",
+	"execution_count": 116,
+	"last_hook_activation": 1754705522831,
 	"current_mode": "DEVELOPMENT"
 }

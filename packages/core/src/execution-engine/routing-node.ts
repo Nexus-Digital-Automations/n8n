@@ -276,7 +276,7 @@ export class RoutingNode {
 			}
 
 			if (responseData && responseData.status === 'fulfilled') {
-				returnData.push(...responseData.value);
+				returnData.push.apply(returnData, responseData.value);
 			}
 		}
 
@@ -293,8 +293,11 @@ export class RoutingNode {
 				? sourceOptions.maxResults
 				: destinationOptions.maxResults;
 			merge(destinationOptions.options, sourceOptions.options);
-			destinationOptions.preSend.push(...sourceOptions.preSend);
-			destinationOptions.postReceive.push(...sourceOptions.postReceive);
+			destinationOptions.preSend.push.apply(destinationOptions.preSend, sourceOptions.preSend);
+			destinationOptions.postReceive.push.apply(
+				destinationOptions.postReceive,
+				sourceOptions.postReceive,
+			);
 			if (sourceOptions.requestOperations && destinationOptions.requestOperations) {
 				destinationOptions.requestOperations = Object.assign(
 					destinationOptions.requestOperations,

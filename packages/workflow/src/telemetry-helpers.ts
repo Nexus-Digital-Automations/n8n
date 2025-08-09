@@ -177,11 +177,11 @@ export function generateNodesGraph(
 ): INodesGraphResult {
 	const { runData } = options ?? {};
 	const nodeGraph: INodesGraph = {
-		node_types: [],
-		node_connections: [],
+		nodeTypes: [],
+		nodeConnections: [],
 		nodes: {},
 		notes: {},
-		is_pinned: Object.keys(workflow.pinData ?? {}).length > 0,
+		isPinned: Object.keys(workflow.pinData ?? {}).length > 0,
 	};
 	const nameIndices: INodeNameIndex = {};
 	const webhookNodeNames: string[] = [];
@@ -230,7 +230,7 @@ export function generateNodesGraph(
 
 	// eslint-disable-next-line complexity
 	otherNodes.forEach((node: INode, index: number) => {
-		nodeGraph.node_types.push(node.type);
+		nodeGraph.nodeTypes.push(node.type);
 		const nodeItem: INodeGraphItem = {
 			id: node.id,
 			type: node.type,
@@ -534,7 +534,7 @@ export function generateNodesGraph(
 		Object.keys(connections).forEach((key) => {
 			connections[key].forEach((element) => {
 				(element ?? []).forEach((element2) => {
-					nodeGraph.node_connections.push(getGraphConnectionItem(nodeName, element2));
+					nodeGraph.nodeConnections.push(getGraphConnectionItem(nodeName, element2));
 				});
 			});
 		});
@@ -687,9 +687,9 @@ export function resolveVectorStoreMetrics(
 }
 
 type AgentNodeStructuredOutputErrorInfo = {
-	output_parser_fail_reason?: string;
-	model_name?: string;
-	num_tools?: number;
+	outputParserFailReason?: string;
+	modelName?: string;
+	numTools?: number;
 };
 
 /**
@@ -713,13 +713,12 @@ export function extractLastExecutedNodeStructuredOutputErrorInfo(
 					agentOutputError &&
 					agentOutputError.message === "Model output doesn't fit required format"
 				) {
-					info.output_parser_fail_reason = agentOutputError.context
-						?.outputParserFailReason as string;
+					info.outputParserFailReason = agentOutputError.context?.outputParserFailReason as string;
 				}
 
 				if (workflow.connections) {
 					// Count connected tools
-					info.num_tools =
+					info.numTools =
 						Object.keys(workflow.connections).filter((node) =>
 							workflow.connections[node]?.[NodeConnectionTypes.AiTool]?.[0]?.some(
 								(connectedNode) => connectedNode.node === lastNode.name,
@@ -753,12 +752,12 @@ export function extractLastExecutedNodeStructuredOutputErrorInfo(
 								const modelNameKeys = ['model', 'modelName'] as const;
 								for (const key of modelNameKeys) {
 									if (nodeParameters?.[key]) {
-										info.model_name =
+										info.modelName =
 											typeof nodeParameters[key] === 'string'
 												? nodeParameters[key]
 												: ((nodeParameters[key] as INodeParameterResourceLocator).value as string);
 
-										if (info.model_name) {
+										if (info.modelName) {
 											break;
 										}
 									}
