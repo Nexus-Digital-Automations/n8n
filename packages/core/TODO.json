@@ -1,30 +1,6 @@
 {
 	"tasks": [
 		{
-			"id": "task_1754769130541_gkaylkisu",
-			"title": "Fix n8n-nodes-base build failure",
-			"description": "Resolve build failure in packages/nodes-base that is preventing the monorepo build from completing. The build command exits with code 1, causing the entire build process to fail. Investigate and fix the root cause of the build error in the nodes-base package.",
-			"mode": "DEVELOPMENT",
-			"priority": "critical",
-			"status": "pending",
-			"dependencies": [],
-			"important_files": [
-				"packages/nodes-base/",
-				"packages/nodes-base/package.json",
-				"packages/nodes-base/tsconfig.json"
-			],
-			"success_criteria": [
-				"n8n-nodes-base package builds successfully without errors",
-				"pnpm run build completes successfully for entire monorepo",
-				"Build exits with code 0",
-				"No build-related errors in nodes-base package"
-			],
-			"estimate": "",
-			"requires_research": false,
-			"subtasks": [],
-			"created_at": "2025-08-09T19:52:10.541Z"
-		},
-		{
 			"id": "fix-jest-module-config-1753947604091",
 			"title": "Fix Jest Configuration for ES Modules",
 			"description": "Convert jest.config.js to work with package.json type:module by renaming to jest.config.cjs or converting to ES module format",
@@ -105,7 +81,7 @@
 			"description": "Resolve failing environment detection tests in @n8n/backend-common package related to NODE_ENV handling, case sensitivity, whitespace handling, and edge case scenarios. Multiple tests are failing due to incorrect environment flag logic.",
 			"mode": "TESTING",
 			"priority": "medium",
-			"status": "in_progress",
+			"status": "pending",
 			"dependencies": [],
 			"important_files": [
 				"../@n8n/backend-common/src/__tests__/environment.test.ts",
@@ -158,17 +134,36 @@
 				},
 				"overallReady": false
 			}
+		},
+		{
+			"id": "task_1754770189545_l3jh7enxn",
+			"title": "Fix DI circular dependency in metadata generation",
+			"description": "Resolve circular dependency error in DI container during n8n-generate-metadata step that prevents build completion. Logger dependency causes circular reference in dependency injection container.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["packages/@n8n/di/", "packages/core/bin/generate-metadata"],
+			"success_criteria": [
+				"Metadata generation completes without DI errors",
+				"n8n-nodes-base build completes successfully",
+				"Monorepo build passes"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T20:09:49.545Z"
 		}
 	],
 	"__removedLinterTasks": {
 		"removedCount": 0,
 		"finalTaskCount": 0
 	},
-	"execution_count": 24,
-	"last_hook_activation": 1754769222776,
+	"execution_count": 25,
+	"last_hook_activation": 1754769377682,
 	"project": "unnamed-project",
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,
 	"current_task_index": 0,
-	"last_mode": "TASK_CREATION"
+	"last_mode": "DEVELOPMENT"
 }

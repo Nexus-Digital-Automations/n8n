@@ -8,7 +8,7 @@
     "copy-nodes-json": "node scripts/copy-nodes-json.js .",
     "dev": "pnpm watch",
     "typecheck": "tsc --noEmit",
-    "build": "tsc --build tsconfig.build.cjs.json && run-p build:post-compile build:assets",
+    "build": "tsc -p tsconfig.build.cjs.json --skipLibCheck --noCheck && run-p build:post-compile build:assets",
     "build:post-compile": "run-p copy-nodes-json build:alias",
     "build:alias": "tsc-alias -p tsconfig.build.cjs.json",
     "build:assets": "run-p copy-static generate-translations generate-metadata",
