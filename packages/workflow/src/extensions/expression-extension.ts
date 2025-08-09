@@ -37,7 +37,7 @@ export const EXTENSION_OBJECTS: ExtensionMap[] = [
 	booleanExtensions,
 ];
 
-const genericExtensions: Record<string, Function> = {
+const genericExtensions: Record<string, (input: unknown, ...args: unknown[]) => unknown> = {
 	isEmpty,
 	isNotEmpty,
 };
@@ -450,11 +450,11 @@ function isDate(input: unknown): boolean {
 interface FoundFunction {
 	type: 'native' | 'extended';
 
-	function: Function;
+	function: (input: unknown, ...args: unknown[]) => unknown;
 }
 
 function findExtendedFunction(input: unknown, functionName: string): FoundFunction | undefined {
-	let foundFunction: Function | undefined;
+	let foundFunction: ((input: unknown, ...args: unknown[]) => unknown) | undefined;
 	if (Array.isArray(input)) {
 		foundFunction = arrayExtensions.functions[functionName];
 	} else if (isDate(input) && functionName !== 'toDate' && functionName !== 'toDateTime') {
@@ -484,7 +484,12 @@ function findExtendedFunction(input: unknown, functionName: string): FoundFuncti
 			functionName &&
 			typeof (input as Record<string, unknown>)[functionName] === 'function'
 		) {
-			return { type: 'native', function: (input as Record<string, Function>)[functionName] };
+			return {
+				type: 'native',
+				function: (input as Record<string, (input: unknown, ...args: unknown[]) => unknown>)[
+					functionName
+				],
+			};
 		}
 
 		// Use a generic version if available
@@ -539,7 +544,10 @@ export function extend(input: unknown, functionName: string, args: unknown[]) {
 	return foundFunction.function(input, args);
 }
 
-export function extendOptional(input: unknown, functionName: string): Function | undefined {
+export function extendOptional(
+	input: unknown,
+	functionName: string,
+): ((input: unknown, ...args: unknown[]) => unknown) | undefined {
 	const foundFunction = findExtendedFunction(input, functionName);
 
 	if (!foundFunction) {
