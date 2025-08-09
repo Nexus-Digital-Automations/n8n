@@ -456,23 +456,30 @@ interface FoundFunction {
 function findExtendedFunction(input: unknown, functionName: string): FoundFunction | undefined {
 	let foundFunction: ((input: unknown, ...args: unknown[]) => unknown) | undefined;
 	if (Array.isArray(input)) {
-		foundFunction = arrayExtensions.functions[functionName];
+		const extension = arrayExtensions.functions[functionName];
+		foundFunction = extension as ((input: unknown, ...args: unknown[]) => unknown) | undefined;
 	} else if (isDate(input) && functionName !== 'toDate' && functionName !== 'toDateTime') {
 		// If it's a string date (from $json), convert it to a Date object,
 		// unless that function is `toDate`, since `toDate` does something
 		// very different on date objects
 		input = new Date(input as string);
-		foundFunction = dateExtensions.functions[functionName];
+		const extension = dateExtensions.functions[functionName];
+		foundFunction = extension as ((input: unknown, ...args: unknown[]) => unknown) | undefined;
 	} else if (typeof input === 'string') {
-		foundFunction = stringExtensions.functions[functionName];
+		const extension = stringExtensions.functions[functionName];
+		foundFunction = extension as ((input: unknown, ...args: unknown[]) => unknown) | undefined;
 	} else if (typeof input === 'number') {
-		foundFunction = numberExtensions.functions[functionName];
+		const extension = numberExtensions.functions[functionName];
+		foundFunction = extension as ((input: unknown, ...args: unknown[]) => unknown) | undefined;
 	} else if (input && (DateTime.isDateTime(input) || input instanceof Date)) {
-		foundFunction = dateExtensions.functions[functionName];
+		const extension = dateExtensions.functions[functionName];
+		foundFunction = extension as ((input: unknown, ...args: unknown[]) => unknown) | undefined;
 	} else if (input !== null && typeof input === 'object') {
-		foundFunction = objectExtensions.functions[functionName];
+		const extension = objectExtensions.functions[functionName];
+		foundFunction = extension as ((input: unknown, ...args: unknown[]) => unknown) | undefined;
 	} else if (typeof input === 'boolean') {
-		foundFunction = booleanExtensions.functions[functionName];
+		const extension = booleanExtensions.functions[functionName];
+		foundFunction = extension as ((input: unknown, ...args: unknown[]) => unknown) | undefined;
 	}
 
 	// Look for generic or builtin
@@ -538,10 +545,10 @@ export function extend(input: unknown, functionName: string, args: unknown[]) {
 	}
 
 	if (foundFunction.type === 'native') {
-		return foundFunction.function.apply(input, args);
+		return foundFunction.function.apply(input, [input, ...args]);
 	}
 
-	return foundFunction.function(input, args);
+	return foundFunction.function(input, ...args);
 }
 
 export function extendOptional(

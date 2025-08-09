@@ -7,7 +7,7 @@
       "description": "Fix Type Extension assignment errors in packages/workflow/src/extensions/expression-extension.ts lines 459-475",
       "mode": "DEVELOPMENT",
       "priority": "high",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [],
       "important_files": [],
       "success_criteria": [],
