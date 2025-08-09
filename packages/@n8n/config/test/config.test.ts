@@ -351,6 +351,30 @@ describe('GlobalConfig', () => {
 		ai: {
 			enabled: false,
 		},
+		notifications: {
+			enabled: true,
+			defaultChannels: 'email',
+			rateLimitPerMinute: 5,
+			batchEnabled: false,
+			batchInterval: 300,
+			batchSize: 10,
+			retryAttempts: 3,
+			retryDelay: 30,
+			emailFrom: '',
+			emailSmtpHost: '',
+			emailSmtpPort: 587,
+			emailSmtpUser: '',
+			emailSmtpPassword: '',
+			emailSmtpSecure: true,
+			webhookUrl: '',
+			webhookSecret: '',
+			slackWebhookUrl: '',
+			slackChannel: '#alerts',
+			teamsWebhookUrl: '',
+			discordWebhookUrl: '',
+			pagerDutyRoutingKey: '',
+			pagerDutySeverity: 'error',
+		},
 	};
 
 	it('should use all default values when no env variables are defined', () => {

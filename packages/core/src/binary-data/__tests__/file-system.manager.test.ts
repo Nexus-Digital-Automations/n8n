@@ -44,7 +44,7 @@ describe('store()', () => {
 });
 
 describe('getPath()', () => {
-	it('should return a path', async () => {
+	it('should return a path', () => {
 		const filePath = fsManager.getPath(fileId);
 
 		expect(filePath).toBe(toFullFilePath(fileId));

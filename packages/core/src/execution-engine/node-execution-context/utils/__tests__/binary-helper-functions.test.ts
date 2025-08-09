@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { Container } from '@n8n/di';
 import { mkdtempSync, readFileSync } from 'fs';
 import { IncomingMessage } from 'http';

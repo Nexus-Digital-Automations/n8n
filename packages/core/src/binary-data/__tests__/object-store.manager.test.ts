@@ -43,7 +43,7 @@ describe('store()', () => {
 });
 
 describe('getPath()', () => {
-	it('should return a path', async () => {
+	it('should return a path', () => {
 		const path = objectStoreManager.getPath(fileId);
 
 		expect(path).toBe(fileId);

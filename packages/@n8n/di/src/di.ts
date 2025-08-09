@@ -105,10 +105,9 @@ class ContainerClass {
 				// Handle the case where TypeScript reflection shows 'Object' due to circular imports
 				// This happens when circular dependencies prevent proper type resolution
 				if (paramType.name === 'Object' || (paramType as any) === Object) {
-					console.warn(
-						`Warning: Circular dependency detected in ${type.name} at index ${index}. Skipping problematic dependency.`,
+					throw new DIError(
+						`Circular dependency detected in ${type.name} at index ${index}.\n${resolutionStack.map((t) => t.name).join(' -> ')}`,
 					);
-					return undefined; // Return undefined for problematic circular dependency
 				}
 				return this.get(paramType);
 			});

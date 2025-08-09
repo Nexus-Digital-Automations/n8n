@@ -46,7 +46,7 @@ export class DataDeduplicationService {
 		);
 	}
 
-	static async init(deduplicator: IDataDeduplicator): Promise<void> {
+	static init(deduplicator: IDataDeduplicator): void {
 		this.assertSingleInstance();
 		DataDeduplicationService.instance = new DataDeduplicationService(deduplicator);
 	}

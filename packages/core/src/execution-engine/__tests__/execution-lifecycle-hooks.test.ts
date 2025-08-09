@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import { mock } from 'jest-mock-extended';
 import type {
 	IDataObject,
