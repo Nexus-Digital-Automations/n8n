@@ -64,6 +64,7 @@ export default tseslint.config(
 			'@typescript-eslint/no-unsafe-function-type': 'warn',
 			'@typescript-eslint/no-duplicate-type-constituents': 'warn',
 			'@typescript-eslint/no-unsafe-call': 'warn',
+			'@typescript-eslint/no-unsafe-assignment': 'error',
 			'@typescript-eslint/no-explicit-any': 'error',
 		},
 	},

@@ -291,7 +291,9 @@ const checkConditions = (
 			condition._cnd &&
 			Object.keys(condition).length === 1
 		) {
-			const [key, targetValue] = Object.entries(condition._cnd)[0];
+			const entry = Object.entries(condition._cnd)[0];
+			if (!entry) return false;
+			const [key, targetValue] = entry as [string, NodeParameterValue];
 
 			return actualValues.every((propertyValue) => {
 				if (key === 'eq') {
