@@ -2,21 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754681190635_69e69x5j9",
-      "title": "Add CRUD Operations to QuickBooks Node",
-      "description": "Enhance QuickBooks node with missing basic CRUD operations (Create, Read, Update, Delete). Current implementation may be missing some standard operations available in competing platforms.",
-      "mode": "DEVELOPMENT",
-      "priority": "medium",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [],
-      "success_criteria": [],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T19:26:30.635Z"
-    },
-    {
       "id": "task_1754681196945_y27bkf9kl",
       "title": "Restore Missing AI Features in Self-hosted Version",
       "description": "Investigate and restore any AI-powered parameters or tools that may have been removed or restricted in self-hosted versions after updates. Ensure feature parity with cloud versions where licensing permits.",
@@ -650,8 +635,8 @@
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TASK_CREATION",
-  "execution_count": 132,
-  "last_hook_activation": 1754717919662,
+  "last_mode": "DEVELOPMENT",
+  "execution_count": 133,
+  "last_hook_activation": 1754717992808,
   "current_mode": "DEVELOPMENT"
 }

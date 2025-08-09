@@ -31,20 +31,20 @@ export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 /**
  * Make specific keys K of T required
  */
-export type Required<T, K extends keyof T> = T & Required<Pick<T, K>>;
+export type RequiredFields<T, K extends keyof T> = T & Required<Pick<T, K>>;
 
 /**
  * Extract non-function properties from T
  */
 export type NonFunctionPropertyNames<T> = {
-	[K in keyof T]: T[K] extends Function ? never : K;
+	[K in keyof T]: T[K] extends (...args: unknown[]) => unknown ? never : K;
 }[keyof T];
 
 /**
  * Extract function properties from T
  */
 export type FunctionPropertyNames<T> = {
-	[K in keyof T]: T[K] extends Function ? K : never;
+	[K in keyof T]: T[K] extends (...args: unknown[]) => unknown ? K : never;
 }[keyof T];
 
 /**
@@ -144,7 +144,7 @@ export type StrictOmit<T, K extends keyof T> = Omit<T, K>;
 /**
  * Union to intersection type conversion utility
  */
-export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+export type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) extends (
 	k: infer I,
 ) => void
 	? I

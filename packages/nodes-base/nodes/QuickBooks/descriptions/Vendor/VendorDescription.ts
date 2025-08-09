@@ -16,6 +16,11 @@ export const vendorOperations: INodeProperties[] = [
 				action: 'Create a vendor',
 			},
 			{
+				name: 'Deactivate',
+				value: 'deactivate',
+				action: 'Deactivate a vendor',
+			},
+			{
 				name: 'Get',
 				value: 'get',
 				action: 'Get a vendor',
@@ -180,5 +185,23 @@ export const vendorFields: INodeProperties[] = [
 			},
 		},
 		options: vendorAdditionalFieldsOptions,
+	},
+
+	// ----------------------------------
+	//         vendor: deactivate
+	// ----------------------------------
+	{
+		displayName: 'Vendor ID',
+		name: 'vendorId',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The ID of the vendor to deactivate',
+		displayOptions: {
+			show: {
+				resource: ['vendor'],
+				operation: ['deactivate'],
+			},
+		},
 	},
 ];

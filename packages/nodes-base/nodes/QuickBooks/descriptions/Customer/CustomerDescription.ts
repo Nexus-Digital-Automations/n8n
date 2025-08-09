@@ -16,6 +16,11 @@ export const customerOperations: INodeProperties[] = [
 				action: 'Create a customer',
 			},
 			{
+				name: 'Deactivate',
+				value: 'deactivate',
+				action: 'Deactivate a customer',
+			},
+			{
 				name: 'Get',
 				value: 'get',
 				action: 'Get a customer',
@@ -180,5 +185,23 @@ export const customerFields: INodeProperties[] = [
 			},
 		},
 		options: customerAdditionalFieldsOptions,
+	},
+
+	// ----------------------------------
+	//         customer: deactivate
+	// ----------------------------------
+	{
+		displayName: 'Customer ID',
+		name: 'customerId',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The ID of the customer to deactivate',
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['deactivate'],
+			},
+		},
 	},
 ];

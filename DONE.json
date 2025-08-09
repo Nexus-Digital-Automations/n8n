@@ -1991,9 +1991,26 @@
       "created_at": "2025-08-08T16:02:26.023Z",
       "completed_at": "2025-08-09T05:36:40.074Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754681190635_69e69x5j9",
+      "title": "Add CRUD Operations to QuickBooks Node",
+      "description": "Enhance QuickBooks node with missing basic CRUD operations (Create, Read, Update, Delete). Current implementation may be missing some standard operations available in competing platforms.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:26:30.635Z",
+      "completed_at": "2025-08-09T05:52:18.757Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 82,
-  "last_completion": "2025-08-09T05:36:40.074Z",
+  "total_completed": 83,
+  "last_completion": "2025-08-09T05:52:18.757Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

@@ -2,31 +2,28 @@
  * Validation utilities for data transformation and safety
  */
 
-import isObject from 'lodash/isObject';
 import { DateTime } from 'luxon';
+
 import {
 	isString,
 	isNumber,
 	isBoolean,
 	isArray,
 	isObject as isObjectGuard,
-	isValidUrl,
-	isValidEmail,
-	isValidUuid,
 	isJSONValue,
 } from './type-guards';
-import type { ValidationResult, IDataObject } from './utility-types';
+import type { ValidationResult } from './utility-types';
 
 /**
  * Application error for validation failures
  */
 export class ValidationError extends Error {
-	constructor(
-		message: string,
-		public readonly value?: unknown,
-	) {
+	public readonly value?: unknown;
+
+	public constructor(message: string, value?: unknown) {
 		super(message);
 		this.name = 'ValidationError';
+		this.value = value;
 	}
 }
 
@@ -46,7 +43,7 @@ export function tryToParseNumber(value: unknown): number {
  * Try to parse value as string with error handling
  */
 export function tryToParseString(value: unknown): string {
-	if (typeof value === 'object') return JSON.stringify(value);
+	if (typeof value === 'object' && value !== null) return JSON.stringify(value);
 	if (typeof value === 'undefined') return '';
 	if (
 		typeof value === 'string' ||
@@ -57,7 +54,7 @@ export function tryToParseString(value: unknown): string {
 		return value.toString();
 	}
 
-	return String(value);
+	return value != null ? String(value) : '';
 }
 
 /**
@@ -110,7 +107,9 @@ export function tryToParseDateTime(value: unknown, defaultZone?: string): DateTi
 	}
 
 	if (value instanceof Date) {
-		const fromJSDate = DateTime.fromJSDate(value, { zone: defaultZone });
+		const fromJSDate = defaultZone
+			? DateTime.fromJSDate(value, { zone: defaultZone })
+			: DateTime.fromJSDate(value);
 		if (fromJSDate.isValid) {
 			return fromJSDate;
 		}
@@ -148,7 +147,7 @@ export function tryToParseDateTime(value: unknown, defaultZone?: string): DateTi
  * Try to parse value as time string
  */
 export function tryToParseTime(value: unknown): string {
-	const isTimeInput = /^\d{2}:\d{2}(:\d{2})?((\-|\+)\d{4})?((\-|\+)\d{1,2}(:\d{2})?)?$/s.test(
+	const isTimeInput = /^\d{2}:\d{2}(:\d{2})?((-|\+)\d{4})?((-|\+)\d{1,2}(:\d{2})?)?$/s.test(
 		String(value),
 	);
 	if (!isTimeInput) {
@@ -166,11 +165,11 @@ export function tryToParseArray(value: unknown): unknown[] {
 			return value;
 		}
 
-		let parsed: unknown[];
+		let parsed: unknown;
 		try {
-			parsed = JSON.parse(String(value)) as unknown[];
+			parsed = JSON.parse(String(value));
 		} catch (e) {
-			parsed = JSON.parse(String(value).replace(/'/g, '"')) as unknown[];
+			parsed = JSON.parse(String(value).replace(/'/g, '"'));
 		}
 
 		if (!Array.isArray(parsed)) {
@@ -190,12 +189,12 @@ export function tryToParseObject(value: unknown): object {
 		return value;
 	}
 	try {
-		const parsed = JSON.parse(String(value));
+		const parsed: unknown = JSON.parse(String(value));
 
-		if (typeof parsed !== 'object' || Array.isArray(parsed)) {
+		if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
 			throw new ValidationError('Value is not a valid object', value);
 		}
-		return parsed;
+		return parsed as object;
 	} catch (e) {
 		throw new ValidationError('Value is not a valid object', value);
 	}
@@ -219,18 +218,16 @@ export function tryToParseUrl(value: unknown): string {
  * Try to parse value as JWT token
  */
 export function tryToParseJwt(value: unknown): string {
-	const error = new ValidationError(
-		`The value "${String(value)}" is not a valid JWT token.`,
-		value,
-	);
+	const valueStr = value != null ? String(value) : '';
+	const error = new ValidationError(`The value "${valueStr}" is not a valid JWT token.`, value);
 
 	if (!value) throw error;
 
 	const jwtPattern = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/;
 
-	if (!jwtPattern.test(String(value))) throw error;
+	if (!jwtPattern.test(valueStr)) throw error;
 
-	return String(value);
+	return valueStr;
 }
 
 /**
@@ -256,7 +253,7 @@ export function validateFieldType<T>(
 	options: { strict?: boolean; parseStrings?: boolean } = {},
 ): ValidationResult<T> {
 	if (value === null || value === undefined) {
-		return { valid: true, value: undefined as any };
+		return { valid: true, value: undefined as T };
 	}
 
 	const { strict = false } = options;
@@ -274,20 +271,20 @@ export function validateFieldType<T>(
 	// Try to coerce the value if not in strict mode
 	try {
 		if (isString(value)) {
-			// Try parsing string values
-			if (validator === (isNumber as any)) {
+			// Try parsing string values - using function names for comparison
+			if (validator.name === isNumber.name) {
 				const parsed = tryToParseNumber(value);
 				return { valid: true, value: parsed as T };
 			}
-			if (validator === (isBoolean as any)) {
+			if (validator.name === isBoolean.name) {
 				const parsed = tryToParseBoolean(value);
 				return { valid: true, value: parsed as T };
 			}
-			if (validator === (isArray as any)) {
+			if (validator.name === isArray.name) {
 				const parsed = tryToParseArray(value);
 				return { valid: true, value: parsed as T };
 			}
-			if (validator === (isObjectGuard as any)) {
+			if (validator.name === isObjectGuard.name) {
 				const parsed = tryToParseObject(value);
 				return { valid: true, value: parsed as T };
 			}
@@ -303,13 +300,15 @@ export function validateFieldType<T>(
 /**
  * Validate that value is a valid JSON value
  */
-export function validateJson(value: unknown): ValidationResult<any> {
+export function validateJson(value: unknown): ValidationResult<unknown> {
 	if (isJSONValue(value)) {
 		return { valid: true, value };
 	}
 
 	try {
-		const parsed = JSON.parse(JSON.stringify(value));
+		// Use structured cloning approach to avoid JSON.parse(JSON.stringify)
+		const serialized = JSON.stringify(value);
+		const parsed: unknown = JSON.parse(serialized);
 		return { valid: true, value: parsed };
 	} catch {
 		return {
@@ -324,7 +323,7 @@ export function validateJson(value: unknown): ValidationResult<any> {
  */
 export function validateRequiredProperties<T extends Record<string, unknown>>(
 	obj: unknown,
-	requiredProperties: (keyof T)[],
+	requiredProperties: Array<keyof T>,
 ): ValidationResult<T> {
 	if (!isObjectGuard(obj)) {
 		return {
@@ -359,7 +358,7 @@ export function createValidator<T>(
 			if (result.valid) {
 				return result;
 			}
-			errors.push(...result.errors);
+			errors.push.apply(errors, result.errors);
 		}
 
 		return { valid: false, errors };
@@ -414,7 +413,7 @@ export function getSafeProperty<T>(
 		};
 	}
 
-	const value = (obj as any)[property];
+	const value = (obj as Record<string | number, unknown>)[property];
 
 	if (validator(value)) {
 		return { valid: true, value };

@@ -76,7 +76,7 @@ export function isPlainObject(value: unknown): value is Record<string, unknown> 
 	}
 
 	// Check if it's a plain object by examining its prototype
-	const proto = Object.getPrototypeOf(value);
+	const proto = Object.getPrototypeOf(value) as unknown;
 	return proto === null || proto === Object.prototype;
 }
 
@@ -99,7 +99,7 @@ export function isNonEmptyArray(value: unknown): value is [unknown, ...unknown[]
 /**
  * Check if value is a function
  */
-export function isFunction(value: unknown): value is Function {
+export function isFunction(value: unknown): value is (...args: unknown[]) => unknown {
 	return typeof value === 'function';
 }
 
@@ -229,7 +229,13 @@ export function isValidUuid(value: unknown): value is string {
  * Check if value is a Promise
  */
 export function isPromise<T = unknown>(value: unknown): value is Promise<T> {
-	return isObject(value) && isFunction((value as any).then) && isFunction((value as any).catch);
+	return (
+		isObject(value) &&
+		hasProperty(value, 'then') &&
+		isFunction(value.then) &&
+		hasProperty(value, 'catch') &&
+		isFunction(value.catch)
+	);
 }
 
 /**
@@ -263,7 +269,7 @@ export function isEnumValue<T extends Record<string, string | number>>(
 	enumObject: T,
 ): (value: unknown) => value is T[keyof T] {
 	const enumValues = Object.values(enumObject);
-	return (value: unknown): value is T[keyof T] => enumValues.includes(value as any);
+	return (value: unknown): value is T[keyof T] => enumValues.includes(value as string | number);
 }
 
 /**

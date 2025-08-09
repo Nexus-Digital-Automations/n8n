@@ -365,6 +365,21 @@ export class QuickBooks implements INodeType {
 						const endpoint = `/v3/company/${companyId}/${resource}`;
 						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
 						responseData = responseData[capitalCase(resource)];
+					} else if (operation === 'deactivate') {
+						// ----------------------------------
+						//         customer: deactivate
+						// ----------------------------------
+
+						let body = {
+							Id: this.getNodeParameter('customerId', i),
+							SyncToken: await getSyncToken.call(this, i, companyId, resource),
+							sparse: true,
+							Active: false,
+						} as IDataObject;
+
+						const endpoint = `/v3/company/${companyId}/${resource}`;
+						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
+						responseData = responseData[capitalCase(resource)];
 					} else if (operation === 'get') {
 						// ----------------------------------
 						//         customer: get
@@ -426,6 +441,21 @@ export class QuickBooks implements INodeType {
 						const additionalFields = this.getNodeParameter('additionalFields', i);
 
 						body = populateFields.call(this, body, additionalFields, resource);
+
+						const endpoint = `/v3/company/${companyId}/${resource}`;
+						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
+						responseData = responseData[capitalCase(resource)];
+					} else if (operation === 'deactivate') {
+						// ----------------------------------
+						//         employee: deactivate
+						// ----------------------------------
+
+						let body = {
+							Id: this.getNodeParameter('employeeId', i),
+							SyncToken: await getSyncToken.call(this, i, companyId, resource),
+							sparse: true,
+							Active: false,
+						} as IDataObject;
 
 						const endpoint = `/v3/company/${companyId}/${resource}`;
 						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
@@ -815,7 +845,38 @@ export class QuickBooks implements INodeType {
 
 					// https://developer.intuit.com/app/developer/qbo/docs/api/accounting/most-commonly-used/item
 
-					if (operation === 'get') {
+					if (operation === 'create') {
+						// ----------------------------------
+						//         item: create
+						// ----------------------------------
+
+						let body = {
+							Name: this.getNodeParameter('name', i),
+							Type: this.getNodeParameter('type', i),
+							IncomeAccountRef: {
+								value: this.getNodeParameter('incomeAccountRef', i),
+							},
+						} as IDataObject;
+
+						const endpoint = `/v3/company/${companyId}/${resource}`;
+						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
+						responseData = responseData[capitalCase(resource)];
+					} else if (operation === 'deactivate') {
+						// ----------------------------------
+						//         item: deactivate
+						// ----------------------------------
+
+						let body = {
+							Id: this.getNodeParameter('itemId', i),
+							SyncToken: await getSyncToken.call(this, i, companyId, resource),
+							sparse: true,
+							Active: false,
+						} as IDataObject;
+
+						const endpoint = `/v3/company/${companyId}/${resource}`;
+						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
+						responseData = responseData[capitalCase(resource)];
+					} else if (operation === 'get') {
 						// ----------------------------------
 						//         item: get
 						// ----------------------------------
@@ -831,6 +892,32 @@ export class QuickBooks implements INodeType {
 
 						const endpoint = `/v3/company/${companyId}/query`;
 						responseData = await handleListing.call(this, i, endpoint, resource);
+					} else if (operation === 'update') {
+						// ----------------------------------
+						//         item: update
+						// ----------------------------------
+
+						let body = {
+							Id: this.getNodeParameter('itemId', i),
+							SyncToken: await getSyncToken.call(this, i, companyId, resource),
+							sparse: true,
+						} as IDataObject;
+
+						const updateFields = this.getNodeParameter('updateFields', i);
+
+						if (isEmpty(updateFields)) {
+							throw new NodeOperationError(
+								this.getNode(),
+								`Please enter at least one field to update for the ${resource}.`,
+								{ itemIndex: i },
+							);
+						}
+
+						body = populateFields.call(this, body, updateFields, resource);
+
+						const endpoint = `/v3/company/${companyId}/${resource}`;
+						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
+						responseData = responseData[capitalCase(resource)];
 					}
 				} else if (resource === 'payment') {
 					// *********************************************************************
@@ -978,7 +1065,40 @@ export class QuickBooks implements INodeType {
 
 					// https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/purchase
 
-					if (operation === 'get') {
+					if (operation === 'create') {
+						// ----------------------------------
+						//         purchase: create
+						// ----------------------------------
+
+						const body = {
+							PaymentType: this.getNodeParameter('paymentType', i),
+							AccountRef: {
+								value: this.getNodeParameter('accountRef', i),
+							},
+							TotalAmt: this.getNodeParameter('totalAmt', i),
+						} as IDataObject;
+
+						const endpoint = `/v3/company/${companyId}/${resource}`;
+						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
+						responseData = responseData[capitalCase(resource)];
+					} else if (operation === 'delete') {
+						// ----------------------------------
+						//         purchase: delete
+						// ----------------------------------
+
+						const qs = {
+							operation: 'delete',
+						} as IDataObject;
+
+						const body = {
+							Id: this.getNodeParameter('purchaseId', i),
+							SyncToken: await getSyncToken.call(this, i, companyId, resource),
+						} as IDataObject;
+
+						const endpoint = `/v3/company/${companyId}/${resource}`;
+						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, qs, body);
+						responseData = responseData[capitalCase(resource)];
+					} else if (operation === 'get') {
 						// ----------------------------------
 						//         purchase: get
 						// ----------------------------------
@@ -994,6 +1114,32 @@ export class QuickBooks implements INodeType {
 
 						const endpoint = `/v3/company/${companyId}/query`;
 						responseData = await handleListing.call(this, i, endpoint, resource);
+					} else if (operation === 'update') {
+						// ----------------------------------
+						//         purchase: update
+						// ----------------------------------
+
+						let body = {
+							Id: this.getNodeParameter('purchaseId', i),
+							SyncToken: await getSyncToken.call(this, i, companyId, resource),
+							sparse: true,
+						} as IDataObject;
+
+						const updateFields = this.getNodeParameter('updateFields', i);
+
+						if (isEmpty(updateFields)) {
+							throw new NodeOperationError(
+								this.getNode(),
+								`Please enter at least one field to update for the ${resource}.`,
+								{ itemIndex: i },
+							);
+						}
+
+						body = populateFields.call(this, body, updateFields, resource);
+
+						const endpoint = `/v3/company/${companyId}/${resource}`;
+						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
+						responseData = responseData[capitalCase(resource)];
 					}
 				} else if (resource === 'transaction') {
 					// *********************************************************************
@@ -1068,6 +1214,21 @@ export class QuickBooks implements INodeType {
 						const additionalFields = this.getNodeParameter('additionalFields', i);
 
 						body = populateFields.call(this, body, additionalFields, resource);
+
+						const endpoint = `/v3/company/${companyId}/${resource}`;
+						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);
+						responseData = responseData[capitalCase(resource)];
+					} else if (operation === 'deactivate') {
+						// ----------------------------------
+						//         vendor: deactivate
+						// ----------------------------------
+
+						let body = {
+							Id: this.getNodeParameter('vendorId', i),
+							SyncToken: await getSyncToken.call(this, i, companyId, resource),
+							sparse: true,
+							Active: false,
+						} as IDataObject;
 
 						const endpoint = `/v3/company/${companyId}/${resource}`;
 						responseData = await quickBooksApiRequest.call(this, 'POST', endpoint, {}, body);

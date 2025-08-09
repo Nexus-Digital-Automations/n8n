@@ -16,6 +16,11 @@ export const employeeOperations: INodeProperties[] = [
 				action: 'Create an employee',
 			},
 			{
+				name: 'Deactivate',
+				value: 'deactivate',
+				action: 'Deactivate an employee',
+			},
+			{
 				name: 'Get',
 				value: 'get',
 				action: 'Get an employee',
@@ -190,5 +195,23 @@ export const employeeFields: INodeProperties[] = [
 			},
 		},
 		options: employeeAdditionalFieldsOptions,
+	},
+
+	// ----------------------------------
+	//         employee: deactivate
+	// ----------------------------------
+	{
+		displayName: 'Employee ID',
+		name: 'employeeId',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The ID of the employee to deactivate',
+		displayOptions: {
+			show: {
+				resource: ['employee'],
+				operation: ['deactivate'],
+			},
+		},
 	},
 ];
