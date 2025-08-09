@@ -25,6 +25,8 @@ export const localRulesPlugin = {
 				'n8n-local-rules/no-unused-param-in-catch-clause': 'error',
 				'n8n-local-rules/no-useless-catch-throw': 'error',
 				'n8n-local-rules/no-argument-spread': 'warn', // TODO: mark error
+				'n8n-local-rules/misplaced-n8n-typeorm-import': 'error',
+				'n8n-local-rules/no-type-unsafe-event-emitter': 'error',
 			},
 		},
 	},
