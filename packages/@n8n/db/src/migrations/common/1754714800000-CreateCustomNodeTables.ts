@@ -14,18 +14,18 @@ export class CreateCustomNodeTables1754714800000 implements ReversibleMigration 
 				${escape.columnName('description')} TEXT,
 				${escape.columnName('authorId')} ${dbType === 'sqlite' ? 'TEXT' : 'UUID'},
 				${escape.columnName('category')} VARCHAR(100),
-				${escape.columnName('tags')} ${dbType === 'postgresql' ? 'TEXT[]' : 'TEXT'},
+				${escape.columnName('tags')} ${dbType === 'postgresdb' ? 'TEXT[]' : 'TEXT'},
 				${escape.columnName('status')} VARCHAR(50) DEFAULT 'uploaded',
 				${escape.columnName('filePath')} TEXT NOT NULL,
 				${escape.columnName('fileSize')} BIGINT,
-				${escape.columnName('nodeTypes')} ${dbType === 'postgresql' ? 'JSONB' : 'TEXT'},
-				${escape.columnName('metadata')} ${dbType === 'postgresql' ? "JSONB DEFAULT '{}'::jsonb" : "TEXT DEFAULT '{}'"},
-				${escape.columnName('validationResults')} ${dbType === 'postgresql' ? 'JSONB' : 'TEXT'},
+				${escape.columnName('nodeTypes')} ${dbType === 'postgresdb' ? 'JSONB' : 'TEXT'},
+				${escape.columnName('metadata')} ${dbType === 'postgresdb' ? "JSONB DEFAULT '{}'::jsonb" : "TEXT DEFAULT '{}'"},
+				${escape.columnName('validationResults')} ${dbType === 'postgresdb' ? 'JSONB' : 'TEXT'},
 				${escape.columnName('validatedAt')} TIMESTAMP,
 				${escape.columnName('deployedAt')} TIMESTAMP,
 				${escape.columnName('isActive')} BOOLEAN DEFAULT FALSE,
-				${escape.columnName('createdAt')} TIMESTAMP DEFAULT ${dbType === 'postgresql' ? 'NOW()' : 'CURRENT_TIMESTAMP'},
-				${escape.columnName('updatedAt')} TIMESTAMP DEFAULT ${dbType === 'postgresql' ? 'NOW()' : 'CURRENT_TIMESTAMP'},
+				${escape.columnName('createdAt')} TIMESTAMP DEFAULT ${dbType === 'postgresdb' ? 'NOW()' : 'CURRENT_TIMESTAMP'},
+				${escape.columnName('updatedAt')} TIMESTAMP DEFAULT ${dbType === 'postgresdb' ? 'NOW()' : 'CURRENT_TIMESTAMP'},
 				UNIQUE(${escape.columnName('name')}, ${escape.columnName('version')})
 			)
 		`);
@@ -41,13 +41,13 @@ export class CreateCustomNodeTables1754714800000 implements ReversibleMigration 
 				${escape.columnName('deployedBy')} ${dbType === 'sqlite' ? 'TEXT' : 'UUID'},
 				${escape.columnName('deployedAt')} TIMESTAMP,
 				${escape.columnName('rollbackAvailable')} BOOLEAN DEFAULT FALSE,
-				${escape.columnName('deploymentConfig')} ${dbType === 'postgresql' ? "JSONB DEFAULT '{}'::jsonb" : "TEXT DEFAULT '{}'"},
+				${escape.columnName('deploymentConfig')} ${dbType === 'postgresdb' ? "JSONB DEFAULT '{}'::jsonb" : "TEXT DEFAULT '{}'"},
 				${escape.columnName('errorMessage')} TEXT,
 				${escape.columnName('startedAt')} TIMESTAMP,
 				${escape.columnName('completedAt')} TIMESTAMP,
 				${escape.columnName('estimatedDuration')} INTEGER,
-				${escape.columnName('createdAt')} TIMESTAMP DEFAULT ${dbType === 'postgresql' ? 'NOW()' : 'CURRENT_TIMESTAMP'},
-				${escape.columnName('updatedAt')} TIMESTAMP DEFAULT ${dbType === 'postgresql' ? 'NOW()' : 'CURRENT_TIMESTAMP'},
+				${escape.columnName('createdAt')} TIMESTAMP DEFAULT ${dbType === 'postgresdb' ? 'NOW()' : 'CURRENT_TIMESTAMP'},
+				${escape.columnName('updatedAt')} TIMESTAMP DEFAULT ${dbType === 'postgresdb' ? 'NOW()' : 'CURRENT_TIMESTAMP'},
 				CONSTRAINT ${escape.tableName('fk_custom_node_deployment_node')} 
 					FOREIGN KEY (${escape.columnName('nodeId')}) 
 					REFERENCES ${customNodeTable}(${escape.columnName('id')}) 
@@ -66,7 +66,7 @@ export class CreateCustomNodeTables1754714800000 implements ReversibleMigration 
 			`CREATE INDEX ${escape.indexName('idx_custom_node_category')} ON ${customNodeTable}(${escape.columnName('category')})`,
 		);
 
-		if (dbType === 'postgresql') {
+		if (dbType === 'postgresdb') {
 			await runQuery(
 				`CREATE INDEX ${escape.indexName('idx_custom_node_tags')} ON ${customNodeTable} USING gin(${escape.columnName('tags')})`,
 			);

@@ -1,5 +1,5 @@
 import { Service } from '@n8n/di';
-import { DataSource, In, Repository } from '@n8n/typeorm';
+import { DataSource, In, Repository, UpdateResult } from '@n8n/typeorm';
 
 import { CustomNode, type CustomNodeStatus } from '../entities/custom-node.entity';
 
@@ -49,9 +49,10 @@ export class CustomNodeRepository extends Repository<CustomNode> {
 		nodes: CustomNode[];
 		total: number;
 	}> {
-		const queryBuilder = this.createQueryBuilder('customNode')
-			.leftJoinAndSelect('customNode.author', 'author')
-			.where('customNode.isActive = :isActive', { isActive: true });
+		const queryBuilder = this.createQueryBuilder('customNode').where(
+			'customNode.isActive = :isActive',
+			{ isActive: true },
+		);
 
 		// Apply filters
 		if (options.status) {
@@ -122,8 +123,8 @@ export class CustomNodeRepository extends Repository<CustomNode> {
 		});
 	}
 
-	async softDelete(id: string): Promise<void> {
-		await this.update(id, {
+	async softDelete(id: string): Promise<UpdateResult> {
+		return await this.update(id, {
 			isActive: false,
 		});
 	}
