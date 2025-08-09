@@ -272,7 +272,9 @@ export class RoutingNode {
 				responseData.status === 'fulfilled'
 			) {
 				// Remove not needed items in case APIs return to many
-				responseData.value.splice(itemContext[itemIndex].requestData.maxResults);
+				(responseData.value as INodeExecutionData[]).splice(
+					itemContext[itemIndex].requestData.maxResults as number,
+				);
 			}
 
 			if (responseData && responseData.status === 'fulfilled') {

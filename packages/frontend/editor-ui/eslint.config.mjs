@@ -1,8 +1,9 @@
-import { defineConfig } from 'eslint/config';
 import { frontendConfig } from '@n8n/eslint-config/frontend';
 
-export default defineConfig(frontendConfig, {
-	rules: {
+export default [
+	...frontendConfig,
+	{
+		rules: {
 		// TODO: Remove these
 		'@typescript-eslint/ban-ts-comment': ['warn', { 'ts-ignore': true }],
 		'id-denylist': 'warn',
@@ -54,5 +55,6 @@ export default defineConfig(frontendConfig, {
 		'@typescript-eslint/no-unsafe-argument': 'warn',
 		'@typescript-eslint/no-unsafe-member-access': 'warn',
 		'@typescript-eslint/no-unsafe-return': 'warn',
+		},
 	},
-});
+];

@@ -1,9 +1,10 @@
-import { defineConfig, globalIgnores } from 'eslint/config';
 import { nodeConfig } from '@n8n/eslint-config/node';
 
-export default defineConfig(
-	nodeConfig,
-	globalIgnores(['bin/*.js', 'nodes-testing/*.ts', 'jest.config.*']),
+export default [
+	...nodeConfig,
+	{
+		ignores: ['bin/*.js', 'nodes-testing/*.ts', 'jest.config.*'],
+	},
 	{
 		rules: {
 			// TODO: Lower the complexity threshold
@@ -43,4 +44,4 @@ export default defineConfig(
 			'id-denylist': 'warn',
 		},
 	},
-);
+];
