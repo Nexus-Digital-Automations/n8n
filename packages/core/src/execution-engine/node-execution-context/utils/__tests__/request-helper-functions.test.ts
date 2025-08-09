@@ -456,9 +456,9 @@ describe('Request Helper Functions', () => {
 
 			formData.on('data', (chunk) => {
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-				if (chunk && typeof (chunk as unknown).toString === 'function') {
+				if (chunk && typeof (chunk as any).toString === 'function') {
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-					formDataEntries.push((chunk as unknown).toString());
+					formDataEntries.push((chunk as any).toString());
 				}
 			});
 		});

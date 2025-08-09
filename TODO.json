@@ -2,23 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754631380912_gjv4lhokv",
-      "title": "Implement comprehensive testing for custom node management system",
-      "description": "Create comprehensive test suite covering API endpoints, storage validation, deployment system, security measures, and frontend components. Include unit tests, integration tests, security tests, and end-to-end workflow testing. Test node upload, validation, deployment, and runtime integration scenarios.",
-      "mode": "TESTING",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
-      ],
-      "success_criteria": [],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T05:36:20.912Z"
-    },
-    {
       "id": "task_1754668946023_rcvujtmyq",
       "title": "Restore lost upstream features through git analysis",
       "description": "Analyze git history and upstream branch differences to identify any features or code that may have been lost during fork development. Use git analysis to compare this fork against the upstream branch and restore any missing functionality without removing the custom features added to this fork in previous commits. This includes conducting a comprehensive diff analysis and selective restoration of upstream changes.",
@@ -566,8 +549,8 @@
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TESTING",
-  "execution_count": 130,
-  "last_hook_activation": 1754717550255,
+  "last_mode": "RESEARCH",
+  "execution_count": 131,
+  "last_hook_activation": 1754717654765,
   "current_mode": "DEVELOPMENT"
 }

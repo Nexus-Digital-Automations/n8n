@@ -102,7 +102,7 @@ export class BaseExecuteContext extends NodeExecutionContext {
 		);
 	}
 
-	putExecutionToWait(waitTill: Date): void {
+	async putExecutionToWait(waitTill: Date): Promise<void> {
 		this.runExecutionData.waitTill = waitTill;
 		if (this.additionalData.setExecutionStatus) {
 			this.additionalData.setExecutionStatus('waiting');
