@@ -143,7 +143,7 @@ export const jsonParse = <T>(jsonString: string, options?: JSONParseOptions<T>):
 		}
 		if (options?.fallbackValue !== undefined) {
 			if (options.fallbackValue instanceof Function) {
-				return options.fallbackValue();
+				return (options.fallbackValue as () => T)();
 			}
 			return options.fallbackValue;
 		} else if (options?.errorMessage) {
@@ -182,7 +182,7 @@ export const base64DecodeUTF8 = (str: string): string => {
 
 export const replaceCircularReferences = <T>(value: T, knownObjects = new WeakSet()): T => {
 	if (typeof value !== 'object' || value === null || value instanceof RegExp) return value;
-	if ('toJSON' in value && typeof value.toJSON === 'function') return value.toJSON() as T;
+	if ('toJSON' in value && typeof value.toJSON === 'function') return (value.toJSON as () => T)();
 	if (knownObjects.has(value)) return '[Circular Reference]' as T;
 	knownObjects.add(value);
 	const copy = (Array.isArray(value) ? [] : {}) as T;

@@ -1,0 +1,520 @@
+{
+	"project": "n8n-monorepo",
+	"tasks": [
+		{
+			"id": "task_1754684443815_6c3m39jet",
+			"title": "Fix TypeScript Safety Violations in Workflow Package",
+			"description": "PARENT TASK: Resolve ~1,203 TypeScript safety violations in packages/workflow. This large task has been decomposed into focused subtasks for each violation type to enable parallel development and better progress tracking.",
+			"mode": "DEVELOPMENT",
+			"priority": "critical",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["packages/workflow/src/", "packages/workflow/eslint.config.mjs"],
+			"success_criteria": [
+				"All @typescript-eslint/no-unsafe-* errors resolved in workflow package",
+				"All @typescript-eslint/naming-convention errors resolved",
+				"All @typescript-eslint/no-explicit-any errors resolved",
+				"Workflow package ESLint passes without safety warnings",
+				"No regressions in workflow functionality"
+			],
+			"estimate": "25-30 hours",
+			"requires_research": false,
+			"subtasks": [
+				"task_1754700874557_galdkhjv0",
+				"task_1754700886631_g3u6fv31b",
+				"task_1754700898298_kenpa9wau",
+				"task_1754700916294_ni1h2oxxe",
+				"task_1754700925386_8ohnp3hhx",
+				"task_1754700936593_yc7ah4kq4"
+			],
+			"created_at": "2025-08-08T20:20:43.815Z"
+		},
+		{
+			"id": "task_1754684443812_5gwkt446y",
+			"title": "Fix TypeScript Safety Violations in Core Package",
+			"description": "Resolve ~570 TypeScript safety violations in packages/core including: 317 naming-convention violations, 88 unbound-method violations, 49 require-await violations, 35 no-unsafe-member-access, 27 no-unsafe-assignment, and 26 no-argument-spread violations. Focus on type annotations and safe property access patterns.",
+			"mode": "DEVELOPMENT",
+			"priority": "critical",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["packages/core/src/", "packages/core/eslint.config.mjs"],
+			"success_criteria": [
+				"All @typescript-eslint/no-unsafe-* errors resolved in core package",
+				"All @typescript-eslint/naming-convention errors resolved",
+				"All @typescript-eslint/unbound-method errors resolved",
+				"Core package ESLint passes without safety warnings",
+				"No regressions in core functionality"
+			],
+			"estimate": "15-20 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T20:20:43.812Z"
+		},
+		{
+			"id": "task_1754685400526_39s2b32h3",
+			"title": "Ensure pnpm run start succeeds after build fixes",
+			"description": "After fixing build issues, verify that pnpm run start command works correctly. Test the complete startup sequence including CLI initialization, server startup, and basic functionality. Address any runtime errors or startup failures that prevent n8n from running properly.",
+			"mode": "DEVELOPMENT",
+			"priority": "critical",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [],
+			"success_criteria": [
+				"pnpm run start completes without errors",
+				"n8n CLI starts successfully",
+				"Server initializes properly",
+				"Basic n8n functionality works",
+				"No runtime startup errors"
+			],
+			"estimate": "1-2 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T20:36:40.526Z"
+		},
+		{
+			"id": "task_1754631363028_2c30dvwo3",
+			"title": "Implement custom node storage and validation service",
+			"description": "Create backend service for custom node storage, validation, and metadata management. Implement secure file handling, MIME type validation, dependency checking, and node registry functionality. Include database schema for node metadata and version tracking.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+			],
+			"success_criteria": [],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T05:36:03.028Z"
+		},
+		{
+			"id": "task_1754631369692_t9dvai5eb",
+			"title": "Implement runtime node deployment and hot-reload system",
+			"description": "Create system for safely deploying custom nodes to running n8n instances without requiring restarts. Implement hot-reload functionality, dependency injection, and rollback capabilities. Include proper isolation and error handling for runtime node integration.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": ["task_1754631363028_2c30dvwo3"],
+			"important_files": [
+				"./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+			],
+			"success_criteria": [],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T05:36:09.692Z"
+		},
+		{
+			"id": "task_1754631375160_vkiq3pok6",
+			"title": "Build frontend UI for custom node management",
+			"description": "Create frontend interface for custom node management including upload forms, node gallery, deployment controls, and status monitoring. Implement drag-and-drop upload, progress indicators, and integration with existing n8n editor UI patterns.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+			],
+			"success_criteria": [],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T05:36:15.160Z"
+		},
+		{
+			"id": "task_1754631380912_gjv4lhokv",
+			"title": "Implement comprehensive testing for custom node management system",
+			"description": "Create comprehensive test suite covering API endpoints, storage validation, deployment system, security measures, and frontend components. Include unit tests, integration tests, security tests, and end-to-end workflow testing. Test node upload, validation, deployment, and runtime integration scenarios.",
+			"mode": "TESTING",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": ["task_1754631369692_t9dvai5eb", "task_1754631375160_vkiq3pok6"],
+			"important_files": [
+				"./development/research-reports/research-report-task_1754631312283_o48rngqr2.md"
+			],
+			"success_criteria": [],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T05:36:20.912Z"
+		},
+		{
+			"id": "task_1754668946023_rcvujtmyq",
+			"title": "Restore lost upstream features through git analysis",
+			"description": "Analyze git history and upstream branch differences to identify any features or code that may have been lost during fork development. Use git analysis to compare this fork against the upstream branch and restore any missing functionality without removing the custom features added to this fork in previous commits. This includes conducting a comprehensive diff analysis and selective restoration of upstream changes.",
+			"mode": "RESEARCH",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"./development/research-reports/research-report-task_1754668946023_rcvujtmyq.md"
+			],
+			"success_criteria": [
+				"Research report created: ./development/research-reports/research-report-task_1754668946023_rcvujtmyq.md"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T16:02:26.023Z"
+		},
+		{
+			"id": "quality-improvement-1754676025125",
+			"title": "Create Quality Improvement Tasks",
+			"description": "Analyze project quality issues and create specific tasks to reach 100% quality for all strikes",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"prompt": "Project quality assessment shows issues preventing 100% strike success:\n\nQuality Status:\n- Strike 1 (Build): 50%\n- Strike 2 (Lint): 100%  \n- Strike 3 (Tests): 30%\n\nIssues Found:\n- Build Verification: Build command fails\n- Test Coverage and Success: Tests are failing\n- Test Coverage and Success: Coverage check failed\n\nTASK: Analyze these quality gaps and create specific improvement tasks to bring ALL strikes to 100% quality. Create tasks for:\n1. Build issues (missing dependencies, build failures, configuration)\n2. Code quality issues (lint errors, style violations, code standards)\n3. Testing issues (failing tests, missing coverage, test setup)\n\nInsert all improvement tasks BEFORE the strike review tasks. Strikes should always remain last in the task list.",
+			"success_criteria": [
+				"All quality issues identified and analyzed",
+				"Specific improvement tasks created for each quality gap",
+				"Tasks properly prioritized and ordered before strikes",
+				"Clear path to 100% quality established"
+			],
+			"important_files": ["package.json", "eslint.config.js", "**/*.test.js"],
+			"requires_research": true,
+			"is_quality_improvement_task": true,
+			"quality_analysis": {
+				"strike1": {
+					"name": "Build Verification",
+					"quality": 50,
+					"issues": ["Build command fails"]
+				},
+				"strike2": {
+					"name": "Lint and Code Quality",
+					"quality": 100,
+					"issues": []
+				},
+				"strike3": {
+					"name": "Test Coverage and Success",
+					"quality": 30,
+					"issues": ["Tests are failing", "Coverage check failed"]
+				},
+				"overallReady": false
+			}
+		},
+		{
+			"id": "task_1754681184384_ya1potpyb",
+			"title": "Enhance OAuth Setup for Cloud Providers",
+			"description": "Simplify OAuth integration setup for services like Google, Microsoft, etc. The current manual setup process is cumbersome compared to SaaS alternatives. Create guided setup wizards and automated OAuth app configuration.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [],
+			"success_criteria": [],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T19:26:24.384Z"
+		},
+		{
+			"id": "task_1754681190635_69e69x5j9",
+			"title": "Add CRUD Operations to QuickBooks Node",
+			"description": "Enhance QuickBooks node with missing basic CRUD operations (Create, Read, Update, Delete). Current implementation may be missing some standard operations available in competing platforms.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [],
+			"success_criteria": [],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T19:26:30.635Z"
+		},
+		{
+			"id": "task_1754681196945_y27bkf9kl",
+			"title": "Restore Missing AI Features in Self-hosted Version",
+			"description": "Investigate and restore any AI-powered parameters or tools that may have been removed or restricted in self-hosted versions after updates. Ensure feature parity with cloud versions where licensing permits.",
+			"mode": "RESEARCH",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"./development/research-reports/research-report-task_1754681196945_y27bkf9kl.md"
+			],
+			"success_criteria": [
+				"Research report created: ./development/research-reports/research-report-task_1754681196945_y27bkf9kl.md"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T19:26:36.945Z"
+		},
+		{
+			"id": "task_1754683157799_i5mt4d1r5",
+			"title": "Create autosave configuration system with environment variables",
+			"description": "Add autosave configuration to n8n config system with environment variables for enabling autosave, setting intervals (default 30 seconds), and configuring autosave behavior. Include validation and type safety.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"packages/@n8n/config/src/configs/autosave.config.ts",
+				"packages/@n8n/config/src/index.ts"
+			],
+			"success_criteria": [
+				"AutosaveConfig class created in @n8n/config package",
+				"Environment variables defined for autosave settings",
+				"Configuration validation implemented",
+				"Default autosave interval set to 30 seconds"
+			],
+			"estimate": "1-2 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T19:59:17.799Z"
+		},
+		{
+			"id": "task_1754683157810_m5nqir3sr",
+			"title": "Implement autosave composable with interval management",
+			"description": "Create Vue composable for managing autosave functionality including start/stop autosave, configurable intervals, dirty state monitoring, and preventing simultaneous saves. Handle edge cases like user navigation and manual saves.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": ["task_1754683157799_i5mt4d1r5"],
+			"important_files": ["packages/frontend/editor-ui/src/composables/useAutosave.ts"],
+			"success_criteria": [
+				"useAutosave composable created with interval management",
+				"Automatic dirty state detection implemented",
+				"Prevent conflicts with manual saves",
+				"Handle navigation/page unload scenarios",
+				"Configurable autosave intervals"
+			],
+			"estimate": "2-3 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T19:59:17.810Z"
+		},
+		{
+			"id": "task_1754683157814_xq899hndh",
+			"title": "Add autosave visual indicators and user feedback",
+			"description": "Implement visual indicators showing autosave status including saving indicator, last saved timestamp, and autosave enabled/disabled state. Add user controls to enable/disable autosave and configure intervals.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": ["task_1754683157810_m5nqir3sr"],
+			"important_files": [
+				"packages/frontend/editor-ui/src/components/MainHeader/WorkflowDetails.vue",
+				"packages/frontend/editor-ui/src/components/WorkflowSettings.vue"
+			],
+			"success_criteria": [
+				"Autosave status indicator in workflow editor",
+				"Last saved timestamp display",
+				"User toggle to enable/disable autosave",
+				"Autosave interval configuration in settings",
+				"Visual feedback during autosave operations"
+			],
+			"estimate": "1-2 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T19:59:17.814Z"
+		},
+		{
+			"id": "task_1754683157819_n7at5e6dw",
+			"title": "Integrate autosave with NodeView workflow editor",
+			"description": "Integrate autosave composable into the main NodeView component, setup automatic saving triggers on workflow changes, and ensure proper cleanup on component unmount.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": ["task_1754683157814_xq899hndh"],
+			"important_files": ["packages/frontend/editor-ui/src/views/NodeView.vue"],
+			"success_criteria": [
+				"Autosave integrated into NodeView.vue",
+				"Automatic saving on workflow state changes",
+				"Proper lifecycle management (start/stop on mount/unmount)",
+				"Integration with existing workflow saving logic",
+				"No conflicts with manual save operations"
+			],
+			"estimate": "1-2 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T19:59:17.819Z"
+		},
+		{
+			"id": "task_1754683157822_kzis52tg2",
+			"title": "Add comprehensive testing for autosave functionality",
+			"description": "Create unit tests for autosave composable, integration tests for NodeView autosave behavior, and E2E tests for complete autosave workflows including edge cases and error scenarios.",
+			"mode": "TESTING",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": ["task_1754683157819_n7at5e6dw"],
+			"important_files": [
+				"packages/frontend/editor-ui/src/composables/__tests__/useAutosave.test.ts",
+				"packages/frontend/editor-ui/src/views/__tests__/NodeView.autosave.test.ts"
+			],
+			"success_criteria": [
+				"Unit tests for useAutosave composable (>90% coverage)",
+				"Integration tests for NodeView autosave integration",
+				"E2E tests for autosave workflows",
+				"Test edge cases (navigation, conflicts, errors)",
+				"Performance tests for autosave intervals"
+			],
+			"estimate": "2-3 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T19:59:17.822Z"
+		},
+		{
+			"id": "task_1754686123283_z8s6xg9kn",
+			"title": "Fix n8n-local-rules ESLint rule definitions",
+			"description": "Resolve missing n8n-local-rules definitions causing 35+ lint errors across CLI package. Rules like misplaced-n8n-typeorm-import and no-type-unsafe-event-emitter are undefined. Install, configure, or implement the missing custom ESLint rules.",
+			"mode": "DEVELOPMENT",
+			"priority": "critical",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"packages/@n8n/eslint-config/",
+				"eslint.config.mjs",
+				"packages/cli/eslint.config.mjs"
+			],
+			"success_criteria": [
+				"All n8n-local-rules/* rule definitions found and working",
+				"ESLint can properly load and execute custom rules",
+				"All rule-not-found errors resolved",
+				"CLI package passes lint without rule definition errors"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-08T20:48:43.283Z"
+		},
+		{
+			"id": "task_1754700874557_galdkhjv0",
+			"title": "Fix naming-convention violations in workflow package",
+			"description": "Resolve ~680 @typescript-eslint/naming-convention violations in packages/workflow. Focus on property names that should follow camelCase, constants that should be UPPER_CASE, and other naming standards. This includes error code constants and object property names.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"packages/workflow/src/errors/",
+				"packages/workflow/src/interfaces.ts",
+				"packages/workflow/eslint.config.mjs"
+			],
+			"success_criteria": [
+				"All @typescript-eslint/naming-convention warnings resolved in workflow package",
+				"Error constants follow UPPER_CASE convention",
+				"Object properties follow camelCase convention",
+				"No new naming convention violations introduced"
+			],
+			"estimate": "8-10 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T00:54:34.557Z"
+		},
+		{
+			"id": "task_1754700886631_g3u6fv31b",
+			"title": "Fix no-unsafe-member-access violations in workflow package",
+			"description": "Resolve ~148 @typescript-eslint/no-unsafe-member-access violations in packages/workflow. Add proper type annotations and safe property access patterns to avoid accessing properties on any/unknown types without proper type checking.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["packages/workflow/src/", "packages/workflow/eslint.config.mjs"],
+			"success_criteria": [
+				"All @typescript-eslint/no-unsafe-member-access warnings resolved",
+				"Proper type guards added for unknown object property access",
+				"Type assertions replaced with safe type checking",
+				"No new unsafe member access violations introduced"
+			],
+			"estimate": "6-8 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T00:54:46.631Z"
+		},
+		{
+			"id": "task_1754700898298_kenpa9wau",
+			"title": "Fix no-unsafe-call violations in workflow package",
+			"description": "Resolve ~132 @typescript-eslint/no-unsafe-call violations in packages/workflow. Replace unsafe function calls with properly typed function signatures and add type guards for dynamic function calls.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"packages/workflow/src/extensions/",
+				"packages/workflow/src/workflow-data-proxy.ts",
+				"packages/workflow/eslint.config.mjs"
+			],
+			"success_criteria": [
+				"All @typescript-eslint/no-unsafe-call warnings resolved",
+				"Function types properly defined instead of using Function type",
+				"Dynamic function calls protected with type guards",
+				"No new unsafe call violations introduced"
+			],
+			"estimate": "5-7 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T00:54:58.298Z"
+		},
+		{
+			"id": "task_1754700916294_ni1h2oxxe",
+			"title": "Fix no-explicit-any violations in workflow package",
+			"description": "Resolve ~44 @typescript-eslint/no-explicit-any violations in packages/workflow. Replace explicit any types with proper TypeScript types and interfaces to improve type safety.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["packages/workflow/src/", "packages/workflow/eslint.config.mjs"],
+			"success_criteria": [
+				"All @typescript-eslint/no-explicit-any warnings resolved",
+				"Proper type definitions added for previously any-typed variables",
+				"Generic types used where appropriate instead of any",
+				"No new explicit any violations introduced"
+			],
+			"estimate": "3-4 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T00:55:16.294Z"
+		},
+		{
+			"id": "task_1754700925386_8ohnp3hhx",
+			"title": "Fix no-unsafe-assignment violations in workflow package",
+			"description": "Resolve ~30 @typescript-eslint/no-unsafe-assignment violations in packages/workflow. Add proper type checking and type guards to prevent unsafe assignments from any/unknown types.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["packages/workflow/src/", "packages/workflow/eslint.config.mjs"],
+			"success_criteria": [
+				"All @typescript-eslint/no-unsafe-assignment warnings resolved",
+				"Proper type checking added before assignments from any/unknown",
+				"Safe type conversion patterns implemented",
+				"No new unsafe assignment violations introduced"
+			],
+			"estimate": "2-3 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T00:55:25.386Z"
+		},
+		{
+			"id": "task_1754700936593_yc7ah4kq4",
+			"title": "Fix miscellaneous TypeScript violations in workflow package",
+			"description": "Resolve remaining TypeScript and ESLint violations in packages/workflow including prefer-nullish-coalescing, no-prototype-builtins, prefer-optional-chain, no-useless-escape, and no-unsafe-function-type violations. Clean up unused eslint-disable directives.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["packages/workflow/src/", "packages/workflow/eslint.config.mjs"],
+			"success_criteria": [
+				"All prefer-nullish-coalescing warnings resolved",
+				"All no-prototype-builtins violations fixed with hasOwnProperty pattern",
+				"All prefer-optional-chain violations resolved",
+				"Unused eslint-disable directives removed",
+				"All no-unsafe-function-type violations fixed with proper function signatures"
+			],
+			"estimate": "4-5 hours",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T00:55:36.593Z"
+		}
+	],
+	"review_strikes": 0,
+	"strikes_completed_last_run": false,
+	"current_task_index": 0,
+	"last_mode": "DEVELOPMENT",
+	"execution_count": 113,
+	"last_hook_activation": 1754701005624,
+	"current_mode": "DEVELOPMENT"
+}

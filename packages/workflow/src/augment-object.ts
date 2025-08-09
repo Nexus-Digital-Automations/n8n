@@ -95,7 +95,8 @@ export function augmentObject<T extends object>(data: T): T {
 
 			if (typeof value !== 'object' || value === null) return value;
 			if (value instanceof RegExp) return value.toString();
-			if ('toJSON' in value && typeof value.toJSON === 'function') return value.toJSON() as T;
+			if ('toJSON' in value && typeof value.toJSON === 'function')
+				return (value.toJSON as () => T)();
 
 			const newValue = augment(value);
 			if (newValue !== value) {

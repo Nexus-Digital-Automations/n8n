@@ -1667,9 +1667,58 @@
       "created_at": "2025-08-08T17:57:12.529Z",
       "completed_at": "2025-08-09T00:50:20.934Z",
       "archived_from_todo": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/TODO.json"
+    },
+    {
+      "id": "task_1754684443815_6c3m39jet",
+      "title": "Fix TypeScript Safety Violations in Workflow Package",
+      "description": "Resolve ~1,203 TypeScript safety violations in packages/workflow including: 680 naming-convention violations, 148 no-unsafe-member-access, 132 no-unsafe-call, 44 no-explicit-any, and 30 no-unsafe-assignment violations. This package affects workflow execution engine safety.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-* errors resolved in workflow package",
+        "All @typescript-eslint/naming-convention errors resolved",
+        "All @typescript-eslint/no-explicit-any errors resolved",
+        "Workflow package ESLint passes without safety warnings",
+        "No regressions in workflow functionality"
+      ],
+      "estimate": "25-30 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:20:43.815Z",
+      "completed_at": "2025-08-09T00:55:59.156Z",
+      "archived_from_todo": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/TODO.json"
+    },
+    {
+      "id": "task_1754685400526_39s2b32h3",
+      "title": "Ensure pnpm run start succeeds after build fixes",
+      "description": "After fixing build issues, verify that pnpm run start command works correctly. Test the complete startup sequence including CLI initialization, server startup, and basic functionality. Address any runtime errors or startup failures that prevent n8n from running properly.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [
+        "pnpm run start completes without errors",
+        "n8n CLI starts successfully",
+        "Server initializes properly",
+        "Basic n8n functionality works",
+        "No runtime startup errors"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:36:40.526Z",
+      "completed_at": "2025-08-09T00:58:28.714Z",
+      "archived_from_todo": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n-fork/TODO.json"
     }
   ],
-  "total_completed": 69,
-  "last_completion": "2025-08-09T00:50:20.934Z",
+  "total_completed": 71,
+  "last_completion": "2025-08-09T00:58:28.714Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

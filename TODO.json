@@ -2,30 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754684443815_6c3m39jet",
-      "title": "Fix TypeScript Safety Violations in Workflow Package",
-      "description": "Resolve ~1,203 TypeScript safety violations in packages/workflow including: 680 naming-convention violations, 148 no-unsafe-member-access, 132 no-unsafe-call, 44 no-explicit-any, and 30 no-unsafe-assignment violations. This package affects workflow execution engine safety.",
-      "mode": "DEVELOPMENT",
-      "priority": "critical",
-      "status": "in_progress",
-      "dependencies": [],
-      "important_files": [
-        "packages/workflow/src/",
-        "packages/workflow/eslint.config.mjs"
-      ],
-      "success_criteria": [
-        "All @typescript-eslint/no-unsafe-* errors resolved in workflow package",
-        "All @typescript-eslint/naming-convention errors resolved",
-        "All @typescript-eslint/no-explicit-any errors resolved",
-        "Workflow package ESLint passes without safety warnings",
-        "No regressions in workflow functionality"
-      ],
-      "estimate": "25-30 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T20:20:43.815Z"
-    },
-    {
       "id": "task_1754684443812_5gwkt446y",
       "title": "Fix TypeScript Safety Violations in Core Package",
       "description": "Resolve ~570 TypeScript safety violations in packages/core including: 317 naming-convention violations, 88 unbound-method violations, 49 require-await violations, 35 no-unsafe-member-access, 27 no-unsafe-assignment, and 26 no-argument-spread violations. Focus on type annotations and safe property access patterns.",
@@ -48,27 +24,6 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-08T20:20:43.812Z"
-    },
-    {
-      "id": "task_1754685400526_39s2b32h3",
-      "title": "Ensure pnpm run start succeeds after build fixes",
-      "description": "After fixing build issues, verify that pnpm run start command works correctly. Test the complete startup sequence including CLI initialization, server startup, and basic functionality. Address any runtime errors or startup failures that prevent n8n from running properly.",
-      "mode": "DEVELOPMENT",
-      "priority": "critical",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [],
-      "success_criteria": [
-        "pnpm run start completes without errors",
-        "n8n CLI starts successfully",
-        "Server initializes properly",
-        "Basic n8n functionality works",
-        "No runtime startup errors"
-      ],
-      "estimate": "1-2 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T20:36:40.526Z"
     },
     {
       "id": "task_1754631363028_2c30dvwo3",
@@ -404,13 +359,154 @@
       "requires_research": false,
       "subtasks": [],
       "created_at": "2025-08-08T20:48:43.283Z"
+    },
+    {
+      "id": "task_1754700874557_galdkhjv0",
+      "title": "Fix naming-convention violations in workflow package",
+      "description": "Resolve ~680 @typescript-eslint/naming-convention violations in packages/workflow. Focus on property names that should follow camelCase, constants that should be UPPER_CASE, and other naming standards. This includes error code constants and object property names.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/errors/",
+        "packages/workflow/src/interfaces.ts",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/naming-convention warnings resolved in workflow package",
+        "Error constants follow UPPER_CASE convention",
+        "Object properties follow camelCase convention",
+        "No new naming convention violations introduced"
+      ],
+      "estimate": "8-10 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T00:54:34.557Z"
+    },
+    {
+      "id": "task_1754700886631_g3u6fv31b",
+      "title": "Fix no-unsafe-member-access violations in workflow package",
+      "description": "Resolve ~148 @typescript-eslint/no-unsafe-member-access violations in packages/workflow. Add proper type annotations and safe property access patterns to avoid accessing properties on any/unknown types without proper type checking.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-member-access warnings resolved",
+        "Proper type guards added for unknown object property access",
+        "Type assertions replaced with safe type checking",
+        "No new unsafe member access violations introduced"
+      ],
+      "estimate": "6-8 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T00:54:46.631Z"
+    },
+    {
+      "id": "task_1754700898298_kenpa9wau",
+      "title": "Fix no-unsafe-call violations in workflow package",
+      "description": "Resolve ~132 @typescript-eslint/no-unsafe-call violations in packages/workflow. Replace unsafe function calls with properly typed function signatures and add type guards for dynamic function calls.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/extensions/",
+        "packages/workflow/src/workflow-data-proxy.ts",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-call warnings resolved",
+        "Function types properly defined instead of using Function type",
+        "Dynamic function calls protected with type guards",
+        "No new unsafe call violations introduced"
+      ],
+      "estimate": "5-7 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T00:54:58.298Z"
+    },
+    {
+      "id": "task_1754700916294_ni1h2oxxe",
+      "title": "Fix no-explicit-any violations in workflow package",
+      "description": "Resolve ~44 @typescript-eslint/no-explicit-any violations in packages/workflow. Replace explicit any types with proper TypeScript types and interfaces to improve type safety.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-explicit-any warnings resolved",
+        "Proper type definitions added for previously any-typed variables",
+        "Generic types used where appropriate instead of any",
+        "No new explicit any violations introduced"
+      ],
+      "estimate": "3-4 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T00:55:16.294Z"
+    },
+    {
+      "id": "task_1754700925386_8ohnp3hhx",
+      "title": "Fix no-unsafe-assignment violations in workflow package",
+      "description": "Resolve ~30 @typescript-eslint/no-unsafe-assignment violations in packages/workflow. Add proper type checking and type guards to prevent unsafe assignments from any/unknown types.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-assignment warnings resolved",
+        "Proper type checking added before assignments from any/unknown",
+        "Safe type conversion patterns implemented",
+        "No new unsafe assignment violations introduced"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T00:55:25.386Z"
+    },
+    {
+      "id": "task_1754700936593_yc7ah4kq4",
+      "title": "Fix miscellaneous TypeScript violations in workflow package",
+      "description": "Resolve remaining TypeScript and ESLint violations in packages/workflow including prefer-nullish-coalescing, no-prototype-builtins, prefer-optional-chain, no-useless-escape, and no-unsafe-function-type violations. Clean up unused eslint-disable directives.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All prefer-nullish-coalescing warnings resolved",
+        "All no-prototype-builtins violations fixed with hasOwnProperty pattern",
+        "All prefer-optional-chain violations resolved",
+        "Unused eslint-disable directives removed",
+        "All no-unsafe-function-type violations fixed with proper function signatures"
+      ],
+      "estimate": "4-5 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T00:55:36.593Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "DEVELOPMENT",
-  "execution_count": 111,
-  "last_hook_activation": 1754700700707,
+  "last_mode": "TASK_CREATION",
+  "execution_count": 112,
+  "last_hook_activation": 1754700828779,
   "current_mode": "DEVELOPMENT"
 }
