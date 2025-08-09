@@ -53,10 +53,10 @@ export class ErrorReporter {
 		} catch {
 			// Fallback to console if circular dependency during construction
 			return {
-				error: (msg: string, meta?: any) => console.error(`[ErrorReporter] ${msg}`, meta ?? ''),
-				warn: (msg: string, meta?: any) => console.warn(`[ErrorReporter] ${msg}`, meta ?? ''),
-				debug: (msg: string, meta?: any) => console.log(`[ErrorReporter] ${msg}`, meta ?? ''),
-				info: (msg: string, meta?: any) => console.info(`[ErrorReporter] ${msg}`, meta ?? ''),
+				error: (msg: string, meta?: unknown) => console.error(`[ErrorReporter] ${msg}`, meta ?? ''),
+				warn: (msg: string, meta?: unknown) => console.warn(`[ErrorReporter] ${msg}`, meta ?? ''),
+				debug: (msg: string, meta?: unknown) => console.log(`[ErrorReporter] ${msg}`, meta ?? ''),
+				info: (msg: string, meta?: unknown) => console.info(`[ErrorReporter] ${msg}`, meta ?? ''),
 			};
 		}
 	}

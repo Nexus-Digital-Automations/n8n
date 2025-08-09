@@ -71,13 +71,13 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 		} catch {
 			// Fallback to console if circular dependency during construction
 			return {
-				error: (msg: string, meta?: any) =>
+				error: (msg: string, meta?: unknown) =>
 					console.error(`[NodeExecutionContext] ${msg}`, meta ?? ''),
-				warn: (msg: string, meta?: any) =>
+				warn: (msg: string, meta?: unknown) =>
 					console.warn(`[NodeExecutionContext] ${msg}`, meta ?? ''),
-				debug: (msg: string, meta?: any) =>
+				debug: (msg: string, meta?: unknown) =>
 					console.log(`[NodeExecutionContext] ${msg}`, meta ?? ''),
-				info: (msg: string, meta?: any) =>
+				info: (msg: string, meta?: unknown) =>
 					console.info(`[NodeExecutionContext] ${msg}`, meta ?? ''),
 			};
 		}

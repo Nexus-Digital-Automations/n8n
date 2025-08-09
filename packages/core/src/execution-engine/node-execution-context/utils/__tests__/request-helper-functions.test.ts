@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import FormData from 'form-data';
 import { Agent as HttpAgent } from 'http';
 import { HttpProxyAgent } from 'http-proxy-agent';
@@ -456,9 +457,9 @@ describe('Request Helper Functions', () => {
 
 			formData.on('data', (chunk) => {
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-				if (chunk && typeof (chunk as any).toString === 'function') {
+				if (chunk && typeof (chunk as { toString?: () => string }).toString === 'function') {
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-					formDataEntries.push((chunk as any).toString());
+					formDataEntries.push((chunk as { toString: () => string }).toString());
 				}
 			});
 		});

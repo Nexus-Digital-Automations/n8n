@@ -459,7 +459,9 @@ describe('DirectoryLoader', () => {
 				description: { name: 'test', codex: {} },
 				currentVersion: 2,
 				nodeVersions: {
+					// eslint-disable-next-line @typescript-eslint/naming-convention
 					1: nodeV1,
+					// eslint-disable-next-line @typescript-eslint/naming-convention
 					2: nodeV2,
 				},
 			});
@@ -503,7 +505,9 @@ describe('DirectoryLoader', () => {
 				description: { name: 'test' },
 				currentVersion: 2,
 				nodeVersions: {
+					// eslint-disable-next-line @typescript-eslint/naming-convention
 					1: nodeV1,
+					// eslint-disable-next-line @typescript-eslint/naming-convention
 					2: nodeV2,
 				},
 			});
@@ -524,7 +528,9 @@ describe('DirectoryLoader', () => {
 				description: { name: 'test' },
 				currentVersion: 2,
 				nodeVersions: {
+					// eslint-disable-next-line @typescript-eslint/naming-convention
 					1: nodeV1,
+					// eslint-disable-next-line @typescript-eslint/naming-convention
 					2: nodeV2,
 				},
 			});
@@ -777,7 +783,9 @@ describe('DirectoryLoader', () => {
 				description: { name: 'test', codex: {}, iconUrl: undefined, icon: undefined },
 				currentVersion: 2,
 				nodeVersions: {
+					// eslint-disable-next-line @typescript-eslint/naming-convention
 					1: nodeV1,
+					// eslint-disable-next-line @typescript-eslint/naming-convention
 					2: nodeV2,
 				},
 			});

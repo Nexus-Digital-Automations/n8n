@@ -597,6 +597,7 @@ describe('RoutingNode', () => {
 							value4: 4,
 							llvalue1: 1,
 							llvalue2: 'llv2',
+							// eslint-disable-next-line @typescript-eslint/naming-convention
 							'single-customValues': {
 								name: 'cSName1',
 								value: 'cSValue1',
@@ -605,6 +606,7 @@ describe('RoutingNode', () => {
 						},
 						body: {
 							value1: 'v1',
+							// eslint-disable-next-line @typescript-eslint/naming-convention
 							'topLevel.value2': 'v2',
 							value7B: ['value3', 'value4'],
 							lowerLevel: {
@@ -1609,6 +1611,7 @@ describe('RoutingNode', () => {
 									value4: 4,
 									llvalue1: 1,
 									llvalue2: 'llv2',
+									// eslint-disable-next-line @typescript-eslint/naming-convention
 									'single-customValues': {
 										name: 'cSName1',
 										value: 'cSValue1',
@@ -1616,6 +1619,7 @@ describe('RoutingNode', () => {
 								},
 								body: {
 									value1: 'v1',
+									// eslint-disable-next-line @typescript-eslint/naming-convention
 									'topLevel.value2': 'v2',
 									lowerLevel: {
 										value3: 'v3',

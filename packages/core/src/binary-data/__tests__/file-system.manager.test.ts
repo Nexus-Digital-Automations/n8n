@@ -102,7 +102,9 @@ describe('copyByFileId()', () => {
 		fsp.writeFile = jest.fn().mockResolvedValue(undefined);
 
 		// @ts-expect-error - private method
-		jest.spyOn(fsManager as any, 'toFileId').mockReturnValue(otherFileId);
+		jest
+			.spyOn(fsManager as unknown as { toFileId: () => string }, 'toFileId')
+			.mockReturnValue(otherFileId);
 
 		const targetFileId = await fsManager.copyByFileId(workflowId, executionId, fileId);
 
@@ -122,10 +124,14 @@ describe('copyByFilePath()', () => {
 		const metadata = { mimeType: 'text/plain' };
 
 		// @ts-expect-error - private method
-		jest.spyOn(fsManager as any, 'toFileId').mockReturnValue(otherFileId);
+		jest
+			.spyOn(fsManager as unknown as { toFileId: () => string }, 'toFileId')
+			.mockReturnValue(otherFileId);
 
 		// @ts-expect-error - private method
-		jest.spyOn(fsManager as any, 'getSize').mockReturnValue(mockBuffer.length);
+		jest
+			.spyOn(fsManager as unknown as { getSize: () => number }, 'getSize')
+			.mockReturnValue(mockBuffer.length);
 
 		const targetPath = toFullFilePath(otherFileId);
 

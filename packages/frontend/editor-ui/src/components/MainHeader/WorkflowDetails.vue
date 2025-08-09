@@ -22,6 +22,7 @@ import BreakpointsObserver from '@/components/BreakpointsObserver.vue';
 import WorkflowHistoryButton from '@/components/MainHeader/WorkflowHistoryButton.vue';
 import CollaborationPane from '@/components/MainHeader/CollaborationPane.vue';
 import WorkflowProductionChecklist from '@/components/WorkflowProductionChecklist.vue';
+import AutosaveIndicator from '@/components/AutosaveIndicator.vue';
 import { ResourceType } from '@/utils/projects.utils';
 
 import { useProjectsStore } from '@/stores/projects.store';
@@ -44,6 +45,7 @@ import { hasPermission } from '@/utils/rbac/permissions';
 import { useCanvasStore } from '@/stores/canvas.store';
 import { useRoute, useRouter } from 'vue-router';
 import { useWorkflowHelpers } from '@/composables/useWorkflowHelpers';
+import { useWorkflowAutosave } from '@/composables/useWorkflowAutosave';
 import { computed, ref, useCssModule, useTemplateRef, watch } from 'vue';
 import type {
 	ActionDropdownItem,
@@ -105,6 +107,9 @@ const documentTitle = useDocumentTitle();
 const workflowSaving = useWorkflowSaving({ router });
 const workflowHelpers = useWorkflowHelpers();
 const pageRedirectionHelper = usePageRedirectionHelper();
+
+// Initialize autosave functionality
+const workflowAutosave = useWorkflowAutosave();
 
 const isTagsEditEnabled = ref(false);
 const appliedTagIds = ref<string[]>([]);
@@ -686,6 +691,16 @@ const onBreadcrumbsItemSelected = (item: PathItem) => {
 		});
 	}
 };
+
+function onOpenAutosaveSettings() {
+	uiStore.openModalWithData({
+		name: 'autosaveSettings',
+		data: {
+			autosaveSettings: workflowAutosave.autosaveSettings,
+			autosaveStatus: workflowAutosave.autosaveStatus,
+		},
+	});
+}
 </script>
 
 <template>
@@ -847,6 +862,12 @@ const onBreadcrumbsItemSelected = (item: PathItem) => {
 					:shortcut-tooltip="i18n.baseText('saveWorkflowButton.hint')"
 					data-test-id="workflow-save-button"
 					@click="onSaveButtonClick"
+				/>
+				<AutosaveIndicator
+					v-if="!isNewWorkflow && !readOnly && !isArchived"
+					:autosave-status="workflowAutosave.autosaveStatus"
+					:compact="false"
+					@open-settings="onOpenAutosaveSettings"
 				/>
 				<WorkflowHistoryButton
 					:workflow-id="props.id"

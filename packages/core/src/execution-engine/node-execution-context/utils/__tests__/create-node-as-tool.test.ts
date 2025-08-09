@@ -6,7 +6,7 @@ import { createNodeAsTool } from '../create-node-as-tool';
 
 jest.mock('@langchain/core/tools', () => ({
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	DynamicStructuredTool: jest.fn().mockImplementation((config: any) => {
+	DynamicStructuredTool: jest.fn().mockImplementation((config: unknown) => {
 		if (typeof config === 'object' && config) {
 			return {
 				name: 'name' in config ? (config as Record<string, unknown>).name : undefined,

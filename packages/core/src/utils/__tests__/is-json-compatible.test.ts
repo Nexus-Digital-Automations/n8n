@@ -2,7 +2,6 @@ import { isJsonCompatible } from '../is-json-compatible';
 
 describe('isJsonCompatible', () => {
 	type CircularReferenceObject = { self: CircularReferenceObject };
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const circularReferencedObject: CircularReferenceObject = {} as CircularReferenceObject;
 	circularReferencedObject.self = circularReferencedObject;
 
@@ -16,7 +15,6 @@ describe('isJsonCompatible', () => {
 	temp.push(circularReferencedArrayInObject);
 
 	type CircularReferencedObjectInArray = Array<{ cycle: CircularReferencedObjectInArray }>;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const circularReferencedObjectInArray: CircularReferencedObjectInArray =
 		[] as CircularReferencedObjectInArray;
 	circularReferencedObjectInArray.push({ cycle: circularReferencedObjectInArray });
