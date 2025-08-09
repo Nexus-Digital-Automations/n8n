@@ -28,7 +28,7 @@
 			"description": "Resolve @typescript-eslint/naming-convention violations in packages/core. Update variable names, function names, class names, and property names to follow TypeScript naming conventions (camelCase, PascalCase, etc.).",
 			"mode": "DEVELOPMENT",
 			"priority": "high",
-			"status": "pending",
+			"status": "in_progress",
 			"dependencies": [],
 			"important_files": ["packages/core/src/", "packages/core/eslint.config.mjs"],
 			"success_criteria": [
@@ -562,7 +562,7 @@
 	"strikes_completed_last_run": false,
 	"current_task_index": 0,
 	"last_mode": "DEVELOPMENT",
-	"execution_count": 125,
-	"last_hook_activation": 1754768665697,
+	"execution_count": 126,
+	"last_hook_activation": 1754768746527,
 	"current_mode": "DEVELOPMENT"
 }
