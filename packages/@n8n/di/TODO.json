@@ -1,6 +1,30 @@
 {
 	"tasks": [
 		{
+			"id": "task_1754721192911_c2u7l7d3v",
+			"title": "Fix critical lint errors in @n8n/types package",
+			"description": "Resolve 9 ESLint errors in packages/@n8n/types preventing build success. Fix naming convention violations for ai_languageModel and ai_vectorStore properties, add public accessibility modifiers, replace != with !==, fix string conversion issues, and remove unnecessary type assertions.",
+			"mode": "DEVELOPMENT",
+			"priority": "critical",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"packages/@n8n/types/src/node-types.ts",
+				"packages/@n8n/types/src/validation.ts"
+			],
+			"success_criteria": [
+				"All 9 ESLint errors resolved in @n8n/types package",
+				"Property names follow proper naming conventions",
+				"Explicit member accessibility added",
+				"Strict equality operators used",
+				"Type assertions properly validated"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T06:33:12.911Z"
+		},
+		{
 			"id": "fix-typescript-build-errors-1753996515662",
 			"title": "Fix TypeScript Build Errors in CLI Package",
 			"description": "Resolve critical TypeScript compilation errors in workflows.controller.ts preventing successful build",
@@ -507,6 +531,50 @@
 			}
 		},
 		{
+			"id": "task_1754721202112_ezyzw2mk2",
+			"title": "Fix ESLint configuration issues in @n8n/di package",
+			"description": "Resolve ESLint configuration errors in packages/@n8n/di causing build failures. All files are being ignored - fix glob patterns, file patterns in config, or base path configuration. Currently linting is disabled which prevents proper build verification.",
+			"mode": "DEVELOPMENT",
+			"priority": "critical",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"packages/@n8n/di/eslint.config.js",
+				"packages/@n8n/di/.eslintignore",
+				"packages/@n8n/di/package.json"
+			],
+			"success_criteria": [
+				"ESLint properly configured to lint di package files",
+				"No glob pattern ignore issues",
+				"Linting re-enabled for build verification",
+				"Package passes lint check without configuration errors"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T06:33:22.112Z"
+		},
+		{
+			"id": "task_1754721278174_rh0b7fiml",
+			"title": "Run lint autofix across all packages",
+			"description": "Execute npm run lint:fix to automatically resolve fixable ESLint errors across the monorepo. Address any remaining issues that cannot be auto-fixed, particularly focusing on packages with high error counts like workflow, core, and cli packages.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["package.json", "turbo.json", "packages/*/eslint.config.*"],
+			"success_criteria": [
+				"All auto-fixable lint errors resolved",
+				"Remaining manual lint errors documented and prioritized",
+				"Build pipeline passes lint checks",
+				"No package lint failures blocking development"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T06:34:38.174Z"
+		},
+		{
 			"id": "audit_architecture_1753986224973",
 			"title": "Design Enterprise Audit System for n8n",
 			"description": "Analyze existing infrastructure and design comprehensive audit logging and compliance reporting system",
@@ -563,11 +631,11 @@
 		"removedCount": 1,
 		"finalTaskCount": 5
 	},
-	"execution_count": 16,
-	"last_hook_activation": 1754533439496,
+	"execution_count": 17,
+	"last_hook_activation": 1754721349967,
 	"project": "unnamed-project",
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,
 	"current_task_index": 0,
-	"last_mode": "TASK_CREATION"
+	"last_mode": "DEVELOPMENT"
 }

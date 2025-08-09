@@ -4,7 +4,7 @@
 -->
 
 <template>
-	<div 
+	<div
 		:class="[$style.autosaveIndicator, { [$style.disabled]: !autosaveStatus.isAutosaveEnabled }]"
 		:title="tooltipText"
 		data-test-id="autosave-indicator"
@@ -17,23 +17,22 @@
 				:spin="autosaveStatus.isAutosaving"
 				size="small"
 			/>
-			
+
 			<!-- Status Text -->
 			<span :class="$style.statusText">
 				{{ statusText }}
 			</span>
 		</div>
-		
+
 		<!-- Countdown Timer (when enabled and has unsaved changes) -->
-		<div 
-			v-if="showCountdown" 
-			:class="$style.countdown"
-		>
-			{{ $locale.baseText('workflowAutosave.nextSaveIn', { 
-				interpolate: { time: formatCountdown(autosaveStatus.nextAutosaveIn) } 
-			}) }}
+		<div v-if="showCountdown" :class="$style.countdown">
+			{{
+				$locale.baseText('workflowAutosave.nextSaveIn', {
+					interpolate: { time: formatCountdown(autosaveStatus.nextAutosaveIn) },
+				})
+			}}
 		</div>
-		
+
 		<!-- Settings Button -->
 		<n8n-button
 			v-if="showSettings"
@@ -99,29 +98,29 @@ const statusText = computed(() => {
 	if (!props.autosaveStatus.isAutosaveEnabled) {
 		return locale.baseText('workflowAutosave.disabled');
 	}
-	
+
 	if (props.autosaveStatus.isAutosaving) {
 		return locale.baseText('workflowAutosave.saving');
 	}
-	
+
 	if (props.autosaveStatus.hasUnsavedChanges) {
 		if (props.autosaveStatus.nextAutosaveIn > 0) {
 			return locale.baseText('workflowAutosave.pendingWithTimer');
 		}
 		return locale.baseText('workflowAutosave.pending');
 	}
-	
+
 	if (props.autosaveStatus.lastAutosaveTime) {
 		return locale.baseText('workflowAutosave.lastSaved', {
-			interpolate: { 
+			interpolate: {
 				time: props.autosaveStatus.lastAutosaveTime.toLocaleTimeString(locale.locale, {
 					hour: '2-digit',
 					minute: '2-digit',
-				})
-			}
+				}),
+			},
 		});
 	}
-	
+
 	return locale.baseText('workflowAutosave.ready');
 });
 
@@ -130,27 +129,31 @@ const statusText = computed(() => {
  */
 const tooltipText = computed(() => {
 	const parts: string[] = [];
-	
+
 	if (!props.autosaveStatus.isAutosaveEnabled) {
 		parts.push(locale.baseText('workflowAutosave.disabledTooltip'));
 	} else {
 		parts.push(locale.baseText('workflowAutosave.enabledTooltip'));
-		
+
 		if (props.autosaveStatus.autosaveCount > 0) {
-			parts.push(locale.baseText('workflowAutosave.saveCount', {
-				interpolate: { count: props.autosaveStatus.autosaveCount.toString() }
-			}));
+			parts.push(
+				locale.baseText('workflowAutosave.saveCount', {
+					interpolate: { count: props.autosaveStatus.autosaveCount.toString() },
+				}),
+			);
 		}
-		
+
 		if (props.autosaveStatus.lastAutosaveTime) {
-			parts.push(locale.baseText('workflowAutosave.lastSavedAt', {
-				interpolate: { 
-					time: props.autosaveStatus.lastAutosaveTime.toLocaleString(locale.locale)
-				}
-			}));
+			parts.push(
+				locale.baseText('workflowAutosave.lastSavedAt', {
+					interpolate: {
+						time: props.autosaveStatus.lastAutosaveTime.toLocaleString(locale.locale),
+					},
+				}),
+			);
 		}
 	}
-	
+
 	return parts.join('\n');
 });
 
@@ -218,6 +221,7 @@ function formatCountdown(seconds: number): string {
 
 	&.saving {
 		color: var(--color-secondary);
+		animation: pulse 1.5s ease-in-out infinite;
 	}
 
 	&.pending {
@@ -259,11 +263,11 @@ function formatCountdown(seconds: number): string {
 .autosaveIndicator.compact {
 	min-width: auto;
 	padding: var(--spacing-4xs) var(--spacing-3xs);
-	
+
 	.statusText {
 		display: none;
 	}
-	
+
 	.statusContainer {
 		width: auto;
 	}
@@ -271,12 +275,13 @@ function formatCountdown(seconds: number): string {
 
 /* Animation for saving state */
 @keyframes pulse {
-	0%, 100% { opacity: 1; }
-	50% { opacity: 0.6; }
-}
-
-.statusIcon.saving {
-	animation: pulse 1.5s ease-in-out infinite;
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.6;
+	}
 }
 
 /* Responsive design */
@@ -285,7 +290,7 @@ function formatCountdown(seconds: number): string {
 		.statusText {
 			font-size: var(--font-size-3xs);
 		}
-		
+
 		.countdown {
 			font-size: var(--font-size-4xs);
 		}

@@ -230,9 +230,9 @@ export class ObjectStoreService {
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Delete: {
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					Objects: objects.map(({ key }) => ({
+					Objects: objects.map((obj) => ({
 						// eslint-disable-next-line @typescript-eslint/naming-convention
-						Key: key as string,
+						Key: obj.Key as string,
 					})),
 				},
 			};
@@ -295,15 +295,8 @@ export class ObjectStoreService {
 			const command = new ListObjectsV2Command(params);
 			const response = await this.s3Client.send(command);
 
-			// Convert response to match expected format for compatibility
-			const contents =
-				response.Contents?.map((item) => ({
-					key: item.Key ?? '',
-					lastModified: item.LastModified?.toISOString() ?? '',
-					eTag: item.ETag ?? '',
-					size: item.Size ?? 0,
-					storageClass: item.StorageClass ?? '',
-				})) ?? [];
+			// Return contents in AWS SDK format to maintain type compatibility
+			const contents = response.Contents ?? [];
 
 			return {
 				contents,

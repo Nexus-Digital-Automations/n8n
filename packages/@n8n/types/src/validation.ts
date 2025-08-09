@@ -18,9 +18,9 @@ import type { ValidationResult } from './utility-types';
  * Application error for validation failures
  */
 export class ValidationError extends Error {
-	public readonly value?: unknown;
+	readonly value?: unknown;
 
-	public constructor(message: string, value?: unknown) {
+	constructor(message: string, value?: unknown) {
 		super(message);
 		this.name = 'ValidationError';
 		this.value = value;
@@ -54,7 +54,19 @@ export function tryToParseString(value: unknown): string {
 		return value.toString();
 	}
 
-	return value != null ? String(value) : '';
+	if (value === null || value === undefined) return '';
+	if (typeof value === 'object') {
+		try {
+			return JSON.stringify(value);
+		} catch {
+			return '[object Object]';
+		}
+	}
+	if (typeof value === 'string') return value;
+	if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
+		return value.toString();
+	}
+	return '';
 }
 
 /**
@@ -213,7 +225,7 @@ export function tryToParseObject(value: unknown): object {
 		if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
 			throw new ValidationError('Value is not a valid object', value);
 		}
-		return parsed as object;
+		return parsed;
 	} catch (e) {
 		throw new ValidationError('Value is not a valid object', value);
 	}
@@ -254,7 +266,22 @@ export function tryToParseUrl(value: unknown): string {
  * Try to parse value as JWT token
  */
 export function tryToParseJwt(value: unknown): string {
-	const valueStr = value != null ? String(value) : '';
+	const valueStr =
+		value === null || value === undefined
+			? ''
+			: typeof value === 'object'
+				? (() => {
+						try {
+							return JSON.stringify(value);
+						} catch {
+							return '[object Object]';
+						}
+					})()
+				: typeof value === 'string'
+					? value
+					: typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint'
+						? value.toString()
+						: '';
 	const error = new ValidationError(`The value "${valueStr}" is not a valid JWT token.`, value);
 
 	if (!value) throw error;

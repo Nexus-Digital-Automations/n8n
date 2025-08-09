@@ -355,12 +355,12 @@ export interface NodeExecutionResult {
  */
 export interface NodeInputData {
 	main?: NodeExecutionData[][];
-	ai_languageModel?: NodeExecutionData[][];
+	aiLanguageModel?: NodeExecutionData[][];
 	ai_memory?: NodeExecutionData[][];
 	ai_tool?: NodeExecutionData[][];
 	ai_document?: NodeExecutionData[][];
 	ai_retriever?: NodeExecutionData[][];
-	ai_vectorStore?: NodeExecutionData[][];
+	aiVectorStore?: NodeExecutionData[][];
 }
 
 /**

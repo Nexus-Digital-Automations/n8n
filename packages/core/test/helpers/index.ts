@@ -41,6 +41,7 @@ class NodeTypesClass implements INodeTypes {
 
 let nodeTypesInstance: NodeTypesClass | undefined;
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export function NodeTypes(nodeTypes: INodeTypeData = predefinedNodesTypes): INodeTypes {
 	if (nodeTypesInstance === undefined || nodeTypes !== undefined) {
 		nodeTypesInstance = new NodeTypesClass(nodeTypes);
@@ -49,6 +50,7 @@ export function NodeTypes(nodeTypes: INodeTypeData = predefinedNodesTypes): INod
 	return nodeTypesInstance;
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export function WorkflowExecuteAdditionalData(
 	waitPromise: IDeferredPromise<IRun>,
 ): IWorkflowExecuteAdditionalData {

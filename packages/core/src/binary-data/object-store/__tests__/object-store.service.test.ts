@@ -299,11 +299,11 @@ describe('ObjectStoreService', () => {
 
 			const mockList = [
 				{
-					key: fileName,
-					lastModified: '2023-09-24T12:34:56Z',
-					eTag: 'abc123def456',
-					size: 456789,
-					storageClass: 'STANDARD',
+					Key: fileName,
+					LastModified: new Date('2023-09-24T12:34:56Z'),
+					ETag: 'abc123def456',
+					Size: 456789,
+					StorageClass: 'STANDARD',
 				},
 			];
 
@@ -334,7 +334,7 @@ describe('ObjectStoreService', () => {
 		});
 
 		it('should throw an error on request failure', async () => {
-			objectStoreService.list = jest.fn().mockResolvedValue([{ key: 'file.txt' }]);
+			objectStoreService.list = jest.fn().mockResolvedValue([{ Key: 'file.txt' }]);
 			mockS3Send.mockRejectedValueOnce(mockError);
 
 			const promise = objectStoreService.deleteMany('test-dir/');
@@ -348,7 +348,7 @@ describe('ObjectStoreService', () => {
 			const prefix = 'test-dir/';
 
 			const mockListPage = {
-				contents: [{ key: `${prefix}file1.txt` }, { key: `${prefix}file2.txt` }],
+				contents: [{ Key: `${prefix}file1.txt` }, { Key: `${prefix}file2.txt` }],
 				isTruncated: false,
 			};
 
@@ -363,13 +363,13 @@ describe('ObjectStoreService', () => {
 			const prefix = 'test-dir/';
 
 			const mockFirstListPage = {
-				contents: [{ key: `${prefix}file1.txt` }],
+				contents: [{ Key: `${prefix}file1.txt` }],
 				isTruncated: true,
 				nextContinuationToken: 'token1',
 			};
 
 			const mockSecondListPage = {
-				contents: [{ key: `${prefix}file2.txt` }],
+				contents: [{ Key: `${prefix}file2.txt` }],
 				isTruncated: false,
 			};
 

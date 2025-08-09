@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { mock } from 'jest-mock-extended';
 import type {
 	IconFile,

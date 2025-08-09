@@ -16,7 +16,7 @@ describe('toBuffer', () => {
 
 	it('should serialize stringified buffer to the same buffer', () => {
 		const serializedBuffer = JSON.stringify(Buffer.from('n8n on the rocks'));
-		const buffer = toBuffer(JSON.parse(serializedBuffer));
+		const buffer = toBuffer(JSON.parse(serializedBuffer) as SerializedBuffer);
 		expect(buffer).toBeInstanceOf(Buffer);
 		expect(buffer.toString()).toBe('n8n on the rocks');
 	});

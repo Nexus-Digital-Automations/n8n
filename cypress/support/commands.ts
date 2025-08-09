@@ -261,8 +261,8 @@ Cypress.Commands.add('resetDatabase', () => {
 });
 
 Cypress.Commands.add('clearIndexedDB', (dbName: string, storeName?: string) => {
-	cy.window().then((win) => {
-		return new Promise<void>((resolve, reject) => {
+	cy.window().then(async (win) => {
+		return await new Promise<void>((resolve, reject) => {
 			if (!win.indexedDB) {
 				resolve();
 				return;

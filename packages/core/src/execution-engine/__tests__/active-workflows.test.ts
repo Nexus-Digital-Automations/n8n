@@ -231,9 +231,7 @@ describe('ActiveWorkflows', () => {
 
 			expect(result).toBe(true);
 			expect(activeWorkflows.isActive(workflowId)).toBe(false);
-			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(scheduledTaskManager.deregisterCrons).toHaveBeenCalledWith(workflowId);
-			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(triggerResponse.closeFunction).toHaveBeenCalled();
 		});
 
@@ -253,9 +251,7 @@ describe('ActiveWorkflows', () => {
 
 			expect(result).toBe(true);
 			expect(activeWorkflows.isActive(workflowId)).toBe(false);
-			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(triggerResponse.closeFunction).toHaveBeenCalled();
-			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(errorReporter.error).toHaveBeenCalledWith(triggerCloseError, {
 				extra: { workflowId },
 			});
@@ -271,9 +267,7 @@ describe('ActiveWorkflows', () => {
 				`Failed to deactivate trigger of workflow ID "${workflowId}": "Close function failed"`,
 			);
 
-			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(triggerResponse.closeFunction).toHaveBeenCalled();
-			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(errorReporter.error).not.toHaveBeenCalled();
 		});
 	});

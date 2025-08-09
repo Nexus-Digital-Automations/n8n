@@ -66,7 +66,7 @@ describe('getInputConnectionData', () => {
 
 		jest.spyOn(executeContext, 'getNode').mockReturnValue(agentNode);
 		nodeTypes.getByNameAndVersion
-			.calledWith(agentNode.type, expect.anything())
+			.calledWith(agentNode.type, expect.anything() as number)
 			.mockReturnValue(agentNodeType);
 
 		// Mock getConnections method used by validateInputConfiguration

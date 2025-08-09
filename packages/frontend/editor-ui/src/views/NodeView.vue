@@ -139,6 +139,7 @@ import CanvasChatButton from '@/components/canvas/elements/buttons/CanvasChatBut
 import { useFocusPanelStore } from '@/stores/focusPanel.store';
 import { useAITemplatesStarterCollectionStore } from '@/experiments/aiTemplatesStarterCollection/stores/aiTemplatesStarterCollection.store';
 import { useReadyToRunWorkflowsStore } from '@/experiments/readyToRunWorkflows/stores/readyToRunWorkflows.store';
+import { useWorkflowAutosave } from '@/composables/useWorkflowAutosave';
 
 defineOptions({
 	name: 'NodeView',
@@ -253,6 +254,7 @@ const {
 } = useCanvasOperations();
 const { extractWorkflow } = useWorkflowExtraction();
 const { applyExecutionData } = useExecutionDebugging();
+const workflowAutosave = useWorkflowAutosave();
 useClipboard({ onPaste: onClipboardPaste });
 
 const isLoading = ref(true);
@@ -717,6 +719,12 @@ function onDeleteNode(id: string) {
 		fallbackNodes.value.splice(matchedFallbackNode, 1);
 	} else {
 		deleteNode(id, { trackHistory: true });
+		// Trigger autosave on node changes if enabled
+		if (workflowAutosave.autosaveSettings.value.saveOnNodeChange) {
+			setTimeout(() => {
+				void workflowAutosave.performAutosave('change');
+			}, 1000);
+		}
 	}
 }
 
@@ -872,18 +880,27 @@ async function onSaveWorkflow() {
 	const saved = await workflowSaving.saveCurrentWorkflow();
 	if (saved) {
 		canvasEventBus.emit('saved:workflow');
+		// Reset autosave timer after manual save
+		workflowAutosave.resetAutosaveTimer();
 	}
 }
 
 function addWorkflowSavedEventBindings() {
 	canvasEventBus.on('saved:workflow', npsSurveyStore.fetchPromptsData);
 	canvasEventBus.on('saved:workflow', onSaveFromWithinNDV);
+	canvasEventBus.on('saved:workflow', onAutosaveAfterWorkflowSave);
 }
 
 function removeWorkflowSavedEventBindings() {
 	canvasEventBus.off('saved:workflow', npsSurveyStore.fetchPromptsData);
 	canvasEventBus.off('saved:workflow', onSaveFromWithinNDV);
 	canvasEventBus.off('saved:workflow', onSaveFromWithinExecutionDebug);
+	canvasEventBus.off('saved:workflow', onAutosaveAfterWorkflowSave);
+}
+
+function onAutosaveAfterWorkflowSave() {
+	// Reset autosave timer after any workflow save (manual, NDV, etc.)
+	workflowAutosave.resetAutosaveTimer();
 }
 
 async function onSaveFromWithinNDV() {
@@ -976,6 +993,12 @@ async function onRevertReplaceNodeParameters({
 
 function onUpdateNodeParameters(id: string, parameters: Record<string, unknown>) {
 	setNodeParameters(id, parameters);
+	// Trigger autosave on node parameter changes if enabled
+	if (workflowAutosave.autosaveSettings.value.saveOnNodeChange) {
+		setTimeout(() => {
+			void workflowAutosave.performAutosave('change');
+		}, 2000); // Longer delay for parameter changes to avoid excessive saves
+	}
 }
 
 function onUpdateNodeInputs(id: string) {
@@ -1027,6 +1050,12 @@ async function loadCredentials() {
 
 function onCreateConnection(connection: Connection) {
 	createConnection(connection, { trackHistory: true });
+	// Trigger autosave on connection changes if enabled
+	if (workflowAutosave.autosaveSettings.value.saveOnConnectionChange) {
+		setTimeout(() => {
+			void workflowAutosave.performAutosave('change');
+		}, 1000);
+	}
 }
 
 function onRevertCreateConnection({ connection }: { connection: [IConnection, IConnection] }) {
@@ -1062,6 +1091,12 @@ function onCreateConnectionCancelled(
 
 function onDeleteConnection(connection: Connection) {
 	deleteConnection(connection, { trackHistory: true });
+	// Trigger autosave on connection changes if enabled
+	if (workflowAutosave.autosaveSettings.value.saveOnConnectionChange) {
+		setTimeout(() => {
+			void workflowAutosave.performAutosave('change');
+		}, 1000);
+	}
 }
 
 function onRevertDeleteConnection({ connection }: { connection: [IConnection, IConnection] }) {
@@ -2001,6 +2036,11 @@ onMounted(() => {
 	addImportEventBindings();
 	addExecutionOpenedEventBindings();
 	registerCustomActions();
+
+	// Initialize autosave functionality after the workflow is loaded
+	if (!isDemoRoute.value) {
+		workflowAutosave.initializeAutosave();
+	}
 });
 
 onActivated(async () => {
@@ -2021,7 +2061,10 @@ onBeforeUnmount(() => {
 	removeImportEventBindings();
 	removeExecutionOpenedEventBindings();
 	unregisterCustomActions();
+
+	// Cleanup autosave functionality
 	if (!isDemoRoute.value) {
+		workflowAutosave.cleanup();
 		pushConnectionStore.pushDisconnect();
 	}
 });
