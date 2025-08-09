@@ -2,30 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754684443812_5gwkt446y",
-      "title": "Fix TypeScript Safety Violations in Core Package",
-      "description": "Resolve ~570 TypeScript safety violations in packages/core including: 317 naming-convention violations, 88 unbound-method violations, 49 require-await violations, 35 no-unsafe-member-access, 27 no-unsafe-assignment, and 26 no-argument-spread violations. Focus on type annotations and safe property access patterns.",
-      "mode": "DEVELOPMENT",
-      "priority": "critical",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/core/src/",
-        "packages/core/eslint.config.mjs"
-      ],
-      "success_criteria": [
-        "All @typescript-eslint/no-unsafe-* errors resolved in core package",
-        "All @typescript-eslint/naming-convention errors resolved",
-        "All @typescript-eslint/unbound-method errors resolved",
-        "Core package ESLint passes without safety warnings",
-        "No regressions in core functionality"
-      ],
-      "estimate": "15-20 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-08T20:20:43.812Z"
-    },
-    {
       "id": "task_1754631363028_2c30dvwo3",
       "title": "Implement custom node storage and validation service",
       "description": "Create backend service for custom node storage, validation, and metadata management. Implement secure file handling, MIME type validation, dependency checking, and node registry functionality. Include database schema for node metadata and version tracking.",
@@ -502,13 +478,152 @@
         },
         "overallReady": false
       }
+    },
+    {
+      "id": "task_1754714116454_mdyfvfsgk",
+      "title": "Fix naming-convention violations in core package",
+      "description": "Resolve 317 @typescript-eslint/naming-convention violations in packages/core. Update variable names, property names, and constants to follow TypeScript naming standards (camelCase for variables/properties, PascalCase for types/classes, UPPER_CASE for constants).",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/core/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/naming-convention violations resolved in core package",
+        "Variable names follow camelCase convention",
+        "Constants follow UPPER_CASE convention",
+        "Type/class names follow PascalCase convention",
+        "No new naming convention violations introduced"
+      ],
+      "estimate": "4-5 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T04:35:16.454Z"
+    },
+    {
+      "id": "task_1754714129712_gzjevy0f2",
+      "title": "Fix unbound-method violations in core package",
+      "description": "Resolve 88 @typescript-eslint/unbound-method violations in packages/core. Add proper method binding and arrow function usage to prevent unbound method calls that could lose their this context.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/core/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/unbound-method violations resolved",
+        "Methods properly bound when passed as callbacks",
+        "Arrow functions used where appropriate to preserve this context",
+        "No new unbound method violations introduced"
+      ],
+      "estimate": "3-4 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T04:35:29.712Z"
+    },
+    {
+      "id": "task_1754714129719_hoyeyd3x7",
+      "title": "Fix require-await violations in core package",
+      "description": "Resolve 49 @typescript-eslint/require-await violations in packages/core. Remove unnecessary async keywords from functions that don't use await, or add proper awaiting where missing.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/core/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/require-await violations resolved",
+        "Unnecessary async keywords removed from functions",
+        "Missing await keywords added where needed",
+        "Function signatures accurately reflect async behavior"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T04:35:29.720Z"
+    },
+    {
+      "id": "task_1754714129721_q3xs2y997",
+      "title": "Fix unsafe member access violations in core package",
+      "description": "Resolve 35 @typescript-eslint/no-unsafe-member-access violations in packages/core. Add proper type guards and type checking before accessing properties on any/unknown types.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/core/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-member-access violations resolved",
+        "Type guards added for unknown object property access",
+        "Safe property access patterns implemented",
+        "No new unsafe member access violations introduced"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T04:35:29.721Z"
+    },
+    {
+      "id": "task_1754714129722_9ciplsb85",
+      "title": "Fix unsafe assignment violations in core package",
+      "description": "Resolve 27 @typescript-eslint/no-unsafe-assignment violations in packages/core. Add proper type checking and type guards to prevent unsafe assignments from any/unknown types.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/core/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-assignment violations resolved",
+        "Proper type checking added before assignments from any/unknown",
+        "Safe type conversion patterns implemented",
+        "No new unsafe assignment violations introduced"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T04:35:29.722Z"
+    },
+    {
+      "id": "task_1754714129724_0jrhvsncz",
+      "title": "Fix argument spread violations in core package",
+      "description": "Resolve 26 @typescript-eslint/no-argument-spread violations in packages/core. Replace unsafe argument spreading with properly typed alternatives or add type guards.",
+      "mode": "DEVELOPMENT",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [
+        "packages/core/src/",
+        "packages/core/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-argument-spread violations resolved",
+        "Unsafe argument spreading replaced with safe alternatives",
+        "Type guards added where argument spreading is necessary",
+        "No new argument spread violations introduced"
+      ],
+      "estimate": "1-2 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T04:35:29.724Z"
     }
   ],
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "DEVELOPMENT",
-  "execution_count": 123,
-  "last_hook_activation": 1754713966202,
+  "last_mode": "TASK_CREATION",
+  "execution_count": 124,
+  "last_hook_activation": 1754714080648,
   "current_mode": "DEVELOPMENT"
 }
