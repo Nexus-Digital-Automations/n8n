@@ -208,12 +208,17 @@ export class CustomNodeRepository extends Repository<CustomNode> {
 	}
 
 	async getAvailableTags(): Promise<string[]> {
-		const result = await this.createQueryBuilder('customNode')
-			.select('unnest(customNode.tags)', 'tag')
-			.where('customNode.tags IS NOT NULL')
-			.andWhere('customNode.isActive = :isActive', { isActive: true })
-			.getRawMany();
+		const nodes = await this.find({
+			select: ['tags'],
+			where: {
+				isActive: true,
+			},
+		});
 
-		return [...new Set(result.map((r) => r.tag).filter(Boolean))];
+		const allTags = nodes
+			.filter((node) => node.tags && node.tags.length > 0)
+			.flatMap((node) => node.tags || []);
+
+		return [...new Set(allTags.filter(Boolean))];
 	}
 }

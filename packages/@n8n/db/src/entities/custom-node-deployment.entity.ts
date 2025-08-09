@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from '@n8n/typeorm';
 
 import { WithTimestamps } from './abstract-entity';
-import type { CustomNode } from './custom-node';
+import type { CustomNode } from './custom-node.entity';
 
 export type DeploymentStatus = 'queued' | 'deploying' | 'deployed' | 'failed' | 'rolled-back';
 export type DeploymentEnvironment = 'staging' | 'production';

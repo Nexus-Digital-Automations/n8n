@@ -1,7 +1,7 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from '@n8n/typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from '@n8n/typeorm';
 
 import { WithTimestamps } from './abstract-entity';
-import type { CustomNodeDeployment } from './custom-node-deployment';
+import type { CustomNodeDeployment } from './custom-node-deployment.entity';
 
 export type CustomNodeStatus = 'uploaded' | 'validating' | 'validated' | 'failed' | 'deployed';
 
@@ -73,7 +73,6 @@ export class CustomNode extends WithTimestamps {
 	@Column({ default: false })
 	isActive: boolean;
 
-	@OneToMany('CustomNodeDeployment', 'node')
-	@JoinColumn({ referencedColumnName: 'id' })
-	deployments?: CustomNodeDeployment[];
+	@OneToMany('CustomNodeDeployment', 'node', { lazy: true })
+	deployments?: Promise<CustomNodeDeployment[]>;
 }
