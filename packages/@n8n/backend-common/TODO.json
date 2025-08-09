@@ -23,40 +23,6 @@
 			}
 		},
 		{
-			"id": "test-coverage-improvement-1754191552599",
-			"title": "Improve Test Coverage to Meet 95% Threshold",
-			"description": "Current test coverage is at 68% but needs to reach 95% threshold. Coverage gaps: Functions 37%, Branches 54%, Lines 67%, Statements 68%",
-			"mode": "DEVELOPMENT",
-			"priority": "high",
-			"status": "pending",
-			"success_criteria": [
-				"Test coverage meets 95% threshold for all metrics",
-				"Coverage reports show all uncovered code paths are tested",
-				"All existing tests continue to pass"
-			],
-			"important_files": [
-				"src/**/*.ts",
-				"src/**/__tests__/*.test.ts",
-				"jest.config.js",
-				"package.json"
-			],
-			"coverage_analysis": {
-				"current": {
-					"statements": 68,
-					"branches": 53.91,
-					"lines": 66.54,
-					"functions": 37.11
-				},
-				"target": {
-					"statements": 95,
-					"branches": 95,
-					"lines": 95,
-					"functions": 95
-				}
-			},
-			"created_at": "2025-08-03T03:25:52.599Z"
-		},
-		{
 			"id": "lint-cleanup-1754191552599",
 			"title": "Fix Console Statement Warnings in debug-test.js",
 			"description": "Fix 2 console statement warnings in debug-test.js to achieve 100% lint compliance",
@@ -142,17 +108,206 @@
 				},
 				"overallReady": false
 			}
+		},
+		{
+			"id": "task_1754770967049_m7y0nirac",
+			"title": "Fix Module System Integration Test Failures",
+			"description": "Fix 31 failing integration tests in module-system.integration.test.ts that are preventing coverage goals. Issues include missing module files, undefined license provider methods, and configuration integration problems.",
+			"mode": "TESTING",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"src/__tests__/integration/module-system.integration.test.ts",
+				"src/modules/module-registry.ts",
+				"src/license/license-state.ts"
+			],
+			"success_criteria": [
+				"All module system integration tests pass",
+				"Module loading errors resolved",
+				"License provider integration works correctly",
+				"Configuration integration tests pass"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [
+				{
+					"description": "Fix missing module error for insights module",
+					"status": "pending",
+					"id": "subtask-1754770967050",
+					"title": "Fix missing module error for insights module",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				},
+				{
+					"description": "Fix undefined setLicenseProvider method",
+					"status": "pending",
+					"id": "subtask-1754770967050",
+					"title": "Fix undefined setLicenseProvider method",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				},
+				{
+					"description": "Fix ModuleRegistry eligibleModules property access",
+					"status": "pending",
+					"id": "subtask-1754770967050",
+					"title": "Fix ModuleRegistry eligibleModules property access",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				},
+				{
+					"description": "Fix Container DI configuration for tests",
+					"status": "pending",
+					"id": "subtask-1754770967050",
+					"title": "Fix Container DI configuration for tests",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				}
+			],
+			"created_at": "2025-08-09T20:22:47.049Z"
+		},
+		{
+			"id": "task_1754771003809_swioidq07",
+			"title": "Increase Branch Coverage to 95%",
+			"description": "Current branch coverage is 77.39% and needs to reach 95%. Add test cases for uncovered conditional branches, error paths, and edge cases to achieve complete branch coverage.",
+			"mode": "TESTING",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["src/**/__tests__/*.test.ts", "coverage/lcov-report/index.html"],
+			"success_criteria": [
+				"Branch coverage reaches 95% or higher",
+				"All conditional branches have test coverage",
+				"Error handling paths are tested"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [
+				{
+					"description": "Identify uncovered branches using coverage report",
+					"status": "pending",
+					"id": "subtask-1754771003809",
+					"title": "Identify uncovered branches using coverage report",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				},
+				{
+					"description": "Add tests for error handling branches",
+					"status": "pending",
+					"id": "subtask-1754771003809",
+					"title": "Add tests for error handling branches",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				},
+				{
+					"description": "Add tests for conditional logic branches",
+					"status": "pending",
+					"id": "subtask-1754771003809",
+					"title": "Add tests for conditional logic branches",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				}
+			],
+			"created_at": "2025-08-09T20:23:23.809Z"
+		},
+		{
+			"id": "task_1754771011582_bs8ff1kmn",
+			"title": "Increase Function Coverage to 95%",
+			"description": "Current function coverage is 88.77% and needs to reach 95%. Add tests for uncovered functions, constructor methods, and private methods to achieve complete function coverage.",
+			"mode": "TESTING",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["src/**/__tests__/*.test.ts", "src/**/*.ts"],
+			"success_criteria": [
+				"Function coverage reaches 95% or higher",
+				"All public functions have test coverage",
+				"Constructor and method coverage complete"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [
+				{
+					"description": "Identify untested functions from coverage report",
+					"status": "pending",
+					"id": "subtask-1754771011582",
+					"title": "Identify untested functions from coverage report",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				},
+				{
+					"description": "Add tests for uncovered public methods",
+					"status": "pending",
+					"id": "subtask-1754771011582",
+					"title": "Add tests for uncovered public methods",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				},
+				{
+					"description": "Add tests for constructor methods",
+					"status": "pending",
+					"id": "subtask-1754771011582",
+					"title": "Add tests for constructor methods",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				}
+			],
+			"created_at": "2025-08-09T20:23:31.582Z"
+		},
+		{
+			"id": "task_1754771019078_wb04oy1s0",
+			"title": "Improve Statements and Lines Coverage to 95%",
+			"description": "Current statement coverage is 90% and line coverage is 89.59%, both need to reach 95%. Add tests for uncovered statements and lines to achieve complete coverage.",
+			"mode": "TESTING",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": ["src/**/__tests__/*.test.ts", "coverage/lcov-report/index.html"],
+			"success_criteria": [
+				"Statement coverage reaches 95% or higher",
+				"Line coverage reaches 95% or higher",
+				"All code paths have test coverage"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [
+				{
+					"description": "Identify uncovered statements from coverage report",
+					"status": "pending",
+					"id": "subtask-1754771019078",
+					"title": "Identify uncovered statements from coverage report",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				},
+				{
+					"description": "Add tests for uncovered code lines",
+					"status": "pending",
+					"id": "subtask-1754771019078",
+					"title": "Add tests for uncovered code lines",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				},
+				{
+					"description": "Verify complete statement coverage",
+					"status": "pending",
+					"id": "subtask-1754771019078",
+					"title": "Verify complete statement coverage",
+					"mode": "DEVELOPMENT",
+					"priority": "medium"
+				}
+			],
+			"created_at": "2025-08-09T20:23:39.078Z"
 		}
 	],
 	"__removedLinterTasks": {
 		"removedCount": 0,
 		"finalTaskCount": 0
 	},
-	"execution_count": 3,
-	"last_hook_activation": 1754760355965,
+	"execution_count": 4,
+	"last_hook_activation": 1754770907048,
 	"project": "unnamed-project",
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,
 	"current_task_index": 0,
-	"last_mode": "DEVELOPMENT"
+	"last_mode": "TASK_CREATION"
 }
