@@ -1260,7 +1260,7 @@ export interface INodeExecutionData {
 
 export type NodeParameterValue = string | number | boolean | undefined | null;
 
-export type ResourceLocatorModes = 'id' | 'url' | 'list' | string;
+export type ResourceLocatorModes = string;
 export interface IResourceLocatorResult {
 	name: string;
 	value: string;
@@ -1440,11 +1440,13 @@ type NonEmptyArray<T> = [T, ...T[]];
 export type FilterTypeCombinator = 'and' | 'or';
 
 export type FilterTypeOptions = {
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 	version: 1 | 2 | {}; // required so nodes are pinned on a version
 	caseSensitive?: boolean | string; // default = true
 	leftValue?: string; // when set, user can't edit left side of condition
 	allowedCombinators?: NonEmptyArray<FilterTypeCombinator>; // default = ['and', 'or']
 	maxConditions?: number; // default = 10
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 	typeValidation?: 'strict' | 'loose' | {}; // default = strict, `| {}` is a TypeScript trick to allow custom strings (expressions), but still give autocomplete
 };
 
@@ -1569,6 +1571,7 @@ export interface INodePropertyMode {
 
 export interface INodePropertyModeValidation {
 	type: string;
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 	properties: {};
 }
 
@@ -1658,7 +1661,9 @@ export namespace MultiPartFormData {
 	}
 
 	export type Request = express.Request<
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		{},
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		{},
 		{
 			data: Record<string, string | string[]>;
@@ -2081,16 +2086,16 @@ export interface IWebhookData {
 export type WebhookType = 'default' | 'setup';
 
 export interface IWebhookDescription {
-	[key: string]: IHttpRequestMethods | WebhookResponseMode | boolean | string | undefined;
-	httpMethod: IHttpRequestMethods | string;
+	[key: string]: boolean | string | undefined;
+	httpMethod: string;
 	isFullPath?: boolean;
 	name: WebhookType;
 	path: string;
 	responseBinaryPropertyName?: string;
 	responseContentType?: string;
 	responsePropertyName?: string;
-	responseMode?: WebhookResponseMode | string;
-	responseData?: WebhookResponseData | string;
+	responseMode?: string;
+	responseData?: string;
 	restartWebhook?: boolean;
 	nodeType?: 'webhook' | 'form' | 'mcp';
 	ndvHideUrl?: string | boolean; // If true the webhook will not be displayed in the editor
@@ -2131,7 +2136,7 @@ export interface IWorkflowDataProxyData {
 		incomingSourceData: ISourceData | null,
 		pairedItem: IPairedItemData,
 	) => INodeExecutionData | null;
-	constructor: Function;
+	constructor: (...args: unknown[]) => unknown;
 }
 
 export type IWorkflowDataProxyAdditionalKeys = IDataObject & {
@@ -2570,7 +2575,7 @@ export namespace WorkflowSettings {
 }
 
 export interface IWorkflowSettings {
-	timezone?: 'DEFAULT' | string;
+	timezone?: string;
 	errorWorkflow?: string;
 	callerIds?: string;
 	callerPolicy?: WorkflowSettings.CallerPolicy;
