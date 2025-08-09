@@ -2,27 +2,12 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754750577312_vnnw4krw8",
-      "title": "Fix TypeScript errors in expression-extension.ts",
-      "description": "Fix Type Extension assignment errors in packages/workflow/src/extensions/expression-extension.ts lines 459-475",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "in_progress",
-      "dependencies": [],
-      "important_files": [],
-      "success_criteria": [],
-      "estimate": "",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-09T14:42:57.312Z"
-    },
-    {
       "id": "task_1754750531674_expk18s50",
       "title": "Fix build and dev server issues",
       "description": "Ensure pnpm run build completes successfully and pnpm run dev starts without errors",
       "mode": "DEVELOPMENT",
       "priority": "high",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [],
       "important_files": [],
       "success_criteria": [],
@@ -426,8 +411,8 @@
   "review_strikes": 0,
   "strikes_completed_last_run": false,
   "current_task_index": 0,
-  "last_mode": "TASK_CREATION",
-  "execution_count": 156,
-  "last_hook_activation": 1754750766962,
+  "last_mode": "DEVELOPMENT",
+  "execution_count": 159,
+  "last_hook_activation": 1754751476776,
   "current_mode": "DEVELOPMENT"
 }
