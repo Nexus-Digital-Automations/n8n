@@ -1791,9 +1791,36 @@
       "created_at": "2025-08-09T01:45:07.092Z",
       "completed_at": "2025-08-09T01:50:02.737Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754703907088_3i0dw692g",
+      "title": "Fix failing tests across packages",
+      "description": "Identify and resolve failing unit tests, integration tests, and test setup issues causing test failures. Ensure all test suites run successfully and address any broken test dependencies.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "jest.config.js",
+        "packages/*/jest.config.js",
+        "**/__tests__/**",
+        "**/*.test.ts"
+      ],
+      "success_criteria": [
+        "All test suites pass without failures",
+        "npm run test completes successfully",
+        "Test setup issues resolved",
+        "No broken test dependencies remain"
+      ],
+      "estimate": "3-5 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T01:45:07.088Z",
+      "completed_at": "2025-08-09T02:24:26.041Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 73,
-  "last_completion": "2025-08-09T01:50:02.737Z",
+  "total_completed": 74,
+  "last_completion": "2025-08-09T02:24:26.041Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }

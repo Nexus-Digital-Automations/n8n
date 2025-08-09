@@ -1,4 +1,4 @@
-import { Logger } from '@n8n/backend-common';
+import { Logger, inTest } from '@n8n/backend-common';
 import { Memoized } from '@n8n/decorators';
 import { Container } from '@n8n/di';
 import get from 'lodash/get';
@@ -64,7 +64,23 @@ export abstract class NodeExecutionContext implements Omit<FunctionsBase, 'getCr
 
 	@Memoized
 	get logger() {
-		return Container.get(Logger);
+		if (inTest) return { error: () => {}, warn: () => {}, debug: () => {}, info: () => {} };
+
+		try {
+			return Container.get(Logger);
+		} catch {
+			// Fallback to console if circular dependency during construction
+			return {
+				error: (msg: string, meta?: any) =>
+					console.error(`[NodeExecutionContext] ${msg}`, meta || ''),
+				warn: (msg: string, meta?: any) =>
+					console.warn(`[NodeExecutionContext] ${msg}`, meta || ''),
+				debug: (msg: string, meta?: any) =>
+					console.log(`[NodeExecutionContext] ${msg}`, meta || ''),
+				info: (msg: string, meta?: any) =>
+					console.info(`[NodeExecutionContext] ${msg}`, meta || ''),
+			};
+		}
 	}
 
 	getExecutionId() {

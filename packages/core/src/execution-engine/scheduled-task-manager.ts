@@ -1,7 +1,7 @@
-import { Logger } from '@n8n/backend-common';
+import { Logger, inTest } from '@n8n/backend-common';
 import { CronLoggingConfig } from '@n8n/config';
 import { Time } from '@n8n/constants';
-import { Service } from '@n8n/di';
+import { Service, Container } from '@n8n/di';
 import { CronJob } from 'cron';
 import type { CronContext, Workflow } from 'n8n-workflow';
 
@@ -33,18 +33,36 @@ export class ScheduledTaskManager {
 
 	constructor(
 		private readonly instanceSettings: InstanceSettings,
-		private readonly logger: Logger,
 		{ activeInterval }: CronLoggingConfig,
 		private readonly errorReporter: ErrorReporter,
 	) {
-		this.logger = this.logger.scoped('cron');
-
 		if (activeInterval === 0) return;
 
 		this.logInterval = setInterval(() => {
 			if (Object.keys(this.loggableCrons).length === 0) return;
 			this.logger.debug('Currently active crons', { active: this.loggableCrons });
 		}, activeInterval * Time.minutes.toMilliseconds);
+	}
+
+	/** Safe logger that doesn't cause circular dependency during construction */
+	private get logger() {
+		if (inTest) return { debug: () => {}, warn: () => {}, error: () => {}, info: () => {} };
+
+		try {
+			return Container.get(Logger).scoped('cron');
+		} catch {
+			// Fallback to console if circular dependency during construction
+			return {
+				debug: (msg: string, meta?: any) =>
+					console.log(`[ScheduledTaskManager] ${msg}`, meta || ''),
+				warn: (msg: string, meta?: any) =>
+					console.warn(`[ScheduledTaskManager] ${msg}`, meta || ''),
+				error: (msg: string, meta?: any) =>
+					console.error(`[ScheduledTaskManager] ${msg}`, meta || ''),
+				info: (msg: string, meta?: any) =>
+					console.info(`[ScheduledTaskManager] ${msg}`, meta || ''),
+			};
+		}
 	}
 
 	registerCron(ctx: CronContext, onTick: () => void) {

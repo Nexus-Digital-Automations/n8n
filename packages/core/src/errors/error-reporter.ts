@@ -1,6 +1,6 @@
 import { inTest, Logger } from '@n8n/backend-common';
 import type { InstanceType } from '@n8n/constants';
-import { Service } from '@n8n/di';
+import { Service, Container } from '@n8n/di';
 import type { ReportingOptions } from '@n8n/errors';
 import type { ErrorEvent, EventHint } from '@sentry/core';
 import type { NodeOptions } from '@sentry/node';
@@ -39,9 +39,26 @@ export class ErrorReporter {
 
 	private beforeSendFilter?: (event: ErrorEvent, hint: EventHint) => boolean;
 
-	constructor(private readonly logger: Logger) {
+	constructor() {
 		// eslint-disable-next-line @typescript-eslint/unbound-method
 		this.report = this.defaultReport;
+	}
+
+	/** Safe logger that doesn't cause circular dependency during construction */
+	private get logger() {
+		if (inTest) return { error: () => {}, warn: () => {}, debug: () => {}, info: () => {} };
+
+		try {
+			return Container.get(Logger);
+		} catch {
+			// Fallback to console if circular dependency during construction
+			return {
+				error: (msg: string, meta?: any) => console.error(`[ErrorReporter] ${msg}`, meta || ''),
+				warn: (msg: string, meta?: any) => console.warn(`[ErrorReporter] ${msg}`, meta || ''),
+				debug: (msg: string, meta?: any) => console.log(`[ErrorReporter] ${msg}`, meta || ''),
+				info: (msg: string, meta?: any) => console.info(`[ErrorReporter] ${msg}`, meta || ''),
+			};
+		}
 	}
 
 	private defaultReport(error: Error | string, options?: ReportingOptions) {

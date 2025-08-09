@@ -2,31 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754703907088_3i0dw692g",
-      "title": "Fix failing tests across packages",
-      "description": "Identify and resolve failing unit tests, integration tests, and test setup issues causing test failures. Ensure all test suites run successfully and address any broken test dependencies.",
-      "mode": "TESTING",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "jest.config.js",
-        "packages/*/jest.config.js",
-        "**/__tests__/**",
-        "**/*.test.ts"
-      ],
-      "success_criteria": [
-        "All test suites pass without failures",
-        "npm run test completes successfully",
-        "Test setup issues resolved",
-        "No broken test dependencies remain"
-      ],
-      "estimate": "3-5 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-09T01:45:07.088Z"
-    },
-    {
       "id": "task_1754703907085_x1ngpoqgj",
       "title": "Fix nodes-base package lint errors",
       "description": "Resolve ESLint violations in packages/nodes-base that are causing lint failures. Identify and fix code quality issues, naming convention violations, and other ESLint rule violations.",

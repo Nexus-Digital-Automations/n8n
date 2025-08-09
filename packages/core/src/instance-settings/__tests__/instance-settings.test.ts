@@ -1,4 +1,3 @@
-import type { Logger } from '@n8n/backend-common';
 import { InstanceSettingsConfig } from '@n8n/config';
 import { mock } from 'jest-mock-extended';
 jest.mock('node:fs', () => mock<typeof fs>());
@@ -11,16 +10,12 @@ describe('InstanceSettings', () => {
 	const userFolder = '/test';
 
 	const mockFs = mock(fs);
-	const logger = mock<Logger>();
 
 	const createInstanceSettings = (opts?: Partial<InstanceSettingsConfig>) =>
-		new InstanceSettings(
-			{
-				...new InstanceSettingsConfig(),
-				...opts,
-			},
-			logger,
-		);
+		new InstanceSettings({
+			...new InstanceSettingsConfig(),
+			...opts,
+		});
 
 	beforeEach(() => {
 		jest.resetAllMocks();

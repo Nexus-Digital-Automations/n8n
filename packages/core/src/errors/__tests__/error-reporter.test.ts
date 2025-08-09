@@ -18,7 +18,7 @@ jest.mock('@sentry/node', () => ({
 jest.spyOn(process, 'on');
 
 describe('ErrorReporter', () => {
-	const errorReporter = new ErrorReporter(mock());
+	const errorReporter = new ErrorReporter();
 	const event = {} as ErrorEvent;
 
 	describe('beforeSend', () => {
@@ -105,7 +105,7 @@ describe('ErrorReporter', () => {
 
 		describe('beforeSendFilter', () => {
 			const newErrorReportedWithBeforeSendFilter = (beforeSendFilter: jest.Mock) => {
-				const errorReporter = new ErrorReporter(mock());
+				const errorReporter = new ErrorReporter();
 				// @ts-expect-error - beforeSendFilter is private
 				errorReporter.beforeSendFilter = beforeSendFilter;
 				return errorReporter;
@@ -181,18 +181,20 @@ describe('ErrorReporter', () => {
 		beforeEach(() => {
 			error = new ApplicationError('Test error');
 			logger = mock<Logger>();
-			errorReporter = new ErrorReporter(logger);
+			errorReporter = new ErrorReporter();
 		});
 
 		it('should include stack trace for error-level `ApplicationError`', () => {
 			error.level = 'error';
 			errorReporter.error(error);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(logger.error).toHaveBeenCalledWith(`Test error\n${error.stack}\n`, metadata);
 		});
 
 		it('should exclude stack trace for warning-level `ApplicationError`', () => {
 			error.level = 'warning';
 			errorReporter.error(error);
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(logger.error).toHaveBeenCalledWith('Test error', metadata);
 		});
 
@@ -201,6 +203,7 @@ describe('ErrorReporter', () => {
 			(shouldBeLogged) => {
 				error.level = 'error';
 				errorReporter.error(error, { shouldBeLogged });
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(logger.error).toHaveBeenCalledTimes(1);
 			},
 		);
@@ -208,6 +211,7 @@ describe('ErrorReporter', () => {
 		it('should not log the error when shouldBeLogged is false', () => {
 			error.level = 'error';
 			errorReporter.error(error, { shouldBeLogged: false });
+			// eslint-disable-next-line @typescript-eslint/unbound-method
 			expect(logger.error).toHaveBeenCalledTimes(0);
 		});
 	});

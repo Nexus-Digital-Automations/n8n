@@ -100,7 +100,9 @@ describe('ActiveWorkflows', () => {
 				await addWorkflow({ triggerNodes: [triggerNode] });
 
 				expect(activeWorkflows.isActive(workflowId)).toBe(true);
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(workflow.getTriggerNodes).toHaveBeenCalled();
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				expect(triggersAndPollers.runTrigger).toHaveBeenCalledWith(
 					workflow,
 					triggerNode,

@@ -44,9 +44,17 @@ export class InstanceSettings {
 
 	private settings: Settings;
 
-	/** Lazy getter for logger to avoid circular dependency */
-	private get logger() {
-		return Container.get(Logger);
+	/** Safe logger that doesn't cause circular dependency during construction */
+	private safeLog(level: 'debug' | 'info' | 'warn', message: string) {
+		if (inTest) return;
+
+		try {
+			const logger = Container.get(Logger);
+			logger[level](message);
+		} catch {
+			// Fallback to console if circular dependency during construction
+			console[level === 'debug' ? 'log' : level](`[InstanceSettings] ${message}`);
+		}
 	}
 
 	/**
@@ -190,7 +198,7 @@ export class InstanceSettings {
 				errorMessage: `Error parsing n8n-config file "${this.settingsFile}". It does not seem to be valid JSON.`,
 			});
 
-			if (!inTest) this.logger.debug(`User settings loaded from: ${this.settingsFile}`);
+			this.safeLog('debug', `User settings loaded from: ${this.settingsFile}`);
 
 			const { encryptionKey, tunnelSubdomain } = settings;
 
@@ -208,11 +216,10 @@ export class InstanceSettings {
 				throw new WorkerMissingEncryptionKey();
 			}
 
-			if (!inTest) {
-				this.logger.info(
-					`No encryption key found - Auto-generating and saving to: ${this.settingsFile}`,
-				);
-			}
+			this.safeLog(
+				'info',
+				`No encryption key found - Auto-generating and saving to: ${this.settingsFile}`,
+			);
 		}
 
 		mkdirSync(this.n8nFolder, { recursive: true });
@@ -294,7 +301,8 @@ export class InstanceSettings {
 		});
 		// If we can't determine the permissions, log a warning and skip the check
 		if (!permissionsResult.ok) {
-			this.logger.warn(
+			this.safeLog(
+				'warn',
 				`Could not ensure settings file permissions: ${permissionsResult.error.message}. To skip this check, set N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false.`,
 			);
 			return;
@@ -307,7 +315,8 @@ export class InstanceSettings {
 
 		// If the permissions are incorrect and the flag is not set, log a warning
 		if (!this.enforceSettingsFilePermissions.isSet) {
-			this.logger.warn(
+			this.safeLog(
+				'warn',
 				`Permissions 0${permissionsResult.result.toString(8)} for n8n settings file ${this.settingsFile} are too wide. This is ignored for now, but in the future n8n will attempt to change the permissions automatically. To automatically enforce correct permissions now set N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true (recommended), or turn this check off set N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false.`,
 			);
 			// The default is false so we skip the enforcement for now
@@ -315,7 +324,8 @@ export class InstanceSettings {
 		}
 
 		if (this.enforceSettingsFilePermissions.enforce) {
-			this.logger.warn(
+			this.safeLog(
+				'warn',
 				`Permissions 0${permissionsResult.result.toString(8)} for n8n settings file ${this.settingsFile} are too wide. Changing permissions to 0600..`,
 			);
 			const chmodResult = toResult(() => chmodSync(this.settingsFile, 0o600));
@@ -323,7 +333,8 @@ export class InstanceSettings {
 				// Some filesystems don't support permissions. In this case we log the
 				// error and ignore it. We might want to prevent the app startup in the
 				// future in this case.
-				this.logger.warn(
+				this.safeLog(
+					'warn',
 					`Could not enforce settings file permissions: ${chmodResult.error.message}. To skip this check, set N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false.`,
 				);
 			}

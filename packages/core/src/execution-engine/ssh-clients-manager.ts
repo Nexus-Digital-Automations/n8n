@@ -1,6 +1,6 @@
-import { Logger } from '@n8n/backend-common';
+import { Logger, inTest } from '@n8n/backend-common';
 import { Config, Env } from '@n8n/config';
-import { Service } from '@n8n/di';
+import { Service, Container } from '@n8n/di';
 import type { SSHCredentials } from 'n8n-workflow';
 import { createHash } from 'node:crypto';
 import { Client, type ConnectConfig } from 'ssh2';
@@ -58,17 +58,28 @@ export class SSHClientsManager {
 
 	private cleanupTimer: NodeJS.Timeout;
 
-	constructor(
-		private readonly config: SSHClientsConfig,
-		private readonly logger: Logger,
-	) {
+	constructor(private readonly config: SSHClientsConfig) {
 		// Close all SSH connections when the process exits
 		process.on('exit', () => this.onShutdown());
 
 		// Regularly close stale SSH connections
 		this.cleanupTimer = setInterval(() => this.cleanupStaleConnections(), 60 * 1000);
+	}
 
-		this.logger = logger.scoped('ssh-client');
+	/** Safe logger that doesn't cause circular dependency during construction */
+	private get logger() {
+		if (inTest) return { warn: () => {}, debug: () => {}, error: () => {} };
+
+		try {
+			return Container.get(Logger).scoped('ssh-client');
+		} catch {
+			// Fallback to console if circular dependency during construction
+			return {
+				warn: (msg: string, meta?: any) => console.warn(`[SSHClientsManager] ${msg}`, meta || ''),
+				debug: (msg: string, meta?: any) => console.log(`[SSHClientsManager] ${msg}`, meta || ''),
+				error: (msg: string, meta?: any) => console.error(`[SSHClientsManager] ${msg}`, meta || ''),
+			};
+		}
 	}
 
 	updateLastUsed(client: Client) {

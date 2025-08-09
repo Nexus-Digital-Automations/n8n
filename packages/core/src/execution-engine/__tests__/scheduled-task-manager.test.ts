@@ -1,12 +1,9 @@
-import type { Logger } from '@n8n/backend-common';
 import { mock } from 'jest-mock-extended';
 import type { CronContext, Workflow } from 'n8n-workflow';
 
 import type { InstanceSettings } from '@/instance-settings';
 
 import { ScheduledTaskManager } from '../scheduled-task-manager';
-
-const logger = mock<Logger>({ scoped: jest.fn().mockReturnValue(mock<Logger>()) });
 
 describe('ScheduledTaskManager', () => {
 	const instanceSettings = mock<InstanceSettings>({ isLeader: true });
@@ -20,7 +17,7 @@ describe('ScheduledTaskManager', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		jest.useFakeTimers();
-		scheduledTaskManager = new ScheduledTaskManager(instanceSettings, logger, mock(), mock());
+		scheduledTaskManager = new ScheduledTaskManager(instanceSettings, mock(), mock());
 	});
 
 	it('should not register duplicate crons', () => {
@@ -78,7 +75,6 @@ describe('ScheduledTaskManager', () => {
 	it('should not invoke on follower instances', () => {
 		scheduledTaskManager = new ScheduledTaskManager(
 			mock<InstanceSettings>({ isLeader: false }),
-			logger,
 			mock(),
 			mock(),
 		);
@@ -134,12 +130,7 @@ describe('ScheduledTaskManager', () => {
 
 	it('should not set up log interval when activeInterval is 0', () => {
 		const configWithZeroInterval = mock({ activeInterval: 0 });
-		const manager = new ScheduledTaskManager(
-			instanceSettings,
-			logger,
-			configWithZeroInterval,
-			mock(),
-		);
+		const manager = new ScheduledTaskManager(instanceSettings, configWithZeroInterval, mock());
 
 		// @ts-expect-error Private property
 		expect(manager.logInterval).toBeUndefined();
