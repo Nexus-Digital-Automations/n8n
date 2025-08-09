@@ -50,9 +50,11 @@ export abstract class BaseError extends Error {
 
 		try {
 			const filePath = callsites()[2].getFileName() ?? '';
-			const match = /packages\/([^\/]+)\//.exec(filePath)?.[1];
+			const match = /packages\/([^/]+)\//.exec(filePath)?.[1];
 
 			if (match) this.tags.packageName = match;
-		} catch {}
+		} catch {
+			// Silently ignore callsite extraction errors
+		}
 	}
 }

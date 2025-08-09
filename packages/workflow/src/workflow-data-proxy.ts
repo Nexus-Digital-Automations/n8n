@@ -206,7 +206,7 @@ export class WorkflowDataProxy {
 
 		const aiDefinedFields = Object.entries(node.parameters)
 			.map(([key, value]) => [key, isResourceLocatorValue(value) ? value.value : value] as const)
-			.filter(([_, value]) => value?.toString().toLowerCase().includes('$fromai'))
+			.filter(([_, value]) => typeof value === 'string' && value.toLowerCase().includes('$fromai'))
 			.map(
 				([key]) =>
 					nodeType.description.properties.find((property) => property.name === key)?.displayName,
@@ -285,14 +285,14 @@ export class WorkflowDataProxy {
 				let returnValue: NodeParameterValueType;
 				if (name[0] === '&') {
 					const key = name.slice(1);
-					if (!that.siblingParameters.hasOwnProperty(key)) {
+					if (!Object.prototype.hasOwnProperty.call(that.siblingParameters, key)) {
 						throw new ApplicationError('Could not find sibling parameter on node', {
 							extra: { nodeName, parameter: key },
 						});
 					}
 					returnValue = that.siblingParameters[key];
 				} else {
-					if (!node.parameters.hasOwnProperty(name)) {
+					if (!Object.prototype.hasOwnProperty.call(node.parameters, name)) {
 						// Parameter does not exist on node
 						return undefined;
 					}
@@ -406,7 +406,7 @@ export class WorkflowDataProxy {
 			}
 
 			if (
-				!that.runExecutionData.resultData.runData.hasOwnProperty(nodeName) &&
+				!Object.prototype.hasOwnProperty.call(that.runExecutionData.resultData.runData, nodeName) &&
 				!getPinDataIfManualExecution(that.workflow, nodeName, that.mode)
 			) {
 				throw new ExpressionError(EXPRESSION_ERROR_MESSAGES.nodeNotFound, {
@@ -1076,7 +1076,10 @@ export class WorkflowDataProxy {
 
 				const ensureNodeExecutionData = () => {
 					if (
-						!that?.runExecutionData?.resultData?.runData.hasOwnProperty(nodeName) &&
+						!Object.prototype.hasOwnProperty.call(
+							that?.runExecutionData?.resultData?.runData || {},
+							nodeName,
+						) &&
 						!getPinDataIfManualExecution(that.workflow, nodeName, that.mode)
 					) {
 						// Always show helpful "Execute node for preview" message
@@ -1133,7 +1136,10 @@ export class WorkflowDataProxy {
 
 							if (property === 'isExecuted') {
 								return (
-									that?.runExecutionData?.resultData?.runData.hasOwnProperty(nodeName) ?? false
+									Object.prototype.hasOwnProperty.call(
+										that?.runExecutionData?.resultData?.runData || {},
+										nodeName,
+									) ?? false
 								);
 							}
 
@@ -1198,7 +1204,7 @@ export class WorkflowDataProxy {
 												message: 'Can’t get data',
 											},
 											description: `Some intermediate nodes between ‘<strong>${nodeName}</strong>‘ and  ‘<strong>${that.activeNodeName}</strong>‘ have not executed yet.`,
-											causeDetailed: `pairedItem can\'t be found when intermediate nodes between ‘<strong>${nodeName}</strong>‘ and  ‘<strong>${that.activeNodeName}</strong> have not executed yet.`,
+											causeDetailed: `pairedItem can't be found when intermediate nodes between '<strong>${nodeName}</strong>' and  '<strong>${that.activeNodeName}</strong> have not executed yet.`,
 											itemIndex,
 											type: 'paired_item_intermediate_nodes',
 										});

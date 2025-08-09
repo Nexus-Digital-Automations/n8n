@@ -59,6 +59,7 @@ export function create(
 					typeof value === 'object' &&
 					Object.keys(value).length === 0
 				) {
+					// Do nothing for empty objects
 				} else {
 					(target as IObservableObject).__dataChanged = true;
 				}

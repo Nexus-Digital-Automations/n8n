@@ -32,9 +32,9 @@ type ParameterMapping<T> = undefined | T[] | { [key: PropertyKey]: ParameterMapp
 
 type ParameterExtractMapping = ParameterMapping<ExpressionMapping>;
 
-const DOT_REFERENCEABLE_JS_VARIABLE = /\w[\w\d_\$]*/;
-const INVALID_JS_DOT_PATH = /[^\.\w\d_\$]/;
-const INVALID_JS_DOT_NAME = /[^\w\d_\$]/;
+const DOT_REFERENCEABLE_JS_VARIABLE = /\w[\w\d_$]*/;
+const INVALID_JS_DOT_PATH = /[^.\w\d_$]/;
+const INVALID_JS_DOT_NAME = /[^\w\d_$]/;
 
 // These are the keys that are followed by one of DATA_ACCESSORS
 const ITEM_TO_DATA_ACCESSORS = [

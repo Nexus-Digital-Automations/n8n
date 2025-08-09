@@ -83,7 +83,7 @@ const DOMAIN_REGEXP =
   ))/;
 */
 const EMAIL_REGEXP =
-	/(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(?<domain>(\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+	/(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(?<domain>(\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
 
 /*
 	Matches URLs with strict beginning and end of the string checks
@@ -128,7 +128,7 @@ function hash(value: string, extraArgs: string[]): string {
 		case 'sha256':
 		case 'sha384':
 		case 'sha512':
-		case 'sha3':
+		case 'sha3': {
 			const variant = (
 				{
 					sha1: 'SHA-1',
@@ -140,6 +140,7 @@ function hash(value: string, extraArgs: string[]): string {
 				} as const
 			)[algorithm];
 			return new SHA(variant, 'TEXT').update(value).getHash('HEX');
+		}
 		default:
 			throw new ExpressionExtensionError(
 				`Unknown algorithm ${algorithm}. Available algorithms are: ${SUPPORTED_HASH_ALGORITHMS.join()}, and Base64.`,
@@ -361,8 +362,8 @@ function toSentenceCase(value: string) {
 function toSnakeCase(value: string) {
 	return value
 		.toLocaleLowerCase()
-		.replace(/[ \-]/g, '_')
-		.replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,.\/:;<=>?@\[\]^`{|}~]/g, '');
+		.replace(/[ -]/g, '_')
+		.replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '');
 }
 
 function extractEmail(value: string) {

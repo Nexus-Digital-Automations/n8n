@@ -259,9 +259,7 @@ export const extendTransform = (expression: string): { code: string } | undefine
 
 						// If we have no top patch (first run, or just pushed onto the stack) we
 						// note it here.
-						if (!patchTop) {
-							patchTop = patchNode;
-						}
+						patchTop ??= patchNode;
 
 						currentPatch = patchNode;
 
@@ -317,9 +315,7 @@ export const extendTransform = (expression: string): { code: string } | undefine
 						// which is probably an identifier for an object.
 						if (currentPatch) {
 							updatePatch(currentPatch, currentNode);
-							if (!patchTop) {
-								patchTop = currentPatch;
-							}
+							patchTop ??= currentPatch;
 						}
 
 						if (wrapNextTopInOptionalExtend) {
@@ -411,10 +407,7 @@ export const extendTransform = (expression: string): { code: string } | undefine
 
 					const test = path.node.arguments[0];
 					const consequent = path.node.arguments[1];
-					const alternative =
-						path.node.arguments[2] === undefined
-							? types.builders.booleanLiteral(false)
-							: path.node.arguments[2];
+					const alternative = path.node.arguments[2] ?? types.builders.booleanLiteral(false);
 
 					path.replace(
 						types.builders.conditionalExpression(

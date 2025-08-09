@@ -230,7 +230,7 @@ export class NodeApiError extends NodeError {
 
 			if (data.message) {
 				description = data.message as string;
-			} else if (data.error && ((data.error as IDataObject) || {}).message) {
+			} else if (data.error?.message) {
 				description = (data.error as IDataObject).message as string;
 			}
 
@@ -303,7 +303,7 @@ export class NodeApiError extends NodeError {
 	 */
 	private setDefaultStatusCodeMessage() {
 		// Set generic error message for 502 Bad Gateway
-		if (!this.httpCode && this.message && this.message.toLowerCase().includes('bad gateway')) {
+		if (!this.httpCode && this.message?.toLowerCase().includes('bad gateway')) {
 			this.httpCode = '502';
 		}
 

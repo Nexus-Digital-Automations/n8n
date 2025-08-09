@@ -1203,7 +1203,12 @@ const validateParameter = (
 	const nodeName = nodeProperties.name;
 	const options = type === 'options' ? nodeProperties.options : undefined;
 
-	if (!value?.toString().startsWith('=')) {
+	if (
+		value != null &&
+		(typeof value === 'string'
+			? !value.startsWith('=')
+			: typeof value === 'number' || typeof value === 'boolean')
+	) {
 		const validationResult = validateFieldType(nodeName, value, type, {
 			valueOptions: options as INodePropertyOptions[],
 		});
@@ -1725,7 +1730,9 @@ export const getUpdatedToolDescription = (
 
 		if (
 			newParameters.toolDescription === previousDescription ||
-			!newParameters.toolDescription?.toString().trim() ||
+			!newParameters.toolDescription ||
+			(typeof newParameters.toolDescription === 'string' &&
+				!newParameters.toolDescription.trim()) ||
 			newParameters.toolDescription === currentNodeType.description
 		) {
 			return newDescription;
@@ -1742,7 +1749,8 @@ export function getToolDescriptionForNode(node: INode, nodeType: INodeType): str
 	let toolDescription;
 	if (
 		node.parameters.descriptionType === 'auto' ||
-		!node?.parameters.toolDescription?.toString().trim()
+		!node?.parameters.toolDescription ||
+		(typeof node.parameters.toolDescription === 'string' && !node.parameters.toolDescription.trim())
 	) {
 		toolDescription = makeDescription(node.parameters, nodeType.description);
 	} else if (node?.parameters.toolDescription) {

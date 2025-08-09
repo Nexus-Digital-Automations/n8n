@@ -31,7 +31,10 @@ export const tryToParseString = (value: unknown): string => {
 		return value.toString();
 	}
 
-	return String(value);
+	if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+		return String(value);
+	}
+	throw new TypeError('Value cannot be converted to string');
 };
 export const tryToParseAlphanumericString = (value: unknown): string => {
 	const parsed = tryToParseString(value);
@@ -110,7 +113,7 @@ export const tryToParseDateTime = (value: unknown, defaultZone?: string): DateTi
 };
 
 export const tryToParseTime = (value: unknown): string => {
-	const isTimeInput = /^\d{2}:\d{2}(:\d{2})?((\-|\+)\d{4})?((\-|\+)\d{1,2}(:\d{2})?)?$/s.test(
+	const isTimeInput = /^\d{2}:\d{2}(:\d{2})?(([+-])\d{4})?(([+-])\d{1,2}(:\d{2})?)?$/s.test(
 		String(value),
 	);
 	if (!isTimeInput) {
@@ -279,9 +282,15 @@ export const tryToParseJwt = (value: unknown): string => {
 
 	const jwtPattern = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/;
 
-	if (!jwtPattern.test(String(value))) throw error;
+	const stringValue =
+		typeof value === 'string'
+			? value
+			: typeof value === 'number' || typeof value === 'boolean'
+				? String(value)
+				: '';
+	if (!stringValue || !jwtPattern.test(stringValue)) throw error;
 
-	return String(value);
+	return stringValue;
 };
 
 type ValidateFieldTypeOptions = Partial<{

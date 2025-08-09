@@ -61,7 +61,9 @@ const countPlaceholders = (text: string) => {
 	try {
 		const matches = text.matchAll(placeholder);
 		for (const _ of matches) returnData++;
-	} catch (error) {}
+	} catch (error) {
+		// Ignore errors when matching placeholders
+	}
 
 	return returnData;
 };
@@ -75,7 +77,11 @@ const countPlaceholdersInParameters = (parameters: IDataObject[]) => {
 			returnData++;
 		} else {
 			//check if any placeholders in user provided value
-			returnData += countPlaceholders(String(parameter.value));
+			if (typeof parameter.value === 'string') {
+				returnData += countPlaceholders(parameter.value);
+			} else if (typeof parameter.value === 'number' || typeof parameter.value === 'boolean') {
+				returnData += countPlaceholders(String(parameter.value));
+			}
 		}
 	}
 
@@ -300,7 +306,7 @@ export function generateNodesGraph(
 			nodeItem.domain_path = getDomainPath(url);
 			nodeItem.method = node.parameters.requestMethod as string;
 		} else if (HTTP_REQUEST_TOOL_LANGCHAIN_NODE_TYPE === node.type) {
-			if (!nodeItem.toolSettings) nodeItem.toolSettings = {};
+			nodeItem.toolSettings ??= {};
 
 			nodeItem.toolSettings.url_type = 'other';
 			nodeItem.toolSettings.uses_auth = false;
@@ -443,8 +449,17 @@ export function generateNodesGraph(
 							'mode',
 						];
 						keys.forEach((key) => {
-							if (nodeParameters.hasOwnProperty(key)) {
-								nodeItem[key] = nodeParameters[key]?.toString();
+							if (Object.prototype.hasOwnProperty.call(nodeParameters, key)) {
+								const value = nodeParameters[key];
+								if (
+									typeof value === 'string' ||
+									typeof value === 'number' ||
+									typeof value === 'boolean'
+								) {
+									nodeItem[key] = String(value);
+								} else {
+									nodeItem[key] = '';
+								}
 							}
 						});
 					}
@@ -459,7 +474,7 @@ export function generateNodesGraph(
 		if (options?.isCloudDeployment === true) {
 			if (node.type === OPENAI_LANGCHAIN_NODE_TYPE) {
 				nodeItem.prompts =
-					(((node.parameters?.messages as IDataObject) ?? {}).values as IDataObject[]) ?? [];
+					((node.parameters?.messages as IDataObject)?.values as IDataObject[]) ?? [];
 			}
 
 			if (node.type === AGENT_LANGCHAIN_NODE_TYPE || node.type === AGENT_TOOL_LANGCHAIN_NODE_TYPE) {
@@ -495,10 +510,9 @@ export function generateNodesGraph(
 			}
 
 			if (node.type === CHAIN_SUMMARIZATION_LANGCHAIN_NODE_TYPE) {
-				nodeItem.prompts = (
-					(((node.parameters?.options as IDataObject) ?? {})
-						.summarizationMethodAndPrompts as IDataObject) ?? {}
-				).values as IDataObject;
+				nodeItem.prompts =
+					(((node.parameters?.options as IDataObject)?.summarizationMethodAndPrompts as IDataObject)
+						?.values as IDataObject) ?? {};
 			}
 
 			if (LANGCHAIN_CUSTOM_TOOLS.includes(node.type)) {
@@ -509,7 +523,7 @@ export function generateNodesGraph(
 
 			if (node.type === CHAIN_LLM_LANGCHAIN_NODE_TYPE) {
 				nodeItem.prompts =
-					(((node.parameters?.messages as IDataObject) ?? {}).messageValues as IDataObject[]) ?? [];
+					((node.parameters?.messages as IDataObject)?.messageValues as IDataObject[]) ?? [];
 			}
 
 			if (node.type === MERGE_NODE_TYPE && node.parameters?.operation === 'combineBySql') {
@@ -596,7 +610,10 @@ export type FromAICount = {
 	fromAIExpressionCount: number;
 };
 
-export function resolveAIMetrics(nodes: INode[], nodeTypes: INodeTypes): FromAICount | {} {
+export function resolveAIMetrics(
+	nodes: INode[],
+	nodeTypes: INodeTypes,
+): FromAICount | Record<string, never> {
 	const resolvedNodes = nodes
 		.map((x) => [x, nodeTypes.getByNameAndVersion(x.type, x.typeVersion)] as const)
 		.filter((x) => !!x[1]?.description);
@@ -655,7 +672,7 @@ export function resolveVectorStoreMetrics(
 	nodes: INode[],
 	nodeTypes: INodeTypes,
 	run: IRun,
-): VectorStoreMetrics | {} {
+): VectorStoreMetrics | Record<string, never> {
 	const resolvedNodes = nodes
 		.map((x) => [x, nodeTypes.getByNameAndVersion(x.type, x.typeVersion)] as const)
 		.filter((x) => !!x[1]?.description);
