@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/naming-convention */
 import type { PathLike } from 'fs';
 import type { IncomingHttpHeaders } from 'http';
 import type { Readable } from 'stream';

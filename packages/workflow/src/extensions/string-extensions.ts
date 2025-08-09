@@ -10,7 +10,7 @@ import { tryToParseDateTime } from '../type-validation';
 import type { Extension, ExtensionMap } from './extensions';
 import { toDateTime as numberToDateTime } from './number-extensions';
 
-export const SupportedHashAlgorithms = [
+export const SUPPORTED_HASH_ALGORITHMS = [
 	'md5',
 	'sha1',
 	'sha224',
@@ -142,7 +142,7 @@ function hash(value: string, extraArgs: string[]): string {
 			return new SHA(variant, 'TEXT').update(value).getHash('HEX');
 		default:
 			throw new ExpressionExtensionError(
-				`Unknown algorithm ${algorithm}. Available algorithms are: ${SupportedHashAlgorithms.join()}, and Base64.`,
+				`Unknown algorithm ${algorithm}. Available algorithms are: ${SUPPORTED_HASH_ALGORITHMS.join()}, and Base64.`,
 			);
 	}
 }

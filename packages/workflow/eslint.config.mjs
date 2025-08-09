@@ -1,16 +1,17 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import { globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import unicornPlugin from 'eslint-plugin-unicorn';
 import importPlugin from 'eslint-plugin-import-x';
 
 export default tseslint.config(
-	globalIgnores([
-		'node_modules/**',
-		'dist/**',
-		'eslint.config.mjs',
-	]),
+	{
+		ignores: [
+			'node_modules/**',
+			'dist/**',
+			'eslint.config.mjs',
+		],
+	},
 	eslint.configs.recommended,
 	...tseslint.configs.recommended,
 	importPlugin.flatConfigs.recommended,

@@ -29,21 +29,32 @@ export interface ExpressionErrorOptions {
  * Class for instantiating an expression error
  */
 // Expression error constants
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EXPRESSION_ERROR_MESSAGES = {
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	NODE_NOT_FOUND: 'Error finding the referenced node',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	NODE_REFERENCE_TEMPLATE:
 		'Make sure the node you referenced is spelled correctly and is a parent of this node',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	NO_EXECUTION_DATA: 'No execution data available',
 } as const;
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EXPRESSION_ERROR_TYPES = {
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	PAIRED_ITEM_NO_CONNECTION: 'paired_item_no_connection',
 } as const;
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EXPRESSION_DESCRIPTION_KEYS = {
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	NODE_NOT_FOUND: 'nodeNotFound',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	NO_NODE_EXECUTION_DATA: 'noNodeExecutionData',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	PAIRED_ITEM_NO_CONNECTION: 'pairedItemNoConnection',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	PAIRED_ITEM_NO_CONNECTION_CODE_NODE: 'pairedItemNoConnectionCodeNode',
 } as const;
 

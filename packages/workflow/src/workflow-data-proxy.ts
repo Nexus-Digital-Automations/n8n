@@ -47,10 +47,15 @@ const isScriptingNode = (nodeName: string, workflow: Workflow) => {
 	return node && SCRIPTING_NODE_TYPES.includes(node.type);
 };
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const PAIRED_ITEM_METHOD = {
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	PAIRED_ITEM: 'pairedItem',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ITEM_MATCHING: 'itemMatching',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ITEM: 'item',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	$GET_PAIRED_ITEM: '$getPairedItem',
 } as const;
 
@@ -1477,10 +1482,13 @@ export class WorkflowDataProxy {
 			$today: DateTime.now().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }),
 			$jmesPath: jmespathWrapper,
 
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			DateTime,
 
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			Interval,
 
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			Duration,
 			...that.additionalKeys,
 			$getPairedItem: getPairedItem,

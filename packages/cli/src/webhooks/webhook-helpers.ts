@@ -537,7 +537,9 @@ export async function executeWebhook(
 				// Data to respond with is given
 				if (!didSendResponse) {
 					responseCallback(null, {
-						data: webhookResultData.webhookResponse,
+						data:
+							(webhookResultData.webhookResponse as IDataObject | IDataObject[] | undefined) ||
+							undefined,
 						responseCode,
 					});
 					didSendResponse = true;

@@ -93,21 +93,35 @@ const POSSIBLE_ERROR_STATUS_KEYS = [
  * Descriptive messages for common HTTP status codes
  * this is used by NodeApiError class
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const STATUS_CODE_MESSAGES: IStatusCodeMessages = {
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'4XX': 'Your request is invalid or could not be processed by the service',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'400': 'Bad request - please check your parameters',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'401': 'Authorization failed - please check your credentials',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'402': 'Payment required - perhaps check your payment details?',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'403': 'Forbidden - perhaps check your credentials?',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'404': 'The resource you are requesting could not be found',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'405': 'Method not allowed - please check you are using the right HTTP method',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'429': 'The service is receiving too many requests from you',
 
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'5XX': 'The service failed to process your request',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'500': 'The service was not able to process your request',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'502': 'Bad gateway - the service failed to handle your request',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'503':
 		'Service unavailable - try again later or consider setting this node to retry automatically (in the node settings)',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	'504': 'Gateway timed out - perhaps try again later?',
 };
 

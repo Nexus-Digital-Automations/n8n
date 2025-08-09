@@ -720,7 +720,8 @@ export function getNodeParameters(
 					nodeParameters[nodeProperties.name] =
 						nodeValues[nodeProperties.name] !== undefined
 							? nodeValues[nodeProperties.name]
-							: { __rl: true, ...nodeProperties.default };
+							: // eslint-disable-next-line @typescript-eslint/naming-convention
+								{ __rl: true, ...nodeProperties.default };
 				} else {
 					nodeParameters[nodeProperties.name] =
 						nodeValues[nodeProperties.name] ?? nodeProperties.default;

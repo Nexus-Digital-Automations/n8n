@@ -6,7 +6,7 @@ import { isSafeObjectProperty } from './utils';
 export const sanitizerName = '__sanitize';
 const sanitizerIdentifier = b.identifier(sanitizerName);
 
-export const PrototypeSanitizer: ASTAfterHook = (ast, dataNode) => {
+export const prototypeSanitizer: ASTAfterHook = (ast, dataNode) => {
 	astVisit(ast, {
 		visitMemberExpression(path) {
 			this.traverse(path);

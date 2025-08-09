@@ -1,4 +1,4 @@
-export const ExecutionStatusList = [
+export const EXECUTION_STATUS_LIST = [
 	'canceled',
 	'crashed',
 	'error',
@@ -9,4 +9,4 @@ export const ExecutionStatusList = [
 	'waiting',
 ] as const;
 
-export type ExecutionStatus = (typeof ExecutionStatusList)[number];
+export type ExecutionStatus = (typeof EXECUTION_STATUS_LIST)[number];

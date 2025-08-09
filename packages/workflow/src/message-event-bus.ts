@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import type { DateTime } from 'luxon';
 
 import type { INodeCredentials } from './interfaces';

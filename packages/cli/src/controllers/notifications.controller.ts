@@ -16,6 +16,7 @@ import { Service } from '@n8n/di';
 import { Get, Post, Put, Delete, RestController, GlobalScope } from '@n8n/decorators';
 import { NotificationService, type NotificationContext } from '@/services/notification.service';
 import { BaseNotificationChannel } from '@/services/notification-channels';
+import { UrlService } from '@/services/url.service';
 
 interface NotificationSettingsRequest {
 	enabled: boolean;
@@ -30,6 +31,25 @@ interface NotificationTestRequest {
 	channel: string;
 	config: Record<string, unknown>;
 	workflowId?: string;
+}
+
+interface WorkflowParams {
+	workflowId: string;
+}
+
+interface NotificationHistoryQuery {
+	workflowId?: string;
+	limit?: string;
+	offset?: string;
+}
+
+interface StatsQuery {
+	workflowId?: string;
+	timeRange?: string;
+}
+
+interface RetryParams {
+	notificationId: string;
 }
 
 /**
@@ -51,6 +71,7 @@ export class NotificationsController {
 		private readonly notificationSettingsRepository: NotificationSettingsRepository,
 		private readonly notificationHistoryRepository: NotificationHistoryRepository,
 		private readonly workflowRepository: WorkflowRepository,
+		private readonly urlService: UrlService,
 	) {}
 
 	/**
@@ -58,9 +79,9 @@ export class NotificationsController {
 	 * GET /api/v1/notifications/workflows/:workflowId
 	 */
 	@Get('/workflows/:workflowId')
-	@GlobalScope(['workflow:read'])
+	@GlobalScope('workflow:read')
 	async getWorkflowNotificationSettings(
-		req: AuthenticatedRequest,
+		req: AuthenticatedRequest<WorkflowParams>,
 		res: Response,
 	): Promise<Response> {
 		try {
@@ -126,9 +147,9 @@ export class NotificationsController {
 	 * PUT /api/v1/notifications/workflows/:workflowId
 	 */
 	@Put('/workflows/:workflowId')
-	@GlobalScope(['workflow:update'])
+	@GlobalScope('workflow:update')
 	async updateWorkflowNotificationSettings(
-		req: AuthenticatedRequest,
+		req: AuthenticatedRequest<WorkflowParams, {}, NotificationSettingsRequest>,
 		res: Response,
 	): Promise<Response> {
 		try {
@@ -242,9 +263,9 @@ export class NotificationsController {
 	 * DELETE /api/v1/notifications/workflows/:workflowId
 	 */
 	@Delete('/workflows/:workflowId')
-	@GlobalScope(['workflow:update'])
+	@GlobalScope('workflow:update')
 	async deleteWorkflowNotificationSettings(
-		req: AuthenticatedRequest,
+		req: AuthenticatedRequest<WorkflowParams>,
 		res: Response,
 	): Promise<Response> {
 		try {
@@ -295,8 +316,11 @@ export class NotificationsController {
 	 * POST /api/v1/notifications/test
 	 */
 	@Post('/test')
-	@GlobalScope(['workflow:update'])
-	async testNotificationChannel(req: AuthenticatedRequest, res: Response): Promise<Response> {
+	@GlobalScope('workflow:update')
+	async testNotificationChannel(
+		req: AuthenticatedRequest<{}, {}, NotificationTestRequest>,
+		res: Response,
+	): Promise<Response> {
 		try {
 			const testData: NotificationTestRequest = req.body;
 			const userId = req.user?.id;
@@ -341,7 +365,7 @@ export class NotificationsController {
 				context: {
 					errorMessage: testContext.errorMessage,
 					failedNode: testContext.failedNode,
-					instanceUrl: this.notificationConfig.instanceUrl,
+					instanceUrl: this.urlService.getInstanceBaseUrl(),
 				},
 			};
 
@@ -384,8 +408,11 @@ export class NotificationsController {
 	 * GET /api/v1/notifications/history
 	 */
 	@Get('/history')
-	@GlobalScope(['workflow:read'])
-	async getNotificationHistory(req: AuthenticatedRequest, res: Response): Promise<Response> {
+	@GlobalScope('workflow:read')
+	async getNotificationHistory(
+		req: AuthenticatedRequest<{}, {}, {}, NotificationHistoryQuery>,
+		res: Response,
+	): Promise<Response> {
 		try {
 			const { workflowId, limit = '50', offset = '0' } = req.query;
 			const userId = req.user?.id;
@@ -442,8 +469,11 @@ export class NotificationsController {
 	 * GET /api/v1/notifications/stats
 	 */
 	@Get('/stats')
-	@GlobalScope(['workflow:read'])
-	async getNotificationStats(req: AuthenticatedRequest, res: Response): Promise<Response> {
+	@GlobalScope('workflow:read')
+	async getNotificationStats(
+		req: AuthenticatedRequest<{}, {}, {}, StatsQuery>,
+		res: Response,
+	): Promise<Response> {
 		try {
 			const { workflowId, timeRange = '24h' } = req.query;
 			const userId = req.user?.id;
@@ -478,8 +508,11 @@ export class NotificationsController {
 	 * POST /api/v1/notifications/:notificationId/retry
 	 */
 	@Post('/:notificationId/retry')
-	@GlobalScope(['workflow:update'])
-	async retryFailedNotification(req: AuthenticatedRequest, res: Response): Promise<Response> {
+	@GlobalScope('workflow:update')
+	async retryFailedNotification(
+		req: AuthenticatedRequest<RetryParams>,
+		res: Response,
+	): Promise<Response> {
 		try {
 			const { notificationId } = req.params;
 			const userId = req.user?.id;

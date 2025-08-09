@@ -7,26 +7,42 @@ import { ExecutionBaseError } from './execution-base.error';
  */
 const COMMON_ERRORS: IDataObject = {
 	// nodeJS errors
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ECONNREFUSED: 'The service refused the connection - perhaps it is offline',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ECONNRESET:
 		'The connection to the server was closed unexpectedly, perhaps it is offline. You can retry the request immediately or wait and retry later.',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ENOTFOUND:
 		'The connection cannot be established, this usually occurs due to an incorrect host (domain) value',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ETIMEDOUT:
 		"The connection timed out, consider setting the 'Retry on Fail' option in the node settings",
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ERRADDRINUSE:
 		'The port is already occupied by some other application, if possible change the port or kill the application that is using it',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	EADDRNOTAVAIL: 'The address is not available, ensure that you have the right IP address',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ECONNABORTED: 'The connection was aborted, perhaps the server is offline',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	EHOSTUNREACH: 'The host is unreachable, perhaps the server is offline',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	EAI_AGAIN: 'The DNS server returned an error, perhaps the server is offline',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ENOENT: 'The file or directory does not exist',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	EISDIR: 'The file path was expected but the given path is a directory',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	ENOTDIR: 'The directory path was expected but the given path is a file',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	EACCES: 'Forbidden by access permissions, make sure you have the right permissions',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	EEXIST: 'The file or directory already exists',
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	EPERM: 'Operation not permitted, make sure you have the right permissions',
 	// other errors
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	GETADDRINFO: 'The server closed the connection unexpectedly',
 };
 
