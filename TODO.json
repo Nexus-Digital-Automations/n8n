@@ -2,6 +2,51 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
+      "id": "task_1754750582339_1snm0xn9e",
+      "title": "Fix TypeScript errors in workflow-data-proxy.ts",
+      "description": "Fix IWorkflowDataProxyData type compatibility error in packages/workflow/src/workflow-data-proxy.ts line 1499",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T14:43:02.339Z"
+    },
+    {
+      "id": "task_1754750577312_vnnw4krw8",
+      "title": "Fix TypeScript errors in expression-extension.ts",
+      "description": "Fix Type Extension assignment errors in packages/workflow/src/extensions/expression-extension.ts lines 459-475",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T14:42:57.312Z"
+    },
+    {
+      "id": "task_1754750531674_expk18s50",
+      "title": "Fix build and dev server issues",
+      "description": "Ensure pnpm run build completes successfully and pnpm run dev starts without errors",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "important_files": [],
+      "success_criteria": [],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T14:42:11.674Z"
+    },
+    {
       "id": "task_1754700916294_ni1h2oxxe",
       "title": "Fix no-explicit-any violations in workflow package",
       "description": "Resolve ~44 @typescript-eslint/no-explicit-any violations in packages/workflow. Replace explicit any types with proper TypeScript types and interfaces to improve type safety.",
@@ -397,7 +442,7 @@
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 153,
-  "last_hook_activation": 1754750073722,
+  "execution_count": 154,
+  "last_hook_activation": 1754750383648,
   "current_mode": "DEVELOPMENT"
 }

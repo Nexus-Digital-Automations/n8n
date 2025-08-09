@@ -2130,9 +2130,168 @@
       "created_at": "2025-08-08T19:59:17.819Z",
       "completed_at": "2025-08-09T06:25:18.365Z",
       "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754683157822_kzis52tg2",
+      "title": "Add comprehensive testing for autosave functionality",
+      "description": "Create unit tests for autosave composable, integration tests for NodeView autosave behavior, and E2E tests for complete autosave workflows including edge cases and error scenarios.",
+      "mode": "TESTING",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/frontend/editor-ui/src/composables/__tests__/useAutosave.test.ts",
+        "packages/frontend/editor-ui/src/views/__tests__/NodeView.autosave.test.ts"
+      ],
+      "success_criteria": [
+        "Unit tests for useAutosave composable (>90% coverage)",
+        "Integration tests for NodeView autosave integration",
+        "E2E tests for autosave workflows",
+        "Test edge cases (navigation, conflicts, errors)",
+        "Performance tests for autosave intervals"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T19:59:17.822Z",
+      "completed_at": "2025-08-09T06:55:48.167Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754686123283_z8s6xg9kn",
+      "title": "Fix n8n-local-rules ESLint rule definitions",
+      "description": "Resolve missing n8n-local-rules definitions causing 35+ lint errors across CLI package. Rules like misplaced-n8n-typeorm-import and no-type-unsafe-event-emitter are undefined. Install, configure, or implement the missing custom ESLint rules.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/@n8n/eslint-config/",
+        "eslint.config.mjs",
+        "packages/cli/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All n8n-local-rules/* rule definitions found and working",
+        "ESLint can properly load and execute custom rules",
+        "All rule-not-found errors resolved",
+        "CLI package passes lint without rule definition errors"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-08T20:48:43.283Z",
+      "completed_at": "2025-08-09T14:06:55.741Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754748165341_p9rfy8nq3",
+      "title": "Fix critical TypeScript build errors in @n8n/db package",
+      "description": "Resolve 14 TypeScript compilation errors in packages/@n8n/db preventing monorepo build success. Issues include circular import dependencies in entity files, missing exported members from @n8n/typeorm, DatabaseType comparison errors, and repository method signature mismatches.",
+      "mode": "DEVELOPMENT",
+      "priority": "critical",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/@n8n/db/src/entities/custom-node-deployment.entity.ts",
+        "packages/@n8n/db/src/entities/custom-node.entity.ts",
+        "packages/@n8n/db/src/migrations/common/1754714580000-CreateCustomNodesSchema.ts",
+        "packages/@n8n/db/src/migrations/common/1754714800000-CreateCustomNodeTables.ts",
+        "packages/@n8n/db/src/repositories/custom-node.repository.ts"
+      ],
+      "success_criteria": [
+        "All TypeScript compilation errors resolved in @n8n/db package",
+        "Circular import dependencies between entity files fixed",
+        "@n8n/typeorm imports properly defined",
+        "DatabaseType comparisons use correct types",
+        "Repository method signatures match base class",
+        "Full monorepo build passes without db package errors"
+      ],
+      "estimate": "",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T14:02:45.341Z",
+      "completed_at": "2025-08-09T14:12:16.369Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754700874557_galdkhjv0",
+      "title": "Fix naming-convention violations in workflow package",
+      "description": "Resolve ~680 @typescript-eslint/naming-convention violations in packages/workflow. Focus on property names that should follow camelCase, constants that should be UPPER_CASE, and other naming standards. This includes error code constants and object property names.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/errors/",
+        "packages/workflow/src/interfaces.ts",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/naming-convention warnings resolved in workflow package",
+        "Error constants follow UPPER_CASE convention",
+        "Object properties follow camelCase convention",
+        "No new naming convention violations introduced"
+      ],
+      "estimate": "8-10 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T00:54:34.557Z",
+      "completed_at": "2025-08-09T14:15:51.344Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754700886631_g3u6fv31b",
+      "title": "Fix naming-convention violations in workflow package",
+      "description": "Resolve 15 TypeScript ESLint warnings in packages/workflow/src/interfaces.ts: 9 no-redundant-type-constituents, 5 no-empty-object-type, and 1 no-unsafe-function-type violation. Apply appropriate fixes or disable rules where needed for API compatibility.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All 15 TypeScript ESLint warnings resolved in interfaces.ts",
+        "Proper type definitions applied or appropriate eslint-disable comments added",
+        "No new ESLint violations introduced",
+        "Code remains functionally equivalent"
+      ],
+      "estimate": "2-3 hours",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T00:54:46.631Z",
+      "completed_at": "2025-08-09T14:28:48.560Z",
+      "archived_from_todo": "./TODO.json"
+    },
+    {
+      "id": "task_1754700898298_kenpa9wau",
+      "title": "Fix no-unsafe-call violations in workflow package",
+      "description": "Resolve 2 @typescript-eslint/no-unsafe-call violations in packages/workflow. Replace unsafe Function type calls with properly typed function signatures in workflow data proxy.",
+      "mode": "DEVELOPMENT",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "important_files": [
+        "packages/workflow/src/extensions/",
+        "packages/workflow/src/workflow-data-proxy.ts",
+        "packages/workflow/eslint.config.mjs"
+      ],
+      "success_criteria": [
+        "All @typescript-eslint/no-unsafe-call violations resolved",
+        "Function types replaced with proper type signatures",
+        "No new unsafe-call violations introduced",
+        "Code remains functionally equivalent"
+      ],
+      "estimate": "1 hour",
+      "requires_research": false,
+      "subtasks": [],
+      "created_at": "2025-08-09T00:54:58.298Z",
+      "completed_at": "2025-08-09T14:37:59.662Z",
+      "archived_from_todo": "./TODO.json"
     }
   ],
-  "total_completed": 88,
-  "last_completion": "2025-08-09T06:25:18.365Z",
+  "total_completed": 94,
+  "last_completion": "2025-08-09T14:37:59.662Z",
   "created_at": "2025-08-07T19:43:40.908Z"
 }
