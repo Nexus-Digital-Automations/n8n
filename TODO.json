@@ -2,29 +2,6 @@
   "project": "n8n-monorepo",
   "tasks": [
     {
-      "id": "task_1754700886631_g3u6fv31b",
-      "title": "Fix naming-convention violations in workflow package",
-      "description": "Resolve 43 @typescript-eslint/naming-convention violations in packages/workflow/src/interfaces.ts. Add proper eslint-disable comments for n8n-specific naming patterns like AI node types, webhook properties, and internal properties that must maintain backward compatibility.",
-      "mode": "DEVELOPMENT",
-      "priority": "high",
-      "status": "pending",
-      "dependencies": [],
-      "important_files": [
-        "packages/workflow/src/",
-        "packages/workflow/eslint.config.mjs"
-      ],
-      "success_criteria": [
-        "All @typescript-eslint/naming-convention warnings resolved",
-        "Proper eslint-disable comments added for legitimate API/compatibility exceptions",
-        "No new naming-convention violations introduced",
-        "Documentation updated for naming patterns where needed"
-      ],
-      "estimate": "2-3 hours",
-      "requires_research": false,
-      "subtasks": [],
-      "created_at": "2025-08-09T00:54:46.631Z"
-    },
-    {
       "id": "task_1754700898298_kenpa9wau",
       "title": "Fix no-unsafe-call violations in workflow package",
       "description": "Resolve ~132 @typescript-eslint/no-unsafe-call violations in packages/workflow. Replace unsafe function calls with properly typed function signatures and add type guards for dynamic function calls.",
@@ -444,7 +421,7 @@
   "strikes_completed_last_run": false,
   "current_task_index": 0,
   "last_mode": "DEVELOPMENT",
-  "execution_count": 149,
-  "last_hook_activation": 1754749327283,
+  "execution_count": 150,
+  "last_hook_activation": 1754749579535,
   "current_mode": "DEVELOPMENT"
 }
