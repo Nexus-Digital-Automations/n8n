@@ -1,4 +1,9 @@
-import type { AuthenticatedRequest, ExecutionSummaries, ExecutionEntity } from '@n8n/db';
+import type {
+	AuthenticatedRequest,
+	ExecutionSummaries,
+	ExecutionEntity,
+	IExecutionResponse,
+} from '@n8n/db';
 import type {
 	AnnotationVote,
 	ExecutionStatus,
@@ -206,7 +211,7 @@ export type ExecutionProgress = {
 
 export type ExecutionFullContext = {
 	executionId: string;
-	execution: ExecutionEntity;
+	execution: ExecutionEntity | IExecutionResponse;
 	performanceMetrics?: {
 		totalExecutionTime: number;
 		nodeExecutionTimes: Record<string, number>;
@@ -301,7 +306,7 @@ export type CancelNodeResult = {
 
 export type ExecutionDebugInfo = {
 	executionId: string;
-	execution: ExecutionEntity;
+	execution: ExecutionEntity | IExecutionResponse;
 	debugInfo: {
 		stackTrace?: string[];
 		memoryUsage?: {

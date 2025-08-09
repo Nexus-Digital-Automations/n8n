@@ -20,6 +20,7 @@ import type {
 	ExecutionStatus,
 	IDataObject,
 	INode,
+	INodeParameters,
 	IRunExecutionData,
 	IWorkflowBase,
 	WorkflowExecuteMode,
@@ -31,6 +32,7 @@ import {
 	UserError,
 	Workflow,
 	WorkflowOperationError,
+	ExecutionCancelledError,
 } from 'n8n-workflow';
 
 import { ActiveExecutions } from '@/active-executions';
@@ -667,7 +669,7 @@ export class ExecutionService {
 			executionData: execution.data,
 			retryOf: executionId,
 			workflowData: execution.workflowData,
-			userId: (execution as any).userId ?? '',
+			userId: '', // Default empty string - actual userId should be from request context
 		};
 
 		// Handle advanced retry options
@@ -701,8 +703,8 @@ export class ExecutionService {
 				if (nodeModifications && typeof nodeModifications === 'object') {
 					node.parameters = {
 						...node.parameters,
-						...nodeModifications,
-					} as any;
+						...(nodeModifications as INodeParameters),
+					};
 				}
 			}
 		}
@@ -749,7 +751,7 @@ export class ExecutionService {
 
 		const result: ExecutionFullContext = {
 			executionId,
-			execution: execution as any,
+			execution,
 		};
 
 		// Include performance metrics if requested
@@ -766,9 +768,12 @@ export class ExecutionService {
 		// Include workflow context if requested
 		if (options.includeWorkflowContext === 'true') {
 			result.workflowContext = {
-				variables: ((execution.workflowData.settings as any)?.variables as IDataObject) ?? {},
+				variables:
+					(execution.workflowData.settings && 'variables' in execution.workflowData.settings
+						? (execution.workflowData.settings.variables as IDataObject)
+						: {}) ?? {},
 				expressions: this.extractExpressionsFromWorkflow(execution.workflowData),
-				connections: execution.workflowData.connections as IDataObject,
+				connections: execution.workflowData.connections,
 			};
 		}
 
@@ -948,7 +953,7 @@ export class ExecutionService {
 					// Update execution in database to reflect paused state
 					await this.executionRepository.updateExistingExecution(executionId, {
 						status: 'waiting',
-					} as any);
+					});
 				}
 			}
 
@@ -1008,7 +1013,7 @@ export class ExecutionService {
 					// Update execution in database to reflect running state
 					await this.executionRepository.updateExistingExecution(executionId, {
 						status: 'running',
-					} as any);
+					});
 				}
 			}
 
@@ -1077,7 +1082,7 @@ export class ExecutionService {
 				if (stepsExecuted > 0) {
 					await this.executionRepository.updateExistingExecution(executionId, {
 						status: 'running',
-					} as any);
+					});
 				}
 			}
 
@@ -1234,8 +1239,8 @@ export class ExecutionService {
 				if (options.modifiedParameters && Object.keys(options.modifiedParameters).length > 0) {
 					node.parameters = {
 						...node.parameters,
-						...options.modifiedParameters,
-					} as any;
+						...(options.modifiedParameters as INodeParameters),
+					};
 				}
 
 				// Reset node state if requested
@@ -1248,7 +1253,7 @@ export class ExecutionService {
 				await this.executionRepository.updateExistingExecution(executionId, {
 					workflowData: execution.workflowData,
 					data: execution.data,
-				} as any);
+				});
 			}
 
 			this.logger.debug('Node retry completed', {
@@ -1330,7 +1335,7 @@ export class ExecutionService {
 				// Update execution in database
 				await this.executionRepository.updateExistingExecution(executionId, {
 					data: execution.data,
-				} as any);
+				});
 			}
 
 			this.logger.debug('Node skipped successfully', {
@@ -1396,16 +1401,12 @@ export class ExecutionService {
 				// If node has run data, mark it as cancelled
 				if (runData[nodeName] && runData[nodeName].length > 0) {
 					const lastRun = runData[nodeName][runData[nodeName].length - 1];
-					lastRun.error = {
-						message: options.reason || 'Node execution cancelled',
-						name: 'NodeExecutionCancelled',
-						timestamp: Date.now(),
-					} as any;
+					lastRun.error = new ExecutionCancelledError(executionId);
 
 					// Update execution in database
 					await this.executionRepository.updateExistingExecution(executionId, {
 						data: execution.data,
-					} as any);
+					});
 				}
 			}
 
@@ -1491,15 +1492,15 @@ export class ExecutionService {
 			const error = execution.data.resultData.error;
 			debugInfo.errorDetails = {
 				message: error.message,
-				stack: error.stack,
-				code: (error as any).code,
-				context: (error as any).context,
+				stack: typeof error.stack === 'string' ? error.stack : undefined,
+				code: 'code' in error && typeof error.code === 'string' ? error.code : undefined,
+				context: 'context' in error ? error.context : undefined,
 			};
 		}
 
 		return {
 			executionId,
-			execution: execution as any,
+			execution,
 			debugInfo,
 		};
 	}
@@ -1507,34 +1508,6 @@ export class ExecutionService {
 	// ----------------------------------
 	//             Private Methods
 	// ----------------------------------
-
-	private getNextNodesInSequence(workflowData: IWorkflowBase, currentNodeName?: string): string[] {
-		if (!currentNodeName) {
-			// Return starting nodes
-			return workflowData.nodes
-				.filter((node) => !workflowData.connections[node.name])
-				.map((node) => node.name);
-		}
-
-		// Find nodes connected from the current node
-		const connections = workflowData.connections[currentNodeName] || {};
-		const nextNodes: string[] = [];
-
-		for (const connectionType in connections) {
-			const typeConnections = connections[connectionType] || [];
-			for (const connectionArray of typeConnections) {
-				if (Array.isArray(connectionArray)) {
-					for (const connection of connectionArray) {
-						if (connection?.node) {
-							nextNodes.push(connection.node);
-						}
-					}
-				}
-			}
-		}
-
-		return nextNodes;
-	}
 
 	private calculatePerformanceMetrics(execution: IExecutionResponse) {
 		const runData = execution.data?.resultData?.runData || {};

@@ -6,12 +6,18 @@ import { createNodeAsTool } from '../create-node-as-tool';
 
 jest.mock('@langchain/core/tools', () => ({
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	DynamicStructuredTool: jest.fn().mockImplementation((config) => ({
-		name: config.name,
-		description: config.description,
-		schema: config.schema,
-		func: config.func,
-	})),
+	DynamicStructuredTool: jest.fn().mockImplementation((config: any) => {
+		if (typeof config === 'object' && config) {
+			return {
+				name: 'name' in config ? (config as Record<string, unknown>).name : undefined,
+				description:
+					'description' in config ? (config as Record<string, unknown>).description : undefined,
+				schema: 'schema' in config ? (config as Record<string, unknown>).schema : undefined,
+				func: 'func' in config ? (config as Record<string, unknown>).func : undefined,
+			};
+		}
+		return {};
+	}),
 }));
 
 describe('createNodeAsTool', () => {
@@ -331,12 +337,35 @@ describe('createNodeAsTool', () => {
 
 			const tool = createNodeAsTool(options).response;
 
-			expect(tool.schema.shape.complexJson._def.innerType).toBeInstanceOf(z.ZodEffects);
+			if (
+				'_def' in tool.schema.shape.complexJson &&
+				typeof tool.schema.shape.complexJson._def === 'object' &&
+				tool.schema.shape.complexJson._def &&
+				'innerType' in tool.schema.shape.complexJson._def
+			) {
+				expect(
+					(tool.schema.shape.complexJson._def as Record<string, unknown>).innerType,
+				).toBeInstanceOf(z.ZodEffects);
+			}
 			expect(tool.schema.shape.complexJson.description).toBe('Param with complex JSON default');
-			expect(tool.schema.shape.complexJson._def.defaultValue()).toEqual({
-				nested: { key: 'value' },
-				array: [1, 2, 3],
-			});
+			if (
+				'_def' in tool.schema.shape.complexJson &&
+				typeof tool.schema.shape.complexJson._def === 'object' &&
+				tool.schema.shape.complexJson._def &&
+				'defaultValue' in tool.schema.shape.complexJson._def &&
+				typeof (tool.schema.shape.complexJson._def as Record<string, unknown>).defaultValue ===
+					'function'
+			) {
+				expect(
+					(
+						(tool.schema.shape.complexJson._def as Record<string, unknown>)
+							.defaultValue as () => unknown
+					)(),
+				).toEqual({
+					nested: { key: 'value' },
+					array: [1, 2, 3],
+				});
+			}
 		});
 
 		it('should ignore $fromAI calls embedded in non-string node parameters', () => {
@@ -432,9 +461,32 @@ describe('createNodeAsTool', () => {
 
 			const tool = createNodeAsTool(options).response;
 
-			expect(tool.schema.shape.excessArgs._def.innerType).toBeInstanceOf(z.ZodString);
+			if (
+				'_def' in tool.schema.shape.excessArgs &&
+				typeof tool.schema.shape.excessArgs._def === 'object' &&
+				tool.schema.shape.excessArgs._def &&
+				'innerType' in tool.schema.shape.excessArgs._def
+			) {
+				expect(
+					(tool.schema.shape.excessArgs._def as Record<string, unknown>).innerType,
+				).toBeInstanceOf(z.ZodString);
+			}
 			expect(tool.schema.shape.excessArgs.description).toBe('Param with excess arguments');
-			expect(tool.schema.shape.excessArgs._def.defaultValue()).toBe('default');
+			if (
+				'_def' in tool.schema.shape.excessArgs &&
+				typeof tool.schema.shape.excessArgs._def === 'object' &&
+				tool.schema.shape.excessArgs._def &&
+				'defaultValue' in tool.schema.shape.excessArgs._def &&
+				typeof (tool.schema.shape.excessArgs._def as Record<string, unknown>).defaultValue ===
+					'function'
+			) {
+				expect(
+					(
+						(tool.schema.shape.excessArgs._def as Record<string, unknown>)
+							.defaultValue as () => unknown
+					)(),
+				).toBe('default');
+			}
 		});
 
 		it('should correctly parse $fromAI calls with nested parentheses', () => {

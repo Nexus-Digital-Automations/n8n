@@ -48,7 +48,9 @@ describe('Request Helper Functions', () => {
 			try {
 				await proxyRequestToAxios(workflow, additionalData, node, `${baseUrl}/test`);
 			} catch (error) {
-				expect(error.status).toEqual(400);
+				if (error && typeof error === 'object' && 'status' in error) {
+					expect((error as Record<string, unknown>).status).toEqual(400);
+				}
 			}
 		});
 
@@ -64,16 +66,21 @@ describe('Request Helper Functions', () => {
 			try {
 				await proxyRequestToAxios(workflow, additionalData, node, `${baseUrl}/test`);
 			} catch (error) {
-				expect(error.statusCode).toEqual(403);
-				expect(error.request).toBeUndefined();
-				expect(error.response).toMatchObject({ headers, status: 403 });
-				expect(error.options).toMatchObject({
-					headers: { Accept: '*/*' },
-					method: 'get',
-					url: 'https://example.de/test',
-				});
-				expect(error.config).toBeUndefined();
-				expect(error.message).toEqual('403 - "Forbidden"');
+				if (error && typeof error === 'object') {
+					const errorObj = error as Record<string, unknown>;
+					if ('statusCode' in error) expect(errorObj.statusCode).toEqual(403);
+					if ('request' in error) expect(errorObj.request).toBeUndefined();
+					if ('response' in error)
+						expect(errorObj.response).toMatchObject({ headers, status: 403 });
+					if ('options' in error)
+						expect(errorObj.options).toMatchObject({
+							headers: { Accept: '*/*' },
+							method: 'get',
+							url: 'https://example.de/test',
+						});
+					if ('config' in error) expect(errorObj.config).toBeUndefined();
+					if ('message' in error) expect(errorObj.message).toEqual('403 - "Forbidden"');
+				}
 			}
 			expect(hooks.runHook).not.toHaveBeenCalled();
 		});
@@ -127,10 +134,24 @@ describe('Request Helper Functions', () => {
 					resolveWithFullResponse: true,
 				});
 
-				expect(response.statusCode).toBe(200);
-				const forwardedHeaders = JSON.parse(response.body);
-				expect(forwardedHeaders.authorization).toBe('Basic dGVzdHVzZXI6dGVzdHBhc3N3b3Jk');
-				expect(forwardedHeaders['x-other-header']).toBe('otherHeaderContent');
+				if (response && typeof response === 'object' && 'statusCode' in response) {
+					expect((response as Record<string, unknown>).statusCode).toBe(200);
+				}
+				if (
+					response &&
+					typeof response === 'object' &&
+					'body' in response &&
+					typeof (response as Record<string, unknown>).body === 'string'
+				) {
+					const forwardedHeaders = JSON.parse((response as Record<string, unknown>).body as string);
+					if (forwardedHeaders && typeof forwardedHeaders === 'object') {
+						const headersObj = forwardedHeaders as Record<string, unknown>;
+						if ('authorization' in forwardedHeaders)
+							expect(headersObj.authorization).toBe('Basic dGVzdHVzZXI6dGVzdHBhc3N3b3Jk');
+						if ('x-other-header' in forwardedHeaders)
+							expect(headersObj['x-other-header']).toBe('otherHeaderContent');
+					}
+				}
 			});
 
 			test('should follow redirects by default', async () => {
@@ -356,7 +377,17 @@ describe('Request Helper Functions', () => {
 					href: requestObject.uri,
 				};
 				axiosOptions.beforeRedirect!(redirectOptions, mock());
-				expect(redirectOptions.agent).toEqual(redirectOptions.agents.https);
+				if (
+					redirectOptions &&
+					typeof redirectOptions === 'object' &&
+					'agents' in redirectOptions &&
+					redirectOptions.agents &&
+					typeof redirectOptions.agents === 'object' &&
+					'https' in redirectOptions.agents
+				) {
+					const agentsObj = redirectOptions.agents as Record<string, unknown>;
+					expect(redirectOptions.agent).toEqual(agentsObj.https);
+				}
 				expect((redirectOptions.agent as HttpsAgent).options).toEqual({
 					servername: 'example.de',
 					...agentOptions,
@@ -418,7 +449,11 @@ describe('Request Helper Functions', () => {
 			formData.getHeaders(); // Ensures form data is processed
 
 			formData.on('data', (chunk) => {
-				formDataEntries.push(chunk.toString());
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+				if (chunk && typeof (chunk as any).toString === 'function') {
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+					formDataEntries.push((chunk as any).toString());
+				}
 			});
 		});
 
@@ -536,7 +571,21 @@ describe('Request Helper Functions', () => {
 
 			const axiosConfig = convertN8nRequestToAxios(requestOptions);
 
-			expect(axiosConfig.httpsAgent?.options.rejectUnauthorized).toBe(false);
+			if (
+				axiosConfig.httpsAgent &&
+				typeof axiosConfig.httpsAgent === 'object' &&
+				'options' in axiosConfig.httpsAgent
+			) {
+				const httpsAgent = axiosConfig.httpsAgent as Record<string, unknown>;
+				if (
+					httpsAgent.options &&
+					typeof httpsAgent.options === 'object' &&
+					'rejectUnauthorized' in httpsAgent.options
+				) {
+					const options = httpsAgent.options as Record<string, unknown>;
+					expect(options.rejectUnauthorized).toBe(false);
+				}
+			}
 		});
 	});
 

@@ -25,6 +25,10 @@ export default [
 			'@typescript-eslint/naming-convention': 'warn',
 			'@typescript-eslint/no-array-delete': 'warn',
 			'@typescript-eslint/no-unsafe-member-access': 'warn',
+			// Additional rules that need fixing before promotion to error
+			'@typescript-eslint/no-explicit-any': 'warn',
+			'@typescript-eslint/await-thenable': 'warn',
+			'@typescript-eslint/promise-function-async': 'warn',
 		},
 	},
 	{

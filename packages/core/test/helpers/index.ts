@@ -103,7 +103,19 @@ export function getNodeTypes(testData: WorkflowTestData[] | WorkflowTestData) {
 		}
 		const sourcePath = loadInfo.sourcePath.replace(/^dist\//, './').replace(/\.js$/, '.ts');
 		const nodeSourcePath = path.join(BASE_DIR, 'nodes-base', sourcePath);
-		const node = new (require(nodeSourcePath)[loadInfo.className])() as INodeType;
+		const requiredModule = require(nodeSourcePath);
+		let node: INodeType;
+		if (
+			requiredModule &&
+			typeof requiredModule === 'object' &&
+			loadInfo.className in requiredModule
+		) {
+			node = new (
+				(requiredModule as Record<string, unknown>)[loadInfo.className] as new () => INodeType
+			)();
+		} else {
+			throw new Error(`Could not find class ${loadInfo.className} in module ${nodeSourcePath}`);
+		}
 		nodeTypes[nodeName] = {
 			sourcePath: '',
 			type: node,
