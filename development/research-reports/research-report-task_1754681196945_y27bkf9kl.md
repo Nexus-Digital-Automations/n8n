@@ -1,8 +1,38 @@
-# AI Features Restoration Analysis - n8n Self-hosted Version
+# Research Report: AI Features in Self-hosted n8n vs Cloud
+
+**Task ID**: task_1754681196945_y27bkf9kl
+**Research Type**: Problem Investigation  
+**Date**: 2025-08-09
+**Researcher**: Claude Code
 
 ## Executive Summary
 
-This research investigates AI-powered features that may be missing or restricted in self-hosted n8n installations compared to cloud versions. Analysis reveals that n8n has extensive AI functionality, but **most premium AI features are license-gated** through enterprise licensing rather than being cloud-exclusive.
+- **Self-hosted n8n provides comprehensive AI capabilities** with 50+ AI/LangChain nodes covering all major providers (OpenAI, Anthropic, Google, AWS, etc.)
+- **No hidden artificial restrictions found** - differences between self-hosted and cloud are legitimate license-based features, not deployment-based limitations
+- **Core AI functionality is identical** across deployments - users can access the same LLMs, vector stores, agents, and chains
+- **Enterprise-only features** are limited to workflow building assistance, usage tracking, and model evaluation tools
+- **Primary difference**: Cloud includes AI features in paid plans, self-hosted requires separate licensing and user-provided API keys
+
+## Research Scope and Methodology
+
+**Research Questions Addressed:**
+1. What AI features exist in n8n and how are they distributed across packages?
+2. Are there hidden restrictions limiting AI functionality in self-hosted deployments?
+3. What are the actual differences between cloud and self-hosted AI capabilities?
+4. Are licensing restrictions legitimate business features or artificial limitations?
+
+**Evidence Sources:**
+- Comprehensive codebase analysis of all AI-related packages and nodes
+- License system examination for feature restrictions
+- Runtime code path analysis for deployment-based differences
+- Configuration and environment variable investigation
+- Node definition analysis for hidden properties
+
+**Evaluation Criteria:**
+- Functional availability of AI features
+- Presence of artificial vs legitimate restrictions
+- User experience parity between deployments
+- Technical implementation differences
 
 ## Key Findings
 
@@ -210,21 +240,57 @@ N8N_AI_CREDITS_ENABLED=true
 - **Custom Implementation**: Higher development cost, full control
 - **Hybrid Solutions**: Complexity vs feature completeness trade-offs
 
-## Conclusion
+## Recommendation
 
-**Key Takeaways:**
-1. **Rich AI Ecosystem**: Self-hosted n8n includes comprehensive AI capabilities through LangChain integration
-2. **License Boundaries**: Premium features focus on convenience and UI rather than blocking core functionality
-3. **Viable Workarounds**: Most cloud AI features can be replicated using available nodes
-4. **API Key Requirement**: Users must provide their own AI service credentials
+**No "restoration" needed** - Self-hosted n8n already provides comprehensive AI capabilities equivalent to cloud version for core functionality. The licensing restrictions are legitimate business features (workflow building assistance, usage tracking) rather than artificial limitations on AI capabilities.
 
-**Recommended Strategy:**
-Start with available AI nodes and custom workflows. Build sophisticated AI systems using the extensive LangChain integration. Consider enterprise licensing only if the premium UI features and convenience tools justify the cost.
+**Focus should be on maximizing existing AI features** through proper configuration and documentation rather than attempting to bypass license restrictions.
 
-The gap between cloud and self-hosted AI capabilities is primarily in user experience and convenience rather than fundamental functionality limitations.
+## Implementation Next Steps
 
----
+**Phase 1: Documentation Enhancement (Immediate - 1-2 hours)**
+1. Create comprehensive AI setup guide for self-hosted users
+2. Document all available AI nodes and their capabilities  
+3. Provide API key configuration examples for major providers
+4. Clarify what's available vs what requires enterprise license
 
-**Research Date**: August 9, 2025  
-**n8n Version**: Latest (monorepo analysis)  
-**Analysis Scope**: Complete codebase review, license system analysis, feature comparison
+**Phase 2: Configuration Improvements (Short-term - 4-6 hours)**
+1. Improve AI feature detection and validation
+2. Add environment variable templates for common providers
+3. Create setup verification tools
+4. Enhance error messages for missing configurations
+
+**Phase 3: Community Features (Long-term - 8-12 hours)**
+1. Develop community alternatives to enterprise workflow builder
+2. Create AI workflow templates and examples
+3. Build community-driven AI node gallery
+4. Implement basic usage analytics for self-hosted instances
+
+## Risk Considerations
+
+**Primary Risks:**
+- **License Violation Risk**: Attempting to bypass enterprise features could violate terms of service
+- **Legal Compliance**: License circumvention could result in legal action against users or contributors
+- **Community Impact**: Promoting license bypass could damage relationship with n8n team
+
+**Mitigation Strategies:**
+- **Focus on Available Features**: Maximize value of existing AI capabilities
+- **Community Contributions**: Contribute documentation and examples within license terms
+- **Ethical Development**: Support legitimate business model while helping users succeed
+
+## Supporting Evidence
+
+**Packages Analyzed:**
+- `@n8n/nodes-langchain` - 50+ AI nodes available in self-hosted
+- `@n8n/ai-workflow-builder.ee` - Enterprise workflow building features
+- License system - Clean feature separation without artificial restrictions
+- Configuration system - Proper AI enablement flags and environment variables
+
+**Key Findings Summary:**
+- 50+ AI nodes available in self-hosted deployments
+- 15+ LLM providers supported (OpenAI, Anthropic, Google, AWS, etc.)
+- 9+ vector databases integrated (Pinecone, Qdrant, Weaviate, etc.)
+- 4 enterprise features requiring separate license (workflow builder, credits, etc.)
+- 0 hidden deployment-based restrictions found
+
+**Conclusion:** Self-hosted n8n AI capabilities are comprehensive and equivalent to cloud version for all core AI functionality. Users should focus on proper configuration and maximizing available features rather than attempting to bypass legitimate license restrictions.
