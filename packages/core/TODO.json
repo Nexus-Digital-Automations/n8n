@@ -110,6 +110,147 @@
 				},
 				"overallReady": false
 			}
+		},
+		{
+			"id": "task_1754705746679_ieq7svoa7",
+			"title": "Fix DI Circular Dependency Issues in Core Package Tests",
+			"description": "Resolve circular dependency between Logger and InstanceSettings that is preventing multiple test suites from running. This affects ExecuteSingleContext, WebhookContext, TriggerContext, ExecuteContext, LoadOptionsContext, SupplyDataContext, HookContext, and PollContext tests.",
+			"mode": "TESTING",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"src/execution-engine/node-execution-context/base-execute-context.ts",
+				"src/execution-engine/node-execution-context/node-execution-context.ts",
+				"src/instance-settings/instance-settings.ts"
+			],
+			"success_criteria": [
+				"All node execution context tests can initialize without DI circular dependency errors",
+				"Logger and InstanceSettings dependency cycle resolved",
+				"Test suites run without instantiation failures"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T02:15:46.679Z"
+		},
+		{
+			"id": "task_1754705746684_p64c4xj29",
+			"title": "Fix AWS SDK Type Issues in Object Store Service",
+			"description": "Resolve TypeScript compilation errors in object-store.service.ee.ts where AWS SDK _Object type does not have expected properties like key, causing test compilation failures.",
+			"mode": "DEVELOPMENT",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"src/binary-data/object-store/object-store.service.ee.ts",
+				"src/binary-data/__tests__/object-store.manager.test.ts",
+				"src/binary-data/object-store/__tests__/object-store.service.test.ts"
+			],
+			"success_criteria": [
+				"AWS SDK types properly imported and used",
+				"Object store tests compile without TypeScript errors",
+				"Property access on _Object type resolved"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T02:15:46.684Z"
+		},
+		{
+			"id": "task_1754705746686_dyk6veuk5",
+			"title": "Fix Core Package Logic Errors in Tests",
+			"description": "Fix specific test logic failures including run-data-utils negative index handling, request helper function error handling, and file system helper function tests.",
+			"mode": "TESTING",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"src/execution-engine/partial-execution-utils/run-data-utils.ts",
+				"src/execution-engine/node-execution-context/utils/request-helper-functions.ts",
+				"src/execution-engine/node-execution-context/utils/file-system-helper-functions.ts"
+			],
+			"success_criteria": [
+				"getNextExecutionIndex handles negative values correctly",
+				"Request helper function error handling tests pass",
+				"File system helper function tests pass",
+				"All core logic test assertions align with implementation"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T02:15:46.686Z"
+		},
+		{
+			"id": "task_1754705746687_0dgw94ek5",
+			"title": "Fix Get Input Connection Data Test Suite",
+			"description": "Resolve the massive test failure in get-input-connection-data.test.ts affecting all AI-related connection types (ai_agent, ai_chain, ai_document, etc.). This involves 96 failing tests.",
+			"mode": "TESTING",
+			"priority": "high",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"src/execution-engine/node-execution-context/utils/get-input-connection-data.ts",
+				"src/execution-engine/node-execution-context/utils/__tests__/get-input-connection-data.test.ts"
+			],
+			"success_criteria": [
+				"All AI connection type tests pass",
+				"Input validation logic works correctly",
+				"Connection handling for various AI node types resolved",
+				"96 failing tests reduced to 0"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T02:15:46.687Z"
+		},
+		{
+			"id": "task_1754705746688_hgaim6699",
+			"title": "Fix Type Compatibility Issues in Workflow Execute Tests",
+			"description": "Resolve TypeScript type incompatibilities in workflow-execute.test.ts and directory-loader.test.ts related to INodeParameters, IExecuteData, and node type descriptions.",
+			"mode": "DEVELOPMENT",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"src/execution-engine/__tests__/workflow-execute.test.ts",
+				"src/nodes-loader/__tests__/directory-loader.test.ts",
+				"test/helpers/index.ts"
+			],
+			"success_criteria": [
+				"Type assignments between INodeParameters and expected types resolved",
+				"Node type description compatibility fixed",
+				"Workflow execute tests compile without type errors",
+				"Directory loader tests compile without type errors"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T02:15:46.688Z"
+		},
+		{
+			"id": "task_1754705758683_vntnfymtk",
+			"title": "Fix Backend Common Environment Detection Test Failures",
+			"description": "Resolve failing environment detection tests in @n8n/backend-common package related to NODE_ENV handling, case sensitivity, whitespace handling, and edge case scenarios. Multiple tests are failing due to incorrect environment flag logic.",
+			"mode": "TESTING",
+			"priority": "medium",
+			"status": "pending",
+			"dependencies": [],
+			"important_files": [
+				"../@n8n/backend-common/src/__tests__/environment.test.ts",
+				"../@n8n/backend-common/src/environment.ts"
+			],
+			"success_criteria": [
+				"Environment detection logic consistency tests pass",
+				"Case sensitivity handling for NODE_ENV values fixed",
+				"Whitespace and special character handling in NODE_ENV resolved",
+				"Edge cases for null, number, and long NODE_ENV values handled",
+				"All backend-common environment tests pass"
+			],
+			"estimate": "",
+			"requires_research": false,
+			"subtasks": [],
+			"created_at": "2025-08-09T02:15:58.683Z"
 		}
 	],
 	"__removedLinterTasks": {
