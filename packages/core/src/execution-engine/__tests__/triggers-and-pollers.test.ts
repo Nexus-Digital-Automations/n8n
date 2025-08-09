@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { ApplicationError } from '@n8n/errors';
 import { mock } from 'jest-mock-extended';
 import type {

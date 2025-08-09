@@ -230,10 +230,12 @@ export class ObjectStoreService {
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Delete: {
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					Objects: objects.map((obj) => ({
-						// eslint-disable-next-line @typescript-eslint/naming-convention
-						Key: obj.Key as string,
-					})),
+					Objects: objects
+						.filter((obj) => obj.Key !== undefined)
+						.map((obj) => ({
+							// eslint-disable-next-line @typescript-eslint/naming-convention
+							Key: obj.Key!,
+						})),
 				},
 			};
 
