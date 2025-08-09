@@ -114,4 +114,83 @@ describe('parse', () => {
 			args: ['arg1'],
 		});
 	});
+
+	it('should handle empty flags without schema', () => {
+		const cliParser = new CliParser(mock());
+		const result = cliParser.parse({
+			argv: ['node', 'script.js'],
+		});
+
+		expect(result).toEqual({
+			flags: {},
+			args: [],
+		});
+	});
+
+	it('should handle complex flag combinations', () => {
+		const cliParser = new CliParser(mock());
+		const flagsSchema = z.object({
+			verbose: z.boolean().optional(),
+			count: z.number().optional(), // yargs-parser converts numeric strings to numbers
+			enable: z.boolean().optional(),
+		});
+
+		const result = cliParser.parse({
+			argv: ['node', 'script.js', '--verbose', '--count', '5', '--enable', '--', 'arg1', 'arg2'],
+			flagsSchema,
+		});
+
+		expect(result).toEqual({
+			flags: { verbose: true, count: 5, enable: true },
+			args: ['arg1', 'arg2'],
+		});
+	});
+
+	it('should handle missing alias when flag present', () => {
+		const cliParser = new CliParser(mock());
+		const flagsSchema = z.object({
+			name: z.string().optional(),
+		});
+
+		// No alias defined - should still work with full flag name
+		const result = cliParser.parse({
+			argv: ['node', 'script.js', '--name', 'test', 'arg1'],
+			flagsSchema,
+		});
+
+		expect(result).toEqual({
+			flags: { name: 'test' },
+			args: ['arg1'],
+		});
+	});
+
+	it('should handle alias with empty length', () => {
+		const cliParser = new CliParser(mock());
+		const flagsSchema = z.object({
+			name: z.string().optional(),
+		});
+
+		// @ts-expect-error Testing edge case with empty alias
+		flagsSchema.shape.name._def._alias = '';
+
+		const result = cliParser.parse({
+			argv: ['node', 'script.js', '--name', 'test', 'arg1'],
+			flagsSchema,
+		});
+
+		expect(result).toEqual({
+			flags: { name: 'test' },
+			args: ['arg1'],
+		});
+	});
+
+	it('should handle non-string arguments correctly', () => {
+		const cliParser = new CliParser(mock());
+		const result = cliParser.parse({
+			argv: ['node', 'script.js', '42', 'true', 'false'],
+		});
+
+		expect(result.args).toEqual(['42', 'true', 'false']);
+		expect(result.args.every((arg) => typeof arg === 'string')).toBe(true);
+	});
 });

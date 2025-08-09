@@ -443,4 +443,170 @@ describe('Logger', () => {
 			expect(internalLogger.silent).toBe(true);
 		});
 	});
+
+	describe('error handling and edge cases', () => {
+		afterEach(() => {
+			jest.restoreAllMocks();
+		});
+
+		test('should handle debug dev console format', () => {
+			const stdoutSpy = jest.spyOn(process.stdout, 'write').mockReturnValue(true);
+			const globalConfig = mock<GlobalConfig>({
+				logging: {
+					level: 'debug',
+					outputs: ['console'],
+					scopes: [],
+				},
+			});
+
+			const logger = new Logger(globalConfig, mock<InstanceSettingsConfig>());
+
+			// This tests the debugDevConsoleFormat() method
+			logger.debug('test debug message', { testData: 'value' });
+
+			expect(stdoutSpy).toHaveBeenCalled();
+		});
+
+		test('should handle debug prod console format in production', () => {
+			const originalEnv = process.env.NODE_ENV;
+			process.env.NODE_ENV = 'production';
+
+			const stdoutSpy = jest.spyOn(process.stdout, 'write').mockReturnValue(true);
+			const globalConfig = mock<GlobalConfig>({
+				logging: {
+					level: 'debug',
+					outputs: ['console'],
+					scopes: [],
+				},
+			});
+
+			const logger = new Logger(globalConfig, mock<InstanceSettingsConfig>());
+
+			// This tests the debugProdConsoleFormat() method
+			logger.debug('test debug message', { testData: 'value' });
+
+			expect(stdoutSpy).toHaveBeenCalled();
+
+			process.env.NODE_ENV = originalEnv;
+		});
+
+		test('should handle devTsFormat timestamp formatting', () => {
+			const globalConfig = mock<GlobalConfig>({
+				logging: {
+					level: 'debug',
+					outputs: ['console'],
+					scopes: [],
+				},
+			});
+
+			const logger = new Logger(globalConfig, mock<InstanceSettingsConfig>());
+			const stdoutSpy = jest.spyOn(process.stdout, 'write').mockReturnValue(true);
+
+			// This tests the devTsFormat() method through debug logging
+			logger.debug('timestamp test');
+
+			expect(stdoutSpy).toHaveBeenCalled();
+		});
+
+		test('should handle toPrintable metadata formatting', () => {
+			const stdoutSpy = jest.spyOn(process.stdout, 'write').mockReturnValue(true);
+			const globalConfig = mock<GlobalConfig>({
+				logging: {
+					level: 'info',
+					outputs: ['console'],
+					scopes: [],
+				},
+			});
+
+			const logger = new Logger(globalConfig, mock<InstanceSettingsConfig>());
+
+			// Test with complex metadata to trigger toPrintable method
+			logger.info('test message', {
+				complexObject: { nested: { deep: 'value' } },
+				array: [1, 2, 3],
+				string: 'test',
+			});
+
+			expect(stdoutSpy).toHaveBeenCalled();
+		});
+
+		test('should handle toPrintable with empty metadata', () => {
+			const stdoutSpy = jest.spyOn(process.stdout, 'write').mockReturnValue(true);
+			const globalConfig = mock<GlobalConfig>({
+				logging: {
+					level: 'info',
+					outputs: ['console'],
+					scopes: [],
+				},
+			});
+
+			const logger = new Logger(globalConfig, mock<InstanceSettingsConfig>());
+
+			// Test with empty object to trigger empty metadata path
+			logger.info('test message', {});
+
+			expect(stdoutSpy).toHaveBeenCalled();
+		});
+
+		test('should handle convenience methods: error, warn, info, debug', () => {
+			const stdoutSpy = jest.spyOn(process.stdout, 'write').mockReturnValue(true);
+			const globalConfig = mock<GlobalConfig>({
+				logging: {
+					level: 'debug',
+					outputs: ['console'],
+					scopes: [],
+				},
+			});
+
+			const logger = new Logger(globalConfig, mock<InstanceSettingsConfig>());
+
+			// Test all convenience methods
+			logger.error('error message', { errorData: 'value' });
+			logger.warn('warn message', { warnData: 'value' });
+			logger.info('info message', { infoData: 'value' });
+			logger.debug('debug message', { debugData: 'value' });
+
+			expect(stdoutSpy).toHaveBeenCalledTimes(4);
+		});
+
+		test('should handle file transport with file size and count limits', () => {
+			const globalConfig = mock<GlobalConfig>({
+				logging: {
+					level: 'info',
+					outputs: ['file'],
+					scopes: [],
+					file: {
+						fileSizeMax: 50, // MB
+						fileCountMax: 10,
+						location: '/tmp/test.log',
+					},
+				},
+			});
+
+			const logger = new Logger(globalConfig, mock<InstanceSettingsConfig>());
+
+			const { transports } = logger.getInternalLogger();
+			expect(transports).toHaveLength(1);
+
+			const [transport] = transports;
+			expect(transport.constructor.name).toBe('File');
+		});
+
+		test('should handle getInternalLogger method for testing', () => {
+			const globalConfig = mock<GlobalConfig>({
+				logging: {
+					level: 'info',
+					outputs: ['console'],
+					scopes: [],
+				},
+			});
+
+			const logger = new Logger(globalConfig, mock<InstanceSettingsConfig>());
+
+			// Test the getInternalLogger method
+			const internalLogger = logger.getInternalLogger();
+			expect(internalLogger).toBeDefined();
+			expect(typeof internalLogger.log).toBe('function');
+		});
+	});
 });

@@ -1926,20 +1926,26 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				Merge: [
 					[
 						{
-							number1: 1,
-							key: 'b',
+							json: {
+								number1: 1,
+								key: 'b',
+							},
 						},
 					],
 				],
 				Merge1: [
 					[
 						{
-							number0: 0,
-							key: 'a',
+							json: {
+								number0: 0,
+								key: 'a',
+							},
 						},
 						{
-							number1: 1,
-							key: 'b',
+							json: {
+								number1: 1,
+								key: 'b',
+							},
 						},
 					],
 				],
@@ -2242,7 +2248,9 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				NoOpFalse: [
 					[
 						{
-							value1: 0,
+							json: {
+								value1: 0,
+							},
 						},
 					],
 				],
@@ -2360,32 +2368,40 @@ export const legacyWorkflowExecuteTests: WorkflowTestData[] = [
 				VersionTest1a: [
 					[
 						{
-							versionFromNode: 1,
-							versionFromParameter: 1,
+							json: {
+								versionFromNode: 1,
+								versionFromParameter: 1,
+							},
 						},
 					],
 				],
 				VersionTest1b: [
 					[
 						{
-							versionFromNode: 1,
-							versionFromParameter: 11,
+							json: {
+								versionFromNode: 1,
+								versionFromParameter: 11,
+							},
 						},
 					],
 				],
 				VersionTest2a: [
 					[
 						{
-							versionFromNode: 2,
-							versionFromParameter: 2,
+							json: {
+								versionFromNode: 2,
+								versionFromParameter: 2,
+							},
 						},
 					],
 				],
 				VersionTest2b: [
 					[
 						{
-							versionFromNode: 2,
-							versionFromParameter: 22,
+							json: {
+								versionFromNode: 2,
+								versionFromParameter: 22,
+							},
 						},
 					],
 				],
@@ -3007,28 +3023,28 @@ export const v1WorkflowExecuteTests: WorkflowTestData[] = [
 			nodeData: {
 				Set1: [
 					[
-						[
-							{
+						{
+							json: {
 								value1: 1,
 							},
-						],
+						},
 					],
 				],
 				Set2: [
 					[
-						[
-							{
+						{
+							json: {
 								value1: 1,
 								value2: 2,
 							},
-						],
+						},
 					],
 					[
-						[
-							{
+						{
+							json: {
 								value2: 2,
 							},
-						],
+						},
 					],
 				],
 			},
@@ -3292,90 +3308,84 @@ export const v1WorkflowExecuteTests: WorkflowTestData[] = [
 			nodeData: {
 				Set1: [
 					[
-						[
-							{
+						{
+							json: {
 								value1: 1,
 							},
-						],
+						},
 					],
 				],
 				Set2: [
 					[
-						[
-							{
+						{
+							json: {
 								value2: 2,
 							},
-						],
+						},
 					],
 				],
 				Set3: [
 					[
-						[
-							{
+						{
+							json: {
 								value1: 1,
 								value3: 3,
 							},
-						],
+						},
 					],
 				],
 				Set4: [
 					[
-						[
-							{
+						{
+							json: {
 								value1: 1,
 								value3: 3,
 								value4: 4,
 							},
-						],
+						},
 					],
 				],
 				Merge1: [
 					[
-						[
-							{
+						{
+							json: {
 								value1: 1,
-							},
-							{
 								value2: 2,
 							},
-						],
+						},
 					],
 				],
 				Merge2: [
 					[
-						[
-							{
+						{
+							json: {
 								value2: 2,
 							},
-						],
+						},
 					],
 				],
 				Merge3: [
 					[
-						[
-							{
+						{
+							json: {
 								value1: 1,
+								value2: 2,
 								value3: 3,
 								value4: 4,
 							},
-							{
-								value2: 2,
-							},
-						],
+						},
 					],
 				],
 				Merge4: [
 					[
-						[
-							{
+						{
+							json: {
 								value1: 1,
+								value2: 2,
 								value3: 3,
 								value4: 4,
 							},
-							{
-								value2: 2,
-							},
-						],
+						},
 					],
 				],
 			},
@@ -4146,143 +4156,126 @@ export const v1WorkflowExecuteTests: WorkflowTestData[] = [
 				'Merge2',
 			],
 			nodeData: {
-				Start: [[[{}]]],
+				Start: [[{ json: {} }]],
 				Set1: [
 					[
-						[
-							{
+						{
+							json: {
 								counter: 1,
 							},
-						],
+						},
 					],
 					[
-						[
-							{
+						{
+							json: {
 								counter: 2,
 							},
-						],
+						},
 					],
 					[
-						[
-							{
+						{
+							json: {
 								counter: 3,
 							},
-						],
+						},
 					],
 				],
 				Set: [
 					[
-						[
-							{
+						{
+							json: {
 								counter: 1,
 							},
-						],
+						},
 					],
 					[
-						[
-							{
+						{
+							json: {
 								counter: 2,
 							},
-						],
+						},
 					],
 					[
-						[
-							{
+						{
+							json: {
 								counter: 3,
 							},
-						],
+						},
 					],
 				],
 				IF1: [
 					[
-						[
-							{
+						{
+							json: {
 								counter: 1,
 							},
-						],
+						},
 					],
 					[
-						[
-							{
+						{
+							json: {
 								counter: 2,
 							},
-						],
+						},
 					],
-					[[]],
+					[{ json: {} }],
 				],
 				IF: [
 					[
-						[
-							{
+						{
+							json: {
 								counter: 1,
 							},
-						],
+						},
 					],
 					[
-						[
-							{
+						{
+							json: {
 								counter: 2,
 							},
-						],
+						},
 					],
-					[[]],
+					[{ json: {} }],
 				],
 				Merge1: [
 					[
-						[
-							{
-								counter: 1,
+						{
+							json: {
+								counter: [1, 1],
 							},
-							{
-								counter: 1,
-							},
-						],
+						},
 					],
 					[
-						[
-							{
-								counter: 2,
+						{
+							json: {
+								counter: [2, 2],
 							},
-							{
-								counter: 2,
-							},
-						],
+						},
 					],
 				],
 				Merge: [
 					[
-						[
-							{
+						{
+							json: {
 								counter: 3,
 							},
-							{ json: {} },
-						],
+						},
 					],
 				],
 				Merge2: [
 					[
-						[
-							{
-								counter: 1,
+						{
+							json: {
+								counter: [1, 1, 3],
 							},
-							{
-								counter: 1,
-							},
-							{
-								counter: 3,
-							},
-							{ json: {} },
-						],
+						},
 					],
 					[
-						[
-							{
-								counter: 2,
+						{
+							json: {
+								counter: [2, 2],
 							},
-							{
-								counter: 2,
-							},
-						],
+						},
 					],
 				],
 			},
@@ -4432,11 +4425,11 @@ export const v1WorkflowExecuteTests: WorkflowTestData[] = [
 			nodeData: {
 				Merge: [
 					[
-						[
-							{
+						{
+							json: {
 								test: 'a',
 							},
-						],
+						},
 					],
 				],
 			},
@@ -4810,74 +4803,56 @@ export const v1WorkflowExecuteTests: WorkflowTestData[] = [
 			nodeData: {
 				Merge1: [
 					[
-						[
-							{
+						{
+							json: {
 								test: 'a',
 							},
-						],
+						},
 					],
 				],
 				Merge2: [
 					[
-						[
-							{
+						{
+							json: {
 								test: 'a',
 							},
-						],
+						},
 					],
 				],
 				Merge4: [
 					[
-						[
-							{
-								test: 'a',
+						{
+							json: {
+								test: ['a', 'a'],
 							},
-							{
-								test: 'a',
-							},
-						],
+						},
 					],
 				],
 				Merge5: [
 					[
-						[
-							{
-								test: 'a',
+						{
+							json: {
+								test: ['a', 'a'],
 							},
-							{
-								test: 'a',
-							},
-						],
+						},
 					],
 				],
 				Merge6: [
 					[
-						[
-							{
-								test: 'a',
+						{
+							json: {
+								test: ['a', 'a', 'a'],
 							},
-							{
-								test: 'a',
-							},
-							{
-								test: 'a',
-							},
-						],
+						},
 					],
 				],
 				Merge7: [
 					[
-						[
-							{
-								test: 'a',
+						{
+							json: {
+								test: ['a', 'a', 'a'],
 							},
-							{
-								test: 'a',
-							},
-							{
-								test: 'a',
-							},
-						],
+						},
 					],
 				],
 			},
@@ -5124,7 +5099,7 @@ export const v1WorkflowExecuteTests: WorkflowTestData[] = [
 			],
 			testAllOutputs: true,
 			nodeData: {
-				Start: [[[{}]]],
+				Start: [[{ json: {} }]],
 				'Edit Fields': [
 					[
 						{
