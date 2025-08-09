@@ -76,53 +76,6 @@
 			}
 		},
 		{
-			"id": "task_1754705746686_dyk6veuk5",
-			"title": "Fix Core Package Logic Errors in Tests",
-			"description": "Fix specific test logic failures including run-data-utils negative index handling, request helper function error handling, and file system helper function tests.",
-			"mode": "TESTING",
-			"priority": "medium",
-			"status": "pending",
-			"dependencies": [],
-			"important_files": [
-				"src/execution-engine/partial-execution-utils/run-data-utils.ts",
-				"src/execution-engine/node-execution-context/utils/request-helper-functions.ts",
-				"src/execution-engine/node-execution-context/utils/file-system-helper-functions.ts"
-			],
-			"success_criteria": [
-				"getNextExecutionIndex handles negative values correctly",
-				"Request helper function error handling tests pass",
-				"File system helper function tests pass",
-				"All core logic test assertions align with implementation"
-			],
-			"estimate": "",
-			"requires_research": false,
-			"subtasks": [],
-			"created_at": "2025-08-09T02:15:46.686Z"
-		},
-		{
-			"id": "task_1754705746687_0dgw94ek5",
-			"title": "Fix Get Input Connection Data Test Suite",
-			"description": "Resolve the massive test failure in get-input-connection-data.test.ts affecting all AI-related connection types (ai_agent, ai_chain, ai_document, etc.). This involves 96 failing tests.",
-			"mode": "TESTING",
-			"priority": "high",
-			"status": "pending",
-			"dependencies": [],
-			"important_files": [
-				"src/execution-engine/node-execution-context/utils/get-input-connection-data.ts",
-				"src/execution-engine/node-execution-context/utils/__tests__/get-input-connection-data.test.ts"
-			],
-			"success_criteria": [
-				"All AI connection type tests pass",
-				"Input validation logic works correctly",
-				"Connection handling for various AI node types resolved",
-				"96 failing tests reduced to 0"
-			],
-			"estimate": "",
-			"requires_research": false,
-			"subtasks": [],
-			"created_at": "2025-08-09T02:15:46.687Z"
-		},
-		{
 			"id": "task_1754705746688_hgaim6699",
 			"title": "Fix Type Compatibility Issues in Workflow Execute Tests",
 			"description": "Resolve TypeScript type incompatibilities in workflow-execute.test.ts and directory-loader.test.ts related to INodeParameters, IExecuteData, and node type descriptions.",
@@ -211,11 +164,11 @@
 		"removedCount": 0,
 		"finalTaskCount": 0
 	},
-	"execution_count": 19,
-	"last_hook_activation": 1754758674991,
+	"execution_count": 21,
+	"last_hook_activation": 1754759176749,
 	"project": "unnamed-project",
 	"review_strikes": 0,
 	"strikes_completed_last_run": false,
 	"current_task_index": 0,
-	"last_mode": "DEVELOPMENT"
+	"last_mode": "TESTING"
 }

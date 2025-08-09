@@ -1121,12 +1121,15 @@ export async function requestOAuth2(
 			if (
 				requestOptions.resolveWithFullResponse === true &&
 				requestOptions.simple === false &&
+				response &&
+				typeof response === 'object' &&
+				'statusCode' in response &&
 				response.statusCode === tokenExpiredStatusCode
 			) {
 				const error = new Error(
 					`Request failed with status code ${response.statusCode}`,
 				) as IResponseError;
-				error.statusCode = response.statusCode;
+				error.statusCode = response.statusCode as number;
 				throw error;
 			}
 			return response;
@@ -1600,14 +1603,14 @@ export const getRequestHelperFunctions = (
 			}
 
 			if (credentialsType) {
-				tempResponseData = await this.helpers.requestWithAuthentication.call(
+				tempResponseData = (await this.helpers.requestWithAuthentication.call(
 					this,
 					credentialsType,
 					tempRequestOptions,
 					additionalCredentialOptions,
-				);
+				)) as IN8nHttpFullResponse;
 			} else {
-				tempResponseData = await this.helpers.request(tempRequestOptions);
+				tempResponseData = (await this.helpers.request(tempRequestOptions)) as IN8nHttpFullResponse;
 			}
 
 			const newResponse: IN8nHttpFullResponse = Object.assign(
@@ -1759,7 +1762,9 @@ export const getRequestHelperFunctions = (
 	}
 
 	return {
-		httpRequest,
+		httpRequest: httpRequest as (
+			requestOptions: IHttpRequestOptions,
+		) => Promise<IN8nHttpFullResponse>,
 		requestWithAuthenticationPaginated,
 		async httpRequestWithAuthentication(
 			this,

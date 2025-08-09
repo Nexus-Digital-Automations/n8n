@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.79% </span>
+                <span class="strong">3.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/79</span>
+                <span class='fraction'>3/77</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/47</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.84% </span>
+                <span class="strong">3.94% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/78</span>
+                <span class='fraction'>3/76</span>
             </div>
         
             
@@ -274,10 +274,8 @@
 <a name='L209'></a><a href='#L209'>209</a>
 <a name='L210'></a><a href='#L210'>210</a>
 <a name='L211'></a><a href='#L211'>211</a>
-<a name='L212'></a><a href='#L212'>212</a>
-<a name='L213'></a><a href='#L213'>213</a>
-<a name='L214'></a><a href='#L214'>214</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<a name='L212'></a><a href='#L212'>212</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,9 +384,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -441,9 +438,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -462,7 +458,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -597,11 +593,10 @@ function <span class="fstat-no" title="function not covered" >extractValueRLC(</
 &nbsp;
 <span class="cstat-no" title="statement not covered" >	<span class="missing-if-branch" title="if path not taken" >I</span>if (typeof value.value !== 'string') {</span>
 		let typeName: string | undefined = <span class="cstat-no" title="statement not covered" >value.value?.constructor.name;</span>
-<span class="cstat-no" title="statement not covered" >		if (value.value === null) {</span>
+<span class="cstat-no" title="statement not covered" >		<span class="missing-if-branch" title="if path not taken" >I</span>if (value.value === null) {</span>
 <span class="cstat-no" title="statement not covered" >			typeName = 'null';</span>
-		} else <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>if (typeName === undefined) {</span>
-<span class="cstat-no" title="statement not covered" >			typeName = 'undefined';</span>
 		}
+<span class="cstat-no" title="statement not covered" >		typeName ??= 'undefined';</span>
 <span class="cstat-no" title="statement not covered" >		LoggerProxy.error(</span>
 			`Only strings can be passed to extractValue. Parameter "${parameterName}" passed "${typeName}"`,
 		);
@@ -652,11 +647,10 @@ function <span class="fstat-no" title="function not covered" >extractValueOther(
 &nbsp;
 <span class="cstat-no" title="statement not covered" >	<span class="missing-if-branch" title="if path not taken" >I</span>if (typeof value !== 'string') {</span>
 		let typeName: string | undefined = <span class="cstat-no" title="statement not covered" >value?.constructor.name;</span>
-<span class="cstat-no" title="statement not covered" >		if (value === null) {</span>
+<span class="cstat-no" title="statement not covered" >		<span class="missing-if-branch" title="if path not taken" >I</span>if (value === null) {</span>
 <span class="cstat-no" title="statement not covered" >			typeName = 'null';</span>
-		} else <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>if (typeName === undefined) {</span>
-<span class="cstat-no" title="statement not covered" >			typeName = 'undefined';</span>
 		}
+<span class="cstat-no" title="statement not covered" >		typeName ??= 'undefined';</span>
 <span class="cstat-no" title="statement not covered" >		LoggerProxy.error(</span>
 			`Only strings can be passed to extractValue. Parameter "${parameterName}" passed "${typeName}"`,
 		);
@@ -709,7 +703,7 @@ export function <span class="fstat-no" title="function not covered" >extractValu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-09T01:34:21.142Z
+                at 2025-08-09T17:06:16.555Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

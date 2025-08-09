@@ -102,7 +102,7 @@ export class BaseExecuteContext extends NodeExecutionContext {
 		);
 	}
 
-	putExecutionToWait(waitTill: Date): void {
+	async putExecutionToWait(waitTill: Date): Promise<void> {
 		this.runExecutionData.waitTill = waitTill;
 		if (this.additionalData.setExecutionStatus) {
 			this.additionalData.setExecutionStatus('waiting');
@@ -131,7 +131,7 @@ export class BaseExecuteContext extends NodeExecutionContext {
 		if (result.waitTill) {
 			// then put the parent workflow execution also into the waiting state,
 			// but do not use the sub-workflow `waitTill` to avoid WaitTracker resuming the parent execution at the same time as the sub-workflow
-			this.putExecutionToWait(WAIT_INDEFINITELY);
+			await this.putExecutionToWait(WAIT_INDEFINITELY);
 		}
 
 		const data = await this.binaryDataService.duplicateBinaryData(
