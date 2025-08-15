@@ -1,5 +1,76 @@
+/* N8N Loading Screen - Consistent light experience for better UX */
+body {
+	background-color: #f5f5f5;
+	margin: 0;
+	padding: 0;
+	font-family: InterVariable, sans-serif;
+	color: #333;
+}
+
+/* Loading indicator for initial page load */
+body::before {
+	content: '';
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 40px;
+	height: 40px;
+	margin: -20px 0 0 -20px;
+	border: 3px solid #e1e1e1;
+	border-top-color: #ff6d5a;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	z-index: 9999;
+}
+
+/* N8N Logo/Branding during load */
+body::after {
+	content: 'n8n';
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, calc(-50% + 60px));
+	font-size: 24px;
+	font-weight: 600;
+	color: #ff6d5a;
+	z-index: 9999;
+}
+
+/* Spinner animation */
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* Hide loading indicators once Vue app loads */
+body.app-loaded::before,
+body.app-loaded::after {
+	display: none;
+}
+
+/* Ensure consistent background during transition */
+#app {
+	min-height: 100vh;
+	background-color: #f5f5f5;
+}
+
+/* Dark mode preference - but with proper branding and progress indication */
 @media (prefers-color-scheme: dark) {
 	body {
-		background-color: rgb(45, 46, 46);
+		background-color: #2e2e2e;
+		color: #e1e1e1;
+	}
+
+	body::before {
+		border-color: #404040;
+		border-top-color: #ff6d5a;
+	}
+
+	#app {
+		background-color: #2e2e2e;
 	}
 }

@@ -12,13 +12,14 @@
 	height: 100%;
 	position: absolute;
 	background-color: var(--color-background-light);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .spinner {
 	margin-bottom: var(--spacing-l);
-	position: absolute;
-	left: 50%;
-	top: 30%;
 
 	* {
 		color: var(--color-primary);

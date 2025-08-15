@@ -57,6 +57,9 @@ if (import.meta.env.VUE_SCAN) {
 
 app.mount('#app');
 
+// Hide initial loading screen once Vue app is mounted
+document.body.classList.add('app-loaded');
+
 if (!import.meta.env.PROD) {
 	// Make sure that we get all error messages properly displayed
 	// as long as we are not in production mode
