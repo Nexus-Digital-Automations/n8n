@@ -1,18 +1,39 @@
 {
 	"globalEnv": ["CI", "COVERAGE_ENABLED"],
+	"globalDependencies": ["pnpm-lock.yaml", "turbo.json"],
+	"globalPassThroughEnv": ["NODE_OPTIONS", "TURBO_CACHE_DIR"],
+	"remoteCache": {
+		"enabled": true
+	},
 	"tasks": {
 		"clean": { "cache": false },
 		"build": {
 			"dependsOn": ["^build"],
-			"outputs": ["dist/**"]
+			"outputs": ["dist/**"],
+			"cache": true,
+			"persistent": false,
+			"inputs": ["src/**/*", "*.config.*", "package.json", "tsconfig.json", "rollup.config.*", "vite.config.*"],
+			"env": ["NODE_ENV", "NODE_OPTIONS"]
 		},
 		"typecheck": {
-			"dependsOn": ["^typecheck", "^build"]
+			"dependsOn": ["^typecheck", "^build"],
+			"cache": true,
+			"inputs": ["src/**/*.{ts,tsx,vue}", "*.config.*", "package.json", "tsconfig.json"],
+			"outputs": []
 		},
 		"format": {},
 		"format:check": {},
 		"lint": {
-			"dependsOn": ["^build", "@n8n/eslint-config#build"]
+			"dependsOn": ["^build", "@n8n/eslint-config#build"],
+			"cache": true,
+			"inputs": ["src/**/*.{ts,js,vue}", "*.{ts,js}", ".eslintrc*", "eslint.config.*"],
+			"outputs": []
+		},
+		"lint:fast": {
+			"dependsOn": ["@n8n/eslint-config#build"],
+			"cache": true,
+			"inputs": ["src/**/*.{ts,js,vue}", "*.{ts,js}", ".eslintrc*", "eslint.config.*"],
+			"outputs": []
 		},
 		"lint:fix": {},
 		"lint:styles": {

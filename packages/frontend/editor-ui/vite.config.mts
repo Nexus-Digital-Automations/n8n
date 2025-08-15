@@ -10,7 +10,6 @@ import icons from 'unplugin-icons/vite';
 import iconsResolver from 'unplugin-icons/resolver';
 import components from 'unplugin-vue-components/vite';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
-import legacy from '@vitejs/plugin-legacy';
 import browserslist from 'browserslist';
 
 const publicPath = process.env.VUE_APP_PUBLIC_PATH || '/';
@@ -118,11 +117,6 @@ const plugins: UserConfig['plugins'] = [
 			],
 		},
 	}),
-	legacy({
-		modernTargets: browsers,
-		modernPolyfills: true,
-		renderLegacyChunks: false,
-	}),
 	{
 		name: 'Insert config script',
 		transformIndexHtml: (html, ctx) => {
@@ -169,11 +163,49 @@ export default mergeConfig(
 			minify: !!release,
 			sourcemap: !!release,
 			target,
+			chunkSizeWarningLimit: 1600,
+			assetsInlineLimit: 8192,
+			terserOptions: {
+				compress: {
+					drop_console: !!release,
+					drop_debugger: true,
+				},
+			},
+			rollupOptions: {
+				output: {
+					manualChunks: {
+						vendor: ['vue', 'vue-router', 'pinia'],
+						ui: ['element-plus'],
+						codemirror: ['@codemirror/state', '@codemirror/view', '@codemirror/commands'],
+						charts: ['chart.js', 'vue-chartjs'],
+						n8n: ['n8n-workflow', '@n8n/design-system'],
+					},
+					chunkFileNames: (chunkInfo) => {
+						const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/').pop() : 'chunk';
+						return `assets/[name]-[hash].js`;
+					},
+				},
+			},
 		},
 		optimizeDeps: {
 			esbuildOptions: {
 				target,
+				loader: {
+					'.js': 'jsx',
+				},
 			},
+			include: [
+				'vue',
+				'vue-router',
+				'pinia',
+				'element-plus',
+				'lodash',
+				'axios',
+				'uuid',
+				'luxon',
+				'@vueuse/core',
+			],
+			exclude: ['n8n-workflow'],
 		},
 		worker: {
 			format: 'es',
