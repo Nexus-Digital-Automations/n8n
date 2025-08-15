@@ -131,6 +131,60 @@ CSS variables and styling conventions.
 - **Typecheck is critical before committing** - always run `pnpm typecheck`
 - **When modifying pinia stores**, check for unused computed properties
 
+## 🚨 ENHANCED CODE QUALITY STANDARDS
+
+### 📏 Code Metrics (Auto-enforced)
+- **250 lines max** per function (enforced by ESLint)
+- **400 lines max** per file (recommended)
+- **Max complexity: 15** (cyclomatic complexity)
+- **Max depth: 4** (nested blocks)
+- **Max parameters: 4** per function
+
+### 📝 Documentation Requirements
+- **Comprehensive documentation** with JSDoc/TSDoc
+- **Type annotations** for all functions and variables
+- **Input validation** and error handling with logging
+- **No hardcoded secrets** or credentials
+
+### 🎯 Quality Gates (Auto-enforced)
+- **Quality Score: 80%+** (measured by lint-quality.mjs)
+- **Zero linter errors** before task completion
+- **TypeScript strict mode** enabled across all packages
+- **Security scan passed** (no eval, innerHTML, hardcoded secrets)
+- **Code formatting consistent** (Biome/Prettier)
+- **Dependencies secure** (no critical vulnerabilities)
+
+### 🚀 Enhanced Quality Commands
+```bash
+# Enhanced lint with quality metrics and scoring
+pnpm run lint              # Quality lint with metrics (default)
+pnpm run lint:fast         # Traditional fast lint
+pnpm run lint:quality      # Detailed quality analysis
+
+# Quality gate checks (use before commits)
+pnpm run quality:gate      # Quick quality check
+pnpm run quality:check     # Full quality check with build
+
+# TypeScript enhancements
+node scripts/enhance-tsconfig.mjs  # Enhance all tsconfig.json files
+```
+
+### 📊 Quality Metrics Tracking
+The system now tracks:
+- **Quality Score** (0-100%) based on errors/warnings
+- **Performance metrics** (lint duration, package analysis)
+- **Trend analysis** (improvement/degradation over time)
+- **Package-specific results** (detailed breakdown)
+- **Security issues** (potential vulnerabilities)
+
+### 🔧 ESLint Enhancements
+New rules enforced globally:
+- **Performance**: No await in loops, optimized loops
+- **Security**: No eval, innerHTML, script URLs
+- **Quality**: Prefer destructuring, templates, arrow functions
+- **Complexity**: Max function complexity, parameters, depth
+- **Type Safety**: Strict null checks, implicit returns
+
 What we use for testing and writing tests:
 - For testing nodes and other backend components, we use Jest for unit tests. Examples can be found in `packages/nodes-base/nodes/**/*test*`.
 - We use `nock` for server mocking

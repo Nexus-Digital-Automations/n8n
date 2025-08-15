@@ -67,6 +67,34 @@ export default [
 			'no-debugger': 'error',
 			'prefer-const': 'error',
 			'no-var': 'error',
+			
+			// Enhanced code quality rules
+			'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+			'no-duplicate-imports': 'error',
+			'no-unreachable': 'error',
+			'no-unreachable-loop': 'error',
+			'no-unsafe-optional-chaining': 'error',
+			'no-unused-private-class-members': 'error',
+			'prefer-arrow-callback': 'error',
+			'prefer-template': 'error',
+			'prefer-spread': 'error',
+			'prefer-destructuring': ['error', { array: false, object: true }],
+			'no-implicit-coercion': 'error',
+			'no-magic-numbers': ['warn', { ignore: [-1, 0, 1, 2] }],
+			'complexity': ['warn', { max: 15 }],
+			'max-depth': ['warn', { max: 4 }],
+			'max-params': ['warn', { max: 4 }],
+			'max-lines-per-function': ['warn', { max: 250, skipBlankLines: true, skipComments: true }],
+			
+			// Security rules
+			'no-eval': 'error',
+			'no-implied-eval': 'error',
+			'no-new-func': 'error',
+			'no-script-url': 'error',
+			
+			// Performance rules
+			'no-loop-func': 'error',
+			'no-await-in-loop': 'warn',
 		},
 	},
 	{
