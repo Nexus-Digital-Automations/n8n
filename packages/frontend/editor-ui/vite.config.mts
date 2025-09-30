@@ -200,6 +200,7 @@ export default mergeConfig(
 			target,
 		},
 		optimizeDeps: {
+			exclude: ['recast'], // Node.js-only dependency, not for browser
 			esbuildOptions: {
 				target,
 			},

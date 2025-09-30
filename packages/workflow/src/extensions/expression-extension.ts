@@ -4,7 +4,16 @@ import type { Config as EsprimaConfig } from 'esprima-next';
 import { parse as esprimaParse } from 'esprima-next';
 import { DateTime } from 'luxon';
 import { parse, visit, types, print } from 'recast';
-import { getOption } from 'recast/lib/util';
+
+// Simple inline helper to replace getOption from recast/lib/util
+// (which requires Node.js 'os' module and breaks browser builds)
+function getOption<T>(
+	options: Record<string, unknown> | undefined,
+	key: string,
+	defaultValue: T,
+): T {
+	return (options?.[key] as T) ?? defaultValue;
+}
 
 import { arrayExtensions } from './array-extensions';
 import { booleanExtensions } from './boolean-extensions';
