@@ -28,12 +28,14 @@ export class ReviewSystem {
 		this.logger.info('Initializing review system');
 
 		// Register default webhook handlers
-		this.registerWebhookHandler('push', async (event) => this.handlePushEvent(event));
-		this.registerWebhookHandler('pull_request', async (event) =>
-			this.handlePullRequestEvent(event),
+		this.registerWebhookHandler('push', async (event) => await this.handlePushEvent(event));
+		this.registerWebhookHandler(
+			'pull_request',
+			async (event) => await this.handlePullRequestEvent(event),
 		);
-		this.registerWebhookHandler('pull_request_review', async (event) =>
-			this.handleReviewEvent(event),
+		this.registerWebhookHandler(
+			'pull_request_review',
+			async (event) => await this.handleReviewEvent(event),
 		);
 	}
 
