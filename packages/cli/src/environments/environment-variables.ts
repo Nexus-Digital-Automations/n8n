@@ -68,7 +68,7 @@ export class EnvironmentVariablesService {
 
 		if (existing) {
 			// Update existing variable
-			const updated = await this.variableRepository.update(existing.id, {
+			const updated = await this.variableRepository.update(String(existing.id), {
 				value: finalValue,
 				encrypted,
 				description: options.description,
@@ -76,7 +76,7 @@ export class EnvironmentVariablesService {
 			});
 
 			this.logger.debug('Environment variable updated', { environmentId, key });
-			return updated;
+			return updated as EnvironmentVariable;
 		} else {
 			// Create new variable
 			const created = await this.variableRepository.create({
@@ -90,7 +90,7 @@ export class EnvironmentVariablesService {
 			});
 
 			this.logger.debug('Environment variable created', { environmentId, key });
-			return created;
+			return created as EnvironmentVariable;
 		}
 	}
 
@@ -153,10 +153,10 @@ export class EnvironmentVariablesService {
 		}
 
 		if (variable.encrypted && decrypt) {
-			return this.decryptValue(variable.value);
+			return this.decryptValue(String(variable.value));
 		}
 
-		return variable.value;
+		return String(variable.value);
 	}
 
 	/**
@@ -178,7 +178,7 @@ export class EnvironmentVariablesService {
 
 		for (const variable of variables) {
 			if (variable.encrypted && decrypt) {
-				result[variable.key] = this.decryptValue(variable.value);
+				result[variable.key] = this.decryptValue(String(variable.value));
 			} else {
 				result[variable.key] = variable.value;
 			}
@@ -205,16 +205,16 @@ export class EnvironmentVariablesService {
 		if (!includeValues) {
 			// Remove values from response
 			return variables.map((v) => ({
-				...v,
+				...(v as EnvironmentVariable),
 				value: v.encrypted ? '***ENCRYPTED***' : '***HIDDEN***',
-			}));
+			})) as EnvironmentVariable[];
 		}
 
 		// Decrypt encrypted values
 		return variables.map((v) => ({
-			...v,
-			value: v.encrypted ? this.decryptValue(v.value) : v.value,
-		}));
+			...(v as EnvironmentVariable),
+			value: v.encrypted ? this.decryptValue(String(v.value)) : String(v.value),
+		})) as EnvironmentVariable[];
 	}
 
 	/**
@@ -232,7 +232,7 @@ export class EnvironmentVariablesService {
 			throw new NotFoundError(`Variable '${key}' not found in environment '${environmentId}'`);
 		}
 
-		await this.variableRepository.delete(variable.id);
+		await this.variableRepository.delete(String(variable.id));
 
 		this.logger.info('Environment variable deleted', { environmentId, key });
 	}
@@ -288,7 +288,7 @@ export class EnvironmentVariablesService {
 
 		// Filter by specific keys if provided
 		if (options.keys && options.keys.length > 0) {
-			variablesToClone = sourceVariables.filter((v) => options.keys!.includes(v.key));
+			variablesToClone = sourceVariables.filter((v) => options.keys!.includes(String(v.key)));
 		}
 
 		let clonedCount = 0;
@@ -297,7 +297,7 @@ export class EnvironmentVariablesService {
 			try {
 				const existing = await this.variableRepository.findByKey(
 					targetEnvironmentId,
-					sourceVar.key,
+					String(sourceVar.key),
 				);
 
 				if (existing && !options.overwrite) {
@@ -310,7 +310,7 @@ export class EnvironmentVariablesService {
 
 				if (existing && options.overwrite) {
 					// Update existing
-					await this.variableRepository.update(existing.id, {
+					await this.variableRepository.update(String(existing.id), {
 						value: sourceVar.value,
 						encrypted: sourceVar.encrypted,
 						description: sourceVar.description,
