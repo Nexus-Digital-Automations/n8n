@@ -1,9 +1,10 @@
 import { Logger } from '@n8n/backend-common';
 import { Service } from '@n8n/di';
-import type { PullRequestInfo, WebhookEvent } from './types';
-import { GitService } from './git-service';
+
 import { BranchManager } from './branch-manager';
 import { DiffEngine } from './diff-engine';
+import { GitService } from './git-service';
+import type { PullRequestInfo, WebhookEvent } from './types';
 
 /**
  * Pull request and code review system
@@ -27,9 +28,9 @@ export class ReviewSystem {
 		this.logger.info('Initializing review system');
 
 		// Register default webhook handlers
-		this.registerWebhookHandler('push', this.handlePushEvent.bind(this));
-		this.registerWebhookHandler('pull_request', this.handlePullRequestEvent.bind(this));
-		this.registerWebhookHandler('pull_request_review', this.handleReviewEvent.bind(this));
+		this.registerWebhookHandler('push', (event) => this.handlePushEvent(event));
+		this.registerWebhookHandler('pull_request', (event) => this.handlePullRequestEvent(event));
+		this.registerWebhookHandler('pull_request_review', (event) => this.handleReviewEvent(event));
 	}
 
 	/**

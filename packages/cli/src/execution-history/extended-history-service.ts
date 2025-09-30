@@ -1,11 +1,11 @@
 import { Logger } from '@n8n/backend-common';
 import { GlobalConfig } from '@n8n/config';
-import { Service } from '@n8n/di';
 import { ExecutionRepository, MoreThanOrEqual, LessThan } from '@n8n/db';
 import type { IExecutionResponse } from '@n8n/db';
+import { Service } from '@n8n/di';
 import { DateUtils } from '@n8n/typeorm/util/DateUtils';
-import { gzip, gunzip } from 'zlib';
 import { promisify } from 'util';
+import { gzip, gunzip } from 'zlib';
 
 const gzipAsync = promisify(gzip);
 const gunzipAsync = promisify(gunzip);
@@ -163,7 +163,7 @@ export class ExtendedHistoryService {
 				relations: ['executionData'],
 			});
 
-			if (!execution || !execution.executionData) {
+			if (!execution?.executionData) {
 				this.logger.warn('[ExtendedHistoryService] Execution not found', {
 					module: 'ExtendedHistoryService',
 					function: 'compressExecution',

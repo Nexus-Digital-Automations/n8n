@@ -1,15 +1,16 @@
 import { Logger } from '@n8n/backend-common';
 import { GlobalConfig } from '@n8n/config';
-import { Service } from '@n8n/di';
 import { ExecutionRepository, LessThan } from '@n8n/db';
 import type { ExecutionEntity } from '@n8n/db';
+import { Service } from '@n8n/di';
 import { DateUtils } from '@n8n/typeorm/util/DateUtils';
-import { gzip } from 'zlib';
-import { promisify } from 'util';
 import * as fs from 'fs/promises';
 import * as path from 'path';
+import { promisify } from 'util';
+import { gzip, gunzip } from 'zlib';
 
 const gzipAsync = promisify(gzip);
+const gunzipAsync = promisify(gunzip);
 
 export interface ArchiveConfig {
 	archivePath: string;
@@ -218,9 +219,8 @@ export class HistoryArchiver {
 
 			// Read and decompress archive
 			const compressed = await fs.readFile(archiveFile);
-			const gunzip = promisify(require('zlib').gunzip);
-			const decompressed = await gunzip(compressed);
-			const archiveData = JSON.parse(decompressed.toString());
+			const decompressed = await gunzipAsync(compressed);
+			const archiveData = JSON.parse(decompressed.toString()) as { execution: ExecutionEntity };
 
 			this.logger.info('[HistoryArchiver] Execution restored', {
 				module: 'HistoryArchiver',

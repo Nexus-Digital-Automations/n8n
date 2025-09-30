@@ -1,10 +1,11 @@
 import { Logger } from '@n8n/backend-common';
-import { Service } from '@n8n/di';
 import type { WorkflowEntity } from '@n8n/db';
+import { Service } from '@n8n/di';
 import { promises as fs } from 'fs';
+import { jsonParse } from 'n8n-workflow';
 import path from 'path';
 import yaml from 'yamljs';
-import { jsonParse } from 'n8n-workflow';
+
 import type { SerializedWorkflow, WorkflowFileMapping } from './types';
 
 /**

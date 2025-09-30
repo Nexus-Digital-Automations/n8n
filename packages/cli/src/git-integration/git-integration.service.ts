@@ -1,7 +1,13 @@
 import { Logger } from '@n8n/backend-common';
-import { Service } from '@n8n/di';
 import type { WorkflowEntity } from '@n8n/db';
 import { WorkflowRepository } from '@n8n/db';
+import { Service } from '@n8n/di';
+
+import { BranchManager } from './branch-manager';
+import { DiffEngine } from './diff-engine';
+import { GitService } from './git-service';
+import { MergeResolver } from './merge-resolver';
+import { ReviewSystem } from './review-system';
 import type {
 	GitConfig,
 	SerializedWorkflow,
@@ -9,12 +15,7 @@ import type {
 	MergeConflict,
 	ConflictResolution,
 } from './types';
-import { GitService } from './git-service';
 import { WorkflowSerializer } from './workflow-serializer';
-import { DiffEngine } from './diff-engine';
-import { MergeResolver } from './merge-resolver';
-import { BranchManager } from './branch-manager';
-import { ReviewSystem } from './review-system';
 
 /**
  * Main Git integration orchestrator service

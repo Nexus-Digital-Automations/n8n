@@ -1,7 +1,8 @@
 import { Logger } from '@n8n/backend-common';
 import { Service } from '@n8n/di';
-import simpleGit, { type SimpleGit, type StatusResult } from 'simple-git';
 import { promises as fs } from 'fs';
+import simpleGit, { type SimpleGit, type StatusResult } from 'simple-git';
+
 import type {
 	GitConfig,
 	GitCommitResult,

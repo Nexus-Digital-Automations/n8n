@@ -1,7 +1,8 @@
 import { Logger } from '@n8n/backend-common';
 import { Service } from '@n8n/di';
-import type { BranchInfo } from './types';
+
 import { GitService } from './git-service';
+import type { BranchInfo } from './types';
 
 /**
  * Git branch management service
