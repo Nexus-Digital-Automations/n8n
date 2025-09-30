@@ -121,7 +121,7 @@ export class CredentialIsolationService {
 		}
 
 		const credentialToDelete = envCredential;
-		await this.environmentCredentialRepository.delete(credentialToDelete.id);
+		await this.environmentCredentialRepository.delete(String(credentialToDelete.id));
 
 		this.logger.info('Credential dissociated from environment', {
 			environmentId,
@@ -186,7 +186,10 @@ export class CredentialIsolationService {
 
 		// Decrypt credential data
 		const credentialWithData = envCredential;
-		return await this.decryptCredentialData(credentialWithData.encryptedData, decryptionKey);
+		return await this.decryptCredentialData(
+			String(credentialWithData.encryptedData),
+			decryptionKey,
+		);
 	}
 
 	/**
@@ -242,7 +245,7 @@ export class CredentialIsolationService {
 				if (existing && options.overwrite) {
 					// Update existing
 					const credentialToUpdate = existing;
-					await this.environmentCredentialRepository.update(credentialToUpdate.id, {
+					await this.environmentCredentialRepository.update(String(credentialToUpdate.id), {
 						encryptedData: sourceCred.encryptedData,
 						metadata: sourceCred.metadata,
 					});
@@ -317,7 +320,9 @@ export class CredentialIsolationService {
 		}
 
 		const credentialToActivate = envCredential;
-		await this.environmentCredentialRepository.update(credentialToActivate.id, { isActive: true });
+		await this.environmentCredentialRepository.update(String(credentialToActivate.id), {
+			isActive: true,
+		});
 
 		this.logger.info('Credential activated', { environmentId, credentialId });
 	}
@@ -346,7 +351,7 @@ export class CredentialIsolationService {
 		}
 
 		const credentialToDeactivate = envCredential;
-		await this.environmentCredentialRepository.update(credentialToDeactivate.id, {
+		await this.environmentCredentialRepository.update(String(credentialToDeactivate.id), {
 			isActive: false,
 		});
 

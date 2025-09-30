@@ -1,0 +1,632 @@
+{
+  "project": "n8n",
+  "schema_version": "2.0.0",
+  "migrated_from": "new_installation",
+  "migration_date": "2025-09-30T01:45:50.400Z",
+  "tasks": [
+    {
+      "id": "task_1759197028445_8933b04d7e13",
+      "feature_id": null,
+      "title": "Implement advanced error handling and retry mechanisms with circuit breaker pattern",
+      "description": "Create configurable retry system with exponential backoff, circuit breaker pattern for failing services, error categorization (transient vs permanent), and error recovery workflows with notification system",
+      "type": "feature",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:28.445Z",
+      "updated_at": "2025-09-30T02:23:04.518Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:04.518Z"
+    },
+    {
+      "id": "task_1759197030362_0dd4aa852a55",
+      "feature_id": null,
+      "title": "Implement comprehensive logging and monitoring system with OpenTelemetry",
+      "description": "Add structured JSON logging, distributed tracing with OpenTelemetry, workflow execution metrics dashboard, log aggregation and analysis, and performance monitoring capabilities",
+      "type": "feature",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:30.362Z",
+      "updated_at": "2025-09-30T02:23:06.564Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:06.564Z"
+    },
+    {
+      "id": "task_1759197032390_f26e2ca590d4",
+      "feature_id": null,
+      "title": "Implement enhanced data transformation with JSONPath and schema validation",
+      "description": "Add complex JSONPath query support, data validation and schema enforcement, reusable transformation library for common patterns, and visual data mapping interface",
+      "type": "feature",
+      "priority": "normal",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:32.390Z",
+      "updated_at": "2025-09-30T02:23:08.398Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:08.398Z"
+    },
+    {
+      "id": "task_1759197033974_cfa834b6da49",
+      "feature_id": null,
+      "title": "Implement reliable webhook system with queue and dead-letter handling",
+      "description": "Create webhook queue with persistence, retry logic with exponential backoff, dead-letter queue for failed webhooks, signature verification, and webhook testing/debugging tools",
+      "type": "feature",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:33.974Z",
+      "updated_at": "2025-09-30T02:23:10.315Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:10.315Z"
+    },
+    {
+      "id": "task_1759197035970_bdad7df75765",
+      "feature_id": null,
+      "title": "Implement enterprise SSO, LDAP, and external secrets integration",
+      "description": "Add SSO support (SAML, OAuth2, OIDC), LDAP/Active Directory integration, external secret store connections (HashiCorp Vault, AWS Secrets Manager), and role-based access control (RBAC)",
+      "type": "feature",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:35.970Z",
+      "updated_at": "2025-09-30T02:23:12.249Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:12.249Z"
+    },
+    {
+      "id": "task_1759197037402_93a80431936c",
+      "feature_id": null,
+      "title": "Implement environment management system (dev/staging/production)",
+      "description": "Create environment configuration system with separate dev/staging/prod environments, environment-specific credentials and variables, environment promotion workflows, and environment isolation with testing capabilities",
+      "type": "feature",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:37.402Z",
+      "updated_at": "2025-09-30T02:23:14.331Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:14.331Z"
+    },
+    {
+      "id": "task_1759197039288_276f3997cafe",
+      "feature_id": null,
+      "title": "Implement Git integration for workflow versioning and collaboration",
+      "description": "Add workflow versioning with Git backend, automatic commit/push for workflow changes, workflow diff and merge capabilities, and workflow review/approval process with branch management",
+      "type": "feature",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:39.288Z",
+      "updated_at": "2025-09-30T02:23:16.785Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:16.785Z"
+    },
+    {
+      "id": "task_1759197041032_93970498bd24",
+      "feature_id": null,
+      "title": "Simplify OAuth configuration with wizard for common apps",
+      "description": "Create OAuth setup wizard for Google Sheets, Trello, Slack, GitHub, and other popular apps. Pre-configure OAuth scopes for standard use cases, add OAuth testing/validation tools, and build credential templates",
+      "type": "feature",
+      "priority": "normal",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:41.033Z",
+      "updated_at": "2025-09-30T02:23:19.301Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:19.301Z"
+    },
+    {
+      "id": "task_1759197042856_e278016ad835",
+      "feature_id": null,
+      "title": "Restore Basic Auth and JWT authentication methods",
+      "description": "Re-implement Basic Auth support for simple API integrations, add JWT token authentication with token generation and validation, create API key management interface, and build authentication method selector UI",
+      "type": "feature",
+      "priority": "normal",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:42.856Z",
+      "updated_at": "2025-09-30T02:23:21.369Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:21.369Z"
+    },
+    {
+      "id": "task_1759197044883_9a7ee121bc14",
+      "feature_id": null,
+      "title": "Expand enterprise authentication to lower pricing tiers",
+      "description": "Move SSO/LDAP capabilities to lower pricing tiers, create limited SSO in community edition, implement authentication plugin system for extensibility, and build authentication marketplace for community contributions",
+      "type": "feature",
+      "priority": "normal",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:44.883Z",
+      "updated_at": "2025-09-30T02:23:23.684Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:23.684Z"
+    },
+    {
+      "id": "task_1759197046762_fac0341c0214",
+      "feature_id": null,
+      "title": "Implement extended workflow and execution history (30 days retention)",
+      "description": "Extend workflow history from 24 hours to 30 days for registered users, implement execution history compression and archiving, add execution replay capability, and create history search and filtering interface",
+      "type": "feature",
+      "priority": "normal",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:46.762Z",
+      "updated_at": "2025-09-30T02:23:25.545Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:25.545Z"
+    },
+    {
+      "id": "task_1759197048639_bc70554865ec",
+      "feature_id": null,
+      "title": "Implement advanced debugging tools with step-through and breakpoints",
+      "description": "Create interactive debugging interface with step-through execution, breakpoint support for workflow nodes, variable inspection at each step, execution timeline visualization, and performance profiling tools",
+      "type": "feature",
+      "priority": "normal",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:48.639Z",
+      "updated_at": "2025-09-30T02:23:27.421Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:27.421Z"
+    },
+    {
+      "id": "task_1759197050375_59142e4588ce",
+      "feature_id": null,
+      "title": "Enhance security features in community edition",
+      "description": "Move basic security scanning to community edition, implement secret rotation capabilities, add secret usage tracking and auditing, create secret compliance reporting, and enable basic vulnerability scanning",
+      "type": "feature",
+      "priority": "normal",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T01:50:50.376Z",
+      "updated_at": "2025-09-30T02:23:29.583Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:23:29.583Z"
+    },
+    {
+      "id": "task_1759198094811_c433d601f6cd",
+      "feature_id": null,
+      "title": "Implement Extended Workflow History (30 days) and Advanced Debugging Tools",
+      "description": "Create execution-history/ and debugging/ directories with services for 30-day history storage, compression, archiving, replay, breakpoints, variable inspection, timeline visualization, and performance profiling. Database integration with ExecutionEntity model.",
+      "type": "feature",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T02:08:14.811Z",
+      "updated_at": "2025-09-30T02:18:49.902Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:18:49.902Z"
+    },
+    {
+      "id": "task_1759198113047_324d4dff02c0",
+      "feature_id": null,
+      "title": "Implement n8n security enhancements and enterprise auth tier expansion",
+      "description": "Create comprehensive security features for n8n community edition including security scanner, secret rotation, auditing, compliance reporting, and vulnerability checking. Expand enterprise auth features (SSO/LDAP) to lower pricing tiers with appropriate limits. Implement tier management system and authentication plugin marketplace.",
+      "type": "feature",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T02:08:33.047Z",
+      "updated_at": "2025-09-30T02:17:25.012Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T02:17:25.012Z"
+    },
+    {
+      "id": "task_1759215062755_3aa2fbd00942",
+      "feature_id": null,
+      "title": "Fix 6 TypeScript errors in packages/workflow/src/data-transformation/",
+      "description": "Fix type errors in jsonpath-query.ts (line 135), schema-validator.ts (line 583), transformation-library.ts (lines 338, 339, 351), and visual-mapper.ts (line 352). Errors involve unknown types not assignable to specific types and generic type readonly restrictions.",
+      "type": "error",
+      "priority": "urgent",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-09-30T06:51:02.755Z",
+      "updated_at": "2025-09-30T07:08:13.622Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-09-30T07:03:47.160Z"
+    }
+  ],
+  "completed_tasks": [],
+  "task_relationships": {},
+  "workflow_config": {
+    "require_approval": true,
+    "auto_reject_timeout_hours": 168,
+    "allowed_statuses": [
+      "suggested",
+      "approved",
+      "in-progress",
+      "completed",
+      "blocked",
+      "rejected"
+    ],
+    "allowed_task_types": [
+      "error",
+      "feature",
+      "test",
+      "audit"
+    ],
+    "required_fields": [
+      "title",
+      "description",
+      "business_value",
+      "category",
+      "type"
+    ],
+    "auto_generation_enabled": true,
+    "mandatory_test_gate": true,
+    "security_validation_required": true
+  },
+  "auto_generation_config": {
+    "test_task_template": {
+      "title_pattern": "Implement comprehensive tests for: {feature_title}",
+      "description_pattern": "Create unit tests, integration tests, And E2E tests to achieve >{coverage}% coverage for: {feature_title}. Must validate all functionality, edge cases, And error conditions.",
+      "priority": "high",
+      "required_capabilities": [
+        "testing"
+      ],
+      "validation_requirements": {
+        "test_coverage": true,
+        "linter_pass": true
+      }
+    },
+    "audit_task_template": {
+      "title_pattern": "Security And quality audit for: {feature_title}",
+      "description_pattern": "Run semgrep security scan, dependency vulnerability check, code quality analysis, And compliance validation for: {feature_title}. Zero tolerance for security vulnerabilities.",
+      "priority": "high",
+      "required_capabilities": [
+        "security",
+        "analysis"
+      ],
+      "validation_requirements": {
+        "security_scan": true,
+        "linter_pass": true,
+        "type_check": true
+      }
+    }
+  },
+  "priority_system": {
+    "order": [
+      "USER_REQUESTS",
+      "ERROR",
+      "AUDIT",
+      "FEATURE",
+      "TEST"
+    ],
+    "error_priorities": {
+      "critical": [
+        "build-breaking",
+        "security-vulnerability",
+        "production-down"
+      ],
+      "high": [
+        "linter-errors",
+        "type-errors",
+        "test-failures"
+      ],
+      "normal": [
+        "warnings",
+        "optimization-opportunities"
+      ],
+      "low": [
+        "documentation-improvements",
+        "code-style"
+      ]
+    }
+  },
+  "metadata": {
+    "version": "2.0.0",
+    "created": "2025-09-30T01:45:50.400Z",
+    "updated": "2025-09-30T07:08:13.622Z",
+    "total_tasks": 0,
+    "tasks_by_type": {
+      "error": 0,
+      "feature": 0,
+      "test": 0,
+      "audit": 0
+    },
+    "approval_history": [],
+    "initialization_stats": {
+      "total_initializations": 0,
+      "total_reinitializations": 4,
+      "current_day": "2025-09-30",
+      "time_buckets": {
+        "13:00-17:59": {
+          "init": 0,
+          "reinit": 0
+        },
+        "18:00-22:59": {
+          "init": 0,
+          "reinit": 4
+        },
+        "23:00-03:59": {
+          "init": 0,
+          "reinit": 0
+        },
+        "04:00-08:59": {
+          "init": 0,
+          "reinit": 0
+        },
+        "09:00-13:59": {
+          "init": 0,
+          "reinit": 0
+        }
+      },
+      "daily_history": [],
+      "last_reset": "2025-09-30T01:45:50.410Z",
+      "last_updated": "2025-09-30T02:08:03.720Z"
+    }
+  },
+  "agents": {
+    "n8n-improvements-agent": {
+      "lastHeartbeat": "2025-09-30T01:45:50.402Z",
+      "status": "active",
+      "reinitialized": "2025-09-30T01:45:50.402Z",
+      "sessionId": "273a552b5e007bcc",
+      "previousSessions": []
+    },
+    "n8n-security-enhancement-agent": {
+      "lastHeartbeat": "2025-09-30T02:08:02.438Z",
+      "status": "active",
+      "reinitialized": "2025-09-30T02:08:02.438Z",
+      "sessionId": "1b9713f15220e392",
+      "previousSessions": []
+    },
+    "oauth-auth-implementation": {
+      "lastHeartbeat": "2025-09-30T02:08:02.772Z",
+      "status": "active",
+      "reinitialized": "2025-09-30T02:08:02.772Z",
+      "sessionId": "a84e4f936d27267b",
+      "previousSessions": []
+    },
+    "n8n-extended-history-debug": {
+      "lastHeartbeat": "2025-09-30T02:08:03.716Z",
+      "status": "active",
+      "reinitialized": "2025-09-30T02:08:03.716Z",
+      "sessionId": "a6a37cf265db6f4b",
+      "previousSessions": []
+    }
+  }
+}

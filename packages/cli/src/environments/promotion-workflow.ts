@@ -73,7 +73,7 @@ export class PromotionWorkflowService {
 
 		try {
 			// Update status to in_progress
-			await this.promotionRepository.updateStatus(promotion.id, 'in_progress');
+			await this.promotionRepository.updateStatus(String(promotion.id), 'in_progress');
 
 			// Get workflow from source environment
 			const workflow = await this.workflowRepository.findById(request.workflowId);
@@ -114,7 +114,7 @@ export class PromotionWorkflowService {
 				await this.executePromotion(workflow, request.targetEnvironmentId, options);
 
 				// Update promotion status to completed
-				await this.promotionRepository.update(promotion.id, {
+				await this.promotionRepository.update(String(promotion.id), {
 					status: 'completed',
 					completedAt: new Date(),
 					backupId,
@@ -152,7 +152,7 @@ export class PromotionWorkflowService {
 			});
 
 			// Update promotion status to failed
-			await this.promotionRepository.update(promotion.id, {
+			await this.promotionRepository.update(String(promotion.id), {
 				status: 'failed',
 				completedAt: new Date(),
 				errors: [
@@ -166,7 +166,7 @@ export class PromotionWorkflowService {
 
 			// Rollback if option is enabled and we have a backup
 			if (options.rollbackOnError && promotion.backupId) {
-				await this.rollbackPromotion(promotion.id, userId);
+				await this.rollbackPromotion(String(promotion.id), userId);
 			}
 
 			throw error;
@@ -192,7 +192,7 @@ export class PromotionWorkflowService {
 		}
 
 		// Get backup
-		const backup = await this.backupRepository.findById(promotion.backupId);
+		const backup = await this.backupRepository.findById(String(promotion.backupId));
 		if (!backup) {
 			throw new NotFoundError(`Backup with id '${promotion.backupId}' not found`);
 		}
@@ -417,7 +417,7 @@ export class PromotionWorkflowService {
 
 		this.logger.debug('Workflow backup created', { backupId: backup.id });
 
-		return backup.id;
+		return String(backup.id);
 	}
 
 	private async executePromotion(

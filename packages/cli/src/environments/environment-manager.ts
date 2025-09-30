@@ -78,12 +78,15 @@ export class EnvironmentManager {
 
 		// Initialize environment configuration
 		const createdEnvironment = environment;
-		await this.environmentConfig.initializeEnvironment(createdEnvironment.id, options.config || {});
+		await this.environmentConfig.initializeEnvironment(
+			String(createdEnvironment.id),
+			options.config || {},
+		);
 
 		// Initialize environment variables if provided
 		if (options.variables && Object.keys(options.variables).length > 0) {
 			await this.environmentVariables.setVariables(
-				createdEnvironment.id,
+				String(createdEnvironment.id),
 				options.variables,
 				userId,
 			);

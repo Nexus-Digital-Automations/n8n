@@ -1,0 +1,47 @@
+{
+	"project": "core",
+	"features": [],
+	"agents": {},
+	"metadata": {
+		"version": "1.0.0",
+		"created": "2025-09-30T07:12:07.317Z",
+		"updated": "2025-09-30T07:15:40.503Z",
+		"total_features": 0,
+		"approval_history": []
+	},
+	"workflow_config": {
+		"require_approval": true,
+		"auto_reject_timeout_hours": 168,
+		"allowed_statuses": ["suggested", "approved", "rejected", "implemented"],
+		"required_fields": ["title", "description", "business_value", "category"]
+	},
+	"tasks": [
+		{
+			"id": "task_1759216327318_7fd87fb1da2c",
+			"feature_id": null,
+			"title": "Fix 37 ESLint errors in packages/core/src webhooks and logging modules",
+			"description": "Fix linting errors in structured-logger.ts (21 errors), dead-letter-queue.ts (3 errors), signature-verifier.ts (3 errors), webhook-processor.ts (2 errors), webhook-testing.ts (8 errors). Issues include: @typescript-eslint/no-explicit-any, import ordering, unsafe assignments, restricted identifiers, promise-function-async.",
+			"type": "error",
+			"priority": "urgent",
+			"status": "completed",
+			"dependencies": [],
+			"estimated_effort": 5,
+			"required_capabilities": ["general"],
+			"created_at": "2025-09-30T07:12:07.318Z",
+			"updated_at": "2025-09-30T07:15:40.503Z",
+			"created_by": "manual_creation",
+			"verificationGate": {
+				"status": "pending",
+				"requirements": [],
+				"evidence": null,
+				"verifiedAt": null,
+				"verifiedBy": null
+			},
+			"metadata": {
+				"auto_generated": false
+			},
+			"progress_percentage": 100,
+			"completed_at": "2025-09-30T07:15:40.503Z"
+		}
+	]
+}
