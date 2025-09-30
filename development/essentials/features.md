@@ -5,14 +5,14 @@ This document serves as the source of truth for all approved features in the n8n
 ## Core Features (Implemented)
 
 ### 1. Advanced Error Handling & Retry Mechanisms
-**Status**: Completed ✅
+**Status**: Planned 📋
 **Description**: Configurable retry system with exponential backoff, circuit breaker pattern for failing services, error categorization (transient vs permanent), and error recovery workflows with notification system.
-**Modules**: `packages/@n8n/utils/src/advanced-retry.ts`, `packages/@n8n/utils/src/circuit-breaker.ts`, `packages/@n8n/utils/src/error-recovery.ts`
+**Planned Modules**: `packages/@n8n/utils/src/advanced-retry.ts`, `packages/@n8n/utils/src/circuit-breaker.ts`, `packages/@n8n/utils/src/error-recovery.ts`
 
 ### 2. Comprehensive Logging & Monitoring (OpenTelemetry)
-**Status**: Completed ✅
+**Status**: Planned 📋
 **Description**: Structured JSON logging, distributed tracing with OpenTelemetry, workflow execution metrics dashboard, log aggregation and analysis, and performance monitoring capabilities.
-**Modules**: `packages/core/src/logging/`
+**Planned Modules**: `packages/core/src/logging/`
 
 ### 3. Enhanced Data Transformation
 **Status**: Completed ✅
@@ -25,9 +25,9 @@ This document serves as the source of truth for all approved features in the n8n
 - `visual-mapper.ts` - Visual data mapping interface
 
 ### 4. Reliable Webhook System
-**Status**: Completed ✅
+**Status**: Planned 📋
 **Description**: Webhook queue with persistence, retry logic with exponential backoff, dead-letter queue for failed webhooks, signature verification, and webhook testing/debugging tools.
-**Modules**: `packages/core/src/webhooks/`
+**Planned Modules**: `packages/core/src/webhooks/`
 
 ### 5. Enterprise SSO, LDAP & External Secrets Integration
 **Status**: Completed ✅
@@ -130,5 +130,5 @@ All features MUST pass the two-stage quality framework:
 ---
 
 **Last Updated**: 2025-09-30
-**Features Count**: 13 core features implemented
+**Features Count**: 10 core features implemented, 3 planned
 **Quality Framework**: Enforced via pre-commit hooks + CI/CD pipeline
