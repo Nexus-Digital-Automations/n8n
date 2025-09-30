@@ -21,10 +21,10 @@ export class EnvironmentVariableRepository extends Repository<EnvironmentVariabl
 	}
 
 	async findByEnvironment(environmentId: string): Promise<EnvironmentVariableEntity[]> {
-		return await this.find({
+		return (await this.find({
 			where: { environmentId },
 			order: { key: 'ASC' },
-		});
+		})) as EnvironmentVariableEntity[];
 	}
 
 	async findByKey(environmentId: string, key: string): Promise<EnvironmentVariableEntity | null> {
@@ -65,8 +65,8 @@ export class EnvironmentVariableRepository extends Repository<EnvironmentVariabl
 	}
 
 	async countByEnvironment(environmentId: string): Promise<number> {
-		return await this.count({
+		return (await this.count({
 			where: { environmentId },
-		});
+		})) as number;
 	}
 }

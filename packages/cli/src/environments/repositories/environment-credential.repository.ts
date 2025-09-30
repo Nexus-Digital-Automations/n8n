@@ -29,10 +29,10 @@ export class EnvironmentCredentialRepository extends Repository<EnvironmentCrede
 			where.isActive = true;
 		}
 
-		return await this.find({
+		return (await this.find({
 			where,
 			relations: ['credential'],
-		});
+		})) as EnvironmentCredentialEntity[];
 	}
 
 	async findByEnvironmentAndCredential(
