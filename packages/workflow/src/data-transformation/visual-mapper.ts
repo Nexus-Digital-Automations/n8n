@@ -682,13 +682,15 @@ export class VisualMapper {
 
 		for (let i = 0; i < keys.length - 1; i++) {
 			const key = keys[i];
-			if (!(key in current) || typeof current[key] !== 'object' || current[key] === null) {
+			const currentValue = current[key];
+			if (currentValue === undefined || typeof currentValue !== 'object' || currentValue === null) {
 				current[key] = {} as Record<string, unknown>;
 			}
 			current = current[key] as Record<string, unknown>;
 		}
 
-		current[keys[keys.length - 1]] = value;
+		const lastKey = keys[keys.length - 1];
+		current[lastKey] = value as unknown;
 	}
 
 	/**

@@ -132,7 +132,10 @@ export class JSONPathQuery {
 	queryWithPaths(path: string, options: IJsonPathOptions = {}): IJsonPathResult[] {
 		const mergedOptions = { ...options, resultType: 'all' as const };
 		const results = this.executeQuery(path, mergedOptions);
-		return Array.isArray(results) ? (results as IJsonPathResult[]) : [results as IJsonPathResult];
+		if (Array.isArray(results)) {
+			return results.map((r) => r as IJsonPathResult);
+		}
+		return [results as IJsonPathResult];
 	}
 
 	/**

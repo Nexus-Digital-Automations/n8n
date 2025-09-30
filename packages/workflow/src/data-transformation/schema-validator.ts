@@ -581,10 +581,11 @@ export class SchemaValidator {
 		}
 
 		// Validate items
-		if (schema.items) {
-			if (Array.isArray(schema.items)) {
+		if (schema.items !== undefined) {
+			const items = schema.items;
+			if (Array.isArray(items)) {
 				// Tuple validation
-				const itemsArray: IJsonSchema[] = schema.items;
+				const itemsArray: IJsonSchema[] = items;
 				data.forEach((item, index) => {
 					if (index < itemsArray.length) {
 						this.validateSchema(item, itemsArray[index], `${path}[${index}]`, errors);
@@ -592,8 +593,9 @@ export class SchemaValidator {
 				});
 			} else {
 				// All items same schema
+				const itemSchema: IJsonSchema = items;
 				data.forEach((item, index) => {
-					this.validateSchema(item, schema.items as IJsonSchema, `${path}[${index}]`, errors);
+					this.validateSchema(item, itemSchema, `${path}[${index}]`, errors);
 				});
 			}
 		}

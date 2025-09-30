@@ -320,7 +320,7 @@ export class TransformationLibrary {
 		const result = { ...obj };
 
 		Object.keys(result).forEach((key) => {
-			let value = result[key];
+			let value: unknown = result[key];
 
 			// Remove null/undefined
 			if (options.removeNull && value === null) {
@@ -334,7 +334,7 @@ export class TransformationLibrary {
 
 			// String transformations
 			if (typeof value === 'string') {
-				let stringValue = value;
+				let stringValue: string = value;
 				if (options.trim) stringValue = stringValue.trim();
 				if (options.lowercase) stringValue = stringValue.toLowerCase();
 				if (options.uppercase) stringValue = stringValue.toUpperCase();
@@ -350,7 +350,9 @@ export class TransformationLibrary {
 				value = this.normalizeObject(value as Record<string, unknown>, options);
 			}
 
-			(result as Record<string, unknown>)[key] = value;
+			// Assign back to result
+			const mutableResult = result as Record<string, unknown>;
+			mutableResult[key] = value;
 		});
 
 		// Key transformations
