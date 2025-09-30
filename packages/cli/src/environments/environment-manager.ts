@@ -1,6 +1,14 @@
 import { Logger } from '@n8n/backend-common';
 import { Service } from '@n8n/di';
 
+import { BadRequestError } from '@/errors/response-errors/bad-request.error';
+import { NotFoundError } from '@/errors/response-errors/not-found.error';
+
+import { CredentialIsolationService } from './credential-isolation';
+import { EnvironmentConfigService } from './environment-config';
+import { EnvironmentVariablesService } from './environment-variables';
+import { PromotionWorkflowService } from './promotion-workflow';
+import { EnvironmentRepository } from './repositories/environment.repository';
 import type {
 	EnvironmentConfig,
 	EnvironmentStatus,
@@ -10,13 +18,6 @@ import type {
 	EnvironmentHealthCheck,
 	EnvironmentCloneOptions,
 } from './types';
-import { EnvironmentRepository } from './repositories/environment.repository';
-import { EnvironmentConfigService } from './environment-config';
-import { CredentialIsolationService } from './credential-isolation';
-import { PromotionWorkflowService } from './promotion-workflow';
-import { EnvironmentVariablesService } from './environment-variables';
-import { BadRequestError } from '@/errors/response-errors/bad-request.error';
-import { NotFoundError } from '@/errors/response-errors/not-found.error';
 
 /**
  * Core environment management system for n8n.
@@ -76,11 +77,16 @@ export class EnvironmentManager {
 		});
 
 		// Initialize environment configuration
-		await this.environmentConfig.initializeEnvironment(environment.id, options.config || {});
+		const createdEnvironment = environment;
+		await this.environmentConfig.initializeEnvironment(createdEnvironment.id, options.config || {});
 
 		// Initialize environment variables if provided
 		if (options.variables && Object.keys(options.variables).length > 0) {
-			await this.environmentVariables.setVariables(environment.id, options.variables, userId);
+			await this.environmentVariables.setVariables(
+				createdEnvironment.id,
+				options.variables,
+				userId,
+			);
 		}
 
 		this.logger.info('Environment created successfully', {

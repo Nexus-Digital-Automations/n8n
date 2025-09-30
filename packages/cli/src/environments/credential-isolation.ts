@@ -1,12 +1,13 @@
 import { Logger } from '@n8n/backend-common';
-import { Service } from '@n8n/di';
 import { CredentialsRepository } from '@n8n/db';
+import { Service } from '@n8n/di';
 
-import type { EnvironmentCredential } from './types';
-import { EnvironmentCredentialRepository } from './repositories/environment-credential.repository';
+import { CredentialsHelper } from '@/credentials-helper';
 import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
-import { CredentialsHelper } from '@/credentials-helper';
+
+import { EnvironmentCredentialRepository } from './repositories/environment-credential.repository';
+import type { EnvironmentCredential } from './types';
 
 /**
  * Credential isolation service for environment-specific credential management.
@@ -93,7 +94,7 @@ export class CredentialIsolationService {
 			envCredentialId: envCredential.id,
 		});
 
-		return envCredential;
+		return envCredential as EnvironmentCredential;
 	}
 
 	/**
@@ -119,7 +120,8 @@ export class CredentialIsolationService {
 			);
 		}
 
-		await this.environmentCredentialRepository.delete(envCredential.id);
+		const credentialToDelete = envCredential;
+		await this.environmentCredentialRepository.delete(credentialToDelete.id);
 
 		this.logger.info('Credential dissociated from environment', {
 			environmentId,
@@ -140,10 +142,11 @@ export class CredentialIsolationService {
 	): Promise<EnvironmentCredential[]> {
 		this.logger.debug('Listing credentials for environment', { environmentId });
 
-		return await this.environmentCredentialRepository.findByEnvironment(
+		const credentials = await this.environmentCredentialRepository.findByEnvironment(
 			environmentId,
 			options.includeInactive || false,
 		);
+		return credentials as EnvironmentCredential[];
 	}
 
 	/**
@@ -182,7 +185,8 @@ export class CredentialIsolationService {
 		}
 
 		// Decrypt credential data
-		return await this.decryptCredentialData(envCredential.encryptedData, decryptionKey);
+		const credentialWithData = envCredential;
+		return await this.decryptCredentialData(credentialWithData.encryptedData, decryptionKey);
 	}
 
 	/**
@@ -237,7 +241,8 @@ export class CredentialIsolationService {
 
 				if (existing && options.overwrite) {
 					// Update existing
-					await this.environmentCredentialRepository.update(existing.id, {
+					const credentialToUpdate = existing;
+					await this.environmentCredentialRepository.update(credentialToUpdate.id, {
 						encryptedData: sourceCred.encryptedData,
 						metadata: sourceCred.metadata,
 					});
@@ -311,7 +316,8 @@ export class CredentialIsolationService {
 			);
 		}
 
-		await this.environmentCredentialRepository.update(envCredential.id, { isActive: true });
+		const credentialToActivate = envCredential;
+		await this.environmentCredentialRepository.update(credentialToActivate.id, { isActive: true });
 
 		this.logger.info('Credential activated', { environmentId, credentialId });
 	}
@@ -339,7 +345,10 @@ export class CredentialIsolationService {
 			);
 		}
 
-		await this.environmentCredentialRepository.update(envCredential.id, { isActive: false });
+		const credentialToDeactivate = envCredential;
+		await this.environmentCredentialRepository.update(credentialToDeactivate.id, {
+			isActive: false,
+		});
 
 		this.logger.info('Credential deactivated', { environmentId, credentialId });
 	}

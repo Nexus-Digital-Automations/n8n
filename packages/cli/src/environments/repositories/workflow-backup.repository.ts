@@ -1,5 +1,5 @@
-import { Service } from '@n8n/di';
 import { DataSource, Repository, WorkflowBackupEntity } from '@n8n/db';
+import { Service } from '@n8n/di';
 
 import type { WorkflowBackup } from '../types';
 

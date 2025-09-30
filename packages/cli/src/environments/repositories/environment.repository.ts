@@ -1,6 +1,6 @@
-import { Service } from '@n8n/di';
 import { DataSource, Repository, EnvironmentEntity } from '@n8n/db';
 import type { FindManyOptions, EnvironmentType, EnvironmentStatus } from '@n8n/db';
+import { Service } from '@n8n/di';
 
 @Service()
 export class EnvironmentRepository extends Repository<EnvironmentEntity> {

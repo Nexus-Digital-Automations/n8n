@@ -2,10 +2,11 @@ import { Logger } from '@n8n/backend-common';
 import { Service } from '@n8n/di';
 import * as crypto from 'crypto';
 
-import type { EnvironmentVariable } from './types';
-import { EnvironmentVariableRepository } from './repositories/environment-variable.repository';
 import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
+
+import { EnvironmentVariableRepository } from './repositories/environment-variable.repository';
+import type { EnvironmentVariable } from './types';
 
 /**
  * Environment variable management service.

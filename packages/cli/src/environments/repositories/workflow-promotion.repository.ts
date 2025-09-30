@@ -1,7 +1,7 @@
-import { Service } from '@n8n/di';
 import { DataSource, Repository, WorkflowPromotionEntity } from '@n8n/db';
-
 import type { PromotionStatus } from '@n8n/db';
+import { Service } from '@n8n/di';
+
 import type { WorkflowPromotionResult } from '../types';
 
 @Service()
@@ -61,9 +61,9 @@ export class WorkflowPromotionRepository extends Repository<WorkflowPromotionEnt
 		updates: {
 			status?: PromotionStatus;
 			completedAt?: Date;
-			errors?: Array<unknown>;
+			errors?: unknown[];
 			backupId?: string;
-			validationResults?: Array<unknown>;
+			validationResults?: unknown[];
 		},
 	): Promise<WorkflowPromotionEntity> {
 		await this.manager.update(WorkflowPromotionEntity, id, {

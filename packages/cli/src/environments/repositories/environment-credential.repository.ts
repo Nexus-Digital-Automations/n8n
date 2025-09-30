@@ -1,5 +1,5 @@
-import { Service } from '@n8n/di';
 import { DataSource, Repository, EnvironmentCredentialEntity } from '@n8n/db';
+import { Service } from '@n8n/di';
 
 @Service()
 export class EnvironmentCredentialRepository extends Repository<EnvironmentCredentialEntity> {
