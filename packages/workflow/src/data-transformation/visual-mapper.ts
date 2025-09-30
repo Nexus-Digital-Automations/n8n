@@ -690,7 +690,7 @@ export class VisualMapper {
 		}
 
 		const lastKey = keys[keys.length - 1];
-		current[lastKey] = value as unknown;
+		current[lastKey] = value;
 	}
 
 	/**
