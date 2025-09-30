@@ -189,7 +189,7 @@ export class ExecutionReplay {
 		});
 
 		try {
-			const modifiedData = deepCopy(executionData);
+			const modifiedData = deepCopy(executionData) as IRunExecutionData;
 
 			// Apply modifications to run data
 			for (const [nodeName, nodeData] of Object.entries(modifications)) {
@@ -232,13 +232,13 @@ export class ExecutionReplay {
 		});
 
 		try {
-			const modifiedData = deepCopy(executionData);
+			const modifiedData = deepCopy(executionData) as IRunExecutionData;
 
 			// Remove skipped nodes from execution stack
 			if (modifiedData.executionData?.nodeExecutionStack) {
 				modifiedData.executionData.nodeExecutionStack =
 					modifiedData.executionData.nodeExecutionStack.filter(
-						(stack: any) => !skipNodes.includes(stack.node.name),
+						(stack: any) => !skipNodes.includes(String(stack.node.name)),
 					);
 			}
 
@@ -279,7 +279,7 @@ export class ExecutionReplay {
 		});
 
 		try {
-			const modifiedData = deepCopy(executionData);
+			const modifiedData = deepCopy(executionData) as IRunExecutionData;
 
 			// Find the node in workflow
 			const workflow = new Workflow({
@@ -406,6 +406,9 @@ export class ExecutionReplay {
 		if (!execution.startedAt || !execution.stoppedAt) {
 			return null;
 		}
-		return new Date(execution.stoppedAt).getTime() - new Date(execution.startedAt).getTime();
+		return (
+			new Date(String(execution.stoppedAt)).getTime() -
+			new Date(String(execution.startedAt)).getTime()
+		);
 	}
 }
