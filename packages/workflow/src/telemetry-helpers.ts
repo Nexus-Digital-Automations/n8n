@@ -1,3 +1,5 @@
+import { ApplicationError } from '@n8n/errors';
+
 import {
 	AGENT_LANGCHAIN_NODE_TYPE,
 	AGENT_TOOL_LANGCHAIN_NODE_TYPE,
@@ -22,8 +24,8 @@ import {
 	WEBHOOK_NODE_TYPE,
 	WORKFLOW_TOOL_LANGCHAIN_NODE_TYPE,
 } from './constants';
-import { ApplicationError } from '@n8n/errors';
 import type { NodeApiError } from './errors/node-api.error';
+import { DEFAULT_EVALUATION_METRIC } from './evaluation-helpers';
 import type {
 	IConnection,
 	INode,
@@ -42,7 +44,6 @@ import type {
 import { NodeConnectionTypes } from './interfaces';
 import { getNodeParameters } from './node-helpers';
 import { jsonParse } from './utils';
-import { DEFAULT_EVALUATION_METRIC } from './evaluation-helpers';
 
 const isNodeApiError = (error: unknown): error is NodeApiError =>
 	typeof error === 'object' && error !== null && 'name' in error && error?.name === 'NodeApiError';

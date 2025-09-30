@@ -143,7 +143,7 @@ Cypress.Commands.add('grantBrowserPermissions', (...permissions: string[]) => {
 });
 
 Cypress.Commands.add('readClipboard', () =>
-	cy.window().then((win) => win.navigator.clipboard.readText()),
+	cy.window().then(async (win) => await win.navigator.clipboard.readText()),
 );
 
 Cypress.Commands.add('paste', { prevSubject: true }, (selector, pastePayload) => {
@@ -255,8 +255,8 @@ Cypress.Commands.add('resetDatabase', () => {
 });
 
 Cypress.Commands.add('clearIndexedDB', (dbName: string, storeName?: string) => {
-	cy.window().then((win) => {
-		return new Promise<void>((resolve, reject) => {
+	cy.window().then(async (win) => {
+		return await new Promise<void>((resolve, reject) => {
 			if (!win.indexedDB) {
 				resolve();
 				return;

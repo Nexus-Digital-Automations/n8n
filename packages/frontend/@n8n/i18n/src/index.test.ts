@@ -330,9 +330,7 @@ describe('loadLanguage', () => {
 		expect(i18nInstance.global.locale.value).toBe(locale);
 		expect(i18nInstance.global.t('greeting')).toBe('Hello');
 
-		const numberFormats = i18nInstance.global.getNumberFormat(
-			locale,
-		) as typeof messages.numberFormats;
+		const numberFormats = i18nInstance.global.getNumberFormat(locale);
 		expect(numberFormats).toBeDefined();
 		expect(numberFormats.currency).toBeDefined();
 		expect(numberFormats.percent).toBeDefined();
