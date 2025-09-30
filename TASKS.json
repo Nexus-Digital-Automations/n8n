@@ -501,17 +501,17 @@
       "id": "task_1759227972935_e83425919c38",
       "feature_id": null,
       "title": "Fix n8n-editor-ui build failure - Module os externalization issue",
-      "description": "Build fails during Vite transformation phase. Original error: Module \"os\" externalized for browser compatibility in recast package. Investigation shows build timing out at transformation stage. May require: 1) Adding os to nodePolyfills include array, 2) Excluding recast from browser bundle, or 3) Finding alternative to recast dependency. Build cache cleared, issue persists.",
+      "description": "Build fails during Vite transformation. Partial fix applied (commit fd1317e582): removed problematic getOption import and added Vite exclusion. \n\n**Root Cause**: recast@0.22.0 requires Node.js os module internally. Even with partial fix, static import at expression-extension.ts:6 causes Vite to attempt bundling recast for browser, which fails when encountering os module requirement.\n\n**Complete Solution Required**:\n1. Convert recast import to dynamic import (lazy load)\n2. Make extendTransform/extendSyntax functions async\n3. Only load recast when needed (server-side execution)\n4. Ensure browser code path never triggers recast loading\n\n**Files Modified**: packages/workflow/src/extensions/expression-extension.ts, packages/frontend/editor-ui/vite.config.mts\n\n**Next Steps**: Implement dynamic import pattern for recast to enable browser compatibility while maintaining server-side functionality.",
       "type": "error",
       "priority": "high",
-      "status": "queued",
+      "status": "in-progress",
       "dependencies": [],
       "estimated_effort": 5,
       "required_capabilities": [
         "general"
       ],
       "created_at": "2025-09-30T10:26:12.935Z",
-      "updated_at": "2025-09-30T10:26:12.935Z",
+      "updated_at": "2025-09-30T10:43:04.371Z",
       "created_by": "manual_creation",
       "verificationGate": {
         "status": "pending",
@@ -522,7 +522,8 @@
       },
       "metadata": {
         "auto_generated": false
-      }
+      },
+      "progress_percentage": 50
     }
   ],
   "completed_tasks": [],
@@ -615,7 +616,7 @@
   "metadata": {
     "version": "2.0.0",
     "created": "2025-09-30T01:45:50.400Z",
-    "updated": "2025-09-30T10:26:12.935Z",
+    "updated": "2025-09-30T10:43:04.371Z",
     "total_tasks": 0,
     "tasks_by_type": {
       "error": 0,

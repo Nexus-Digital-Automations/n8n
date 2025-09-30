@@ -130,6 +130,13 @@ function parseWithEsprimaNext(source: string, options?: any): any {
  * ```
  */
 export const extendTransform = (expression: string): { code: string } | undefined => {
+	// Skip AST transformation in browser environment
+	// Browser builds use recast shim which doesn't support real AST manipulation
+	// extendSyntax will use original expression as fallback when this returns undefined
+	if (typeof window === 'object' && typeof process === 'undefined') {
+		return undefined;
+	}
+
 	try {
 		const ast = parse(expression, { parser: { parse: parseWithEsprimaNext } }) as types.ASTNode;
 

@@ -73,6 +73,16 @@ const alias = [
 		find: 'source-map-js',
 		replacement: resolve(__dirname, 'src/source-map-js-shim'),
 	},
+	{
+		// For expression-extension.ts - recast requires Node.js modules
+		find: /^recast$/,
+		replacement: resolve(__dirname, 'src/recast-shim'),
+	},
+	{
+		// For recast sub-path imports (e.g., recast/lib/util)
+		find: /^recast\/.+$/,
+		replacement: resolve(__dirname, 'src/recast-shim'),
+	},
 ];
 
 const plugins: UserConfig['plugins'] = [
