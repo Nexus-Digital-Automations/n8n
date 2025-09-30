@@ -72,30 +72,30 @@ export class EnvironmentRepository extends Repository<EnvironmentEntity> {
 			}
 		}
 
-		return await this.find(options);
+		return (await this.find(options)) as EnvironmentEntity[];
 	}
 
 	async findByType(type: EnvironmentType): Promise<EnvironmentEntity[]> {
-		return await this.find({
+		return (await this.find({
 			where: { type },
-		});
+		})) as EnvironmentEntity[];
 	}
 
 	async findByStatus(status: EnvironmentStatus): Promise<EnvironmentEntity[]> {
-		return await this.find({
+		return (await this.find({
 			where: { status },
-		});
+		})) as EnvironmentEntity[];
 	}
 
 	async countByType(type: EnvironmentType): Promise<number> {
-		return await this.count({
+		return (await this.count({
 			where: { type },
-		});
+		})) as number;
 	}
 
 	async countByStatus(status: EnvironmentStatus): Promise<number> {
-		return await this.count({
+		return (await this.count({
 			where: { status },
-		});
+		})) as number;
 	}
 }

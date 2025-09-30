@@ -39,7 +39,7 @@ export class WorkflowBackupRepository extends Repository<WorkflowBackupEntity> {
 			take: limit,
 		});
 
-		return backups.map(this.toWorkflowBackup);
+		return backups.map(this.toWorkflowBackup) as WorkflowBackup[];
 	}
 
 	async findByEnvironment(environmentId: string, limit: number = 10): Promise<WorkflowBackup[]> {
@@ -49,7 +49,7 @@ export class WorkflowBackupRepository extends Repository<WorkflowBackupEntity> {
 			take: limit,
 		});
 
-		return backups.map(this.toWorkflowBackup);
+		return backups.map(this.toWorkflowBackup) as WorkflowBackup[];
 	}
 
 	async deleteOldBackups(retentionDays: number): Promise<number> {
@@ -61,7 +61,7 @@ export class WorkflowBackupRepository extends Repository<WorkflowBackupEntity> {
 			.where('createdAt < :cutoffDate', { cutoffDate })
 			.execute();
 
-		return result.affected || 0;
+		return (result.affected || 0) as number;
 	}
 
 	private toWorkflowBackup(entity: WorkflowBackupEntity): WorkflowBackup {

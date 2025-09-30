@@ -35,7 +35,7 @@ export class WorkflowPromotionRepository extends Repository<WorkflowPromotionEnt
 			take: limit,
 		});
 
-		return promotions.map(this.toPromotionResult);
+		return promotions.map(this.toPromotionResult) as WorkflowPromotionResult[];
 	}
 
 	async findBySourceEnvironment(environmentId: string): Promise<WorkflowPromotionResult[]> {
@@ -44,7 +44,7 @@ export class WorkflowPromotionRepository extends Repository<WorkflowPromotionEnt
 			order: { createdAt: 'DESC' },
 		});
 
-		return promotions.map(this.toPromotionResult);
+		return promotions.map(this.toPromotionResult) as WorkflowPromotionResult[];
 	}
 
 	async findByTargetEnvironment(environmentId: string): Promise<WorkflowPromotionResult[]> {
@@ -53,7 +53,7 @@ export class WorkflowPromotionRepository extends Repository<WorkflowPromotionEnt
 			order: { createdAt: 'DESC' },
 		});
 
-		return promotions.map(this.toPromotionResult);
+		return promotions.map(this.toPromotionResult) as WorkflowPromotionResult[];
 	}
 
 	async update(
