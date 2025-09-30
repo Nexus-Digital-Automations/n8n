@@ -92,7 +92,7 @@ export class MergeResolver {
 			case 'manual':
 				throw new Error('Manual conflict resolution requires user interaction');
 			default:
-				throw new Error(`Unknown conflict resolution strategy: ${strategy}`);
+				throw new Error(`Unknown conflict resolution strategy: ${String(strategy)}`);
 		}
 
 		return {
@@ -332,12 +332,12 @@ export class MergeResolver {
 				mergedNodes.push(currentNode);
 			}
 
-			processedIds.add(currentNode.id);
+			processedIds.add(String(currentNode.id));
 		}
 
 		// Add incoming nodes not yet processed (newly added in incoming)
 		for (const incomingNode of incomingNodes) {
-			if (!processedIds.has(incomingNode.id)) {
+			if (!processedIds.has(String(incomingNode.id))) {
 				mergedNodes.push(incomingNode);
 			}
 		}

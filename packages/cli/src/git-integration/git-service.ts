@@ -302,7 +302,7 @@ export class GitService {
 			logOptions.file = options.file;
 		}
 
-		const result = await this.git!.log(logOptions);
+		const result = await this.git!.log(logOptions as Record<string, unknown>);
 		return result.all;
 	}
 

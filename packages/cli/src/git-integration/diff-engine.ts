@@ -182,7 +182,10 @@ export class DiffEngine {
 		const changes: SettingsDiff[] = [];
 
 		// Get all unique keys
-		const allKeys = new Set([...Object.keys(oldSettings), ...Object.keys(newSettings)]);
+		const allKeys = new Set([
+			...Object.keys(oldSettings as object),
+			...Object.keys(newSettings as object),
+		]);
 
 		for (const key of allKeys) {
 			const oldValue = oldSettings[key];
@@ -259,7 +262,10 @@ export class DiffEngine {
 		const changes: PropertyChange[] = [];
 
 		// Get all unique keys
-		const allKeys = new Set([...Object.keys(oldObj || {}), ...Object.keys(newObj || {})]);
+		const allKeys = new Set([
+			...Object.keys((oldObj || {}) as object),
+			...Object.keys((newObj || {}) as object),
+		]);
 
 		for (const key of allKeys) {
 			const path = `${basePath}.${key}`;

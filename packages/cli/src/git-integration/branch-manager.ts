@@ -152,7 +152,7 @@ export class BranchManager {
 			lastCommit: lastCommit.hash,
 			lastCommitMessage: lastCommit.message,
 			lastCommitAuthor: lastCommit.author_name,
-			lastCommitDate: new Date(lastCommit.date),
+			lastCommitDate: new Date(String(lastCommit.date)),
 		};
 
 		// Try to get ahead/behind info if remote tracking branch exists
@@ -391,6 +391,6 @@ export class BranchManager {
 		}
 
 		const result = await git.stash(['list']);
-		return result.raw.split('\n').filter((line: string) => line.length > 0);
+		return result.raw.split('\n').filter((line: string) => line.length > 0) as string[];
 	}
 }
