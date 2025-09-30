@@ -99,20 +99,16 @@ export const hasNativeMethod = (method: string): boolean => {
 //  * recast's types aren't great and we need to use a lot of anys
 //  */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseWithEsprimaNext(source: string, options?: any): any {
 	const ast = esprimaParse(source, {
 		loc: true,
 		locations: true,
 		comment: true,
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		range: getOption(options, 'range', false) as boolean,
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		tolerant: getOption(options, 'tolerant', true) as boolean,
 		tokens: true,
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		jsx: getOption(options, 'jsx', false) as boolean,
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		sourceType: getOption(options, 'sourceType', 'module') as string,
 	} as EsprimaConfig);
 
