@@ -1,0 +1,203 @@
+{
+  "name": "Error Handler Template",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "workflow_name",
+              "value": "={{ $workflow.name }}"
+            },
+            {
+              "name": "workflow_id",
+              "value": "={{ $workflow.id }}"
+            },
+            {
+              "name": "execution_id",
+              "value": "={{ $execution.id }}"
+            },
+            {
+              "name": "error_node",
+              "value": "={{ $json.node.name }}"
+            },
+            {
+              "name": "error_message",
+              "value": "={{ $json.error.message }}"
+            },
+            {
+              "name": "error_stack",
+              "value": "={{ $json.error.stack }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ $now.toISO() }}"
+            },
+            {
+              "name": "error_type",
+              "value": "={{ $json.error.name }}"
+            }
+          ],
+          "object": [
+            {
+              "name": "error_context",
+              "value": "={{ { node: $json.node.name, type: $json.node.type, itemIndex: $json.itemIndex, runIndex: $json.runIndex } }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Extract Error Details",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $env.SEND_TO_SLACK }}",
+              "value2": "true"
+            }
+          ]
+        }
+      },
+      "name": "Should Send to Slack?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.SLACK_WEBHOOK_URL }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": ":x: *Workflow Error*"
+            },
+            {
+              "name": "attachments",
+              "value": "={{ [{ color: 'danger', title: 'Workflow: ' + $json.workflow_name, fields: [ { title: 'Error Node', value: $json.error_node, short: true }, { title: 'Error Type', value: $json.error_type, short: true }, { title: 'Execution ID', value: $json.execution_id, short: true }, { title: 'Timestamp', value: $json.timestamp, short: true }, { title: 'Error Message', value: $json.error_message, short: false } ], footer: 'n8n Error Handler', ts: $now.toUnixInteger() }] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Send to Slack",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.MONITORING_ENDPOINT }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "event",
+              "value": "workflow.error"
+            },
+            {
+              "name": "workflow_id",
+              "value": "={{ $json.workflow_id }}"
+            },
+            {
+              "name": "workflow_name",
+              "value": "={{ $json.workflow_name }}"
+            },
+            {
+              "name": "execution_id",
+              "value": "={{ $json.execution_id }}"
+            },
+            {
+              "name": "error_node",
+              "value": "={{ $json.error_node }}"
+            },
+            {
+              "name": "error_message",
+              "value": "={{ $json.error_message }}"
+            },
+            {
+              "name": "error_type",
+              "value": "={{ $json.error_type }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ $json.timestamp }}"
+            },
+            {
+              "name": "error_context",
+              "value": "={{ $json.error_context }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Log to Monitoring Endpoint",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [850, 400]
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Error Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Error Details": {
+      "main": [
+        [
+          {
+            "node": "Should Send to Slack?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Should Send to Slack?": {
+      "main": [
+        [
+          {
+            "node": "Send to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log to Monitoring Endpoint",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-11-15T19:53:00.000Z",
+  "versionId": "1"
+}

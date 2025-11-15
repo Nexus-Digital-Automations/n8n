@@ -525,6 +525,35 @@
       },
       "progress_percentage": 100,
       "completed_at": "2025-09-30T11:00:55.156Z"
+    },
+    {
+      "id": "task_1763236381148_a8e2dd0e5c03",
+      "feature_id": null,
+      "title": "Implement minimal n8n External Hooks logging + tracking tools",
+      "description": "Create production-ready External Hooks implementation for n8n execution logging, error handler sub-workflow template, setup documentation, and debugging time tracking spreadsheet. Phase 0 validation approach ($1,000-$1,500 investment). Deliverables: enhanced-logging.js, error-handler-workflow.json, setup-guide.md, tracking-spreadsheet.xlsx",
+      "type": "feature",
+      "priority": "high",
+      "status": "completed",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-11-15T19:53:01.148Z",
+      "updated_at": "2025-11-15T19:56:03.019Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-11-15T19:56:03.019Z"
     }
   ],
   "completed_tasks": [],
@@ -617,7 +646,7 @@
   "metadata": {
     "version": "2.0.0",
     "created": "2025-09-30T01:45:50.400Z",
-    "updated": "2025-09-30T11:00:55.156Z",
+    "updated": "2025-11-15T19:56:03.019Z",
     "total_tasks": 0,
     "tasks_by_type": {
       "error": 0,

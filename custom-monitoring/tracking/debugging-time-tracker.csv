@@ -1,0 +1,20 @@
+Date,Workflow Name,Issue Type,Time Spent (hours),Root Cause Category,Resolved?,Notes
+2025-11-15,Example Workflow,Timeout Error,1.5,n8n Bug,Yes,HTTP Request node timed out - increased timeout setting
+2025-11-15,Data Sync,Missing Data,0.5,Workflow Design,Yes,Incorrect node configuration - fixed mapping
+,,,,,
+INSTRUCTIONS:,,,,
+"1. Track EVERY debugging session for 2 weeks",,,,
+"2. Issue Type: Timeout, Missing Data, Wrong Output, Crash, etc.",,,,
+"3. Root Cause Category: n8n Bug, Workflow Design, User Error, API Issue, Infrastructure",,,,
+"4. At end of 2 weeks, calculate:",,,,
+"   - Total hours spent debugging",,,,
+"   - % of time on n8n bugs vs workflow design",,,,
+"   - Average time per issue",,,,
+"   - Cost (hours × $100/hr)",,,,
+,,,,,
+ANALYSIS FORMULAS:,,,,
+"Total Hours: =SUM(D:D)",,,,
+"n8n Bug Hours: =SUMIF(E:E,""n8n Bug"",D:D)",,,,
+"Workflow Design Hours: =SUMIF(E:E,""Workflow Design"",D:D)",,,,
+"Total Cost: =SUM(D:D)*100",,,,
+"% n8n Issues: =SUMIF(E:E,""n8n Bug"",D:D)/SUM(D:D)*100",,,,
