@@ -4,7 +4,7 @@ import { ExecutionRepository, WorkflowRepository } from '@n8n/db';
 import type { IExecutionResponse } from '@n8n/db';
 import { Service } from '@n8n/di';
 import type { IRunExecutionData, IWorkflowBase, IWorkflowExecutionDataProcess } from 'n8n-workflow';
-import { Workflow, WorkflowOperationError } from 'n8n-workflow';
+import { deepCopy, Workflow, WorkflowOperationError } from 'n8n-workflow';
 
 import { ActiveExecutions } from '@/active-executions';
 import { NodeTypes } from '@/node-types';

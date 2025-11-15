@@ -1,9 +1,10 @@
 import { Logger } from '@n8n/backend-common';
 import { GlobalConfig } from '@n8n/config';
-import { ExecutionRepository, LessThan } from '@n8n/db';
+import { ExecutionRepository } from '@n8n/db';
 import type { ExecutionEntity } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { DateUtils } from '@n8n/typeorm/util/DateUtils';
+import { LessThan } from 'typeorm';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { promisify } from 'util';

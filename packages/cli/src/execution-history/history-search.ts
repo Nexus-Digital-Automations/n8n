@@ -1,9 +1,10 @@
 import { Logger } from '@n8n/backend-common';
 import { GlobalConfig } from '@n8n/config';
-import { ExecutionRepository, Between, MoreThanOrEqual, LessThanOrEqual, In } from '@n8n/db';
+import { ExecutionRepository } from '@n8n/db';
 import type { IExecutionResponse } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { DateUtils } from '@n8n/typeorm/util/DateUtils';
+import { Between, MoreThanOrEqual, LessThanOrEqual, In } from 'typeorm';
 import type { ExecutionStatus } from 'n8n-workflow';
 
 export interface SearchCriteria {

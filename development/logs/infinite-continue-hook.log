@@ -1,112 +1,36 @@
 {
   "execution": {
-    "timestamp": "2025-09-30T01:47:27.459Z",
+    "timestamp": "2025-11-15T19:58:37.205Z",
     "projectRoot": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n",
     "hookVersion": "1.0.0",
-    "nodeVersion": "v22.20.0",
+    "nodeVersion": "v22.21.1",
     "platform": "darwin",
     "arch": "arm64",
-    "pid": 13650,
+    "pid": 41096,
     "cwd": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n",
-    "endTimestamp": "2025-09-30T01:47:27.473Z",
-    "durationMs": 14
+    "endTimestamp": "2025-11-15T19:58:37.205Z",
+    "durationMs": 0
   },
-  "input": {
-    "sessionId": "b097dbad-dc09-4c85-b4b4-d7eaadd4ebc1",
-    "transcriptPath": "/Users/jeremyparker/.claude/projects/-Users-jeremyparker-Desktop-Claude-Coding-Projects-n8n/b097dbad-dc09-4c85-b4b4-d7eaadd4ebc1.jsonl",
-    "stopHookActive": false,
-    "rawInput": {
-      "session_id": "b097dbad-dc09-4c85-b4b4-d7eaadd4ebc1",
-      "transcript_path": "/Users/jeremyparker/.claude/projects/-Users-jeremyparker-Desktop-Claude-Coding-Projects-n8n/b097dbad-dc09-4c85-b4b4-d7eaadd4ebc1.jsonl",
-      "cwd": "/Users/jeremyparker/Desktop/Claude Coding Projects/n8n",
-      "permission_mode": "plan",
-      "hook_event_name": "Stop",
-      "stop_hook_active": false
-    }
-  },
+  "input": {},
   "projectState": {},
   "decisions": [],
   "flow": [
     {
-      "timestamp": "2025-09-30T01:47:27.459Z",
-      "message": "Raw input data: \"{\"session_id\":\"b097dbad-dc09-4c85-b4b4-d7eaadd4ebc1\",\"transcript_path\":\"/Users/jeremyparker/.claude/projects/-Users-jeremyparker-Desktop-Claude-Coding-Projects-n8n/b097dbad-dc09-4c85-b4b4-d7eaadd4ebc1.jsonl\",\"cwd\":\"/Users/jeremyparker/Desktop/Claude Coding Projects/n8n\",\"permission_mode\":\"plan\",\"hook_event_name\":\"Stop\",\"stop_hook_active\":false}\""
+      "timestamp": "2025-11-15T19:58:37.205Z",
+      "message": "Cleared tracking file to prevent interference"
     },
     {
-      "timestamp": "2025-09-30T01:47:27.459Z",
-      "message": "Input data length: 346"
+      "timestamp": "2025-11-15T19:58:37.205Z",
+      "message": "Manual emergency stop detected - allowing stop"
     },
     {
-      "timestamp": "2025-09-30T01:47:27.460Z",
-      "message": "Received input from Claude Code"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.460Z",
-      "message": "Received Stop event from Claude Code"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.460Z",
-      "message": "Checking transcript for DONE command: /Users/jeremyparker/.claude/projects/-Users-jeremyparker-Desktop-Claude-Coding-Projects-n8n/b097dbad-dc09-4c85-b4b4-d7eaadd4ebc1.jsonl"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.461Z",
-      "message": "Last assistant message: \"\""
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.470Z",
-      "message": "Found 1 total agents in TASKS.json"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.471Z",
-      "message": "🧹 Starting multi-project stale agent cleanup across 2 projects..."
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.471Z",
-      "message": "No TASKS.json found in /Users/jeremyparker/Desktop/Claude Coding Projects/AIgent/bytebot - skipping"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.472Z",
-      "message": "No agents found in /Users/jeremyparker/infinite-continue-stop-hook - skipping"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.472Z",
-      "message": "🧹 Multi-project cleanup complete: 0 agents removed, 0 tasks unassigned, 0 orphaned tasks reset"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.472Z",
-      "message": "Agent n8n-improvements-agent: heartbeat=2025-09-30T01:45:50.402Z, timeSince=97s, isActive=true"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.472Z",
-      "message": "Automatic task sorting disabled - using manual task management instead"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.472Z",
-      "message": "Active agents found: 1, Stale agents removed: 0, Tasks unassigned: 0, Stale tasks reset: 0"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.473Z",
-      "message": "Task status: 0 pending, 0 in_progress, 0 completed"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.473Z",
-      "message": "Running automatic task archival for completed tasks"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.473Z",
-      "message": "No completed tasks found to archive"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.473Z",
-      "message": "Never-stop mode: Providing instructive task management guidance"
-    },
-    {
-      "timestamp": "2025-09-30T01:47:27.473Z",
-      "message": "Exiting with code 2: Infinite continue mode - providing task guidance"
+      "timestamp": "2025-11-15T19:58:37.205Z",
+      "message": "Exiting with code 0: Emergency stop authorized"
     }
   ],
   "output": {
-    "exitCode": 2,
-    "exitReason": "Infinite continue mode - providing task guidance"
+    "exitCode": 0,
+    "exitReason": "Emergency stop authorized"
   },
   "errors": []
 }

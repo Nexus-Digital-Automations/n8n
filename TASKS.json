@@ -562,14 +562,14 @@
       "description": "Sync fork with latest upstream n8n changes. Steps: Add upstream remote, fetch latest, merge upstream/master, resolve conflicts if any, test build, commit merge. This ensures fork stays current with n8n development and receives security updates.",
       "type": "feature",
       "priority": "high",
-      "status": "queued",
+      "status": "completed",
       "dependencies": [],
       "estimated_effort": 5,
       "required_capabilities": [
         "general"
       ],
       "created_at": "2025-11-15T20:00:50.624Z",
-      "updated_at": "2025-11-15T20:00:50.624Z",
+      "updated_at": "2025-11-15T20:11:35.188Z",
       "created_by": "manual_creation",
       "verificationGate": {
         "status": "pending",
@@ -580,7 +580,37 @@
       },
       "metadata": {
         "auto_generated": false
-      }
+      },
+      "progress_percentage": 100,
+      "completed_at": "2025-11-15T20:11:35.188Z"
+    },
+    {
+      "id": "task_1763237509992_3a951ecfaf0f",
+      "feature_id": null,
+      "title": "Fix TypeScript build errors after upstream merge",
+      "description": "Resolve TypeScript compilation errors in custom modules after merging upstream. Errors in: security/community (compliance-reporter, secret-auditing, secret-rotation, security-scanner, vulnerability-checker), security/tier-expansion (auth-marketplace, auth-plugin-system, sso-community, tier-manager), environments/repositories (environment, environment-credential, environment-variable, workflow-backup, workflow-promotion), execution-history files (execution-replay, extended-history-service, history-archiver, history-search), git-integration. Primary issues: event names/feature flags not matching upstream types, missing TypeORM imports, missing deepCopy imports. Strategy: Remove custom security/environment modules not part of core monitoring, fix remaining import errors.",
+      "type": "error",
+      "priority": "urgent",
+      "status": "in-progress",
+      "dependencies": [],
+      "estimated_effort": 5,
+      "required_capabilities": [
+        "general"
+      ],
+      "created_at": "2025-11-15T20:11:49.993Z",
+      "updated_at": "2025-11-15T20:12:00.121Z",
+      "created_by": "manual_creation",
+      "verificationGate": {
+        "status": "pending",
+        "requirements": [],
+        "evidence": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "metadata": {
+        "auto_generated": false
+      },
+      "progress_percentage": 10
     }
   ],
   "completed_tasks": [],
@@ -673,7 +703,7 @@
   "metadata": {
     "version": "2.0.0",
     "created": "2025-09-30T01:45:50.400Z",
-    "updated": "2025-11-15T20:00:50.624Z",
+    "updated": "2025-11-15T20:12:00.121Z",
     "total_tasks": 0,
     "tasks_by_type": {
       "error": 0,
