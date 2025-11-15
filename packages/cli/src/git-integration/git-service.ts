@@ -303,7 +303,7 @@ export class GitService {
 		}
 
 		const result = await this.git!.log(logOptions as Record<string, unknown>);
-		return result.all;
+		return [...result.all];
 	}
 
 	/**
